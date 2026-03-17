@@ -3,332 +3,50 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog').catch(() => []);
-const opinionPosts = allPosts
+const posts = allPosts
   .filter(post => post.data.category === 'opinion')
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-
-// Featured hot takes (would be dynamic in real implementation)
-const featuredOpinions = [
-  {
-    title: "Golf Equipment Marketing is Complete Bullsh*t",
-    subtitle: "Hot Take",
-    description: "Why 90% of golf equipment 'innovations' are just marketing gimmicks designed to separate you from your money.",
-    image: "/images/opinion/marketing-bullshit.jpg",
-    slug: "golf-equipment-marketing-bullshit",
-    controversy_level: 9,
-    comment_count: 147
-  },
-  {
-    title: "Slow Play is Ruining Golf (And It's Your Fault)",
-    subtitle: "Unpopular Truth", 
-    description: "Ready golf isn't enough. Here's what actually needs to happen to fix pace of play.",
-    image: "/images/opinion/slow-play-ruining-golf.jpg",
-    slug: "slow-play-ruining-golf", 
-    controversy_level: 7,
-    comment_count: 203
-  },
-  {
-    title: "Private Clubs Are Dead (Good Riddance)",
-    subtitle: "Industry Analysis",
-    description: "Why the traditional private club model is failing and what's replacing it.",
-    image: "/images/opinion/private-clubs-dead.jpg",
-    slug: "private-clubs-dead",
-    controversy_level: 8,
-    comment_count: 89
-  }
-];
-
-const opinionCategories = [
-  {
-    name: "Equipment Hot Takes",
-    icon: "🔥",
-    description: "Unpopular opinions about golf gear and equipment trends",
-    color: "bg-red-100 text-red-800"
-  },
-  {
-    name: "Industry Rants",
-    icon: "😤", 
-    description: "What's wrong with the golf industry and how to fix it",
-    color: "bg-orange-100 text-orange-800"
-  },
-  {
-    name: "Tour Commentary",
-    icon: "📺",
-    description: "Hot takes on PGA Tour, LIV, and professional golf drama",
-    color: "bg-blue-100 text-blue-800"
-  },
-  {
-    name: "Course Culture",
-    icon: "🏌️",
-    description: "Golf etiquette, pace of play, and course behavior rants",
-    color: "bg-green-100 text-green-800"
-  },
-  {
-    name: "Golf Politics",
-    icon: "⚖️",
-    description: "Rules, regulations, and golf's governing body decisions",
-    color: "bg-purple-100 text-purple-800"
-  },
-  {
-    name: "Future of Golf",
-    icon: "🔮",
-    description: "Where golf is headed and what needs to change",
-    color: "bg-indigo-100 text-indigo-800"
-  }
-];
-
-// Trending topics (would be dynamic)
-const trendingTopics = [
-  { topic: "LIV vs PGA Merger", heat: "🔥🔥🔥" },
-  { topic: "Golf Ball Distance Rules", heat: "🔥🔥" },
-  { topic: "Slow Play Solutions", heat: "🔥🔥🔥" },
-  { topic: "Equipment Pricing", heat: "🔥🔥" },
-  { topic: "Course Accessibility", heat: "🔥" },
-  { topic: "Youth Golf Participation", heat: "🔥🔥" }
-];
 ---
 
 <BaseLayout 
-  title="Golf Hot Takes & Editorial Opinion | The Birdie Report"
-  description="Unfiltered golf opinions, hot takes, and industry commentary. No corporate BS, just honest takes on everything wrong (and right) with golf."
+  title="Opinion & Hot Takes | The Birdie Report"
+  description="Opinionated takes on golf culture, equipment, and everything in between."
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Header -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">
-        Hot Takes & Opinion
-      </h1>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        Unfiltered opinions on everything golf. From equipment bullsh*t to industry problems, 
-        we say what everyone else is thinking but afraid to publish.
-      </p>
-      <div class="mt-6 inline-flex items-center px-4 py-2 bg-red-50 border border-red-200 rounded-lg">
-        <span class="text-red-600 font-medium text-sm">⚠️ Warning: Controversial opinions ahead. Corporate golf won't like this section.</span>
-      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Opinion & Hot Takes</h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">Opinionated takes on golf culture, equipment, and everything in between.</p>
     </div>
 
-    <!-- Trending Controversies -->
-    <section class="mb-12">
-      <h2 class="text-lg font-semibold text-gray-900 mb-4">🔥 Trending Golf Controversies</h2>
-      <div class="bg-gray-50 rounded-lg p-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {trendingTopics.map(topic => (
-            <div class="flex items-center justify-between p-3 bg-white rounded border hover:shadow-sm transition-shadow cursor-pointer">
-              <span class="font-medium text-gray-900 text-sm">{topic.topic}</span>
-              <span class="text-lg">{topic.heat}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured Hot Takes -->
-    <section class="mb-16">
-      <h2 class="text-2xl font-bold text-gray-900 mb-8">🔥 Latest Hot Takes</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-        {featuredOpinions.map(opinion => (
-          <article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow border-2 border-red-200">
-            <div class="aspect-video w-full relative overflow-hidden">
-              <div class="absolute top-4 left-4 z-10">
-                <span class="bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full">
-                  🌶️ {opinion.controversy_level}/10
-                </span>
-              </div>
-              <div class="absolute top-4 right-4 z-10">
-                <span class="bg-black bg-opacity-70 text-white text-xs font-bold px-2 py-1 rounded">
-                  {opinion.comment_count} COMMENTS
-                </span>
-              </div>
+    {posts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map(post => (
+          <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+            <a href={`/blog/${post.slug}/`}>
               <img 
-                src={opinion.image} 
-                alt={opinion.title}
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                src={post.data.featured_image} 
+                alt={post.data.title}
+                class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                loading="lazy"
               />
-            </div>
-            
+            </a>
             <div class="p-6">
-              <div class="mb-3">
-                <span class="text-sm font-medium text-red-600 uppercase tracking-wide">
-                  {opinion.subtitle}
-                </span>
+              <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-medium">OPINION</span>
+                <time>{new Date(post.data.date).toLocaleDateString()}</time>
               </div>
-              
-              <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                <a href={`/blog/${opinion.slug}/`} class="hover:text-red-700 transition-colors">
-                  {opinion.title}
+              <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                  {post.data.title}
                 </a>
               </h3>
-              
-              <p class="text-gray-600 text-sm mb-4 line-clamp-3">
-                {opinion.description}
-              </p>
-              
-              <a 
-                href={`/blog/${opinion.slug}/`}
-                class="inline-flex items-center text-red-700 font-semibold hover:text-red-800 transition-colors"
-              >
-                Read Hot Take
-                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </a>
+              <p class="text-gray-600 text-sm line-clamp-3">{post.data.description}</p>
             </div>
           </article>
         ))}
       </div>
-    </section>
-
-    <!-- Opinion Categories -->
-    <section class="mb-16">
-      <h2 class="text-2xl font-bold text-gray-900 mb-8">Browse Opinion Categories</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {opinionCategories.map(category => (
-          <a 
-            href={`/opinion/${category.name.toLowerCase().replace(/\s+/g, '-')}/`}
-            class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all hover:border-red-300"
-          >
-            <div class="flex items-start mb-4">
-              <div class="text-3xl mr-4">{category.icon}</div>
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900 group-hover:text-red-700 mb-2">
-                  {category.name}
-                </h3>
-                <p class="text-gray-600 text-sm">{category.description}</p>
-              </div>
-            </div>
-            
-            <div class="flex items-center justify-between">
-              <div class="flex items-center text-red-700 text-sm font-medium">
-                Read Opinions
-                <svg class="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </div>
-              <span class={`px-2 py-1 text-xs font-medium rounded ${category.color}`}>
-                OPINION
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- Latest Opinion Articles -->
-    {opinionPosts.length > 0 && (
-      <section class="mb-16">
-        <h2 class="text-2xl font-bold text-gray-900 mb-8">All Opinion Pieces</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {opinionPosts.map(post => (
-            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-              <a href={`/blog/${post.slug}/`}>
-                <img 
-                  src={post.data.featured_image} 
-                  alt={post.data.title}
-                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </a>
-              
-              <div class="p-6">
-                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                  <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-medium">
-                    HOT TAKE
-                  </span>
-                  <time>{new Date(post.data.date).toLocaleDateString()}</time>
-                </div>
-                
-                <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
-                  <a href={`/blog/${post.slug}/`} class="hover:text-red-700 transition-colors">
-                    {post.data.title}
-                  </a>
-                </h3>
-                
-                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
-                  {post.data.description}
-                </p>
-                
-                <a 
-                  href={`/blog/${post.slug}/`}
-                  class="inline-flex items-center text-red-700 font-medium hover:text-red-800 transition-colors"
-                >
-                  Read Opinion
-                  <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+    ) : (
+      <p class="text-center text-gray-500 text-lg">Content coming soon.</p>
     )}
-
-    <!-- Opinion Philosophy -->
-    <section class="bg-red-50 rounded-lg p-8 border border-red-200">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">🗣️ Our Opinion Philosophy</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <div>
-            <h3 class="font-bold text-gray-900 mb-4">What We Stand For:</h3>
-            <ul class="space-y-2 text-gray-700">
-              <li class="flex items-start">
-                <span class="text-green-500 mr-2">✓</span>
-                <span class="text-sm">Calling out overpriced equipment and marketing BS</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-green-500 mr-2">✓</span>
-                <span class="text-sm">Making golf more accessible and less elitist</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-green-500 mr-2">✓</span>
-                <span class="text-sm">Honest takes that might piss off manufacturers</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-green-500 mr-2">✓</span>
-                <span class="text-sm">Solutions to real problems golfers face</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="font-bold text-gray-900 mb-4">What We're Against:</h3>
-            <ul class="space-y-2 text-gray-700">
-              <li class="flex items-start">
-                <span class="text-red-500 mr-2">✗</span>
-                <span class="text-sm">Corporate golf's gatekeeping and exclusivity</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-red-500 mr-2">✗</span>
-                <span class="text-sm">Equipment marketing that preys on golfer insecurities</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-red-500 mr-2">✗</span>
-                <span class="text-sm">Golf media that's afraid to criticize the industry</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-red-500 mr-2">✗</span>
-                <span class="text-sm">Anything that makes golf less fun or more expensive</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-lg p-6 border border-red-200 text-center">
-          <h3 class="font-semibold text-gray-900 mb-2">Fair Warning</h3>
-          <p class="text-gray-700 text-sm">
-            Our opinions are just that—opinions. They're based on our experiences as mid-handicap golfers 
-            who've tested way too much equipment and played way too many courses. You might disagree with us, 
-            and that's fine. But at least we're saying what we actually think, not what sponsors want to hear.
-          </p>
-        </div>
-
-        <div class="mt-6 text-center">
-          <p class="text-sm text-gray-600">
-            <strong>Got a hot take of your own?</strong> Email us at brad@birdiereport.com - 
-            we love hearing controversial opinions from fellow golfers.
-          </p>
-        </div>
-      </div>
-    </section>
   </div>
 </BaseLayout>
