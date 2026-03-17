@@ -91,16 +91,54 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
             </nav>
             
             <!-- Mobile menu button -->
-            <div class="md:hidden">
-              <button type="button" class="text-gray-600 hover:text-green-700">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="lg:hidden">
+              <button 
+                type="button" 
+                id="mobile-menu-btn"
+                class="text-gray-600 hover:text-green-700"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+              >
+                <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
           </div>
         </div>
+
+        <!-- Mobile menu -->
+        <nav id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 bg-white">
+          <div class="px-4 py-3 space-y-1">
+            <a href="/best/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Best Of</a>
+            <a href="/reviews/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Reviews</a>
+            <a href="/news/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">News</a>
+            <a href="/tips/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Tips</a>
+            <a href="/deals/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Deals</a>
+            <a href="/courses/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Course Guide</a>
+            <a href="/versus/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Versus</a>
+            <a href="/opinion/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Opinion</a>
+          </div>
+        </nav>
       </header>
+
+      <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        
+        btn?.addEventListener('click', () => {
+          const isOpen = !menu?.classList.contains('hidden');
+          menu?.classList.toggle('hidden');
+          iconOpen?.classList.toggle('hidden');
+          iconClose?.classList.toggle('hidden');
+          btn.setAttribute('aria-expanded', String(!isOpen));
+        });
+      </script>
 
       <!-- Main content -->
       <main>
