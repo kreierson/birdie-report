@@ -283,13 +283,13 @@ function formatDate(date: Date) {
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {tips.map((post, i) => (
-            <article class={`group bg-white rounded-lg overflow-hidden shadow-sm border border-blue-100 hover:shadow-md transition-shadow ${i === 0 ? 'md:row-span-2' : ''}`}>
+          {tips.map((post) => (
+            <article class="group bg-white rounded-lg overflow-hidden shadow-sm border border-blue-100 hover:shadow-md transition-shadow">
               <a href={`/blog/${post.slug}/`} class="block overflow-hidden">
                 <img 
                   src={post.data.featured_image} 
                   alt={post.data.title}
-                  class={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${i === 0 ? 'h-48 md:h-64' : 'h-36'}`}
+                  class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
               </a>
@@ -297,12 +297,12 @@ function formatDate(date: Date) {
                 {post.data.subcategory && (
                   <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600">{post.data.subcategory.replace('-', ' ')}</span>
                 )}
-                <h3 class={`font-semibold text-gray-900 leading-snug mt-1 line-clamp-2 ${i === 0 ? 'text-lg font-display' : 'text-sm'}`}>
+                <h3 class="font-semibold text-gray-900 leading-snug mt-1 line-clamp-2 text-sm">
                   <a href={`/blog/${post.slug}/`} class="hover:text-blue-700 transition-colors">
                     {post.data.title}
                   </a>
                 </h3>
-                <p class={`text-gray-600 mt-2 line-clamp-2 ${i === 0 ? 'text-sm' : 'text-xs'}`}>{post.data.description}</p>
+                <p class="text-gray-600 mt-2 line-clamp-2 text-xs">{post.data.description}</p>
               </div>
             </article>
           ))}
