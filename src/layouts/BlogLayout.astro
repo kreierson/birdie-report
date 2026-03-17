@@ -195,24 +195,15 @@ const schemaMarkup = {
   <!-- Author Bio -->
   <section class="bg-gray-50 py-12 mt-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-start space-x-6">
-        <img 
-          src="/images/brad-headshot.jpg" 
-          alt="Brad Thompson"
-          class="w-20 h-20 rounded-full object-cover"
-        />
-        <div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">{author}</h3>
-          <p class="text-gray-600 mb-4">
-            Brad is a 15-handicap golfer, software engineer, and equipment testing obsessive 
-            from Austin, Texas. He's tested over $50,000 worth of golf equipment and shares 
-            honest reviews to help fellow golfers make better purchasing decisions.
-          </p>
-          <div class="flex space-x-4 text-sm">
-            <span class="text-gray-500">📧 brad@birdiereport.com</span>
-            <span class="text-gray-500">🏌️ 15 Handicap</span>
-            <span class="text-gray-500">📍 Austin, TX</span>
-          </div>
+      <div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">{author}</h3>
+        <p class="text-gray-600 mb-4">
+          Kyle is a 2-handicap golfer and obsessive equipment tester who's played 
+          everything from North Dakota's hidden gems to Pebble Beach. He shares 
+          honest, no-BS reviews to help golfers make smarter purchasing decisions.
+        </p>
+        <div class="flex space-x-4 text-sm">
+          <span class="text-gray-500">🏌️ 2 Handicap</span>
         </div>
       </div>
     </div>
@@ -220,19 +211,23 @@ const schemaMarkup = {
 </BaseLayout>
 
 <script>
-// Calculate reading time
 document.addEventListener('DOMContentLoaded', function() {
+  // Calculate reading time
   const article = document.querySelector('article .prose');
   if (article) {
     const text = article.textContent;
-    const wordsPerMinute = 200;
     const words = text.trim().split(/\s+/).length;
-    const readingTime = Math.ceil(words / wordsPerMinute);
-    
-    const readingTimeElement = document.getElementById('reading-time');
-    if (readingTimeElement) {
-      readingTimeElement.textContent = `${readingTime} min read`;
-    }
+    const readingTime = Math.ceil(words / 200);
+    const el = document.getElementById('reading-time');
+    if (el) el.textContent = `${readingTime} min read`;
+
+    // Open all external/affiliate links in new tab
+    article.querySelectorAll('a[href]').forEach(link => {
+      if (link.hostname !== window.location.hostname) {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'nofollow sponsored noopener');
+      }
+    });
   }
 });
 </script>
