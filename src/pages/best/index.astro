@@ -69,18 +69,15 @@ function formatDate(date: Date) {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-lg font-display font-bold text-forest-900 mb-4 uppercase tracking-wide">Jump to Category</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-        {categories.map(cat => {
-          const post = subcategoryMap[cat.key];
-          return (
-            <a 
-              href={post ? `/blog/${post.slug}/` : '#'} 
-              class={`text-center p-3 rounded-lg border transition-all hover:shadow-md ${post ? 'bg-white border-gray-200 hover:border-gold-400' : 'bg-gray-100 border-gray-200 opacity-50'}`}
-            >
-              <div class="text-2xl mb-1">{cat.icon}</div>
-              <div class="text-xs font-bold text-gray-900">{cat.name}</div>
-            </a>
-          );
-        })}
+        {categories.map(cat => (
+          <a 
+            href={`/tags/${cat.key}/`}
+            class="text-center p-3 rounded-lg border bg-white border-gray-200 hover:border-gold-400 transition-all hover:shadow-md"
+          >
+            <div class="text-2xl mb-1">{cat.icon}</div>
+            <div class="text-xs font-bold text-gray-900">{cat.name}</div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
