@@ -1,109 +1,226 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsletterSignup from '../components/NewsletterSignup.astro';
-import ProductCard from '../components/ProductCard.astro';
 import { getCollection } from 'astro:content';
 
-// Get featured blog posts (will be empty initially, but set up for when we add content)
 const allPosts = await getCollection('blog').catch(() => []);
-const featuredPosts = allPosts
-  .filter(post => post.data.featured)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 3);
+const sorted = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const latestPosts = allPosts
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 6);
+// Hero: latest featured or latest post
+const heroPost = sorted.find(p => p.data.featured) || sorted[0];
+const heroSlug = heroPost?.slug;
+
+// Editor's picks: featured posts minus hero
+const editorsPicks = sorted.filter(p => p.data.featured && p.slug !== heroSlug).slice(0, 4);
+// If not enough featured, fill with recent
+const picksNeeded = 4 - editorsPicks.length;
+if (picksNeeded > 0) {
+  const fillers = sorted.filter(p => p.slug !== heroSlug && !editorsPicks.find(e => e.slug === p.slug)).slice(0, picksNeeded);
+  editorsPicks.push(...fillers);
+}
+
+// Category sections
+const reviews = sorted.filter(p => p.data.category === 'reviews').slice(0, 4);
+const tips = sorted.filter(p => p.data.category === 'tips').slice(0, 3);
+const bestOf = sorted.filter(p => p.data.category === 'best').slice(0, 6);
+const deals = sorted.filter(p => p.data.category === 'deals').slice(0, 3);
+const courses = sorted.filter(p => p.data.category === 'courses').slice(0, 3);
+const latest = sorted.filter(p => p.slug !== heroSlug).slice(0, 8);
+
+const categories = [
+  { slug: 'best', label: 'Best Of', color: 'bg-gold-500 text-forest-900' },
+  { slug: 'reviews', label: 'Reviews', color: 'bg-forest-700 text-white' },
+  { slug: 'tips', label: 'Tips', color: 'bg-blue-600 text-white' },
+  { slug: 'news', label: 'News', color: 'bg-red-600 text-white' },
+  { slug: 'deals', label: 'Deals', color: 'bg-orange-500 text-white' },
+  { slug: 'courses', label: 'Courses', color: 'bg-emerald-600 text-white' },
+  { slug: 'versus', label: 'Versus', color: 'bg-purple-600 text-white' },
+  { slug: 'opinion', label: 'Opinion', color: 'bg-rose-600 text-white' },
+];
+
+function getCategoryStyle(cat: string) {
+  return categories.find(c => c.slug === cat)?.color || 'bg-gray-600 text-white';
+}
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
 ---
 
 <BaseLayout 
-  title="The Birdie Report - Golf Equipment Reviews, Tips & Deals"
-  description="Honest golf equipment reviews, instruction tips, and the best deals on golf gear. No BS, just better golf for players of all skill levels."
+  title="The Birdie Report — Golf Equipment Reviews, Tips & Deals"
+  description="Honest golf equipment reviews, instruction tips, and the best deals on golf gear. No BS, just better golf."
 >
-  <!-- Hero Section -->
-  <section class="relative text-white overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/hero-golf.jpg" alt="Golf course at golden hour" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-green-900/60"></div>
-    </div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-      <div class="text-center">
-        <h1 class="text-4xl md:text-6xl font-bold mb-6">
-          Your Unfair Advantage<br />
-          <span class="text-green-300">On & Off the Course</span>
-        </h1>
-        <p class="text-xl md:text-2xl text-green-100 mb-8 max-w-3xl mx-auto">
-          Equipment reviews, course intel, swing tips, and the best deals in golf — 
-          from a 2-handicap who actually tests everything. No corporate BS.
-        </p>
-        
-        <!-- Newsletter Signup -->
-        <div class="max-w-md mx-auto mb-8">
-          <NewsletterSignup variant="hero" size="lg" />
+  <!-- HERO -->
+  {heroPost && (
+    <section class="relative bg-forest-950 overflow-hidden">
+      <div class="absolute inset-0">
+        <img src={heroPost.data.featured_image} alt={heroPost.data.title} class="w-full h-full object-cover opacity-40" />
+        <div class="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/70 to-forest-950/30"></div>
+      </div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
+        <div class="max-w-3xl">
+          <span class={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm mb-4 ${getCategoryStyle(heroPost.data.category)}`}>
+            {heroPost.data.category}
+          </span>
+          <h1 class="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-tight mb-4">
+            <a href={`/blog/${heroPost.slug}/`} class="hover:text-gold-300 transition-colors">
+              {heroPost.data.title}
+            </a>
+          </h1>
+          <p class="text-lg md:text-xl text-white/80 mb-6 max-w-2xl leading-relaxed">
+            {heroPost.data.description}
+          </p>
+          <div class="flex items-center gap-4 text-sm text-white/60">
+            <span>By Kyle Reierson</span>
+            <span>·</span>
+            <time>{formatDate(heroPost.data.date)}</time>
+            {heroPost.data.rating && (
+              <>
+                <span>·</span>
+                <span class="text-gold-400 font-semibold">⭐ {heroPost.data.rating}/10</span>
+              </>
+            )}
+          </div>
         </div>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      </div>
+    </section>
+  )}
+
+  <!-- Category Pills -->
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide mr-2 whitespace-nowrap">Explore:</span>
+        {categories.map(cat => (
           <a 
-            href="/reviews/" 
-            class="px-6 py-3 bg-white text-green-800 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+            href={`/${cat.slug}/`} 
+            class={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-all hover:scale-105 ${cat.color}`}
           >
-            Latest Reviews
+            {cat.label}
           </a>
-          <a 
-            href="/deals/" 
-            class="px-6 py-3 border-2 border-green-300 text-green-100 font-semibold rounded-lg hover:bg-green-600 transition-colors"
-          >
-            Best Deals
-          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Editor's Picks + Latest mixed layout -->
+  <section class="py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
+          <span class="border-b-4 border-gold-500 pb-1">Editor's Picks</span>
+        </h2>
+      </div>
+
+      <!-- 2+2 mixed grid: 2 large left, 2 small right -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Large cards (left 2/3) -->
+        <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {editorsPicks.slice(0, 2).map(post => (
+            <article class="group relative overflow-hidden rounded-lg bg-forest-900 aspect-[4/3]">
+              <img 
+                src={post.data.featured_image} 
+                alt={post.data.title}
+                class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <span class={`inline-block px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-sm mb-3 ${getCategoryStyle(post.data.category)}`}>
+                  {post.data.category}
+                </span>
+                <h3 class="text-xl font-display font-bold text-white leading-snug mb-2 line-clamp-2">
+                  <a href={`/blog/${post.slug}/`} class="hover:text-gold-300 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="text-white/70 text-sm line-clamp-2 hidden md:block">{post.data.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- Stacked small cards (right 1/3) -->
+        <div class="space-y-6">
+          {editorsPicks.slice(2, 4).map(post => (
+            <article class="group flex gap-4 items-start">
+              <div class="w-28 h-20 flex-shrink-0 rounded overflow-hidden">
+                <img 
+                  src={post.data.featured_image} 
+                  alt={post.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+              </div>
+              <div class="flex-1 min-w-0">
+                <span class={`inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-sm mb-1.5 ${getCategoryStyle(post.data.category)}`}>
+                  {post.data.category}
+                </span>
+                <h3 class="text-sm font-semibold text-gray-900 line-clamp-2 leading-snug">
+                  <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <time class="text-xs text-gray-500 mt-1 block">{formatDate(post.data.date)}</time>
+              </div>
+            </article>
+          ))}
+
+          <!-- Newsletter inline -->
+          <div class="bg-forest-800 rounded-lg p-5 text-center">
+            <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mb-1">Newsletter</p>
+            <p class="text-white text-sm font-display font-semibold mb-3">Get the Weekly Birdie Report</p>
+            <form class="space-y-2" action="#" method="POST">
+              <input type="email" placeholder="your@email.com" required class="w-full px-3 py-2 bg-forest-700 border border-forest-600 rounded text-sm text-white placeholder-white/40 focus:ring-gold-500 focus:border-gold-500" />
+              <button type="submit" class="w-full px-3 py-2 bg-gold-500 text-forest-900 text-sm font-bold rounded hover:bg-gold-400 transition-colors">Subscribe Free</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Featured Articles -->
-  {featuredPosts.length > 0 && (
-    <section class="py-16 bg-gray-50">
+  <!-- Latest Reviews -->
+  {reviews.length > 0 && (
+    <section class="py-12 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Reviews</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredPosts.map((post) => (
-            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-              <a href={`/blog/${post.slug}/`}>
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
+            <span class="border-b-4 border-forest-600 pb-1">Latest Reviews</span>
+          </h2>
+          <a href="/reviews/" class="text-forest-700 font-semibold text-sm hover:text-forest-900 transition-colors uppercase tracking-wide">
+            All Reviews →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {reviews.map((post, i) => (
+            <article class={`group ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+              <a href={`/blog/${post.slug}/`} class="block relative overflow-hidden rounded-lg mb-3">
                 <img 
                   src={post.data.featured_image} 
                   alt={post.data.title}
-                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                  class={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${i === 0 ? 'h-64 md:h-full' : 'h-44'}`}
+                  loading="lazy"
                 />
+                {post.data.rating && (
+                  <div class="absolute top-3 right-3 bg-forest-800/90 text-gold-400 text-sm font-bold px-2.5 py-1 rounded">
+                    {post.data.rating}/10
+                  </div>
+                )}
               </a>
-              
-              <div class="p-6">
-                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
-                    {post.data.category}
-                  </span>
-                  <time>{new Date(post.data.date).toLocaleDateString()}</time>
-                </div>
-                
-                <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
-                  <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+              <div>
+                {post.data.subcategory && (
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-forest-600">{post.data.subcategory.replace('-', ' ')}</span>
+                )}
+                <h3 class={`font-semibold text-gray-900 leading-snug mt-1 ${i === 0 ? 'text-xl md:text-2xl font-display' : 'text-sm'} line-clamp-2`}>
+                  <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">
                     {post.data.title}
                   </a>
                 </h3>
-                
-                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
-                  {post.data.description}
-                </p>
-                
-                <a 
-                  href={`/blog/${post.slug}/`}
-                  class="inline-flex items-center text-green-700 font-medium hover:text-green-800 transition-colors"
-                >
-                  Read Review
-                  <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </a>
+                {i === 0 && <p class="text-gray-600 text-sm mt-2 line-clamp-2">{post.data.description}</p>}
+                {post.data.price && <p class="text-forest-700 font-semibold text-sm mt-1">{post.data.price}</p>}
               </div>
             </article>
           ))}
@@ -112,47 +229,39 @@ const latestPosts = allPosts
     </section>
   )}
 
-  <!-- Latest Posts -->
-  {latestPosts.length > 0 && (
-    <section class="py-16">
+  <!-- Best Of Guides - horizontal scroll -->
+  {bestOf.length > 0 && (
+    <section class="py-12 lg:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center mb-8">
-          <h2 class="text-3xl font-bold text-gray-900">Latest Articles</h2>
-          <a 
-            href="/blog/"
-            class="text-green-700 font-medium hover:text-green-800 transition-colors"
-          >
-            View all →
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
+            <span class="border-b-4 border-gold-500 pb-1">Buyer's Guides</span>
+          </h2>
+          <a href="/best/" class="text-forest-700 font-semibold text-sm hover:text-forest-900 transition-colors uppercase tracking-wide">
+            All Guides →
           </a>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {latestPosts.map((post) => (
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {bestOf.map(post => (
             <article class="group">
-              <a href={`/blog/${post.slug}/`} class="block">
+              <a href={`/blog/${post.slug}/`} class="block relative overflow-hidden rounded-lg aspect-[3/4] mb-2">
                 <img 
                   src={post.data.featured_image} 
                   alt={post.data.title}
-                  class="w-full h-48 object-cover rounded-lg mb-4 group-hover:opacity-90 transition-opacity"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
                 />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div class="absolute top-2 left-2">
+                  <span class="bg-gold-500 text-forest-900 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm">Best Of</span>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-3">
+                  <h3 class="text-white text-xs font-bold leading-snug line-clamp-3">
+                    {post.data.title}
+                  </h3>
+                </div>
               </a>
-              
-              <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium">
-                  {post.data.category}
-                </span>
-                <time>{new Date(post.data.date).toLocaleDateString()}</time>
-              </div>
-              
-              <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
-                  {post.data.title}
-                </a>
-              </h3>
-              
-              <p class="text-gray-600 text-sm line-clamp-2">
-                {post.data.description}
-              </p>
             </article>
           ))}
         </div>
@@ -160,45 +269,193 @@ const latestPosts = allPosts
     </section>
   )}
 
-  <!-- CTA Section -->
-  <section class="py-16 bg-green-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">
-        Ready to Lower Your Scores?
-      </h2>
-      <p class="text-lg text-gray-600 mb-8">
-        Join thousands of golfers getting honest equipment reviews and practical tips 
-        delivered to their inbox every week.
-      </p>
-      
-      <NewsletterSignup variant="card" size="lg" />
-      
-      <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-        <div class="flex items-center">
-          <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-          </svg>
-          Equipment Reviews
+  <!-- Tips Section (different layout) -->
+  {tips.length > 0 && (
+    <section class="py-12 bg-blue-50/50 border-y border-blue-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
+            <span class="border-b-4 border-blue-500 pb-1">Tips & Instruction</span>
+          </h2>
+          <a href="/tips/" class="text-blue-700 font-semibold text-sm hover:text-blue-900 transition-colors uppercase tracking-wide">
+            All Tips →
+          </a>
         </div>
-        <div class="flex items-center">
-          <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-          </svg>
-          Golf Tips & Drills
-        </div>
-        <div class="flex items-center">
-          <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-          </svg>
-          Exclusive Deals
-        </div>
-        <div class="flex items-center">
-          <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-          </svg>
-          No Spam, Ever
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {tips.map((post, i) => (
+            <article class={`group bg-white rounded-lg overflow-hidden shadow-sm border border-blue-100 hover:shadow-md transition-shadow ${i === 0 ? 'md:row-span-2' : ''}`}>
+              <a href={`/blog/${post.slug}/`} class="block overflow-hidden">
+                <img 
+                  src={post.data.featured_image} 
+                  alt={post.data.title}
+                  class={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${i === 0 ? 'h-48 md:h-64' : 'h-36'}`}
+                  loading="lazy"
+                />
+              </a>
+              <div class="p-5">
+                {post.data.subcategory && (
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600">{post.data.subcategory.replace('-', ' ')}</span>
+                )}
+                <h3 class={`font-semibold text-gray-900 leading-snug mt-1 line-clamp-2 ${i === 0 ? 'text-lg font-display' : 'text-sm'}`}>
+                  <a href={`/blog/${post.slug}/`} class="hover:text-blue-700 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class={`text-gray-600 mt-2 line-clamp-2 ${i === 0 ? 'text-sm' : 'text-xs'}`}>{post.data.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
+    </section>
+  )}
+
+  <!-- Deals Strip -->
+  {deals.length > 0 && (
+    <section class="py-10 bg-gradient-to-r from-orange-500 to-orange-600">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl md:text-2xl font-display font-bold text-white">
+            🔥 Hot Deals This Week
+          </h2>
+          <a href="/deals/" class="text-white/80 font-semibold text-sm hover:text-white transition-colors uppercase tracking-wide">
+            All Deals →
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {deals.map(post => (
+            <a href={`/blog/${post.slug}/`} class="group flex items-center gap-4 bg-white/10 backdrop-blur rounded-lg p-4 hover:bg-white/20 transition-colors">
+              <img src={post.data.featured_image} alt={post.data.title} class="w-16 h-16 rounded object-cover flex-shrink-0" loading="lazy" />
+              <div class="min-w-0">
+                <h3 class="text-white font-semibold text-sm line-clamp-2 leading-snug">{post.data.title}</h3>
+                <span class="text-orange-100 text-xs mt-1 block">{formatDate(post.data.date)}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Latest Articles with sidebar -->
+  <section class="py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <!-- Main: Latest articles -->
+        <div class="lg:col-span-2">
+          <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900 mb-8">
+            <span class="border-b-4 border-forest-700 pb-1">Latest Articles</span>
+          </h2>
+          <div class="space-y-8">
+            {latest.slice(0, 5).map((post, i) => (
+              <article class={`group ${i > 0 ? 'border-t border-gray-200 pt-8' : ''}`}>
+                <div class="flex flex-col sm:flex-row gap-5">
+                  <a href={`/blog/${post.slug}/`} class="block sm:w-56 flex-shrink-0 overflow-hidden rounded-lg">
+                    <img 
+                      src={post.data.featured_image} 
+                      alt={post.data.title}
+                      class="w-full h-40 sm:h-36 object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </a>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-sm ${getCategoryStyle(post.data.category)}`}>
+                        {post.data.category}
+                      </span>
+                      <time class="text-xs text-gray-500">{formatDate(post.data.date)}</time>
+                    </div>
+                    <h3 class="text-lg font-display font-bold text-gray-900 leading-snug line-clamp-2 mb-2">
+                      <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">
+                        {post.data.title}
+                      </a>
+                    </h3>
+                    <p class="text-gray-600 text-sm line-clamp-2">{post.data.description}</p>
+                    {post.data.rating && (
+                      <span class="inline-block mt-2 text-gold-600 text-sm font-semibold">⭐ {post.data.rating}/10</span>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div class="mt-8 text-center">
+            <a href="/blog/" class="inline-block px-6 py-3 bg-forest-800 text-white font-semibold rounded-lg hover:bg-forest-700 transition-colors">
+              View All Articles
+            </a>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="space-y-8">
+          <!-- Trending -->
+          <div class="bg-forest-50 border border-forest-200 rounded-lg p-6">
+            <h3 class="text-lg font-display font-bold text-forest-900 mb-4">
+              <span class="border-b-2 border-gold-500 pb-1">🔥 Trending</span>
+            </h3>
+            <div class="space-y-4">
+              {sorted.slice(0, 5).map((post, i) => (
+                <div class="flex gap-3 items-start">
+                  <span class="text-2xl font-display font-black text-forest-300 leading-none">{String(i + 1).padStart(2, '0')}</span>
+                  <h4 class="text-sm font-medium text-gray-900 leading-snug line-clamp-2">
+                    <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">
+                      {post.data.title}
+                    </a>
+                  </h4>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Course Guides -->
+          {courses.length > 0 && (
+            <div>
+              <h3 class="text-lg font-display font-bold text-forest-900 mb-4">
+                <span class="border-b-2 border-emerald-500 pb-1">⛳ Course Guides</span>
+              </h3>
+              <div class="space-y-4">
+                {courses.map(post => (
+                  <a href={`/blog/${post.slug}/`} class="group flex gap-3 items-center">
+                    <img src={post.data.featured_image} alt={post.data.title} class="w-16 h-12 rounded object-cover flex-shrink-0" loading="lazy" />
+                    <h4 class="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-forest-700 transition-colors">
+                      {post.data.title}
+                    </h4>
+                  </a>
+                ))}
+              </div>
+              <a href="/courses/" class="inline-block mt-3 text-emerald-700 text-sm font-semibold hover:text-emerald-900">All Courses →</a>
+            </div>
+          )}
+
+          <!-- Newsletter -->
+          <div class="bg-forest-800 rounded-lg p-6">
+            <h3 class="text-gold-400 font-display font-bold text-lg mb-2">The Weekly Birdie</h3>
+            <p class="text-white/70 text-sm mb-4">Reviews, tips, and deals. Every Tuesday. Free.</p>
+            <form class="space-y-2" action="#" method="POST">
+              <input type="email" placeholder="your@email.com" required class="w-full px-3 py-2.5 bg-forest-700 border border-forest-600 rounded text-sm text-white placeholder-white/40 focus:ring-gold-500 focus:border-gold-500" />
+              <button type="submit" class="w-full px-3 py-2.5 bg-gold-500 text-forest-900 text-sm font-bold rounded hover:bg-gold-400 transition-colors">Get the Newsletter</button>
+            </form>
+            <p class="text-white/40 text-[10px] mt-2 text-center">No spam. Unsubscribe anytime.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-forest-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"></div>
+    </div>
+    <div class="relative max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+        Ready to Play Better Golf?
+      </h2>
+      <p class="text-white/70 text-lg mb-8">
+        Join golfers who get honest equipment intel and practical tips every Tuesday.
+      </p>
+      <NewsletterSignup variant="hero" size="lg" />
     </div>
   </section>
 </BaseLayout>

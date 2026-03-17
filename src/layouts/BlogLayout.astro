@@ -8,202 +8,323 @@ export interface Props {
 }
 
 const { content } = Astro.props;
-const { title, description, date, category, tags, author, featured_image, affiliate_links } = content;
+const { title, description, date, category, tags, author, featured_image, affiliate_links, rating, pros, cons, price, subcategory } = content;
 
-// Get related posts
 const allPosts = await getCollection('blog');
 const relatedPosts = allPosts
-  .filter(post => 
-    post.data.category === category && 
-    post.data.title !== title
-  )
+  .filter(post => post.data.category === category && post.data.title !== title)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 3);
+  .slice(0, 4);
 
-// Schema markup for articles
+const isReview = category === 'reviews' || (rating && pros);
+const displayAuthor = (author === 'Brad Thompson') ? 'Kyle Reierson' : author;
+
+const categoryLabels: Record<string, string> = {
+  best: 'Best Of',
+  reviews: 'Reviews',
+  tips: 'Tips',
+  news: 'News',
+  deals: 'Deals',
+  courses: 'Courses',
+  versus: 'Versus',
+  opinion: 'Opinion',
+};
+
+const categoryColors: Record<string, string> = {
+  best: 'bg-gold-500 text-forest-900',
+  reviews: 'bg-forest-700 text-white',
+  tips: 'bg-blue-600 text-white',
+  news: 'bg-red-600 text-white',
+  deals: 'bg-orange-500 text-white',
+  courses: 'bg-emerald-600 text-white',
+  versus: 'bg-purple-600 text-white',
+  opinion: 'bg-rose-600 text-white',
+};
+
 const schemaMarkup = {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": title,
   "description": description,
   "image": new URL(featured_image, 'https://birdiereport.com').toString(),
-  "author": {
-    "@type": "Person",
-    "name": author
-  },
+  "author": { "@type": "Person", "name": displayAuthor },
   "publisher": {
     "@type": "Organization",
     "name": "The Birdie Report",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://birdiereport.com/logo.png"
-    }
+    "logo": { "@type": "ImageObject", "url": "https://birdiereport.com/logo.png" }
   },
   "datePublished": date.toISOString(),
   "dateModified": date.toISOString(),
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": new URL(Astro.url.pathname, 'https://birdiereport.com').toString()
-  }
+  "mainEntityOfPage": { "@type": "WebPage", "@id": new URL(Astro.url.pathname, 'https://birdiereport.com').toString() }
 };
 ---
 
-<BaseLayout 
-  title={title}
-  description={description}
-  image={featured_image}
->
-  <!-- Schema markup -->
+<BaseLayout title={title} description={description} image={featured_image}>
   <script type="application/ld+json" set:html={JSON.stringify(schemaMarkup)} />
 
-  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Article Header -->
-    <header class="mb-12">
-      <!-- Featured Image -->
-      <div class="aspect-video w-full mb-8 rounded-lg overflow-hidden">
-        <img 
-          src={featured_image} 
-          alt={title}
-          class="w-full h-full object-cover"
-        />
-      </div>
-      
-      <!-- Meta -->
-      <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
-        <span class={`px-3 py-1 rounded-full text-xs font-medium ${
-          category === 'reviews' ? 'bg-green-100 text-green-800' :
-          category === 'tips' ? 'bg-blue-100 text-blue-800' :
-          category === 'deals' ? 'bg-orange-100 text-orange-800' :
-          'bg-gray-100 text-gray-800'
-        }`}>
-          {category}
-        </span>
-        <time datetime={date.toISOString()}>
-          {date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}
-        </time>
-        <span>By {author}</span>
-        <span>•</span>
-        <span id="reading-time">5 min read</span>
-      </div>
-      
-      <!-- Title -->
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-        {title}
-      </h1>
-      
-      <!-- Description -->
-      <p class="text-xl text-gray-600 leading-relaxed">
-        {description}
-      </p>
-      
-      <!-- Tags -->
-      {tags && tags.length > 0 && (
-        <div class="mt-6 flex flex-wrap gap-2">
-          {tags.map(tag => (
-            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-sm rounded">
-              #{tag}
-            </span>
-          ))}
-        </div>
-      )}
-    </header>
-
-    <!-- Article Content -->
-    <div class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-a:text-green-700 hover:prose-a:text-green-800 prose-blockquote:border-green-500">
-      <slot />
+  <!-- Breadcrumbs -->
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-gray-500">
+        <a href="/" class="hover:text-forest-700 transition-colors">Home</a>
+        <span>/</span>
+        <a href={`/${category}/`} class="hover:text-forest-700 transition-colors capitalize">{categoryLabels[category] || category}</a>
+        <span>/</span>
+        <span class="text-gray-900 font-medium line-clamp-1">{title}</span>
+      </nav>
     </div>
+  </div>
 
-    <!-- Affiliate Links Section -->
-    {affiliate_links && affiliate_links.length > 0 && (
-      <div class="mt-12 p-6 bg-green-50 rounded-lg border border-green-200">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">🛍️ Shop the Products Mentioned</h3>
-        <div class="grid gap-4">
-          {affiliate_links.map(link => (
-            <div class="flex items-center justify-between p-4 bg-white rounded border">
-              <div>
-                <h4 class="font-medium text-gray-900">{link.product}</h4>
-                {link.price && <p class="text-sm text-gray-600">{link.price} at {link.retailer}</p>}
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
+      <!-- Main Article -->
+      <article class="min-w-0">
+        <!-- Header -->
+        <header class="mb-10">
+          <div class="flex items-center gap-3 mb-4">
+            <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm ${categoryColors[category] || 'bg-gray-600 text-white'}`}>
+              {categoryLabels[category] || category}
+            </span>
+            {subcategory && (
+              <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">{subcategory.replace('-', ' ')}</span>
+            )}
+          </div>
+
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-black text-forest-900 mb-5 leading-tight">
+            {title}
+          </h1>
+
+          <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
+            {description}
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 pb-6 border-b border-gray-200">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-forest-700 text-white flex items-center justify-center text-xs font-bold">KR</div>
+              <span class="font-medium text-gray-900">{displayAuthor}</span>
+            </div>
+            <time datetime={date.toISOString()}>
+              {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            <span id="reading-time" class="text-gray-400">5 min read</span>
+            {rating && <span class="text-gold-600 font-bold">⭐ {rating}/10</span>}
+          </div>
+
+          <!-- Share -->
+          <div class="flex items-center gap-3 mt-4">
+            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Share:</span>
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`https://birdiereport.com${Astro.url.pathname}`)}`} target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-blue-100 flex items-center justify-center text-gray-500 hover:text-blue-500 transition-colors" title="Share on X">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://birdiereport.com${Astro.url.pathname}`)}`} target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-blue-100 flex items-center justify-center text-gray-500 hover:text-blue-600 transition-colors" title="Share on Facebook">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✓'" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors text-sm" title="Copy link">🔗</button>
+          </div>
+        </header>
+
+        <!-- Featured Image -->
+        <div class="aspect-video w-full mb-10 rounded-lg overflow-hidden">
+          <img src={featured_image} alt={title} class="w-full h-full object-cover" />
+        </div>
+
+        <!-- Quick Verdict for Reviews -->
+        {isReview && (rating || pros || cons) && (
+          <div class="mb-10 border-2 border-forest-200 rounded-lg overflow-hidden">
+            <div class="bg-forest-800 px-6 py-3">
+              <h3 class="text-white font-display font-bold text-lg">Quick Verdict</h3>
+            </div>
+            <div class="p-6 bg-forest-50/50">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Rating -->
+                {rating && (
+                  <div class="text-center">
+                    <div class="text-5xl font-display font-black text-forest-800">{rating}</div>
+                    <div class="text-sm text-gray-500 mt-1">out of 10</div>
+                    <div class="mt-2 flex justify-center gap-0.5">
+                      {Array.from({ length: 10 }).map((_, i) => (
+                        <div class={`w-2.5 h-2.5 rounded-full ${i < Math.round(rating) ? 'bg-gold-500' : 'bg-gray-300'}`}></div>
+                      ))}
+                    </div>
+                    {price && <div class="mt-3 text-forest-700 font-bold text-lg">{price}</div>}
+                  </div>
+                )}
+                <!-- Pros -->
+                {pros && pros.length > 0 && (
+                  <div>
+                    <h4 class="text-sm font-bold text-forest-700 uppercase tracking-wide mb-2">✅ Pros</h4>
+                    <ul class="space-y-1.5">
+                      {pros.map((pro: string) => (
+                        <li class="text-sm text-gray-700 flex items-start gap-2">
+                          <span class="text-forest-500 mt-0.5 flex-shrink-0">+</span>
+                          {pro}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <!-- Cons -->
+                {cons && cons.length > 0 && (
+                  <div>
+                    <h4 class="text-sm font-bold text-red-600 uppercase tracking-wide mb-2">❌ Cons</h4>
+                    <ul class="space-y-1.5">
+                      {cons.map((con: string) => (
+                        <li class="text-sm text-gray-700 flex items-start gap-2">
+                          <span class="text-red-400 mt-0.5 flex-shrink-0">−</span>
+                          {con}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Article Content -->
+        <div class="prose prose-lg max-w-none
+          prose-headings:font-display prose-headings:text-forest-900 prose-headings:font-bold
+          prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200
+          prose-h3:text-xl prose-h3:mt-8
+          prose-p:text-gray-700 prose-p:leading-relaxed
+          prose-strong:text-forest-900
+          prose-a:text-forest-700 hover:prose-a:text-forest-900 prose-a:font-medium prose-a:underline-offset-2
+          prose-blockquote:border-l-4 prose-blockquote:border-gold-500 prose-blockquote:bg-gold-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:text-gray-700
+          prose-img:rounded-lg
+          prose-li:text-gray-700
+        ">
+          <slot />
+        </div>
+
+        <!-- Tags -->
+        {tags && tags.length > 0 && (
+          <div class="mt-10 pt-6 border-t border-gray-200">
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag: string) => (
+                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full hover:bg-gray-200 transition-colors">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Affiliate Links -->
+        {affiliate_links && affiliate_links.length > 0 && (
+          <div class="mt-10 p-6 bg-forest-50 rounded-lg border-2 border-forest-200">
+            <h3 class="text-lg font-display font-bold text-forest-900 mb-4">🛍️ Where to Buy</h3>
+            <div class="grid gap-3">
+              {affiliate_links.map((link: any) => (
+                <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-forest-100">
+                  <div>
+                    <h4 class="font-semibold text-gray-900">{link.product}</h4>
+                    {link.price && <p class="text-sm text-gray-600">{link.price} at {link.retailer}</p>}
+                  </div>
+                  <a 
+                    href={link.url}
+                    target="_blank"
+                    rel="nofollow sponsored"
+                    class="px-5 py-2.5 bg-forest-700 text-white rounded-lg hover:bg-forest-800 transition-colors text-sm font-bold whitespace-nowrap"
+                  >
+                    Check Price
+                  </a>
+                </div>
+              ))}
+            </div>
+            <p class="text-xs text-gray-500 mt-4">
+              *We earn a small commission if you purchase through these links, at no extra cost to you.
+            </p>
+          </div>
+        )}
+
+        <!-- Newsletter -->
+        <div class="mt-12">
+          <NewsletterSignup variant="card" />
+        </div>
+
+        <!-- Related Posts -->
+        {relatedPosts.length > 0 && (
+          <section class="mt-14">
+            <h2 class="text-2xl font-display font-bold text-forest-900 mb-6">
+              <span class="border-b-4 border-gold-500 pb-1">Related Articles</span>
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {relatedPosts.map(post => (
+                <article class="group flex gap-4">
+                  <a href={`/blog/${post.slug}/`} class="block w-24 h-20 flex-shrink-0 rounded overflow-hidden">
+                    <img 
+                      src={post.data.featured_image} 
+                      alt={post.data.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </a>
+                  <div class="min-w-0">
+                    <span class={`inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-sm mb-1 ${categoryColors[post.data.category] || 'bg-gray-600 text-white'}`}>
+                      {post.data.category}
+                    </span>
+                    <h3 class="text-sm font-semibold text-gray-900 line-clamp-2 leading-snug">
+                      <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">
+                        {post.data.title}
+                      </a>
+                    </h3>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="hidden lg:block space-y-8">
+        <!-- Table of Contents -->
+        <div class="sticky top-24">
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-5">
+            <h3 class="text-sm font-bold text-forest-900 uppercase tracking-wide mb-3">Table of Contents</h3>
+            <nav id="toc" class="space-y-1.5 text-sm">
+              <p class="text-gray-400 text-xs">Loading...</p>
+            </nav>
+          </div>
+
+          <!-- Sticky Buy CTA for reviews -->
+          {isReview && affiliate_links && affiliate_links.length > 0 && (
+            <div class="mt-6 bg-forest-800 rounded-lg p-5 text-center">
+              <div class="text-gold-400 font-display font-bold text-2xl mb-1">{rating}/10</div>
+              {price && <div class="text-white font-semibold mb-3">{price}</div>}
               <a 
-                href={link.url}
+                href={affiliate_links[0].url}
                 target="_blank"
                 rel="nofollow sponsored"
-                class="px-4 py-2 bg-green-700 text-white rounded hover:bg-green-800 transition-colors text-sm font-medium"
+                class="block w-full py-3 bg-gold-500 text-forest-900 font-bold rounded-lg hover:bg-gold-400 transition-colors"
               >
-                Check Price
+                Check Best Price
               </a>
+              <p class="text-white/40 text-[10px] mt-2">at {affiliate_links[0].retailer}</p>
             </div>
-          ))}
+          )}
         </div>
-        <p class="text-xs text-gray-500 mt-4">
-          *We earn a small commission if you purchase through these links, at no extra cost to you.
-        </p>
-      </div>
-    )}
-
-    <!-- Newsletter Signup -->
-    <div class="mt-16">
-      <NewsletterSignup variant="card" />
+      </aside>
     </div>
-
-    <!-- Related Posts -->
-    {relatedPosts.length > 0 && (
-      <section class="mt-16">
-        <h2 class="text-2xl font-bold text-gray-900 mb-8">Related Articles</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {relatedPosts.map(post => (
-            <article class="group">
-              <a href={`/blog/${post.slug}/`} class="block">
-                <img 
-                  src={post.data.featured_image} 
-                  alt={post.data.title}
-                  class="w-full h-40 object-cover rounded-lg mb-4 group-hover:opacity-90 transition-opacity"
-                />
-              </a>
-              
-              <div class="space-y-2">
-                <span class={`inline-block px-2 py-1 text-xs font-medium rounded ${
-                  post.data.category === 'reviews' ? 'bg-green-100 text-green-800' :
-                  post.data.category === 'tips' ? 'bg-blue-100 text-blue-800' :
-                  post.data.category === 'deals' ? 'bg-orange-100 text-orange-800' :
-                  'bg-gray-100 text-gray-800'
-                }`}>
-                  {post.data.category}
-                </span>
-                
-                <h3 class="font-semibold text-gray-900 line-clamp-2">
-                  <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
-                    {post.data.title}
-                  </a>
-                </h3>
-                
-                <p class="text-sm text-gray-600 line-clamp-2">
-                  {post.data.description}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    )}
-  </article>
+  </div>
 
   <!-- Author Bio -->
-  <section class="bg-gray-50 py-12 mt-16">
+  <section class="bg-forest-50 border-t border-forest-200 py-12">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">{author}</h3>
-        <p class="text-gray-600 mb-4">
-          Kyle is a 2-handicap golfer and obsessive equipment tester who's played 
-          everything from North Dakota's hidden gems to Pebble Beach. He shares 
-          honest, no-BS reviews to help golfers make smarter purchasing decisions.
-        </p>
-        <div class="flex space-x-4 text-sm">
-          <span class="text-gray-500">🏌️ 2 Handicap</span>
+      <div class="flex items-start gap-5">
+        <div class="w-16 h-16 rounded-full bg-forest-700 text-white flex items-center justify-center text-xl font-bold flex-shrink-0">KR</div>
+        <div>
+          <h3 class="text-xl font-display font-bold text-forest-900 mb-2">{displayAuthor}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Kyle is a 2-handicap golfer and obsessive equipment tester who's played 
+            everything from North Dakota's hidden gems to Pebble Beach. He shares 
+            honest, no-BS reviews to help golfers make smarter purchasing decisions.
+          </p>
+          <div class="flex items-center gap-4 mt-3 text-sm text-gray-500">
+            <span>🏌️ 2 Handicap</span>
+            <span>📍 Minnesota</span>
+          </div>
         </div>
       </div>
     </div>
@@ -212,22 +333,40 @@ const schemaMarkup = {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Calculate reading time
+  // Reading time
   const article = document.querySelector('article .prose');
   if (article) {
-    const text = article.textContent;
+    const text = article.textContent || '';
     const words = text.trim().split(/\s+/).length;
     const readingTime = Math.ceil(words / 200);
     const el = document.getElementById('reading-time');
     if (el) el.textContent = `${readingTime} min read`;
 
-    // Open all external/affiliate links in new tab
-    article.querySelectorAll('a[href]').forEach(link => {
+    // External links
+    article.querySelectorAll('a[href]').forEach((link: any) => {
       if (link.hostname !== window.location.hostname) {
         link.setAttribute('target', '_blank');
         link.setAttribute('rel', 'nofollow sponsored noopener');
       }
     });
+  }
+
+  // Table of contents
+  const toc = document.getElementById('toc');
+  const headings = document.querySelectorAll('article .prose h2, article .prose h3');
+  if (toc && headings.length > 0) {
+    toc.innerHTML = '';
+    headings.forEach((heading, i) => {
+      const id = heading.id || `heading-${i}`;
+      heading.id = id;
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.textContent = heading.textContent || '';
+      link.className = `block text-gray-600 hover:text-forest-700 transition-colors leading-snug ${heading.tagName === 'H3' ? 'pl-3 text-xs' : 'font-medium'}`;
+      toc.appendChild(link);
+    });
+  } else if (toc) {
+    toc.innerHTML = '<p class="text-gray-400 text-xs italic">No sections</p>';
   }
 });
 </script>

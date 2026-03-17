@@ -16,7 +16,7 @@ const blog = defineCollection({
     ]).optional(),
     tags: z.array(z.string()),
     featured_image: z.string(),
-    author: z.string().default('Brad Thompson'),
+    author: z.string().default('Kyle Reierson'),
     rating: z.number().min(1).max(10).optional(),
     pros: z.array(z.string()).optional(),
     cons: z.array(z.string()).optional(),

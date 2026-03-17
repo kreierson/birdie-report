@@ -1,0 +1,176 @@
+---
+import { getCollection } from 'astro:content';
+
+export interface Props {
+  category: string;
+  title: string;
+  description: string;
+  accentColor: string;  // e.g. 'forest', 'blue', 'orange', 'emerald', 'purple', 'rose', 'red'
+  badgeLabel: string;
+  badgeClass: string;   // e.g. 'bg-forest-700 text-white'
+}
+
+const { category, title, description, accentColor, badgeLabel, badgeClass } = Astro.props;
+
+const allPosts = await getCollection('blog').catch(() => []);
+const posts = allPosts
+  .filter(post => post.data.category === category)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const heroPost = posts[0];
+const remaining = posts.slice(1);
+const subcategories = [...new Set(posts.map(p => p.data.subcategory).filter(Boolean))];
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+const borderColor: Record<string, string> = {
+  forest: 'border-forest-600',
+  blue: 'border-blue-500',
+  orange: 'border-orange-500',
+  emerald: 'border-emerald-500',
+  purple: 'border-purple-500',
+  rose: 'border-rose-500',
+  red: 'border-red-500',
+  gold: 'border-gold-500',
+};
+---
+
+<!-- Hero -->
+{heroPost && (
+  <section class="relative bg-forest-950 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src={heroPost.data.featured_image} alt={heroPost.data.title} class="w-full h-full object-cover opacity-35" />
+      <div class="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/60 to-forest-950/20"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-3xl">
+        <span class={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm mb-4 ${badgeClass}`}>
+          {badgeLabel}
+        </span>
+        <h1 class="text-3xl md:text-5xl font-display font-black text-white leading-tight mb-4">
+          {title}
+        </h1>
+        <p class="text-lg text-white/70 mb-6 max-w-2xl">{description}</p>
+        
+        <!-- Featured article -->
+        <div class="bg-white/10 backdrop-blur rounded-lg p-5 mt-8 max-w-xl">
+          <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mb-2">Featured</p>
+          <h2 class="text-xl md:text-2xl font-display font-bold text-white mb-2 leading-snug">
+            <a href={`/blog/${heroPost.slug}/`} class="hover:text-gold-300 transition-colors">
+              {heroPost.data.title}
+            </a>
+          </h2>
+          <p class="text-white/60 text-sm line-clamp-2">{heroPost.data.description}</p>
+          <div class="flex items-center gap-3 mt-3 text-sm text-white/50">
+            <time>{formatDate(heroPost.data.date)}</time>
+            {heroPost.data.rating && <span class="text-gold-400 font-semibold">⭐ {heroPost.data.rating}/10</span>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+{!heroPost && (
+  <section class="bg-forest-900 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm mb-4 ${badgeClass}`}>
+        {badgeLabel}
+      </span>
+      <h1 class="text-3xl md:text-5xl font-display font-black text-white mb-4">{title}</h1>
+      <p class="text-lg text-white/70 max-w-2xl mx-auto">{description}</p>
+    </div>
+  </section>
+)}
+
+<!-- Subcategory filter -->
+{subcategories.length > 0 && (
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="flex items-center gap-2 overflow-x-auto">
+        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap">Filter:</span>
+        <button class="category-filter-btn active px-3 py-1 rounded-full text-xs font-semibold bg-forest-700 text-white" data-filter="all">All</button>
+        {subcategories.map(sub => (
+          <button class="category-filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-600 hover:bg-gray-300 capitalize whitespace-nowrap" data-filter={sub}>
+            {sub?.replace('-', ' ')}
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+<!-- Articles Grid -->
+<section class="py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {remaining.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid">
+        {remaining.map((post, i) => (
+          <article class={`group article-card ${i === 0 ? 'md:col-span-2' : ''}`} data-subcategory={post.data.subcategory || ''}>
+            <a href={`/blog/${post.slug}/`} class="block relative overflow-hidden rounded-lg mb-3">
+              <img 
+                src={post.data.featured_image} 
+                alt={post.data.title}
+                class={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${i === 0 ? 'h-52 md:h-72' : 'h-48'}`}
+                loading="lazy"
+              />
+              {post.data.rating && (
+                <div class="absolute top-3 right-3 bg-forest-800/90 text-gold-400 text-sm font-bold px-2.5 py-1 rounded">
+                  {post.data.rating}/10
+                </div>
+              )}
+            </a>
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                {post.data.subcategory && (
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">{post.data.subcategory.replace('-', ' ')}</span>
+                )}
+                <time class="text-xs text-gray-400">{formatDate(post.data.date)}</time>
+              </div>
+              <h3 class={`font-semibold text-gray-900 leading-snug line-clamp-2 ${i === 0 ? 'text-xl md:text-2xl font-display' : 'text-base'}`}>
+                <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">
+                  {post.data.title}
+                </a>
+              </h3>
+              <p class={`text-gray-600 mt-2 line-clamp-2 ${i === 0 ? 'text-sm' : 'text-sm'}`}>{post.data.description}</p>
+              {post.data.price && <p class="text-forest-700 font-semibold text-sm mt-2">{post.data.price}</p>}
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p class="text-center text-gray-500 text-lg py-12">Content coming soon. Check back shortly!</p>
+    )}
+
+    <!-- Slot for extra content (testing process, etc.) -->
+    <slot />
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btns = document.querySelectorAll('.category-filter-btn');
+  const cards = document.querySelectorAll('.article-card');
+  
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = (btn as HTMLElement).dataset.filter;
+      btns.forEach(b => {
+        b.className = b.className.replace('bg-forest-700 text-white', 'bg-gray-200 text-gray-600').replace('active', '');
+      });
+      btn.className = btn.className.replace('bg-gray-200 text-gray-600', 'bg-forest-700 text-white') + ' active';
+      
+      cards.forEach(card => {
+        const sub = (card as HTMLElement).dataset.subcategory;
+        if (filter === 'all' || sub === filter) {
+          (card as HTMLElement).style.display = '';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>

@@ -11,6 +11,19 @@ const { title, description, image, canonical, noindex = false } = Astro.props;
 const site = 'https://birdiereport.com';
 const defaultImage = '/images/birdie-report-og.jpg';
 const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
+
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/best/', label: 'Best Of' },
+  { href: '/reviews/', label: 'Reviews' },
+  { href: '/news/', label: 'News' },
+  { href: '/tips/', label: 'Tips' },
+  { href: '/deals/', label: 'Deals' },
+  { href: '/courses/', label: 'Courses' },
+  { href: '/versus/', label: 'Versus' },
+  { href: '/opinion/', label: 'Opinion' },
+];
 ---
 
 <!DOCTYPE html>
@@ -19,13 +32,11 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Basic SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -33,22 +44,18 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
     <meta property="og:image" content={new URL(image || defaultImage, site)} />
     <meta property="og:site_name" content="The Birdie Report" />
     
-    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(image || defaultImage, site)} />
     
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon.ico" />
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -56,71 +63,85 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
         "name": "The Birdie Report",
         "url": "https://birdiereport.com",
         "logo": "https://birdiereport.com/logo.png",
-        "description": "Golf equipment reviews, tips, and deals to help you improve your game and save money.",
-        "sameAs": [
-          "https://twitter.com/birdiereport",
-          "https://instagram.com/birdiereport"
-        ]
+        "description": "Golf equipment reviews, tips, and deals to help you improve your game and save money."
       }
     </script>
   </head>
   
-  <body class="h-full bg-white text-gray-900 font-sans antialiased">
+  <body class="h-full bg-white text-gray-900 font-body antialiased">
     <div class="min-h-full">
+      <!-- Top bar -->
+      <div class="bg-forest-900 text-white/80 text-xs py-1.5 hidden md:block">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+          <span>Honest reviews by a 2-handicap · No sponsored content</span>
+          <div class="flex items-center gap-4">
+            <a href="/about/" class="hover:text-gold-400 transition-colors">About</a>
+            <a href="/contact/" class="hover:text-gold-400 transition-colors">Contact</a>
+            <a href="/affiliate-disclosure/" class="hover:text-gold-400 transition-colors">Affiliate Disclosure</a>
+          </div>
+        </div>
+      </div>
+
       <!-- Header -->
-      <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+      <header class="bg-white border-b-2 border-forest-800 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between items-center h-16">
+          <div class="flex justify-between items-center h-16 lg:h-20">
             <!-- Logo -->
-            <div class="flex items-center">
-              <a href="/" class="text-2xl font-bold text-green-800 hover:text-green-700 transition-colors">
+            <a href="/" class="flex items-center gap-2 group">
+              <span class="text-2xl lg:text-3xl font-display font-black text-forest-800 tracking-tight group-hover:text-forest-600 transition-colors">
                 The Birdie Report
-              </a>
-            </div>
+              </span>
+            </a>
             
-            <!-- Navigation -->
-            <nav class="hidden lg:flex space-x-6">
-              <a href="/best/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Best Of</a>
-              <a href="/reviews/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Reviews</a>
-              <a href="/news/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">News</a>
-              <a href="/tips/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Tips</a>
-              <a href="/deals/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Deals</a>
-              <a href="/courses/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Course Guide</a>
-              <a href="/versus/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Versus</a>
-              <a href="/opinion/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Opinion</a>
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-1">
+              {navItems.map(item => (
+                <a 
+                  href={item.href} 
+                  class={`px-3 py-2 text-sm font-semibold uppercase tracking-wide transition-colors rounded ${
+                    currentPath.startsWith(item.href) 
+                      ? 'text-forest-800 bg-forest-50' 
+                      : 'text-gray-600 hover:text-forest-700 hover:bg-forest-50'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
             </nav>
             
             <!-- Mobile menu button -->
-            <div class="lg:hidden">
-              <button 
-                type="button" 
-                id="mobile-menu-btn"
-                class="text-gray-600 hover:text-green-700"
-                aria-expanded="false"
-                aria-controls="mobile-menu"
-              >
-                <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
+            <button 
+              type="button" 
+              id="mobile-menu-btn"
+              class="lg:hidden text-gray-600 hover:text-forest-700 p-2"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+            >
+              <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         </div>
 
         <!-- Mobile menu -->
         <nav id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 bg-white">
           <div class="px-4 py-3 space-y-1">
-            <a href="/best/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Best Of</a>
-            <a href="/reviews/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Reviews</a>
-            <a href="/news/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">News</a>
-            <a href="/tips/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Tips</a>
-            <a href="/deals/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Deals</a>
-            <a href="/courses/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Course Guide</a>
-            <a href="/versus/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Versus</a>
-            <a href="/opinion/" class="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-green-50 rounded-md font-medium">Opinion</a>
+            {navItems.map(item => (
+              <a 
+                href={item.href} 
+                class={`block px-3 py-2 text-sm font-semibold uppercase tracking-wide rounded-md ${
+                  currentPath.startsWith(item.href)
+                    ? 'text-forest-800 bg-forest-50'
+                    : 'text-gray-600 hover:text-forest-700 hover:bg-forest-50'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
         </nav>
       </header>
@@ -140,35 +161,34 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
         });
       </script>
 
-      <!-- Main content -->
       <main>
         <slot />
       </main>
 
       <!-- Footer -->
-      <footer class="bg-gray-50 border-t border-gray-200 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <footer class="bg-forest-900 text-white mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
             <!-- Brand -->
             <div class="col-span-1 md:col-span-2">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">The Birdie Report</h3>
-              <p class="text-gray-600 text-sm mb-4">
-                Honest golf equipment reviews, tips to improve your game, and the best deals on golf gear. 
-                No BS, just better golf.
+              <h3 class="text-2xl font-display font-bold text-white mb-4">The Birdie Report</h3>
+              <p class="text-white/70 text-sm mb-6 max-w-md">
+                Honest golf equipment reviews, tips to improve your game, and the best deals on gear. 
+                Written by Kyle Reierson, a 2-handicap who actually tests everything. No corporate BS.
               </p>
               
-              <!-- Newsletter Signup -->
+              <!-- Newsletter -->
               <div class="mb-6">
-                <h4 class="text-sm font-semibold text-gray-900 mb-2">Weekly Newsletter</h4>
-                <div class="flex max-w-md">
+                <h4 class="text-gold-400 text-sm font-semibold uppercase tracking-wide mb-3">Weekly Newsletter</h4>
+                <div class="flex max-w-sm">
                   <input 
                     type="email" 
-                    placeholder="Your email" 
-                    class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md text-sm focus:ring-green-500 focus:border-green-500"
+                    placeholder="your@email.com" 
+                    class="flex-1 px-3 py-2.5 bg-forest-800 border border-forest-700 rounded-l-md text-sm text-white placeholder-white/40 focus:ring-gold-500 focus:border-gold-500"
                   />
                   <button 
                     type="submit" 
-                    class="px-4 py-2 bg-green-700 text-white text-sm font-medium rounded-r-md hover:bg-green-800 transition-colors"
+                    class="px-5 py-2.5 bg-gold-500 text-forest-900 text-sm font-bold rounded-r-md hover:bg-gold-400 transition-colors"
                   >
                     Subscribe
                   </button>
@@ -178,33 +198,36 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
             
             <!-- Quick Links -->
             <div>
-              <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">Content</h3>
-              <ul class="space-y-2 text-sm text-gray-600">
-                <li><a href="/reviews/" class="hover:text-green-700">Equipment Reviews</a></li>
-                <li><a href="/tips/" class="hover:text-green-700">Golf Tips</a></li>
-                <li><a href="/deals/" class="hover:text-green-700">Best Deals</a></li>
-                <li><a href="/blog/" class="hover:text-green-700">Latest Posts</a></li>
+              <h3 class="text-gold-400 text-xs font-semibold uppercase tracking-wider mb-4">Content</h3>
+              <ul class="space-y-2.5 text-sm text-white/70">
+                <li><a href="/best/" class="hover:text-gold-400 transition-colors">Best Of Guides</a></li>
+                <li><a href="/reviews/" class="hover:text-gold-400 transition-colors">Equipment Reviews</a></li>
+                <li><a href="/tips/" class="hover:text-gold-400 transition-colors">Golf Tips</a></li>
+                <li><a href="/deals/" class="hover:text-gold-400 transition-colors">Deals & Savings</a></li>
+                <li><a href="/courses/" class="hover:text-gold-400 transition-colors">Course Guide</a></li>
               </ul>
             </div>
             
             <!-- Legal -->
             <div>
-              <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">Legal</h3>
-              <ul class="space-y-2 text-sm text-gray-600">
-                <li><a href="/affiliate-disclosure/" class="hover:text-green-700">Affiliate Disclosure</a></li>
-                <li><a href="/privacy/" class="hover:text-green-700">Privacy Policy</a></li>
-                <li><a href="/about/" class="hover:text-green-700">About Us</a></li>
-                <li><a href="/contact/" class="hover:text-green-700">Contact</a></li>
+              <h3 class="text-gold-400 text-xs font-semibold uppercase tracking-wider mb-4">Info</h3>
+              <ul class="space-y-2.5 text-sm text-white/70">
+                <li><a href="/about/" class="hover:text-gold-400 transition-colors">About</a></li>
+                <li><a href="/contact/" class="hover:text-gold-400 transition-colors">Contact</a></li>
+                <li><a href="/affiliate-disclosure/" class="hover:text-gold-400 transition-colors">Affiliate Disclosure</a></li>
+                <li><a href="/privacy/" class="hover:text-gold-400 transition-colors">Privacy Policy</a></li>
               </ul>
             </div>
           </div>
           
-          <!-- Bottom bar -->
-          <div class="border-t border-gray-200 pt-6 mt-8 flex flex-col sm:flex-row justify-between items-center">
-            <p class="text-sm text-gray-500">
+          <!-- Bottom -->
+          <div class="border-t border-forest-700 pt-8 mt-12 flex flex-col sm:flex-row justify-between items-center">
+            <p class="text-sm text-white/50">
               © 2026 The Birdie Report. All rights reserved.
             </p>
-            <!-- Social links will be added when accounts are created -->
+            <p class="text-xs text-white/40 mt-2 sm:mt-0">
+              As an Amazon Associate and affiliate partner, we earn from qualifying purchases.
+            </p>
           </div>
         </div>
       </footer>
