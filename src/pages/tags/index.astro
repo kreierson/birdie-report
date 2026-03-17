@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog').catch(() => []);
+
+// Build tag counts
+const tagMap = new Map();
+allPosts.forEach(post => {
+  (post.data.tags || []).forEach(tag => {
+    const normalized = tag.toLowerCase().trim();
+    tagMap.set(normalized, (tagMap.get(normalized) || 0) + 1);
+  });
+});
+
+const tags = [...tagMap.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .map(([tag, count]) => ({ tag, count, slug: tag.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') }));
+---
+
+<BaseLayout
+  title="Browse by Tag | The Birdie Report"
+  description="Browse all golf articles by topic tag."
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Browse by Tag</h1>
+      <p class="text-xl text-gray-600">Find articles on the topics you care about.</p>
+    </div>
+
+    <div class="flex flex-wrap gap-3 justify-center">
+      {tags.map(({ tag, count, slug }) => (
+        <a 
+          href={`/tags/${slug}/`}
+          class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full hover:border-green-500 hover:bg-green-50 transition-all group"
+        >
+          <span class="text-gray-800 group-hover:text-green-700 font-medium">{tag}</span>
+          <span class="ml-2 text-xs text-gray-400 group-hover:text-green-500">({count})</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -202,9 +202,12 @@ const schemaMarkup = {
           <div class="mt-10 pt-6 border-t border-gray-200">
             <div class="flex flex-wrap gap-2">
               {tags.map((tag: string) => (
-                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full hover:bg-gray-200 transition-colors">
+                <a 
+                  href={`/tags/${tag.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}/`}
+                  class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full hover:bg-green-50 hover:text-green-700 transition-colors"
+                >
                   #{tag}
-                </span>
+                </a>
               ))}
             </div>
           </div>

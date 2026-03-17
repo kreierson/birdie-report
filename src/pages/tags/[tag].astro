@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog').catch(() => []);
+  
+  // Collect all unique tags
+  const tagSet = new Set();
+  allPosts.forEach(post => {
+    (post.data.tags || []).forEach(tag => {
+      tagSet.add(tag.toLowerCase().trim());
+    });
+  });
+
+  return [...tagSet].map(tag => ({
+    params: { tag: tag.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') },
+    props: { tagName: tag }
+  }));
+}
+
+const { tagName } = Astro.props;
+const allPosts = await getCollection('blog').catch(() => []);
+
+const posts = allPosts
+  .filter(post => 
+    (post.data.tags || []).some(t => t.toLowerCase().trim() === tagName)
+  )
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout
+  title={`${tagName} Articles | The Birdie Report`}
+  description={`All articles tagged "${tagName}" on The Birdie Report.`}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <a href="/tags/" class="text-green-700 hover:text-green-800 text-sm font-medium">← All Tags</a>
+    </div>
+
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">
+        <span class="text-green-700">#</span>{tagName}
+      </h1>
+      <p class="text-gray-600">{posts.length} article{posts.length !== 1 ? 's' : ''}</p>
+    </div>
+
+    {posts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map(post => (
+          <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+            <a href={`/blog/${post.slug}/`}>
+              <img 
+                src={post.data.featured_image} 
+                alt={post.data.title}
+                class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </a>
+            <div class="p-6">
+              <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium capitalize">
+                  {post.data.category}
+                </span>
+                <time>{new Date(post.data.date).toLocaleDateString()}</time>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                  {post.data.title}
+                </a>
+              </h3>
+              <p class="text-gray-600 text-sm line-clamp-3 mb-3">{post.data.description}</p>
+              <div class="flex flex-wrap gap-1">
+                {(post.data.tags || []).slice(0, 4).map(tag => (
+                  <a 
+                    href={`/tags/${tag.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}/`}
+                    class="text-xs text-gray-500 hover:text-green-700 bg-gray-100 hover:bg-green-50 px-2 py-0.5 rounded transition-colors"
+                  >
+                    #{tag}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p class="text-center text-gray-500">No articles found with this tag.</p>
+    )}
+  </div>
+</BaseLayout>
