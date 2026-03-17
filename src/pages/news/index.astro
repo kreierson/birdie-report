@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog').catch(() => []);
+const newsPosts = allPosts
+  .filter(post => post.data.category === 'news')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const newsCategories = [
+  {
+    name: 'PGA Tour',
+    slug: 'pga-tour',
+    description: 'Tournament coverage, player news, and Tour updates',
+    icon: '🏆',
+    color: 'bg-blue-100 text-blue-800'
+  },
+  {
+    name: 'LIV Golf',
+    slug: 'liv-golf', 
+    description: 'LIV tour news, player moves, and league developments',
+    icon: '⚡',
+    color: 'bg-green-100 text-green-800'
+  },
+  {
+    name: 'Equipment Launches',
+    slug: 'equipment-news',
+    description: 'New club releases, tech innovations, and gear announcements',
+    icon: '🚀',
+    color: 'bg-purple-100 text-purple-800'
+  },
+  {
+    name: 'Rule Changes',
+    slug: 'rule-changes',
+    description: 'USGA updates, rule clarifications, and regulatory news',
+    icon: '📋',
+    color: 'bg-orange-100 text-orange-800'
+  },
+  {
+    name: 'Golf Business',
+    slug: 'business',
+    description: 'Course closures, industry mergers, and golf business news',
+    icon: '💼',
+    color: 'bg-indigo-100 text-indigo-800'
+  },
+  {
+    name: 'Amateur Golf',
+    slug: 'amateur',
+    description: 'College golf, amateur tournaments, and junior golf news',
+    icon: '🎓',
+    color: 'bg-teal-100 text-teal-800'
+  }
+];
+
+// Mock trending topics (would be dynamic in real implementation)
+const trendingTopics = [
+  "Tiger Woods Masters Status",
+  "Rory McIlroy Equipment Change", 
+  "PGA Championship Odds",
+  "LIV Golf Merger Update",
+  "New TaylorMade Driver Launch",
+  "USGA Distance Rules"
+];
+
+// Mock breaking news (would be dynamic)
+const breakingNews = [
+  {
+    title: "BREAKING: Tiger Woods Confirms Masters Participation",
+    time: "2 hours ago",
+    excerpt: "The 15-time major champion will play at Augusta National for the first time since..."
+  },
+  {
+    title: "TaylorMade Announces Revolutionary Qi35 Driver Series",
+    time: "4 hours ago",
+    excerpt: "New infinity carbon technology promises 15+ yards for most golfers..."
+  }
+];
+---
+
+<BaseLayout 
+  title="Golf News - PGA Tour, Equipment, Rules | The Birdie Report"
+  description="Latest golf news covering PGA Tour, LIV Golf, equipment launches, rule changes, and everything happening in the golf world."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        Golf News & Updates
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Stay up to date with everything happening in golf. From tour coverage to equipment launches, 
+        we cover the stories that matter to real golfers.
+      </p>
+    </div>
+
+    <!-- Breaking News Banner -->
+    {breakingNews.length > 0 && (
+      <section class="mb-12">
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+          <div class="flex items-center mb-4">
+            <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wide animate-pulse">
+              Breaking News
+            </span>
+          </div>
+          <div class="space-y-3">
+            {breakingNews.map(news => (
+              <div class="border-b border-red-200 last:border-b-0 pb-3 last:pb-0">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 mb-1">{news.title}</h3>
+                    <p class="text-gray-600 text-sm">{news.excerpt}</p>
+                  </div>
+                  <span class="text-xs text-gray-500 whitespace-nowrap ml-4">{news.time}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Trending Topics -->
+    <section class="mb-12">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">🔥 Trending Now</h2>
+      <div class="flex flex-wrap gap-2">
+        {trendingTopics.map(topic => (
+          <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-green-100 hover:text-green-800 transition-colors cursor-pointer">
+            #{topic.replace(/\s+/g, '')}
+          </span>
+        ))}
+      </div>
+    </section>
+
+    <!-- News Categories -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">Browse by Topic</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {newsCategories.map(category => (
+          <a 
+            href={`/news/${category.slug}/`}
+            class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all hover:border-green-300"
+          >
+            <div class="flex items-start mb-4">
+              <div class="text-2xl mr-3">{category.icon}</div>
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-lg font-semibold text-gray-900 group-hover:text-green-700">
+                    {category.name}
+                  </h3>
+                  <span class={`px-2 py-1 text-xs font-medium rounded ${category.color}`}>
+                    NEWS
+                  </span>
+                </div>
+                <p class="text-gray-600 text-sm">{category.description}</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center text-green-700 text-sm font-medium">
+              View {category.name} News
+              <svg class="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Latest News Articles -->
+    {newsPosts.length > 0 && (
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8">Latest News</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {newsPosts.map(post => (
+            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+              <a href={`/blog/${post.slug}/`}>
+                <img 
+                  src={post.data.featured_image} 
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </a>
+              
+              <div class="p-6">
+                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                  <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-medium">
+                    NEWS
+                  </span>
+                  <time>{new Date(post.data.date).toLocaleDateString()}</time>
+                  <span>•</span>
+                  <span>2 min read</span>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                  <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                
+                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                  {post.data.description}
+                </p>
+                
+                <a 
+                  href={`/blog/${post.slug}/`}
+                  class="inline-flex items-center text-green-700 font-medium hover:text-green-800 transition-colors"
+                >
+                  Read Article
+                  <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- News Sources -->
+    <section class="bg-gray-50 rounded-lg p-8 text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">
+        Our News Philosophy
+      </h2>
+      <p class="text-lg text-gray-700 mb-6 max-w-3xl mx-auto">
+        We don't just regurgitate press releases. Our news coverage focuses on what actually 
+        matters to regular golfers—not just insider industry drama.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div>
+          <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-green-800 font-bold text-lg">🎯</span>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-sm mb-2">Relevant to You</h3>
+          <p class="text-gray-600 text-xs">Focus on news that impacts actual golfers, not just industry insiders</p>
+        </div>
+        
+        <div>
+          <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-green-800 font-bold text-lg">⚡</span>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-sm mb-2">Fast Updates</h3>
+          <p class="text-gray-600 text-xs">Breaking news when it happens, analysis when it matters</p>
+        </div>
+        
+        <div>
+          <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-green-800 font-bold text-lg">🗣️</span>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-sm mb-2">Real Opinions</h3>
+          <p class="text-gray-600 text-xs">Hot takes and honest analysis, not corporate-speak</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

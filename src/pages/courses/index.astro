@@ -1,0 +1,331 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog').catch(() => []);
+const coursePosts = allPosts
+  .filter(post => post.data.category === 'courses')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Featured course guides (would be dynamic in real implementation)
+const featuredGuides = [
+  {
+    title: "Best Public Courses in Texas",
+    subtitle: "From Austin to Houston",
+    description: "20+ public courses tested across the Lone Star State. Find hidden gems and avoid the overpriced disappointments.",
+    image: "/images/courses/texas-public-courses.jpg",
+    slug: "best-public-courses-texas",
+    rating: 4.8,
+    courses_count: 23
+  },
+  {
+    title: "Myrtle Beach Golf Guide 2026",
+    subtitle: "Complete Planning Guide", 
+    description: "Everything you need for the perfect Myrtle Beach golf trip - courses, hotels, restaurants, and insider tips.",
+    image: "/images/courses/myrtle-beach-guide.jpg",
+    slug: "myrtle-beach-golf-guide-2026",
+    rating: 4.9,
+    courses_count: 15
+  },
+  {
+    title: "Scotland Golf Trip Planning",
+    subtitle: "Links Golf Made Simple",
+    description: "Play the Old Course and other Scottish gems without breaking the bank. Complete trip planning guide.",
+    image: "/images/courses/scotland-golf-trip.jpg",
+    slug: "scotland-golf-trip-planning",
+    rating: 4.7,
+    courses_count: 12
+  }
+];
+
+const guideCategories = [
+  {
+    name: "Public Course Reviews",
+    icon: "🏌️",
+    description: "Honest reviews of public courses across the country",
+    count: 150,
+    color: "bg-green-100 text-green-800"
+  },
+  {
+    name: "Golf Destinations",
+    icon: "✈️", 
+    description: "Complete travel guides for golf destinations worldwide",
+    count: 25,
+    color: "bg-blue-100 text-blue-800"
+  },
+  {
+    name: "State Course Guides",
+    icon: "📍",
+    description: "Best courses organized by state and region",
+    count: 50,
+    color: "bg-purple-100 text-purple-800"
+  },
+  {
+    name: "Resort Reviews",
+    icon: "🏨",
+    description: "Golf resort reviews with insider tips and honest assessments",
+    count: 35,
+    color: "bg-orange-100 text-orange-800"
+  },
+  {
+    name: "Trip Planning",
+    icon: "📋",
+    description: "How to plan the perfect golf trip on any budget",
+    count: 12,
+    color: "bg-indigo-100 text-indigo-800"
+  },
+  {
+    name: "Hidden Gems",
+    icon: "💎",
+    description: "Underrated courses that offer great value and experiences",
+    count: 40,
+    color: "bg-teal-100 text-teal-800"
+  }
+];
+
+// Popular destinations (would be dynamic)
+const popularDestinations = [
+  { name: "Myrtle Beach", courses: 15, image: "/images/destinations/myrtle-beach.jpg" },
+  { name: "Scottsdale", courses: 12, image: "/images/destinations/scottsdale.jpg" },
+  { name: "Pinehurst", courses: 8, image: "/images/destinations/pinehurst.jpg" },
+  { name: "Kiawah Island", courses: 6, image: "/images/destinations/kiawah.jpg" },
+  { name: "Pebble Beach", courses: 4, image: "/images/destinations/pebble-beach.jpg" },
+  { name: "Scotland", courses: 20, image: "/images/destinations/scotland.jpg" }
+];
+---
+
+<BaseLayout 
+  title="Golf Course Reviews & Travel Guides | The Birdie Report"
+  description="Honest golf course reviews and comprehensive travel guides. Find the best public courses, hidden gems, and plan unforgettable golf trips."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        Course Reviews & Travel Guides
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Honest golf course reviews and comprehensive travel guides from a guy who's played 
+        over 200 courses. Find hidden gems and avoid tourist traps.
+      </p>
+    </div>
+
+    <!-- Featured Travel Guides -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">🏆 Featured Travel Guides</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        {featuredGuides.map(guide => (
+          <article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow border-2 border-green-200">
+            <div class="aspect-video w-full relative overflow-hidden">
+              <div class="absolute top-4 left-4 z-10">
+                <span class="bg-green-600 text-white text-sm font-bold px-3 py-1 rounded-full">
+                  ⭐ {guide.rating}
+                </span>
+              </div>
+              <div class="absolute top-4 right-4 z-10">
+                <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
+                  {guide.courses_count} COURSES
+                </span>
+              </div>
+              <img 
+                src={guide.image} 
+                alt={guide.title}
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            
+            <div class="p-6">
+              <div class="mb-3">
+                <span class="text-sm font-medium text-blue-600 uppercase tracking-wide">
+                  {guide.subtitle}
+                </span>
+              </div>
+              
+              <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                <a href={`/blog/${guide.slug}/`} class="hover:text-green-700 transition-colors">
+                  {guide.title}
+                </a>
+              </h3>
+              
+              <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                {guide.description}
+              </p>
+              
+              <a 
+                href={`/blog/${guide.slug}/`}
+                class="inline-flex items-center text-green-700 font-semibold hover:text-green-800 transition-colors"
+              >
+                Read Guide
+                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">🌟 Popular Golf Destinations</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {popularDestinations.map(destination => (
+          <a 
+            href={`/courses/${destination.name.toLowerCase().replace(/\s+/g, '-')}/`}
+            class="group relative overflow-hidden rounded-lg aspect-square"
+          >
+            <img 
+              src={destination.image} 
+              alt={destination.name}
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-all">
+              <div class="absolute bottom-2 left-2 right-2 text-white">
+                <h3 class="font-semibold text-sm mb-1">{destination.name}</h3>
+                <p class="text-xs opacity-90">{destination.courses} courses reviewed</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Course Guide Categories -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">Browse Course Content</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {guideCategories.map(category => (
+          <a 
+            href={`/courses/${category.name.toLowerCase().replace(/\s+/g, '-')}/`}
+            class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all hover:border-green-300"
+          >
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-start">
+                <div class="text-3xl mr-4">{category.icon}</div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 group-hover:text-green-700 mb-2">
+                    {category.name}
+                  </h3>
+                  <p class="text-gray-600 text-sm">{category.description}</p>
+                </div>
+              </div>
+              <span class={`text-xs font-bold px-2 py-1 rounded ${category.color}`}>
+                {category.count}
+              </span>
+            </div>
+            
+            <div class="flex items-center text-green-700 text-sm font-medium">
+              Explore {category.name}
+              <svg class="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Latest Course Content -->
+    {coursePosts.length > 0 && (
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8">Latest Course Content</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {coursePosts.map(post => (
+            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+              <a href={`/blog/${post.slug}/`}>
+                <img 
+                  src={post.data.featured_image} 
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </a>
+              
+              <div class="p-6">
+                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                    COURSE GUIDE
+                  </span>
+                  <time>{new Date(post.data.date).toLocaleDateString()}</time>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                  <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                
+                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                  {post.data.description}
+                </p>
+                
+                <a 
+                  href={`/blog/${post.slug}/`}
+                  class="inline-flex items-center text-green-700 font-medium hover:text-green-800 transition-colors"
+                >
+                  Read Guide
+                  <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Course Review Philosophy -->
+    <section class="bg-green-50 rounded-lg p-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">🏌️ Our Course Review Philosophy</h2>
+        <p class="text-lg text-gray-700 mb-8">
+          We review courses from the perspective of regular golfers, not golf architecture experts. 
+          What matters is whether you'll have a good time and feel like you got your money's worth.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">💰</span>
+            </div>
+            <h3 class="font-semibold text-gray-900 text-sm mb-2">Value Matters</h3>
+            <p class="text-gray-600 text-xs">Price vs experience - we factor cost into every review</p>
+          </div>
+          
+          <div>
+            <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🏌️</span>
+            </div>
+            <h3 class="font-semibold text-gray-900 text-sm mb-2">Playability First</h3>
+            <p class="text-gray-600 text-xs">Course condition and fairness matter more than prestige</p>
+          </div>
+          
+          <div>
+            <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🎯</span>
+            </div>
+            <h3 class="font-semibold text-gray-900 text-sm mb-2">Real Golfer Perspective</h3>
+            <p class="text-gray-600 text-xs">Reviews from mid-handicappers, not scratch players</p>
+          </div>
+          
+          <div>
+            <div class="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">📍</span>
+            </div>
+            <h3 class="font-semibold text-gray-900 text-sm mb-2">Practical Info</h3>
+            <p class="text-gray-600 text-xs">Booking tips, pace of play, and what to expect</p>
+          </div>
+        </div>
+
+        <div class="mt-8 bg-white rounded-lg p-6 border border-green-200">
+          <h3 class="font-semibold text-gray-900 mb-2">What We Look For</h3>
+          <p class="text-gray-700 text-sm">
+            Course condition, value for money, pace of play, staff friendliness, and overall experience. 
+            We're not architecture snobs—we just want to know if you'll enjoy your round.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
