@@ -1,0 +1,334 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog').catch(() => []);
+const dealPosts = allPosts
+  .filter(post => post.data.category === 'deals')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Featured deals (would be dynamic in real implementation)
+const featuredDeals = [
+  {
+    product: "Callaway Rogue ST Max Driver",
+    originalPrice: "$549",
+    salePrice: "$349",
+    discount: "36%",
+    retailer: "Rock Bottom Golf",
+    affiliate_url: "#",
+    image: "/images/deals/callaway-rogue-driver.jpg",
+    expires: "2026-03-20"
+  },
+  {
+    product: "TaylorMade SIM2 Irons (4-PW)",
+    originalPrice: "$899",
+    salePrice: "$599",
+    discount: "33%",
+    retailer: "2nd Swing",
+    affiliate_url: "#",
+    image: "/images/deals/taylormade-sim2-irons.jpg",
+    expires: "2026-03-18"
+  },
+  {
+    product: "Titleist Pro V1 Golf Balls (Dozen)",
+    originalPrice: "$54.99",
+    salePrice: "$39.99",
+    discount: "27%",
+    retailer: "Golf Galaxy",
+    affiliate_url: "#",
+    image: "/images/deals/titleist-prov1.jpg",
+    expires: "2026-03-25"
+  }
+];
+---
+
+<BaseLayout 
+  title="Golf Deals & Discounts - Best Prices on Golf Equipment | The Birdie Report"
+  description="Find the best deals on golf equipment. Drivers, irons, putters, balls, and accessories at unbeatable prices. Updated daily with verified discounts."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        Golf Deals & Discounts
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        The best deals on golf equipment, updated daily. We hunt down real discounts 
+        so you can upgrade your game without breaking the bank.
+      </p>
+    </div>
+
+    <!-- Deal Alert Banner -->
+    <div class="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg p-6 mb-12">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold mb-2">🚨 Deal Alert!</h2>
+          <p class="text-red-100">
+            Get notified instantly when we find amazing golf deals. Never miss out again.
+          </p>
+        </div>
+        <div class="hidden sm:block">
+          <button class="bg-white text-red-600 font-semibold px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+            Set Deal Alerts
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Deals -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">🔥 Hot Deals This Week</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {featuredDeals.map(deal => (
+          <div class="bg-white rounded-lg border-2 border-red-200 shadow-lg overflow-hidden relative">
+            <!-- Discount Badge -->
+            <div class="absolute top-4 left-4 z-10">
+              <span class="bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+                {deal.discount} OFF
+              </span>
+            </div>
+            
+            <!-- Product Image -->
+            <div class="aspect-square w-full bg-gray-50 relative overflow-hidden">
+              <img 
+                src={deal.image} 
+                alt={deal.product}
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            
+            <!-- Deal Info -->
+            <div class="p-6">
+              <h3 class="font-semibold text-lg text-gray-900 mb-3 line-clamp-2">
+                {deal.product}
+              </h3>
+              
+              <!-- Pricing -->
+              <div class="mb-4">
+                <div class="flex items-center space-x-2">
+                  <span class="text-2xl font-bold text-red-600">{deal.salePrice}</span>
+                  <span class="text-lg text-gray-500 line-through">{deal.originalPrice}</span>
+                </div>
+                <p class="text-sm text-gray-600">at {deal.retailer}</p>
+              </div>
+              
+              <!-- Expiration -->
+              <div class="mb-4 flex items-center text-sm text-gray-500">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Expires: {new Date(deal.expires).toLocaleDateString()}
+              </div>
+              
+              <!-- CTA Button -->
+              <a 
+                href={deal.affiliate_url}
+                target="_blank"
+                rel="nofollow sponsored"
+                class="w-full inline-flex items-center justify-center px-4 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
+              >
+                Shop Deal
+                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Deal Categories -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">Shop by Category</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/deals/drivers/" class="group bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-all hover:border-green-300">
+          <div class="text-3xl mb-2">🏌️‍♂️</div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-green-700">Drivers</h3>
+        </a>
+        
+        <a href="/deals/irons/" class="group bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-all hover:border-green-300">
+          <div class="text-3xl mb-2">🏌️</div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-green-700">Irons</h3>
+        </a>
+        
+        <a href="/deals/putters/" class="group bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-all hover:border-green-300">
+          <div class="text-3xl mb-2">⛳</div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-green-700">Putters</h3>
+        </a>
+        
+        <a href="/deals/balls/" class="group bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-all hover:border-green-300">
+          <div class="text-3xl mb-2">⚪</div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-green-700">Balls</h3>
+        </a>
+        
+        <a href="/deals/wedges/" class="group bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-all hover:border-green-300">
+          <div class="text-3xl mb-2">⛳</div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-green-700">Wedges</h3>
+        </a>
+        
+        <a href="/deals/rangefinders/" class="group bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-all hover:border-green-300">
+          <div class="text-3xl mb-2">🎯</div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-green-700">Rangefinders</h3>
+        </a>
+        
+        <a href="/deals/bags/" class="group bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-all hover:border-green-300">
+          <div class="text-3xl mb-2">🎒</div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-green-700">Bags</h3>
+        </a>
+        
+        <a href="/deals/apparel/" class="group bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-lg transition-all hover:border-green-300">
+          <div class="text-3xl mb-2">👕</div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-green-700">Apparel</h3>
+        </a>
+      </div>
+    </div>
+
+    <!-- Deal Tips -->
+    <div class="mb-16">
+      <div class="bg-green-50 rounded-lg p-8">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Smart Shopping Tips</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">💡</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">End of Season Sales</h3>
+                  <p class="text-gray-700 text-sm">Best deals happen in November-January when retailers clear inventory for new models.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">🔄</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Consider Previous Models</h3>
+                  <p class="text-gray-700 text-sm">Last year's clubs are often 90% as good at 50% the price. Technology doesn't change that fast.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">🛍️</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Stack Discounts</h3>
+                  <p class="text-gray-700 text-sm">Combine manufacturer rebates, store sales, and credit card cashback for maximum savings.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">✅</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Check Return Policies</h3>
+                  <p class="text-gray-700 text-sm">Make sure you can return or exchange if the equipment doesn't work for your game.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">📦</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Buy in Bundles</h3>
+                  <p class="text-gray-700 text-sm">Iron sets, complete club sets, or accessories bundles often offer better per-item pricing.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">⏰</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Set Price Alerts</h3>
+                  <p class="text-gray-700 text-sm">Use price tracking tools to monitor equipment you want and buy when it hits your target price.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Latest Deal Posts -->
+    {dealPosts.length > 0 && (
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8">Latest Deal Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {dealPosts.map(post => (
+            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+              <a href={`/blog/${post.slug}/`}>
+                <img 
+                  src={post.data.featured_image} 
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </a>
+              
+              <div class="p-6">
+                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                  <span class="px-2 py-1 bg-orange-100 text-orange-700 rounded text-xs font-medium">
+                    {post.data.category}
+                  </span>
+                  <time>{new Date(post.data.date).toLocaleDateString()}</time>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                  <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                
+                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                  {post.data.description}
+                </p>
+                
+                <a 
+                  href={`/blog/${post.slug}/`}
+                  class="inline-flex items-center text-green-700 font-medium hover:text-green-800 transition-colors"
+                >
+                  View Deals
+                  <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Subscribe for Deals -->
+    <div class="text-center bg-gradient-to-r from-green-700 to-green-800 text-white rounded-lg p-8">
+      <h2 class="text-2xl font-bold mb-4">Never Miss a Deal</h2>
+      <p class="text-green-100 mb-6">
+        Get our weekly deals roundup with the best discounts on golf equipment, 
+        plus exclusive subscriber-only deals.
+      </p>
+      <div class="max-w-md mx-auto flex">
+        <input 
+          type="email" 
+          placeholder="Your email" 
+          class="flex-1 px-4 py-3 text-gray-900 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-300"
+        />
+        <button 
+          type="submit" 
+          class="px-6 py-3 bg-white text-green-700 font-semibold rounded-r-lg hover:bg-gray-100 transition-colors"
+        >
+          Subscribe
+        </button>
+      </div>
+      <p class="text-green-200 text-sm mt-2">Weekly deals + exclusive discounts. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</BaseLayout>

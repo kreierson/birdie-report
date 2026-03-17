@@ -1,0 +1,103 @@
+---
+export interface Props {
+  variant?: 'inline' | 'card' | 'hero';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { variant = 'card', size = 'md' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg'
+};
+
+const isCard = variant === 'card';
+const isHero = variant === 'hero';
+---
+
+<div class={`${isCard ? 'bg-green-50 border border-green-200 rounded-lg p-6' : ''} ${isHero ? 'bg-gradient-to-r from-green-700 to-green-800 text-white rounded-xl p-8' : ''}`}>
+  <div class="text-center">
+    <h3 class={`font-semibold mb-2 ${isHero ? 'text-white text-xl' : 'text-gray-900'} ${sizeClasses[size]}`}>
+      {isHero ? 'Get the Weekly Birdie Report' : 'Weekly Golf Newsletter'}
+    </h3>
+    <p class={`mb-4 ${isHero ? 'text-green-100' : 'text-gray-600'} ${size === 'sm' ? 'text-xs' : 'text-sm'}`}>
+      Equipment reviews, tips to lower your scores, and exclusive deals delivered every Tuesday.
+    </p>
+    
+    <form class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto" action="#" method="POST">
+      <input 
+        type="email" 
+        name="email"
+        placeholder="your@email.com" 
+        required
+        class={`flex-1 px-3 py-2 border rounded-md text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+          isHero ? 'border-green-600 bg-white' : 'border-gray-300'
+        } ${size === 'sm' ? 'text-sm' : 'text-base'}`}
+      />
+      <button 
+        type="submit" 
+        class={`px-4 py-2 font-medium rounded-md transition-colors ${
+          isHero 
+            ? 'bg-white text-green-700 hover:bg-gray-100' 
+            : 'bg-green-700 text-white hover:bg-green-800'
+        } ${size === 'sm' ? 'text-sm' : 'text-base'}`}
+      >
+        Subscribe
+      </button>
+    </form>
+    
+    <p class={`mt-2 ${isHero ? 'text-green-200' : 'text-gray-500'} ${size === 'sm' ? 'text-xs' : 'text-xs'}`}>
+      No spam. Unsubscribe anytime. 100% free.
+    </p>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const forms = document.querySelectorAll('form[action="#"]');
+  
+  forms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = form.querySelector('input[type="email"]').value;
+      const button = form.querySelector('button[type="submit"]');
+      
+      // Basic email validation
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+      
+      // Disable button and show loading state
+      const originalText = button.textContent;
+      button.textContent = 'Subscribing...';
+      button.disabled = true;
+      
+      // Simulate API call (replace with your actual newsletter service)
+      setTimeout(() => {
+        button.textContent = 'Subscribed!';
+        button.className = button.className.replace('bg-green-700', 'bg-gray-400').replace('bg-white', 'bg-gray-100');
+        form.querySelector('input[type="email"]').value = '';
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.disabled = false;
+          button.className = button.className.replace('bg-gray-400', 'bg-green-700').replace('bg-gray-100', 'bg-white');
+        }, 3000);
+        
+        // Track newsletter signup
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'newsletter_signup', {
+            'email': email
+          });
+        }
+        
+        console.log('Newsletter signup:', email);
+      }, 1500);
+    });
+  });
+});
+</script>

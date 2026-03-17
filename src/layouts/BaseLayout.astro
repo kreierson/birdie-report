@@ -1,0 +1,188 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const { title, description, image, canonical, noindex = false } = Astro.props;
+const site = 'https://birdiereport.com';
+const defaultImage = '/images/birdie-report-og.jpg';
+const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
+---
+
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Basic SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL(image || defaultImage, site)} />
+    <meta property="og:site_name" content="The Birdie Report" />
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image || defaultImage, site)} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "The Birdie Report",
+        "url": "https://birdiereport.com",
+        "logo": "https://birdiereport.com/logo.png",
+        "description": "Golf equipment reviews, tips, and deals to help you improve your game and save money.",
+        "sameAs": [
+          "https://twitter.com/birdiereport",
+          "https://instagram.com/birdiereport"
+        ]
+      }
+    </script>
+  </head>
+  
+  <body class="h-full bg-white text-gray-900 font-sans antialiased">
+    <div class="min-h-full">
+      <!-- Header -->
+      <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+              <a href="/" class="text-2xl font-bold text-green-800 hover:text-green-700 transition-colors">
+                The Birdie Report
+              </a>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="hidden lg:flex space-x-6">
+              <a href="/best/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Best Of</a>
+              <a href="/reviews/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Reviews</a>
+              <a href="/news/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">News</a>
+              <a href="/tips/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Tips</a>
+              <a href="/deals/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Deals</a>
+              <a href="/courses/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Course Guide</a>
+              <a href="/versus/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Versus</a>
+              <a href="/opinion/" class="text-gray-600 hover:text-green-700 font-medium transition-colors">Opinion</a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+              <button type="button" class="text-gray-600 hover:text-green-700">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main>
+        <slot />
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-gray-50 border-t border-gray-200 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Brand -->
+            <div class="col-span-1 md:col-span-2">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">The Birdie Report</h3>
+              <p class="text-gray-600 text-sm mb-4">
+                Honest golf equipment reviews, tips to improve your game, and the best deals on golf gear. 
+                No BS, just better golf.
+              </p>
+              
+              <!-- Newsletter Signup -->
+              <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-900 mb-2">Weekly Newsletter</h4>
+                <div class="flex max-w-md">
+                  <input 
+                    type="email" 
+                    placeholder="Your email" 
+                    class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md text-sm focus:ring-green-500 focus:border-green-500"
+                  />
+                  <button 
+                    type="submit" 
+                    class="px-4 py-2 bg-green-700 text-white text-sm font-medium rounded-r-md hover:bg-green-800 transition-colors"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">Content</h3>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li><a href="/reviews/" class="hover:text-green-700">Equipment Reviews</a></li>
+                <li><a href="/tips/" class="hover:text-green-700">Golf Tips</a></li>
+                <li><a href="/deals/" class="hover:text-green-700">Best Deals</a></li>
+                <li><a href="/blog/" class="hover:text-green-700">Latest Posts</a></li>
+              </ul>
+            </div>
+            
+            <!-- Legal -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">Legal</h3>
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li><a href="/affiliate-disclosure/" class="hover:text-green-700">Affiliate Disclosure</a></li>
+                <li><a href="/privacy/" class="hover:text-green-700">Privacy Policy</a></li>
+                <li><a href="/about/" class="hover:text-green-700">About Us</a></li>
+                <li><a href="/contact/" class="hover:text-green-700">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Bottom bar -->
+          <div class="border-t border-gray-200 pt-6 mt-8 flex flex-col sm:flex-row justify-between items-center">
+            <p class="text-sm text-gray-500">
+              © 2026 The Birdie Report. All rights reserved.
+            </p>
+            <div class="flex space-x-6 mt-4 sm:mt-0">
+              <a href="#" class="text-gray-400 hover:text-green-600">
+                <span class="sr-only">Twitter</span>
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"></path>
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-green-600">
+                <span class="sr-only">Instagram</span>
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.017 0C14.226 0 16.009 1.786 16.009 4.007v7.986C16.009 14.218 14.226 16 12.017 16H4.003A4.003 4.003 0 010 11.993V4.007C0 1.786 1.786 0 4.003 0h8.014zM8.007 4.002A4.003 4.003 0 004.002 8.007a4.003 4.003 0 004.005 4.005A4.003 4.003 0 0012.012 8.007a4.003 4.003 0 00-4.005-4.005zM8.007 6.001A2.002 2.002 0 0110.01 8.007a2.002 2.002 0 01-2.003 2.005A2.002 2.002 0 016.001 8.007a2.002 2.002 0 012.006-2.006zM12.017 3.001a1.001 1.001 0 100 2.002 1.001 1.001 0 000-2.002z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

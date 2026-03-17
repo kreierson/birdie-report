@@ -1,0 +1,237 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog').catch(() => []);
+const tipPosts = allPosts
+  .filter(post => post.data.category === 'tips')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const tipCategories = [
+  { 
+    name: 'Putting', 
+    icon: '🏌️‍♂️', 
+    description: 'Improve your putting stroke and green reading',
+    topics: ['Alignment drills', 'Distance control', 'Reading greens', 'Mental game']
+  },
+  { 
+    name: 'Short Game', 
+    icon: '⛳', 
+    description: 'Chipping, pitching, and bunker play',
+    topics: ['Club selection', 'Shot techniques', 'Practice drills', 'Course management']
+  },
+  { 
+    name: 'Swing Basics', 
+    icon: '🏌️', 
+    description: 'Fundamental swing mechanics',
+    topics: ['Setup position', 'Grip', 'Takeaway', 'Impact position']
+  },
+  { 
+    name: 'Course Strategy', 
+    icon: '🗺️', 
+    description: 'Playing smarter, not just harder',
+    topics: ['Tee shot strategy', 'Pin hunting', 'Risk vs reward', 'Mental approach']
+  },
+  { 
+    name: 'Practice Tips', 
+    icon: '🎯', 
+    description: 'Make your practice time more effective',
+    topics: ['Range sessions', 'Home practice', 'Goal setting', 'Tracking progress']
+  },
+  { 
+    name: 'Equipment Setup', 
+    icon: '⚙️', 
+    description: 'Get the most from your clubs',
+    topics: ['Club fitting', 'Loft/lie adjustments', 'Grip size', 'Ball position']
+  }
+];
+---
+
+<BaseLayout 
+  title="Golf Tips & Instruction - Lower Your Scores | The Birdie Report"
+  description="Practical golf tips and instruction to help you improve your game. From putting drills to swing basics, learn from a fellow high handicapper who's getting better."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        Golf Tips & Instruction
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Practical tips and drills that actually work, from a fellow high-handicapper 
+        who's slowly figuring this game out. No pro jargon, just real advice.
+      </p>
+    </div>
+
+    <!-- Tip Categories -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">Browse by Category</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {tipCategories.map(category => (
+          <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <div class="flex items-start mb-4">
+              <span class="text-2xl mr-3">{category.icon}</span>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">{category.name}</h3>
+                <p class="text-gray-600 text-sm">{category.description}</p>
+              </div>
+            </div>
+            
+            <ul class="space-y-1 text-sm text-gray-500">
+              {category.topics.map(topic => (
+                <li class="flex items-center">
+                  <span class="w-1 h-1 bg-green-500 rounded-full mr-2"></span>
+                  {topic}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Quick Tips -->
+    <div class="mb-16">
+      <div class="bg-green-50 rounded-lg p-8">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Quick Tips That Work</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">1</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Grip Pressure</h3>
+                  <p class="text-gray-700 text-sm">Hold the club like you're holding a tube of toothpaste with the cap off. Firm enough not to drop it, light enough not to squeeze any out.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">2</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Ball Position</h3>
+                  <p class="text-gray-700 text-sm">Driver: off your left heel. Wedges: middle of your stance. Everything else: gradually move forward based on club length.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">3</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Putting Distance</h3>
+                  <p class="text-gray-700 text-sm">Length of your backswing = length of your follow-through. Think pendulum, not hit. Let gravity do the work.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">4</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Course Management</h3>
+                  <p class="text-gray-700 text-sm">Play away from trouble, not toward flags. A bogey beats a double every time. Conservative is often aggressive.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">5</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Practice Routine</h3>
+                  <p class="text-gray-700 text-sm">Start with wedges, work your way up to driver. Always finish with putting. Quality over quantity—focused practice beats mindless ball beating.</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <span class="text-green-800 font-bold text-sm">6</span>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Mental Game</h3>
+                  <p class="text-gray-700 text-sm">One shot at a time. Forget the last hole. Don't think about your score until you're signing your card. Golf is played in the present.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Latest Tips -->
+    {tipPosts.length > 0 && (
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8">Latest Tips & Instruction</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {tipPosts.map(post => (
+            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+              <a href={`/blog/${post.slug}/`}>
+                <img 
+                  src={post.data.featured_image} 
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </a>
+              
+              <div class="p-6">
+                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                  <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+                    {post.data.category}
+                  </span>
+                  <time>{new Date(post.data.date).toLocaleDateString()}</time>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                  <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                
+                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                  {post.data.description}
+                </p>
+                
+                <a 
+                  href={`/blog/${post.slug}/`}
+                  class="inline-flex items-center text-green-700 font-medium hover:text-green-800 transition-colors"
+                >
+                  Read Tips
+                  <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Bottom CTA -->
+    <div class="text-center bg-gray-50 rounded-lg p-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">
+        Want More Tips?
+      </h2>
+      <p class="text-gray-600 mb-6">
+        Get our weekly newsletter with practical tips, equipment reviews, and exclusive content 
+        designed to help you improve your game without the complexity.
+      </p>
+      <a 
+        href="/#newsletter"
+        class="inline-flex items-center px-6 py-3 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 transition-colors"
+      >
+        Subscribe to Newsletter
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

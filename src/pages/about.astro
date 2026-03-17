@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="About The Birdie Report - Honest Golf Equipment Reviews"
+  description="Meet Brad Thompson, the guy behind The Birdie Report. A 15-handicap golfer who tests equipment and shares honest reviews to help fellow golfers improve their game."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <!-- Hero -->
+    <div class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-gray-900 mb-6">
+        About The Birdie Report
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Real golf equipment reviews from a real golfer. No corporate sponsorships, 
+        no BS marketing speak—just honest takes on what works and what doesn't.
+      </p>
+    </div>
+
+    <!-- Brad's Story -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+      <div class="lg:col-span-2">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Hey, I'm Brad</h2>
+        
+        <div class="prose prose-lg text-gray-600 space-y-6">
+          <p>
+            I'm a 38-year-old software engineer from Austin, Texas, and I have a serious problem: 
+            I'm addicted to golf gear. My garage looks like a Golf Galaxy exploded in it, and my 
+            credit card statement reads like a PGA Tour pro shop receipt.
+          </p>
+          
+          <p>
+            But here's the thing—I'm not scratch golfer. I'm a legit 15-handicap who's been 
+            chasing that magical round where everything clicks for the past decade. I've tested 
+            probably $50,000 worth of clubs, balls, rangefinders, and gadgets in pursuit of 
+            those sweet, sweet birdies.
+          </p>
+          
+          <p>
+            After years of reading reviews that felt like they were written by robots or sponsored 
+            by manufacturers, I decided to start The Birdie Report. This is golf equipment reviews 
+            for real golfers, by a real golfer who actually sucks at golf (but is getting better, slowly).
+          </p>
+          
+          <p>
+            I buy everything with my own money. I test it for months, not days. And if something 
+            is garbage, I'll tell you it's garbage. If it genuinely helped me hit it straighter 
+            or putt better, I'll tell you that too.
+          </p>
+        </div>
+      </div>
+      
+      <div class="lg:col-span-1">
+        <div class="bg-gray-50 rounded-lg p-6">
+          <img 
+            src="/images/brad-headshot.jpg" 
+            alt="Brad Thompson"
+            class="w-full rounded-lg mb-4"
+          />
+          <h3 class="font-semibold text-gray-900 mb-2">Brad Thompson</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Founder, The Birdie Report<br/>
+            15 Handicap<br/>
+            Austin, Texas
+          </p>
+          
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Best Round:</span>
+              <span class="font-medium">79</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Clubs Tested:</span>
+              <span class="font-medium">200+</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Years Playing:</span>
+              <span class="font-medium">12</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Home Course:</span>
+              <span class="font-medium">Austin CC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission -->
+    <div class="bg-green-50 rounded-lg p-8 mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Our Mission</h2>
+      <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto">
+        To provide honest, practical golf equipment reviews that actually help average golfers 
+        improve their games and make smarter purchasing decisions. No fluff, no corporate influence, 
+        just real insights from someone who plays the game like you do.
+      </p>
+    </div>
+
+    <!-- How We Test -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">How We Test Equipment</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">We Buy Our Own Gear</h3>
+          <p class="text-gray-600 text-sm">
+            Every club, ball, and gadget is purchased with our own money. 
+            No freebies, no sponsored content.
+          </p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Real-World Testing</h3>
+          <p class="text-gray-600 text-sm">
+            Minimum 2-3 months of actual play before writing a review. 
+            Range sessions and on-course performance both matter.
+          </p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Honest Opinions</h3>
+          <p class="text-gray-600 text-sm">
+            If something sucks, we'll tell you. If it's amazing, we'll tell you. 
+            No sugar-coating, no marketing fluff.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+      <p class="text-gray-600 mb-6">
+        Got a question about a review? Want to suggest equipment to test? 
+        Think I'm completely wrong about something? Let's chat.
+      </p>
+      <a 
+        href="mailto:brad@birdiereport.com"
+        class="inline-flex items-center px-6 py-3 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 transition-colors"
+      >
+        Email Brad
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

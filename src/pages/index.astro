@@ -1,17 +1,200 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { getCollection } from 'astro:content';
 
+// Get featured blog posts (will be empty initially, but set up for when we add content)
+const allPosts = await getCollection('blog').catch(() => []);
+const featuredPosts = allPosts
+  .filter(post => post.data.featured)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+const latestPosts = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 6);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout 
+  title="The Birdie Report - Golf Equipment Reviews, Tips & Deals"
+  description="Honest golf equipment reviews, instruction tips, and the best deals on golf gear. No BS, just better golf for players of all skill levels."
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-green-700 via-green-800 to-green-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">
+          Golf Gear Reviews<br />
+          <span class="text-green-300">That Actually Matter</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-green-100 mb-8 max-w-3xl mx-auto">
+          Real reviews from a 15-handicap who tests everything. No corporate BS, 
+          just honest takes on what works and what doesn't.
+        </p>
+        
+        <!-- Newsletter Signup -->
+        <div class="max-w-md mx-auto mb-8">
+          <NewsletterSignup variant="hero" size="lg" />
+        </div>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/reviews/" 
+            class="px-6 py-3 bg-white text-green-800 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            Latest Reviews
+          </a>
+          <a 
+            href="/deals/" 
+            class="px-6 py-3 border-2 border-green-300 text-green-100 font-semibold rounded-lg hover:bg-green-600 transition-colors"
+          >
+            Best Deals
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Articles -->
+  {featuredPosts.length > 0 && (
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Reviews</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredPosts.map((post) => (
+            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+              <a href={`/blog/${post.slug}/`}>
+                <img 
+                  src={post.data.featured_image} 
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </a>
+              
+              <div class="p-6">
+                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                    {post.data.category}
+                  </span>
+                  <time>{new Date(post.data.date).toLocaleDateString()}</time>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                  <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                
+                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                  {post.data.description}
+                </p>
+                
+                <a 
+                  href={`/blog/${post.slug}/`}
+                  class="inline-flex items-center text-green-700 font-medium hover:text-green-800 transition-colors"
+                >
+                  Read Review
+                  <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Latest Posts -->
+  {latestPosts.length > 0 && (
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="text-3xl font-bold text-gray-900">Latest Articles</h2>
+          <a 
+            href="/blog/"
+            class="text-green-700 font-medium hover:text-green-800 transition-colors"
+          >
+            View all →
+          </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {latestPosts.map((post) => (
+            <article class="group">
+              <a href={`/blog/${post.slug}/`} class="block">
+                <img 
+                  src={post.data.featured_image} 
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover rounded-lg mb-4 group-hover:opacity-90 transition-opacity"
+                />
+              </a>
+              
+              <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium">
+                  {post.data.category}
+                </span>
+                <time>{new Date(post.data.date).toLocaleDateString()}</time>
+              </div>
+              
+              <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                  {post.data.title}
+                </a>
+              </h3>
+              
+              <p class="text-gray-600 text-sm line-clamp-2">
+                {post.data.description}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-green-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">
+        Ready to Lower Your Scores?
+      </h2>
+      <p class="text-lg text-gray-600 mb-8">
+        Join thousands of golfers getting honest equipment reviews and practical tips 
+        delivered to their inbox every week.
+      </p>
+      
+      <NewsletterSignup variant="card" size="lg" />
+      
+      <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          Equipment Reviews
+        </div>
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          Golf Tips & Drills
+        </div>
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          Exclusive Deals
+        </div>
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          No Spam, Ever
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
