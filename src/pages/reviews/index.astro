@@ -7,14 +7,7 @@ const reviewPosts = allPosts
   .filter(post => post.data.category === 'reviews')
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const categories = [
-  { name: 'Drivers', slug: 'drivers', description: 'Distance and forgiveness off the tee' },
-  { name: 'Irons', slug: 'irons', description: 'Game improvement and player irons' },
-  { name: 'Putters', slug: 'putters', description: 'Blade, mallet, and specialty putters' },
-  { name: 'Golf Balls', slug: 'golf-balls', description: 'Performance and value comparisons' },
-  { name: 'Rangefinders', slug: 'rangefinders', description: 'Laser and GPS distance measuring' },
-  { name: 'Wedges', slug: 'wedges', description: 'Scoring clubs for every lie' }
-];
+const subcategories = [...new Set(reviewPosts.map(p => p.data.subcategory).filter(Boolean))];
 ---
 
 <BaseLayout 
@@ -22,124 +15,85 @@ const categories = [
   description="Comprehensive golf equipment reviews tested by real golfers. Drivers, irons, putters, balls, and more. No sponsored content, just honest opinions."
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Header -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">
-        Golf Equipment Reviews
-      </h1>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Golf Equipment Reviews</h1>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
         Honest, in-depth reviews of golf equipment tested by real golfers. 
         Every review is based on months of actual play, not a few swings on the range.
       </p>
     </div>
 
-    <!-- Review Categories -->
-    <div class="mb-16">
-      <h2 class="text-2xl font-bold text-gray-900 mb-8">Review Categories</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {categories.map(category => (
-          <a 
-            href={`/reviews/${category.slug}/`}
-            class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all hover:border-green-300"
-          >
-            <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-green-700">
-              {category.name}
-            </h3>
-            <p class="text-gray-600 text-sm mb-4">{category.description}</p>
-            <div class="flex items-center text-green-700 text-sm font-medium">
-              View Reviews
-              <svg class="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
+    {reviewPosts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {reviewPosts.map(post => (
+          <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+            <a href={`/blog/${post.slug}/`}>
+              <img 
+                src={post.data.featured_image} 
+                alt={post.data.title}
+                class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </a>
+            <div class="p-6">
+              <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                {post.data.subcategory && (
+                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium capitalize">
+                    {post.data.subcategory}
+                  </span>
+                )}
+                {post.data.rating && (
+                  <span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs font-medium">
+                    ⭐ {post.data.rating}/10
+                  </span>
+                )}
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
+                  {post.data.title}
+                </a>
+              </h3>
+              <p class="text-gray-600 text-sm line-clamp-3 mb-4">{post.data.description}</p>
+              {post.data.price && (
+                <p class="text-green-700 font-semibold text-sm">{post.data.price}</p>
+              )}
             </div>
-          </a>
+          </article>
         ))}
       </div>
-    </div>
-
-    <!-- Latest Reviews */
-    {reviewPosts.length > 0 && (
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-gray-900 mb-8">Latest Reviews</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reviewPosts.map(post => (
-            <article class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-              <a href={`/blog/${post.slug}/`}>
-                <img 
-                  src={post.data.featured_image} 
-                  alt={post.data.title}
-                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </a>
-              
-              <div class="p-6">
-                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
-                    {post.data.category}
-                  </span>
-                  <time>{new Date(post.data.date).toLocaleDateString()}</time>
-                </div>
-                
-                <h3 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
-                  <a href={`/blog/${post.slug}/`} class="hover:text-green-700 transition-colors">
-                    {post.data.title}
-                  </a>
-                </h3>
-                
-                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
-                  {post.data.description}
-                </p>
-                
-                <a 
-                  href={`/blog/${post.slug}/`}
-                  class="inline-flex items-center text-green-700 font-medium hover:text-green-800 transition-colors"
-                >
-                  Read Review
-                  <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
+    ) : (
+      <p class="text-center text-gray-500 text-lg">Reviews coming soon. Check back shortly!</p>
     )}
 
     <!-- Testing Process -->
-    <div class="bg-gray-50 rounded-lg p-8">
+    <div class="bg-gray-50 rounded-lg p-8 mt-16">
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Testing Process</h2>
         <p class="text-gray-600 mb-8">
-          Every piece of equipment we review goes through rigorous real-world testing 
-          to give you the most accurate and useful information possible.
+          Every piece of equipment we review goes through rigorous real-world testing.
         </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div>
             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <span class="text-green-700 font-bold text-lg">1</span>
             </div>
             <h3 class="font-semibold text-gray-900 text-sm mb-2">Purchase</h3>
-            <p class="text-gray-600 text-xs">We buy everything with our own money</p>
+            <p class="text-gray-600 text-xs">We buy with our own money</p>
           </div>
-          
           <div>
             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <span class="text-green-700 font-bold text-lg">2</span>
             </div>
             <h3 class="font-semibold text-gray-900 text-sm mb-2">Test</h3>
-            <p class="text-gray-600 text-xs">2-3 months minimum real-world use</p>
+            <p class="text-gray-600 text-xs">Months of real-world play</p>
           </div>
-          
           <div>
             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <span class="text-green-700 font-bold text-lg">3</span>
             </div>
             <h3 class="font-semibold text-gray-900 text-sm mb-2">Compare</h3>
-            <p class="text-gray-600 text-xs">Side-by-side with similar products</p>
+            <p class="text-gray-600 text-xs">Side-by-side with competitors</p>
           </div>
-          
           <div>
             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <span class="text-green-700 font-bold text-lg">4</span>
