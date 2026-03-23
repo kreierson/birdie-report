@@ -1,0 +1,214 @@
+{
+  "description": "VERIFIED golf images from Unsplash. Every image in this file has been manually confirmed as golf-related. Sub-agents MUST use images from this pool OR use the search-and-verify script.",
+  "last_updated": "2026-03-22",
+  "images": {
+    "irons_clubs": [
+      {
+        "id": "photo-1691608788396-43e0e6ed9535",
+        "desc": "Close-up of golf iron clubheads, copper/bronze finish",
+        "slug": "hh6V-lAdQl8"
+      },
+      {
+        "id": "photo-1595827432953-7161e19e303e",
+        "desc": "Golf club irons lined up with balls on top",
+        "slug": "QZKFRL-HBUw"
+      },
+      {
+        "id": "photo-1593111774240-d529f12cf4bb",
+        "desc": "Golf iron behind ball on fairway, ground level",
+        "slug": "pI6IaynZQ_I"
+      },
+      {
+        "id": "photo-1704863619342-9cf73eca5fe8",
+        "desc": "Golf iron on turf mat, indoor simulator setup",
+        "slug": "mDphBXTtlMM"
+      },
+      {
+        "id": "photo-1682653039817-09dc9f0c1b1e",
+        "desc": "Modern cavity-back iron positioned behind golf ball, ground level shot",
+        "slug": "DiGKAAHSqeQ"
+      }
+    ],
+    "golfer_swinging": [
+      {
+        "id": "photo-1535132011086-b8818f016104",
+        "desc": "Golfer mid-swing on scenic mountain course",
+        "slug": "h7aVq-7FfPw"
+      },
+      {
+        "id": "photo-1535131749006-b7f58c99034b",
+        "desc": "Golfer swinging on bright sunny fairway, teal shirt",
+        "slug": "SsIIw_MET0E"
+      },
+      {
+        "id": "photo-1526166845602-7939d79a78d8",
+        "desc": "Man mid-swing on golf course, teal shirt and shorts",
+        "slug": "_RrTN1kzYFE"
+      },
+      {
+        "id": "photo-1708906439816-7c06e4bf822c",
+        "desc": "Golfer mid-swing at sunset with palm trees, orange pants",
+        "slug": "QP9S3SExG6c"
+      },
+      {
+        "id": "photo-1683418323363-2ffc2e80a987",
+        "desc": "Golfer driving on tee box, green Nike polo",
+        "slug": "rQa9-jIV34k"
+      },
+      {
+        "id": "photo-1693163640190-f9dd38a88940",
+        "desc": "Golfer follow-through on tee box, dark long-sleeve",
+        "slug": "XlE0bWHk80s"
+      },
+      {
+        "id": "photo-1758933067991-db3979cad1ec",
+        "desc": "Multiple-exposure golf swing against black background",
+        "slug": "w9Y7jvKt2EE"
+      },
+      {
+        "id": "photo-1723717729877-6a0bb3095c30",
+        "desc": "Golfer mid-backswing from low angle, white polo with spectator",
+        "slug": "a0ElZhIPGOw"
+      },
+      {
+        "id": "photo-1696104470342-b1ed3afe8381",
+        "desc": "Golfer follow-through at golden hour on links-style course",
+        "slug": "lQw5AE8ImTo"
+      },
+      {
+        "id": "photo-1724889753212-a0054d2c5d29",
+        "desc": "Golfer mid-backswing on tee box with palm trees, hole #2",
+        "slug": "pE73Ke2JoQc"
+      },
+      {
+        "id": "photo-1611374243147-44a702c2d44c",
+        "desc": "Man in black shirt and white shorts playing golf during daytime",
+        "slug": "m0iXio5FF7M"
+      },
+      {
+        "id": "photo-1649001711380-041e1ce2997c",
+        "desc": "Man with dreadlocks swinging golf club",
+        "slug": "4cNeFBHDbpI"
+      }
+    ],
+    "putting_green": [
+      {
+        "id": "photo-1621005570352-6418df03796b",
+        "desc": "Putter lined up behind ball on putting green",
+        "slug": "buGdVvTxJ38"
+      },
+      {
+        "id": "photo-1597369237991-5c95d1b6e0c8",
+        "desc": "Hand placing/picking up golf ball on green",
+        "slug": "SzSNFsD3wOI"
+      },
+      {
+        "id": "photo-1650465263750-e333c7bcd30c",
+        "desc": "Golf ball on edge of hole, putter in background",
+        "slug": "9idjx1KAyTU"
+      },
+      {
+        "id": "photo-1567019001814-57350903e2af",
+        "desc": "Green golf ball on edge of putting hole",
+        "slug": "EN3AVjMPZWA"
+      },
+      {
+        "id": "photo-1763117700007-a3133c847946",
+        "desc": "Indoor putting practice setup with artificial turf mat",
+        "slug": "cwm88eehK6s"
+      }
+    ],
+    "golf_course": [
+      {
+        "id": "photo-1699394426296-9c549c27fcaf",
+        "desc": "Golf course through tall evergreen trees, mountain setting",
+        "slug": "rz1RAiD1ML0"
+      },
+      {
+        "id": "photo-1693163537665-b7c5a5f01f75",
+        "desc": "Young man walking on golf course with Nike bag",
+        "slug": "irZIC5L5NXA"
+      },
+      {
+        "id": "photo-1692931460164-f71ed1101ecf",
+        "desc": "Coastal golf course with ocean views, Pebble Beach style",
+        "slug": "Xvh121N1i7E"
+      },
+      {
+        "id": "photo-1665961249026-41261c537184",
+        "desc": "Luxury golf course with dramatic waterfall and sand bunkers",
+        "slug": "zn2an3NjFcU"
+      },
+      {
+        "id": "photo-1694720971856-a5fb5da97173",
+        "desc": "Mountain valley golf course with dramatic peaks background",
+        "slug": "2TvMj8Oy9Qs"
+      },
+      {
+        "id": "photo-1743185836009-848e5035422b",
+        "desc": "Aerial view of golf course at sunset with mountain backdrop",
+        "slug": "u8NwLmx0zag"
+      },
+      {
+        "id": "photo-1638961500056-155a2c53e328",
+        "desc": "Golf putting green with red flag at dusk, moody sky",
+        "slug": "Qm5COC21eL4"
+      },
+      {
+        "id": "photo-1617332763121-0106f3dd4935",
+        "desc": "Aerial view of Hawaii coastal golf course near ocean",
+        "slug": "LAgdjtzJsg4"
+      }
+    ],
+    "driving_range_practice": [
+      {
+        "id": "photo-1636260348901-8f83d0b83fcc",
+        "desc": "Bucket of practice golf balls, yellow and white",
+        "slug": "hybLXj14R_8"
+      },
+      {
+        "id": "photo-1578142880150-c4df65644560",
+        "desc": "Golf practice hitting mat with dual turf surfaces and teed ball",
+        "slug": "aQeLVaGZuiA"
+      }
+    ],
+    "golf_bag_equipment": [
+      {
+        "id": "photo-1752079307841-b12102a7944f",
+        "desc": "TaylorMade golf club irons in bag, close-up with teal tint",
+        "slug": "5VjA1ZBbc8U"
+      },
+      {
+        "id": "photo-1561251224-e393160cd769",
+        "desc": "Row of golf carts lined up at course, dark green with white tops",
+        "slug": "5yxJpt_TcAo"
+      },
+      {
+        "id": "photo-1602991174407-a015b35a7b00",
+        "desc": "Four golf carts with golfers on course path, group outing",
+        "slug": "Wwpr9RKjGgs"
+      }
+    ],
+    "golf_ball_closeup": [
+      {
+        "id": "photo-1584837140804-599306fb37f9",
+        "desc": "Titleist golf ball near hole edge on putting green",
+        "slug": "N21z4eG8aKg"
+      },
+      {
+        "id": "photo-1597850181775-9dc33ba15b5e",
+        "desc": "OnCore golf ball held in hand on golf course",
+        "slug": "4kUV4p73b78"
+      }
+    ],
+    "golfer_walking": [
+      {
+        "id": "photo-1693163532134-5ea6c80b58a3",
+        "desc": "Young man carrying Nike golf bag over shoulder on course",
+        "slug": "AFJE_ogSCPo"
+      }
+    ],
+    "wedges_bunkers": [],
+    "putter_closeup": []
+  }
+}
