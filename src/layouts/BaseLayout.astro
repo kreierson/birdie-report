@@ -65,14 +65,32 @@ const navItems = [
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script type="application/ld+json">
-      {
+      [{
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "The Birdie Report",
         "url": "https://birdiereport.com",
         "logo": "https://birdiereport.com/logo.jpg",
-        "description": "Golf equipment reviews, tips, and deals to help you improve your game and save money."
-      }
+        "description": "Golf equipment reviews, tips, and deals to help you improve your game and save money.",
+        "founder": {
+          "@type": "Person",
+          "name": "Kyle Reierson"
+        },
+        "sameAs": [
+          "https://x.com/kreierson22"
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "The Birdie Report",
+        "url": "https://birdiereport.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://birdiereport.com/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }]
     </script>
   </head>
   
