@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "www.birdiereport.com" }],
+      "destination": "https://birdiereport.com/:path",
+      "permanent": true
+    }
+  ]
+}
