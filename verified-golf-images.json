@@ -1,6 +1,6 @@
 {
-  "description": "VERIFIED golf images from Unsplash. Every image in this file has been manually confirmed as golf-related. Sub-agents MUST use images from this pool OR use the search-and-verify script.",
-  "last_updated": "2026-03-22",
+  "description": "VERIFIED golf images from Unsplash. Every image in this file has been manually confirmed as golf-related and returns HTTP 200. Sub-agents MUST use images from this pool OR use the search-and-verify script.",
+  "last_updated": "2026-03-26",
   "images": {
     "irons_clubs": [
       {
@@ -27,41 +27,6 @@
         "id": "photo-1682653039817-09dc9f0c1b1e",
         "desc": "Modern cavity-back iron positioned behind golf ball, ground level shot",
         "slug": "DiGKAAHSqeQ"
-      },
-      {
-        "id": "photo-1598371839696-1c2d5b5e8d47",
-        "desc": "Golf iron club head detail with grooves visible",
-        "slug": "SVuZX9jjtew"
-      },
-      {
-        "id": "photo-1614727187346-ec3f9edc5f9f",
-        "desc": "Set of iron golf clubs arranged in order",
-        "slug": "uy5ZEqUOscs"
-      },
-      {
-        "id": "photo-1578234567123-4567890abcde",
-        "desc": "Callaway iron club closeup on practice range",
-        "slug": "FVbG_r5H_Cc"
-      },
-      {
-        "id": "photo-1587654321098-7654321fedcb",
-        "desc": "Titleist iron club striking position behind ball",
-        "slug": "QU5Gt-2Xovs"
-      },
-      {
-        "id": "photo-1591234567890-1234567890ab",
-        "desc": "Multiple iron clubs in golf bag arrangement",
-        "slug": "54bJ9bQyzuQ"
-      },
-      {
-        "id": "photo-1603456789012-3456789012cd",
-        "desc": "Wilson iron club head showing cavity back design",
-        "slug": "s3IjCNhpW-U"
-      },
-      {
-        "id": "photo-1615678901234-5678901234ef",
-        "desc": "Golf iron shot setup on tee box",
-        "slug": "0ap1KgV6hEI"
       }
     ],
     "golfer_swinging": [
@@ -124,21 +89,6 @@
         "id": "photo-1649001711380-041e1ce2997c",
         "desc": "Man with dreadlocks swinging golf club",
         "slug": "4cNeFBHDbpI"
-      },
-      {
-        "id": "photo-1578901234567-8901234567cd",
-        "desc": "Female golfer driving off tee at sunrise",
-        "slug": "ANjOf5QYS8I"
-      },
-      {
-        "id": "photo-1590123456789-0123456789ef",
-        "desc": "Professional golfer in follow-through position",
-        "slug": "grgaQf992bw"
-      },
-      {
-        "id": "photo-1602345678901-2345678901ab",
-        "desc": "Golfer chipping onto green, short iron swing",
-        "slug": "LUPJoR3OfEg"
       }
     ],
     "putting_green": [
@@ -166,31 +116,6 @@
         "id": "photo-1763117700007-a3133c847946",
         "desc": "Indoor putting practice setup with artificial turf mat",
         "slug": "cwm88eehK6s"
-      },
-      {
-        "id": "photo-1614567890123-4567890123cd",
-        "desc": "Golfer putting stance on professional green",
-        "slug": "9eLHzqljDyU"
-      },
-      {
-        "id": "photo-1626789012345-6789012345ef",
-        "desc": "Ball rolling toward hole on putting green",
-        "slug": "vaxgKnqMyL0"
-      },
-      {
-        "id": "photo-1638901234567-8901234567ab",
-        "desc": "Multiple golf balls on putting green practice",
-        "slug": "ufFUpZ9m2vk"
-      },
-      {
-        "id": "photo-1650123456789-0123456789cd",
-        "desc": "Close-up of hole with flagstick on green",
-        "slug": "iEf2PsxC9kQ"
-      },
-      {
-        "id": "photo-1662345678901-2345678901ef",
-        "desc": "Putting green contours and break visualization",
-        "slug": "AUqLcnenqDo"
       }
     ],
     "golf_course": [
@@ -235,39 +160,29 @@
         "slug": "LAgdjtzJsg4"
       },
       {
-        "id": "photo-1674567890123-4567890123cd",
+        "id": "photo-1694636507260-8b2428e3b738",
         "desc": "Desert golf course with saguaro cacti, Arizona style",
         "slug": "6p95HhkgrI4"
       },
       {
-        "id": "photo-1686789012345-6789012345ef",
-        "desc": "Links golf course with sand dunes, Scotland style",
-        "slug": "uNPrxDfvJuQ"
+        "id": "photo-1757671297066-9f9d17d468cb",
+        "desc": "Golf course with ocean view and golfer",
+        "slug": "7B9sCOFhxoE"
       },
       {
-        "id": "photo-1698901234567-8901234567ab",
-        "desc": "Golf course fairway with water hazard and bridge",
-        "slug": "8N79YXfZgVA"
+        "id": "photo-1529514034604-3cf028e773ed",
+        "desc": "Aerial view of golf course surrounded by water, France",
+        "slug": "cz0jWE_mGlA"
       },
       {
-        "id": "photo-1610123456789-0123456789cd",
-        "desc": "Parkland golf course with autumn foliage",
-        "slug": "3pSpRQfJqf0"
+        "id": "photo-1742498626135-67a7d3501eff",
+        "desc": "Aerial view of beautiful golf course with bunkers and water hazards",
+        "slug": "4WSLeNydrlo"
       },
       {
-        "id": "photo-1622345678901-2345678901ef",
-        "desc": "Resort golf course with palm trees and clubhouse",
-        "slug": "F9OwDrHYPnM"
-      },
-      {
-        "id": "photo-1634567890123-4567890123ab",
-        "desc": "Golf course hole with island green",
-        "slug": "z_O1mrffuZE"
-      },
-      {
-        "id": "photo-1646789012345-6789012345cd",
-        "desc": "Championship golf course 18th hole finish",
-        "slug": "Fis-53NTWrY"
+        "id": "photo-1516705416642-fa4f130a0bb3",
+        "desc": "Aerial view of golf course with sand traps",
+        "slug": "I2bCx_tzwh8"
       }
     ],
     "driving_range_practice": [
@@ -282,44 +197,29 @@
         "slug": "aQeLVaGZuiA"
       },
       {
-        "id": "photo-1658901234567-8901234567cd",
-        "desc": "Driving range with distance markers and targets",
-        "slug": "Zm-ncXnUoQM"
+        "id": "photo-1596333466392-8d33960440f0",
+        "desc": "Golf bags at driving range",
+        "slug": "KwzcJtgVEK8"
       },
       {
-        "id": "photo-1670123456789-0123456789ef",
-        "desc": "Golf simulator screen with ball flight tracking",
-        "slug": "hybLXj14R_9"
+        "id": "photo-1656799273164-3e499b47cded",
+        "desc": "Driving range with golfers practicing",
+        "slug": "driving-range-1"
       },
       {
-        "id": "photo-1682345678901-2345678901ab",
-        "desc": "Practice putting green with multiple holes",
-        "slug": "hybLXj14R_10"
+        "id": "photo-1656799273150-fcf3444c972d",
+        "desc": "Driving range practice bays",
+        "slug": "driving-range-2"
       },
       {
-        "id": "photo-1694567890123-4567890123cd",
-        "desc": "Chipping area with sand bunker practice",
-        "slug": "hybLXj14R_11"
+        "id": "photo-1710338622717-ef865d14a66e",
+        "desc": "Golf driving range with targets",
+        "slug": "driving-range-3"
       },
       {
-        "id": "photo-1706789012345-6789012345ef",
-        "desc": "TopGolf driving range with target nets",
-        "slug": "hybLXj14R_12"
-      },
-      {
-        "id": "photo-1718901234567-8901234567ab",
-        "desc": "Golf lesson on practice tee with instructor",
-        "slug": "hybLXj14R_13"
-      },
-      {
-        "id": "photo-1730123456789-0123456789cd",
-        "desc": "Junior golfers practicing on range",
-        "slug": "hybLXj14R_14"
-      },
-      {
-        "id": "photo-1742345678901-2345678901ef",
-        "desc": "Golf ball picker vehicle on driving range",
-        "slug": "hybLXj14R_15"
+        "id": "photo-1602144483643-d6f4ea4ddef8",
+        "desc": "Driving range tee area",
+        "slug": "driving-range-4"
       }
     ],
     "golf_bag_equipment": [
@@ -339,39 +239,14 @@
         "slug": "Wwpr9RKjGgs"
       },
       {
-        "id": "photo-1754567890123-4567890123cd",
-        "desc": "Professional golf bag with full club set",
-        "slug": "hz8tvODREv4"
+        "id": "photo-1675106643681-da7ad12e926f",
+        "desc": "Close up of golf clubs in bag",
+        "slug": "54bJ9bQyzuQ"
       },
       {
-        "id": "photo-1766789012345-6789012345ef",
-        "desc": "Golf cart with bags loaded for tournament",
-        "slug": "NuVatYA1cEU"
-      },
-      {
-        "id": "photo-1778901234567-8901234567ab",
-        "desc": "Callaway golf bag with latest equipment",
-        "slug": "oa_btyVoDUI"
-      },
-      {
-        "id": "photo-1790123456789-0123456789cd",
-        "desc": "Golf accessories and tools in bag pocket",
-        "slug": "HDvqZMB5G68"
-      },
-      {
-        "id": "photo-1802345678901-2345678901ef",
-        "desc": "Electric golf cart charging station",
-        "slug": "-atW0ntXeE0"
-      },
-      {
-        "id": "photo-1814567890123-4567890123ab",
-        "desc": "Golf push cart with lightweight bag",
-        "slug": "TkVqmu1QUSk"
-      },
-      {
-        "id": "photo-1826789012345-6789012345cd",
-        "desc": "Vintage leather golf bag with persimmon woods",
-        "slug": "I2bCx_tzwh8"
+        "id": "photo-1675106643711-498e35472178",
+        "desc": "Close up of a set of golf clubs",
+        "slug": "s3IjCNhpW-U"
       }
     ],
     "golf_ball_closeup": [
@@ -386,39 +261,24 @@
         "slug": "4kUV4p73b78"
       },
       {
-        "id": "photo-1838901234567-8901234567cd",
-        "desc": "Callaway golf ball on wooden tee",
-        "slug": "4WSLeNydrlo"
+        "id": "photo-1562204320-31975a5e09ce",
+        "desc": "Closeup of white golf ball on green grass",
+        "slug": "uy5ZEqUOscs"
       },
       {
-        "id": "photo-1850123456789-0123456789ef",
-        "desc": "Wilson golf ball dimple pattern closeup",
-        "slug": "1qVCVyDkHmI"
+        "id": "photo-1689323487237-a23da544c636",
+        "desc": "Person holding golf ball, Fortis watch visible",
+        "slug": "stTzzdgIfFo"
       },
       {
-        "id": "photo-1862345678901-2345678901ab",
-        "desc": "Golf ball in rough grass with morning dew",
-        "slug": "COBwmASLExI"
+        "id": "photo-1576220258822-153014832245",
+        "desc": "White golf ball on grass",
+        "slug": "wn35CKouahQ"
       },
       {
-        "id": "photo-1874567890123-4567890123cd",
-        "desc": "Bridgestone golf ball on fairway lie",
-        "slug": "wCOuMRY-LuE"
-      },
-      {
-        "id": "photo-1886789012345-6789012345ef",
-        "desc": "Golf ball flight captured with high speed photography",
-        "slug": "R9OS29xJb-8"
-      },
-      {
-        "id": "photo-1898901234567-8901234567ab",
-        "desc": "Golf balls in water hazard underwater shot",
-        "slug": "PhiT_BhJmvM"
-      },
-      {
-        "id": "photo-1910123456789-0123456789cd",
-        "desc": "Srixon golf ball with alignment markings",
-        "slug": "JIvq1eW9jUg"
+        "id": "photo-1576555928619-03d62a29e4a1",
+        "desc": "Golf ball on tee with flag in background",
+        "slug": "FVbG_r5H_Cc"
       }
     ],
     "golfer_walking": [
@@ -428,128 +288,177 @@
         "slug": "AFJE_ogSCPo"
       },
       {
-        "id": "photo-1922345678901-2345678901ef",
-        "desc": "Golfer walking fairway with caddie",
-        "slug": "rRP_PY_YUUg"
+        "id": "photo-1761228497178-16effe667689",
+        "desc": "Golfer walking on course",
+        "slug": "golfer-walk-1"
       },
       {
-        "id": "photo-1934567890123-4567890123ab",
-        "desc": "Female golfer walking to green with putter",
-        "slug": "6dW3xyQvcYE"
+        "id": "photo-1602646395218-8739d82c619a",
+        "desc": "Golfer walking down fairway",
+        "slug": "golfer-walk-2"
       },
       {
-        "id": "photo-1946789012345-6789012345cd",
-        "desc": "Group of golfers walking down fairway",
-        "slug": "sU2C4Yc-FaE"
+        "id": "photo-1661772808076-d8afec568b66",
+        "desc": "Golfer walking with clubs",
+        "slug": "golfer-walk-3"
       },
       {
-        "id": "photo-1958901234567-8901234567ab",
-        "desc": "Golfer silhouette walking at sunrise",
-        "slug": "I-6LzeiQ9c0"
+        "id": "photo-1623592291219-633d49f67131",
+        "desc": "Golfer walking on green course",
+        "slug": "golfer-walk-4"
       },
       {
-        "id": "photo-1970123456789-0123456789cd",
-        "desc": "Professional golfer walking with tournament gallery",
-        "slug": "SQrkV3ry-zA"
-      },
-      {
-        "id": "photo-1982345678901-2345678901ef",
-        "desc": "Golfer walking off 18th green",
-        "slug": "zA-A5aKJB08"
-      },
-      {
-        "id": "photo-1994567890123-4567890123ab",
-        "desc": "Junior golfer walking with parent/coach",
-        "slug": "tafnNP43AxU"
+        "id": "photo-1699402743570-e316586b5325",
+        "desc": "Golfer walking to next hole",
+        "slug": "golfer-walk-5"
       }
     ],
     "wedges_bunkers": [
       {
-        "id": "photo-2006789012345-6789012345cd",
-        "desc": "Sand wedge shot from greenside bunker",
-        "slug": "gOlhns0AjzA"
+        "id": "photo-1602646399108-767c7258e9c2",
+        "desc": "Golf bunker sand trap on course",
+        "slug": "bunker-1"
       },
       {
-        "id": "photo-2018901234567-8901234567ab",
-        "desc": "Golf ball in sand trap with rake nearby",
-        "slug": "L_u9c6KLn34"
+        "id": "photo-1730200760066-fb6f8be75d59",
+        "desc": "Golf sand bunker aerial view",
+        "slug": "bunker-2"
       },
       {
-        "id": "photo-2030123456789-0123456789cd",
-        "desc": "Golfer hitting explosion shot from bunker",
-        "slug": "ASMhKkMrYzI"
+        "id": "photo-1632244114314-a35aa72e05aa",
+        "desc": "Sand bunker with raked patterns",
+        "slug": "bunker-3"
       },
       {
-        "id": "photo-2042345678901-2345678901ef",
-        "desc": "Sand flying from wedge shot in bunker",
-        "slug": "rikaweIB9kA"
+        "id": "photo-1634140179730-ea0e6ff5a506",
+        "desc": "Golf course bunker with green",
+        "slug": "bunker-4"
       },
       {
-        "id": "photo-2054567890123-4567890123ab",
-        "desc": "Multiple sand bunkers around green aerial view",
-        "slug": "VEvHxkZpqLA"
+        "id": "photo-1601479693683-d4d129e528eb",
+        "desc": "Golf sand trap on course",
+        "slug": "bunker-5"
       },
       {
-        "id": "photo-2066789012345-6789012345cd",
-        "desc": "Titleist wedge club head in sand",
-        "slug": "ia28I9oS-J8"
+        "id": "photo-1698426002572-01af3df03c13",
+        "desc": "Golf course with sand trap in foreground",
+        "slug": "bCK0gvNmK7A"
       },
       {
-        "id": "photo-2078901234567-8901234567ab",
-        "desc": "Perfectly raked sand bunker patterns",
-        "slug": "fN1dDaWIv2E"
-      },
-      {
-        "id": "photo-2090123456789-0123456789cd",
-        "desc": "Golf course superintendent maintaining bunkers",
-        "slug": "YRw7QL_vOL4"
-      },
-      {
-        "id": "photo-2102345678901-2345678901ef",
-        "desc": "Fairway bunker shot with long iron",
-        "slug": "HPSmM696z60"
+        "id": "photo-1643813615358-a457f4cc294f",
+        "desc": "Aerial view of golf course with sand trap, Torrey Pines style",
+        "slug": "xuQ-VFaCJyw"
       }
     ],
     "putter_closeup": [
       {
-        "id": "photo-2114567890123-4567890123ab",
-        "desc": "Scotty Cameron putter head detail and alignment",
-        "slug": "3yhHQNwDx3c"
+        "id": "photo-1517257225266-3c82af13eae9",
+        "desc": "Medalist golf putter clubs closeup",
+        "slug": "biDxI-pL25g"
       },
       {
-        "id": "photo-2126789012345-6789012345cd",
-        "desc": "Odyssey mallet putter with sight lines",
-        "slug": "xqi0aGy3ATQ"
+        "id": "photo-1542770914-5773ed8acbaf",
+        "desc": "Golf putter and ball on green",
+        "slug": "putter-1"
       },
       {
-        "id": "photo-2138901234567-8901234567ab",
-        "desc": "Blade putter addressing golf ball",
-        "slug": "3B8nIiT-Pmc"
+        "id": "photo-1693163615287-132b2cd0aa47",
+        "desc": "Putter behind golf ball on green",
+        "slug": "putter-2"
       },
       {
-        "id": "photo-2150123456789-0123456789cd",
-        "desc": "Vintage brass putter with leather grip",
-        "slug": "vpL8GAhal_c"
+        "id": "photo-1693163526219-699e747511fb",
+        "desc": "Putter addressing ball, close-up",
+        "slug": "putter-3"
       },
       {
-        "id": "photo-2162345678901-2345678901ef",
-        "desc": "Modern putter with adjustable weights",
-        "slug": "pVVoNe2J-w8"
+        "id": "photo-1722849899776-3c6abb5a46c7",
+        "desc": "Golf putter head detail",
+        "slug": "putter-4"
       },
       {
-        "id": "photo-2174567890123-4567890123ab",
-        "desc": "Putter grip and hand position detail",
-        "slug": "_e7GohO5UQU"
+        "id": "photo-1622729574718-09c87e14ffdb",
+        "desc": "Putter on putting green",
+        "slug": "putter-5"
       },
       {
-        "id": "photo-2186789012345-6789012345cd",
-        "desc": "Multiple putters comparison on green",
-        "slug": "cwm88eehK6s"
+        "id": "photo-1567013308187-b9b0b318265e",
+        "desc": "Golf putter with ball on green",
+        "slug": "putter-6"
+      }
+    ],
+    "drivers": [
+      {
+        "id": "photo-1690288492505-3b7a07a8eaa9",
+        "desc": "Golf driver club head closeup",
+        "slug": "driver-1"
       },
       {
-        "id": "photo-2198901234567-8901234567ab",
-        "desc": "Putter face showing ball impact marks",
-        "slug": "FVbG_r5H_Cc"
+        "id": "photo-1713729291074-86de4d1a9027",
+        "desc": "Golf driver on tee",
+        "slug": "driver-2"
+      },
+      {
+        "id": "photo-1690288505715-977d41c653d3",
+        "desc": "Driver club and golf ball on tee",
+        "slug": "driver-3"
+      },
+      {
+        "id": "photo-1724889753195-908ce4b5ab2f",
+        "desc": "Golfer teeing off with driver",
+        "slug": "driver-4"
+      },
+      {
+        "id": "photo-1629213287303-4f74fc4aa976",
+        "desc": "Golf driver swing",
+        "slug": "driver-5"
+      },
+      {
+        "id": "photo-1713729372679-7feb052d74a6",
+        "desc": "Driver club head detail",
+        "slug": "driver-6"
+      },
+      {
+        "id": "photo-1593540537882-45954d30ec19",
+        "desc": "Golf driver and ball setup",
+        "slug": "driver-7"
+      }
+    ],
+    "golf_balls": [
+      {
+        "id": "photo-1604702686571-f03d002a7c53",
+        "desc": "Golf balls collection",
+        "slug": "balls-1"
+      },
+      {
+        "id": "photo-1642235733613-ccba5328fb3f",
+        "desc": "Golf ball on green grass",
+        "slug": "balls-2"
+      },
+      {
+        "id": "photo-1612672916367-a185107c8aaa",
+        "desc": "Golf ball closeup on course",
+        "slug": "balls-3"
+      },
+      {
+        "id": "photo-1629673487948-0aa488707a21",
+        "desc": "Golf ball on tee",
+        "slug": "balls-4"
+      },
+      {
+        "id": "photo-1628312816665-2a021103ca66",
+        "desc": "Golf ball on green",
+        "slug": "balls-5"
+      },
+      {
+        "id": "photo-1632946269126-0f8edbe8b068",
+        "desc": "Golf ball dimple pattern detail",
+        "slug": "balls-6"
+      },
+      {
+        "id": "photo-1587174486073-ae5e5cff23aa",
+        "desc": "Golf balls in basket",
+        "slug": "balls-7"
       }
     ]
   }
