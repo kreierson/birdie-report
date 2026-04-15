@@ -252,3 +252,7 @@ The differentiated approach of real-world testing by mid-handicap golfers addres
 
 **Status:** Ready for launch and domain registration.
 **Next milestone:** 1,000 monthly visitors by Month 3.
+
+## Publish Log
+
+- 2026-04-15 | Slot: Birdie Slot 1 | Title: "Garmin Approach S70 vs Shot Scope V5: Premium Flex or Smarter Buy?" | File: `src/content/blog/garmin-approach-s70-vs-shot-scope-v5.mdx` | Image: Garmin official product image (`https://res.garmin.com/en/products/010-02746-02/g/cf-lg.jpg`) | Angle: high-intent GPS watch comparison focused on premium-vs-value and no-subscription shot-tracking | Build: `npm run build` passed
