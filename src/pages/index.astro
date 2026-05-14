@@ -10,13 +10,32 @@ const sorted = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Dat
 const heroPost = sorted.find(p => p.data.featured) || sorted[0];
 const heroSlug = heroPost?.slug;
 
-// Editor's picks: featured posts minus hero
-const editorsPicks = sorted.filter(p => p.data.featured && p.slug !== heroSlug).slice(0, 4);
-// If not enough featured, fill with recent
-const picksNeeded = 4 - editorsPicks.length;
-if (picksNeeded > 0) {
-  const fillers = sorted.filter(p => p.slug !== heroSlug && !editorsPicks.find(e => e.slug === p.slug)).slice(0, picksNeeded);
-  editorsPicks.push(...fillers);
+// Editor's picks should feel curated, but not frozen when new articles are not marked featured.
+const latestPostDate = sorted[0]?.data.date ? new Date(sorted[0].data.date) : new Date();
+const freshCutoff = new Date(latestPostDate);
+freshCutoff.setDate(freshCutoff.getDate() - 21);
+const editorPickCategories = new Set(['best', 'reviews', 'versus', 'tips', 'courses', 'opinion']);
+const isFresh = (post: any) => new Date(post.data.date) >= freshCutoff;
+const notHero = (post: any) => post.slug !== heroSlug;
+const byDateThenFeatured = (a: any, b: any) => {
+  const dateDiff = new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  if (dateDiff !== 0) return dateDiff;
+  return Number(Boolean(b.data.featured)) - Number(Boolean(a.data.featured));
+};
+
+const editorsPicks = sorted
+  .filter(post => notHero(post) && isFresh(post) && editorPickCategories.has(post.data.category))
+  .sort(byDateThenFeatured)
+  .slice(0, 4);
+
+const notAlreadyPicked = (post: any) => !editorsPicks.find(e => e.slug === post.slug);
+
+if (editorsPicks.length < 4) {
+  editorsPicks.push(
+    ...sorted
+      .filter(post => post.data.featured && notHero(post) && notAlreadyPicked(post))
+      .slice(0, 4 - editorsPicks.length)
+  );
 }
 
 // Category sections

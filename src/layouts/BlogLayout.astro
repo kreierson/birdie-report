@@ -8,7 +8,9 @@ export interface Props {
 }
 
 const { content } = Astro.props;
-const { title, description, date, category, tags, author, featured_image, affiliate_links, rating, pros, cons, price, subcategory } = content;
+const { title, description, date, category, tags, author, featured_image, affiliate_links, rating, pros, cons, price, subcategory, seo_title, seo_description } = content;
+const pageTitle = seo_title || title;
+const pageDescription = seo_description || description;
 
 const allPosts = await getCollection('blog');
 const relatedPosts = allPosts
@@ -59,7 +61,7 @@ const schemaMarkup = {
 };
 ---
 
-<BaseLayout title={title} description={description} image={featured_image}>
+<BaseLayout title={pageTitle} description={pageDescription} image={featured_image}>
   <script type="application/ld+json" set:html={JSON.stringify(schemaMarkup)} />
 
   <!-- Breadcrumbs -->
