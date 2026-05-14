@@ -7,5 +7,8 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://birdiereport.com',
+  build: {
+    assets: 'br-assets',
+  },
   integrations: [tailwind(), mdx(), sitemap()],
 });
