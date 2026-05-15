@@ -259,6 +259,21 @@ The differentiated approach of real-world testing by mid-handicap golfers addres
 
 ## Publish Log
 
+### 2026-05-15 - Slot 3
+- Title: `3 Golf Deals Worth Buying on May 15, 2026: Bushnell Phantom 3 Slope, FootJoy Traditions Spikeless, and Callaway Chrome Tour Overrun`
+- File: `src/content/blog/golf-deals-may-15-2026-phantom-traditions-chrome-tour.mdx`
+- Image: `https://cdn11.bigcommerce.com/s-ms459ombhg/images/stencil/1280x1280/products/2648/4019/BG-DTC-362401-362402-362403-362404-Phantom-3-Group__06111.1718293560.png?c=2`
+- Angle: Checked-today deals post built around current May 15 Bushnell, FootJoy, and Callaway pricing with valid Amazon search affiliate links and internal buying-guide links into existing GPS, shoes, and golf-ball coverage.
+- Slot: `Birdie Slot 3`
+- Build result: `npm run build` passed on 2026-05-15
+
+- Title: `SentryWorld Review: The Wisconsin Public Splurge That Feels More Relaxed Than It Has Any Right To`
+- File: `src/content/blog/sentryworld-review.mdx`
+- Image: `https://images.unsplash.com/photo-1510160497482-4ab7f0f0e4b7?w=1200&q=80`
+- Angle: Practical SentryWorld public-course review built from current 2026 official rates, inclusive round details, booking window, schedule notes, and Wisconsin trip-fit context, plus an internal-link patch from the Wisconsin guide.
+- Slot: `Birdie Slot 3`
+- Build result: `npm run build` passed on 2026-05-15
+
 ### 2026-05-14 - Slot 3
 - Title: `3 Golf Deals Worth Buying on May 14, 2026: Bushnell Tour V6 Shift, FootJoy Contour Jogger, and Callaway Chrome Tour X Overrun`
 - File: `src/content/blog/golf-deals-may-14-2026-tour-v6-contour-chrome-tour-x.mdx`
