@@ -7,7 +7,9 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "npm run check:images",
     "build": "astro build",
+    "check:images": "python3 scripts/validate-images.py",
     "preview": "astro preview",
     "astro": "astro"
   },

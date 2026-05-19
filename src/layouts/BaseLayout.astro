@@ -184,6 +184,16 @@ const navItems = [
           btn.setAttribute('aria-expanded', String(!isOpen));
         });
       </script>
+      <script>
+        const imageFallback = '/images/hero-golf.jpg';
+        document.addEventListener('error', (event) => {
+          const img = event.target;
+          if (!(img instanceof HTMLImageElement)) return;
+          if (img.dataset.fallbackApplied === 'true') return;
+          img.dataset.fallbackApplied = 'true';
+          img.src = imageFallback;
+        }, true);
+      </script>
 
       <main>
         <slot />

@@ -8,6 +8,8 @@
 
 ## Images
 - NEVER publish with a broken image — verify every URL loads before committing
+- Run `npm run check:images` or `npm run build` before committing; the build includes the image validator and must pass
+- Avoid hotlink-prone manufacturer/CDN URLs when they 403/404 in validation; use a relevant local image in `/public/images/articles/` or a verified URL instead
 - Product reviews/roundups: use actual product images from manufacturer websites (callaway.com, titleist.com, taylormade.com, etc.)
 - Always credit the source: "Image: Callaway Golf" or "Image courtesy of Titleist"
 - Images must be tightly related to the article content — no generic stock that doesn't match
