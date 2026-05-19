@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import os
 import re
 import sys
 import urllib.error
@@ -88,9 +89,11 @@ def validate_remote(ref: ImageReference) -> tuple[bool, str]:
     return False, "; ".join(errors)
 
 
-def validate_reference(ref: ImageReference) -> tuple[ImageReference, bool, str]:
+def validate_reference(ref: ImageReference, *, local_only: bool) -> tuple[ImageReference, bool, str]:
     if is_local_image(ref.url):
         ok, reason = validate_local(ref)
+    elif local_only:
+        ok, reason = True, "skipped remote check"
     elif ref.url.startswith(("http://", "https://")):
         ok, reason = validate_remote(ref)
     else:
@@ -102,7 +105,14 @@ def validate_reference(ref: ImageReference) -> tuple[ImageReference, bool, str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--workers", type=int, default=16, help="parallel remote checks")
+    parser.add_argument("--local-only", action="store_true", help="only validate images served from public/")
+    parser.add_argument(
+        "--local-only-on-vercel",
+        action="store_true",
+        help="skip remote checks when running inside Vercel builds",
+    )
     args = parser.parse_args()
+    local_only = args.local_only or (args.local_only_on_vercel and os.environ.get("VERCEL") == "1")
 
     files: list[Path] = []
     for scan_dir in SCAN_DIRS:
@@ -119,7 +129,8 @@ def main() -> int:
 
     failures: list[tuple[ImageReference, str]] = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as executor:
-        for ref, ok, reason in executor.map(validate_reference, refs):
+        jobs = ((ref, local_only) for ref in refs)
+        for ref, ok, reason in executor.map(lambda job: validate_reference(job[0], local_only=job[1]), jobs):
             if not ok:
                 failures.append((ref, reason))
 
@@ -131,7 +142,12 @@ def main() -> int:
             print(f"  {reason}")
         return 1
 
-    print(f"All {len(refs)} image reference(s) passed.")
+    if local_only:
+        local_count = sum(1 for ref in refs if is_local_image(ref.url))
+        remote_count = len(refs) - local_count
+        print(f"All {local_count} local image reference(s) passed; skipped {remote_count} remote reference(s).")
+    else:
+        print(f"All {len(refs)} image reference(s) passed.")
     return 0
 
 
