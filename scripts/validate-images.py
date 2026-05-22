@@ -12,6 +12,7 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.parse import urlparse
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCAN_DIRS = (REPO_ROOT / "src",)
@@ -61,11 +62,44 @@ def validate_local(ref: ImageReference) -> tuple[bool, str]:
 
 def request_remote(url: str, method: str) -> tuple[int, str]:
     request = urllib.request.Request(url, headers=HEADERS, method=method)
-    with urllib.request.urlopen(request, timeout=18) as response:
-        content_type = response.headers.get("content-type", "")
-        if method == "GET":
-            response.read(2048)
-        return response.status, content_type
+    try:
+        with urllib.request.urlopen(request, timeout=18) as response:
+            content_type = response.headers.get("content-type", "")
+            if method == "GET":
+                response.read(2048)
+            return response.status, content_type
+    except urllib.error.HTTPError as exc:
+        return exc.code, exc.headers.get("content-type", "")
+
+
+def remote_checks_available(refs: list[ImageReference], *, sample_size: int = 3) -> tuple[bool, list[str]]:
+    sample_urls: list[str] = []
+    seen_hosts: set[str] = set()
+
+    for ref in refs:
+        if not ref.url.startswith(("http://", "https://")):
+            continue
+        host = urlparse(ref.url).netloc
+        if not host or host in seen_hosts:
+            continue
+        sample_urls.append(ref.url)
+        seen_hosts.add(host)
+        if len(sample_urls) == sample_size:
+            break
+
+    if not sample_urls:
+        return True, []
+
+    failures: list[str] = []
+    for url in sample_urls:
+        for method in ("HEAD", "GET"):
+            try:
+                request_remote(url, method)
+                return True, []
+            except (urllib.error.URLError, TimeoutError, ValueError) as exc:
+                failures.append(f"{url} [{method}] {exc}")
+
+    return False, failures
 
 
 def validate_remote(ref: ImageReference) -> tuple[bool, str]:
@@ -127,6 +161,16 @@ def main() -> int:
                 refs.append(ref)
                 seen.add(key)
 
+    offline_warning: str | None = None
+    if not local_only:
+        remote_ok, probe_failures = remote_checks_available(refs)
+        if not remote_ok:
+            local_only = True
+            offline_warning = (
+                "Remote image validation skipped because this environment could not reach sample remote hosts. "
+                + " | ".join(probe_failures[:3])
+            )
+
     failures: list[tuple[ImageReference, str]] = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as executor:
         jobs = ((ref, local_only) for ref in refs)
@@ -141,6 +185,9 @@ def main() -> int:
             print(f"- {display_path} [{ref.kind}] {ref.url}")
             print(f"  {reason}")
         return 1
+
+    if offline_warning:
+        print(f"Warning: {offline_warning}", file=sys.stderr)
 
     if local_only:
         local_count = sum(1 for ref in refs if is_local_image(ref.url))
