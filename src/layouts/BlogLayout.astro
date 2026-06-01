@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (el) el.textContent = `${readingTime} min read`;
 
     // External links
-    article.querySelectorAll('a[href]').forEach((link: any) => {
+    article.querySelectorAll('a[href]').forEach((link) => {
       if (link.hostname !== window.location.hostname) {
         if (link.hostname.replace(/^www\./, '').endsWith('amazon.com')) {
           link.searchParams.set('tag', activeAmazonTag);
