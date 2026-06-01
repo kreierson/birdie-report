@@ -94,7 +94,11 @@ const stars = starFull.repeat(rating) + starEmpty.repeat(5 - rating);
         <a 
           href={affiliate_url}
           target="_blank"
-          rel="nofollow sponsored"
+          rel="nofollow sponsored noopener"
+          data-affiliate-link="true"
+          data-product={product}
+          data-retailer={retailer}
+          data-placement="product-card"
           class="inline-flex items-center px-4 py-2 bg-green-700 text-white text-sm font-medium rounded-md hover:bg-green-800 transition-colors"
           onclick="trackAffiliateClick(this)"
         >

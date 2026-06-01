@@ -1,0 +1,57 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Start With The Buying Guides That Usually Matter Most',
+  description = 'The strongest affiliate upside usually comes from readers who are already comparing products, replacing gear, or trying to avoid an expensive mistake.',
+} = Astro.props;
+
+const opportunities = [
+  {
+    label: 'Highest ticket',
+    title: 'Launch monitors',
+    href: '/blog/best-golf-launch-monitors-2026/',
+    note: 'Bigger order values, clearer upgrade decisions, and strong comparison intent.',
+  },
+  {
+    label: 'Best fit problem',
+    title: 'Rangefinders',
+    href: '/blog/best-rangefinders-2026/',
+    note: 'Easy buyer fork: premium optics, slope, stabilization, or budget value.',
+  },
+  {
+    label: 'Repeatable deals',
+    title: 'Golf balls',
+    href: '/blog/best-golf-balls-2026/',
+    note: 'Lower AOV, but frequent replenishment and strong deal sensitivity.',
+  },
+  {
+    label: 'Comfort purchase',
+    title: 'Walking shoes',
+    href: '/blog/best-golf-shoes-walking-2026/',
+    note: 'Good seasonal demand and a natural bridge from deal posts.',
+  },
+];
+---
+
+<section class="py-12 bg-forest-50 border-y border-forest-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mb-7">
+      <p class="text-xs font-bold uppercase tracking-wide text-forest-700 mb-2">Buyer Intent</p>
+      <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">{title}</h2>
+      <p class="text-gray-600 mt-3">{description}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {opportunities.map((item) => (
+        <a href={item.href} class="group block bg-white border border-forest-100 rounded-lg p-5 hover:border-gold-400 hover:shadow-md transition-all">
+          <span class="text-[10px] font-bold uppercase tracking-wide text-gold-700">{item.label}</span>
+          <h3 class="text-lg font-display font-bold text-forest-900 mt-2 group-hover:text-forest-700">{item.title}</h3>
+          <p class="text-sm text-gray-600 mt-2 leading-relaxed">{item.note}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

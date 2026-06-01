@@ -2,15 +2,32 @@
 import BaseLayout from './BaseLayout.astro';
 import NewsletterSignup from '../components/NewsletterSignup.astro';
 import { getCollection } from 'astro:content';
+import { getAmazonTag, normalizeAffiliateLinks } from '../utils/affiliate';
 
 export interface Props {
   content: any;
 }
 
 const { content } = Astro.props;
-const { title, description, date, category, tags, author, featured_image, affiliate_links, rating, pros, cons, price, subcategory, seo_title, seo_description } = content;
+const { title, description, date, category, tags, author, featured_image, affiliate_links, bounty_links, comparison_products, rating, pros, cons, price, subcategory, seo_title, seo_description, affiliate_tracking_id } = content;
 const pageTitle = seo_title || title;
 const pageDescription = seo_description || description;
+const affiliateContext = { category, subcategory, trackingId: affiliate_tracking_id };
+const activeAmazonTag = getAmazonTag(affiliateContext);
+const resolvedAffiliateLinks = normalizeAffiliateLinks(affiliate_links || [], affiliateContext);
+const resolvedBountyLinks = normalizeAffiliateLinks(bounty_links || [], affiliateContext);
+const resolvedComparisonProducts = normalizeAffiliateLinks(comparison_products || [], affiliateContext);
+const heroBuyLinks = resolvedAffiliateLinks.length > 0
+  ? resolvedAffiliateLinks.slice(0, 3)
+  : resolvedComparisonProducts.slice(0, 3).map((product: any) => ({
+      product: product.name,
+      url: product.affiliate_url,
+      price: product.price,
+      retailer: 'Amazon',
+      rating: product.rating,
+      pros: product.pros,
+    }));
+const hasBuyerIntent = ['best', 'reviews', 'deals', 'versus'].includes(category) && heroBuyLinks.length > 0;
 
 const allPosts = await getCollection('blog');
 const relatedPosts = allPosts
@@ -130,6 +147,48 @@ const schemaMarkup = {
           <img src={featured_image} alt={title} class="w-full h-full object-cover" />
         </div>
 
+        <!-- Above-the-fold buyer module -->
+        {hasBuyerIntent && (
+          <section class="mb-10 border border-forest-200 bg-forest-50 rounded-lg overflow-hidden" aria-label="Recommended products">
+            <div class="px-5 py-4 bg-white border-b border-forest-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wide text-forest-700">Quick Buyer Shortlist</p>
+                <h2 class="text-xl font-display font-bold text-forest-900">Best places to start</h2>
+              </div>
+              <p class="text-xs text-gray-500 max-w-sm">Affiliate links may earn us a commission at no extra cost to you.</p>
+            </div>
+            <div class="divide-y divide-forest-100">
+              {heroBuyLinks.map((link: any, i: number) => (
+                <div class="p-5 bg-white/70 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+                  <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-1">
+                      <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-forest-800 text-white text-xs font-bold">{i + 1}</span>
+                      {link.price && <span class="text-sm font-semibold text-forest-700">{link.price}</span>}
+                      {link.rating && <span class="text-sm font-semibold text-gold-700">{link.rating}/10</span>}
+                    </div>
+                    <h3 class="font-bold text-gray-950 leading-snug">{link.product}</h3>
+                    {link.pros && link.pros.length > 0 && (
+                      <p class="text-sm text-gray-600 mt-1">{link.pros[0]}</p>
+                    )}
+                  </div>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="nofollow sponsored noopener"
+                    data-affiliate-link="true"
+                    data-product={link.product}
+                    data-retailer={link.retailer || 'Amazon'}
+                    data-placement="article-top-shortlist"
+                    class="inline-flex items-center justify-center px-5 py-3 bg-forest-700 text-white rounded-md hover:bg-forest-800 transition-colors text-sm font-bold whitespace-nowrap"
+                  >
+                    Check Price
+                  </a>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         <!-- Quick Verdict for Reviews -->
         {isReview && (rating || pros || cons) && (
           <div class="mb-10 border-2 border-forest-200 rounded-lg overflow-hidden">
@@ -216,11 +275,11 @@ const schemaMarkup = {
         )}
 
         <!-- Affiliate Links -->
-        {affiliate_links && affiliate_links.length > 0 && (
+        {resolvedAffiliateLinks.length > 0 && (
           <div class="mt-10 p-6 bg-forest-50 rounded-lg border-2 border-forest-200">
             <h3 class="text-lg font-display font-bold text-forest-900 mb-4">🛍️ Where to Buy</h3>
             <div class="grid gap-3">
-              {affiliate_links.map((link: any) => (
+              {resolvedAffiliateLinks.map((link: any) => (
                 <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-forest-100">
                   <div>
                     <h4 class="font-semibold text-gray-900">{link.product}</h4>
@@ -229,7 +288,11 @@ const schemaMarkup = {
                   <a 
                     href={link.url}
                     target="_blank"
-                    rel="nofollow sponsored"
+                    rel="nofollow sponsored noopener"
+                    data-affiliate-link="true"
+                    data-product={link.product}
+                    data-retailer={link.retailer}
+                    data-placement="article-bottom-buy-box"
                     class="px-5 py-2.5 bg-forest-700 text-white rounded-lg hover:bg-forest-800 transition-colors text-sm font-bold whitespace-nowrap"
                   >
                     Check Price
@@ -239,6 +302,37 @@ const schemaMarkup = {
             </div>
             <p class="text-xs text-gray-500 mt-4">
               *We earn a small commission if you purchase through these links, at no extra cost to you.
+            </p>
+          </div>
+        )}
+
+        {resolvedBountyLinks.length > 0 && (
+          <div class="mt-8 p-6 bg-gold-50 rounded-lg border border-gold-200">
+            <h3 class="text-lg font-display font-bold text-forest-900 mb-4">Related Offers</h3>
+            <div class="grid gap-3">
+              {resolvedBountyLinks.map((link: any) => (
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white rounded-lg border border-gold-100">
+                  <div>
+                    <h4 class="font-semibold text-gray-900">{link.offer}</h4>
+                    {link.description && <p class="text-sm text-gray-600 mt-1">{link.description}</p>}
+                  </div>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="nofollow sponsored noopener"
+                    data-affiliate-link="true"
+                    data-product={link.offer}
+                    data-retailer={link.retailer}
+                    data-placement="article-bounty-box"
+                    class="px-5 py-2.5 bg-gold-500 text-forest-900 rounded-lg hover:bg-gold-400 transition-colors text-sm font-bold whitespace-nowrap"
+                  >
+                    View Offer
+                  </a>
+                </div>
+              ))}
+            </div>
+            <p class="text-xs text-gray-500 mt-4">
+              *We may earn a fixed referral fee for eligible signups or purchases through these links.
             </p>
           </div>
         )}
@@ -294,19 +388,23 @@ const schemaMarkup = {
           </div>
 
           <!-- Sticky Buy CTA for reviews -->
-          {isReview && affiliate_links && affiliate_links.length > 0 && (
+          {hasBuyerIntent && heroBuyLinks.length > 0 && (
             <div class="mt-6 bg-forest-800 rounded-lg p-5 text-center">
-              <div class="text-gold-400 font-display font-bold text-2xl mb-1">{rating}/10</div>
-              {price && <div class="text-white font-semibold mb-3">{price}</div>}
+              {rating && <div class="text-gold-400 font-display font-bold text-2xl mb-1">{rating}/10</div>}
+              <div class="text-white font-semibold mb-3">{heroBuyLinks[0].product}</div>
               <a 
-                href={affiliate_links[0].url}
+                href={heroBuyLinks[0].url}
                 target="_blank"
-                rel="nofollow sponsored"
+                rel="nofollow sponsored noopener"
+                data-affiliate-link="true"
+                data-product={heroBuyLinks[0].product}
+                data-retailer={heroBuyLinks[0].retailer || 'Amazon'}
+                data-placement="sidebar-sticky-cta"
                 class="block w-full py-3 bg-gold-500 text-forest-900 font-bold rounded-lg hover:bg-gold-400 transition-colors"
               >
                 Check Best Price
               </a>
-              <p class="text-white/40 text-[10px] mt-2">at {affiliate_links[0].retailer}</p>
+              <p class="text-white/40 text-[10px] mt-2">at {heroBuyLinks[0].retailer || 'Amazon'}</p>
             </div>
           )}
         </div>
@@ -336,7 +434,7 @@ const schemaMarkup = {
   </section>
 </BaseLayout>
 
-<script>
+<script define:vars={{ activeAmazonTag }}>
 document.addEventListener('DOMContentLoaded', function() {
   // Reading time
   const article = document.querySelector('article .prose');
@@ -350,6 +448,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // External links
     article.querySelectorAll('a[href]').forEach((link: any) => {
       if (link.hostname !== window.location.hostname) {
+        if (link.hostname.replace(/^www\./, '').endsWith('amazon.com')) {
+          link.searchParams.set('tag', activeAmazonTag);
+          link.dataset.affiliateLink = 'true';
+          link.dataset.retailer = link.dataset.retailer || 'Amazon';
+          link.dataset.placement = link.dataset.placement || 'article-body-link';
+        }
+
         link.setAttribute('target', '_blank');
         link.setAttribute('rel', 'nofollow sponsored noopener');
       }
@@ -373,5 +478,23 @@ document.addEventListener('DOMContentLoaded', function() {
   } else if (toc) {
     toc.innerHTML = '<p class="text-gray-400 text-xs italic">No sections</p>';
   }
+
+  document.querySelectorAll('a[data-affiliate-link="true"], a[rel~="sponsored"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+
+      const eventData = {
+        product_name: link.dataset.product || link.textContent?.trim() || 'Unknown product',
+        retailer: link.dataset.retailer || 'Unknown retailer',
+        placement: link.dataset.placement || 'article-body-link',
+        link_url: link.href,
+        page_path: window.location.pathname,
+      };
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'affiliate_click', eventData);
+      }
+    });
+  });
 });
 </script>

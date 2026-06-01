@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import CommercialOpportunityPanel from '../../components/CommercialOpportunityPanel.astro';
 
 const allPosts = await getCollection('blog').catch(() => []);
 const bestPosts = allPosts
@@ -63,6 +64,11 @@ function formatDate(date: Date) {
       </div>
     </section>
   )}
+
+  <CommercialOpportunityPanel
+    title="Start With The Gear Categories That Move Revenue"
+    description="These guides combine higher purchase intent with cleaner product decisions: expensive tech, comparison-heavy accessories, replenishment items, and fit-sensitive gear."
+  />
 
   <!-- Quick Links Grid -->
   <section class="py-10 bg-gray-50 border-b border-gray-200">

@@ -21,11 +21,20 @@ const blog = defineCollection({
     pros: z.array(z.string()).optional(),
     cons: z.array(z.string()).optional(),
     price: z.string().optional(),
+    affiliate_tracking_id: z.string().optional(),
     affiliate_links: z.array(z.object({
       product: z.string(),
       url: z.string(),
       price: z.string().optional(),
-      retailer: z.string()
+      retailer: z.string(),
+      tracking_id: z.string().optional()
+    })).optional(),
+    bounty_links: z.array(z.object({
+      offer: z.string(),
+      description: z.string().optional(),
+      url: z.string(),
+      retailer: z.string().default('Amazon'),
+      tracking_id: z.string().optional()
     })).optional(),
     comparison_products: z.array(z.object({
       name: z.string(),

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CategoryPage from '../../components/CategoryPage.astro';
+import CommercialOpportunityPanel from '../../components/CommercialOpportunityPanel.astro';
 ---
 
 <BaseLayout 
@@ -14,5 +15,10 @@ import CategoryPage from '../../components/CategoryPage.astro';
     accentColor="orange"
     badgeLabel="Deals"
     badgeClass="bg-orange-500 text-white"
-  />
+  >
+    <CommercialOpportunityPanel
+      title="Deal Readers Usually Need A Buying Fork Next"
+      description="After a reader checks a sale price, the next click should help them decide whether the discounted product is actually the right category, tier, or upgrade."
+    />
+  </CategoryPage>
 </BaseLayout>

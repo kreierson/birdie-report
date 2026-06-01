@@ -53,7 +53,8 @@ def get_ga4_report(credentials, property_id, days=1):
     """Pull GA4 data for the given number of days."""
     from google.analytics.data_v1beta import BetaAnalyticsDataClient
     from google.analytics.data_v1beta.types import (
-        RunReportRequest, DateRange, Dimension, Metric, OrderBy
+        RunReportRequest, DateRange, Dimension, Metric, OrderBy,
+        FilterExpression, Filter
     )
     
     client = BetaAnalyticsDataClient(credentials=credentials)
@@ -98,8 +99,40 @@ def get_ga4_report(credentials, property_id, days=1):
         order_bys=[OrderBy(metric=OrderBy.MetricOrderBy(metric_name="sessions"), desc=True)],
         limit=10,
     ))
+
+    affiliate_pages = None
+    affiliate_days = None
+    affiliate_filter = FilterExpression(
+        filter=Filter(
+            field_name="eventName",
+            string_filter=Filter.StringFilter(value="affiliate_click")
+        )
+    )
+
+    try:
+        affiliate_pages = client.run_report(RunReportRequest(
+            property=f"properties/{property_id}",
+            date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
+            dimensions=[Dimension(name="pagePath")],
+            metrics=[Metric(name="eventCount")],
+            dimension_filter=affiliate_filter,
+            order_bys=[OrderBy(metric=OrderBy.MetricOrderBy(metric_name="eventCount"), desc=True)],
+            limit=10,
+        ))
+
+        affiliate_days = client.run_report(RunReportRequest(
+            property=f"properties/{property_id}",
+            date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
+            dimensions=[Dimension(name="date")],
+            metrics=[Metric(name="eventCount")],
+            dimension_filter=affiliate_filter,
+            order_bys=[OrderBy(dimension=OrderBy.DimensionOrderBy(dimension_name="date"), desc=True)],
+            limit=14,
+        ))
+    except Exception as e:
+        print(f"Could not pull affiliate click events: {e}", file=sys.stderr)
     
-    return overview, top_pages, sources
+    return overview, top_pages, sources, affiliate_pages, affiliate_days
 
 def get_search_console_report(credentials, days=3):
     """Pull Search Console data (3-day delay typical)."""
@@ -138,7 +171,7 @@ def get_search_console_report(credentials, days=3):
 
 def format_report(ga4_data, search_data):
     """Format everything into a readable report."""
-    overview, top_pages, sources = ga4_data
+    overview, top_pages, sources, affiliate_pages, affiliate_days = ga4_data
     search_queries, search_pages = search_data
     
     lines = ["# 📊 Birdie Report — Daily Analytics", ""]
@@ -181,6 +214,23 @@ def format_report(ga4_data, search_data):
             source = row.dimension_values[0].value
             sessions = row.metric_values[0].value
             lines.append(f"- **{source}:** {sessions} sessions")
+        lines.append("")
+
+    if affiliate_pages and affiliate_pages.rows:
+        lines.append("## Affiliate Clicks")
+        for row in affiliate_pages.rows:
+            path = row.dimension_values[0].value
+            clicks = row.metric_values[0].value
+            lines.append(f"- **{path}** — {clicks} affiliate clicks")
+        lines.append("")
+
+    if affiliate_days and affiliate_days.rows:
+        lines.append("## Affiliate Click Spike Check")
+        for row in affiliate_days.rows:
+            raw_date = row.dimension_values[0].value
+            clicks = int(row.metric_values[0].value)
+            date_label = f"{raw_date[:4]}-{raw_date[4:6]}-{raw_date[6:]}"
+            lines.append(f"- **{date_label}:** {clicks} affiliate clicks")
         lines.append("")
     
     # Search Console
