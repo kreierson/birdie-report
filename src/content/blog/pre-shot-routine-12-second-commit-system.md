@@ -258,7 +258,7 @@ Good.
 
 We are training commitment, not accidental makes.
 
-If short putts are a problem for you, layer this with [how to make more short putts under pressure](/blog/how-to-make-more-short-putts-under-pressure/) and [how to read greens better without guessing](/blog/how-to-read-greens-better-without-guessing/).
+If short putts are a problem for you, layer this with [how to make more short putts under pressure](/blog/how-to-make-more-short-putts-under-pressure/) and [how to read greens like a pro](/blog/how-to-read-greens-like-a-pro/).
 
 ## The On-Course Version
 

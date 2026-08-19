@@ -10,7 +10,7 @@ export interface Props {
 
 const { content } = Astro.props;
 const site = 'https://www.birdiereport.com';
-const { title, description, date, category, tags, author, featured_image, affiliate_links, bounty_links, comparison_products, rating, pros, cons, price, subcategory, seo_title, seo_description, affiliate_tracking_id } = content;
+const { title, description, date, updated, category, tags, author, featured_image, affiliate_links, bounty_links, comparison_products, rating, pros, cons, price, subcategory, seo_title, seo_description, affiliate_tracking_id } = content;
 const pageTitle = seo_title || title;
 const pageDescription = seo_description || description;
 const affiliateContext = { category, subcategory, trackingId: affiliate_tracking_id };
@@ -74,7 +74,7 @@ const schemaMarkup = {
     "logo": { "@type": "ImageObject", "url": new URL('/logo.jpg', site).toString() }
   },
   "datePublished": date.toISOString(),
-  "dateModified": date.toISOString(),
+  "dateModified": (updated || date).toISOString(),
   "mainEntityOfPage": { "@type": "WebPage", "@id": new URL(Astro.url.pathname, site).toString() }
 };
 ---
@@ -124,8 +124,13 @@ const schemaMarkup = {
               <span class="font-medium text-gray-900">{displayAuthor}</span>
             </div>
             <time datetime={date.toISOString()}>
-              {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
             </time>
+            {updated && (
+              <span>
+                Updated <time datetime={updated.toISOString()}>{updated.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}</time>
+              </span>
+            )}
             <span id="reading-time" class="text-gray-400">5 min read</span>
             {rating && <span class="text-gold-600 font-bold">⭐ {rating}/10</span>}
           </div>

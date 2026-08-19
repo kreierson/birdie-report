@@ -14,9 +14,11 @@ const blogLastModified = new Map(
     .map((file) => {
       const source = readFileSync(new URL(file, blogDirectory), 'utf8');
       const publishedDate = source.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+      const updatedDate = source.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
       const pathname = `/blog/${basename(file, extname(file))}/`;
 
-      return [pathname, publishedDate ? new Date(`${publishedDate}T00:00:00Z`) : undefined];
+      const lastModified = updatedDate || publishedDate;
+      return [pathname, lastModified ? new Date(`${lastModified}T00:00:00Z`) : undefined];
     })
 );
 

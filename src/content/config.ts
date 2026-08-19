@@ -6,6 +6,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.date(),
+    updated: z.date().optional(),
     category: z.enum(['reviews', 'tips', 'deals', 'news', 'best', 'courses', 'versus', 'opinion']),
     subcategory: z.enum([
       'drivers', 'irons', 'wedges', 'putters', 'balls', 'bags', 'rangefinders', 
