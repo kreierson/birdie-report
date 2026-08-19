@@ -40,7 +40,7 @@ function formatDate(date: Date) {
 
 <BaseLayout 
   title="Best Golf Equipment 2026 — Buyer's Guides | The Birdie Report"
-  description="Find the best golf equipment for your game and budget. Comprehensive buyer's guides tested by real golfers."
+  description="Find golf equipment for your game and budget with buyer's guides that clearly distinguish research from direct hands-on experience."
 >
   <!-- Hero -->
   {heroPost && (
@@ -58,7 +58,7 @@ function formatDate(date: Date) {
             Buyer's Guides & Best Equipment
           </h1>
           <p class="text-lg text-white/70 mb-8 max-w-2xl">
-            Comprehensive buyer's guides tested with our own money. We tell you what actually works.
+            Practical buyer's guides with a clear disclosure of how each article was produced.
           </p>
         </div>
       </div>
@@ -77,7 +77,7 @@ function formatDate(date: Date) {
       <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
         {categories.map(cat => (
           <a 
-            href={`/tags/${cat.key}/`}
+            href={subcategoryMap[cat.key] ? `/blog/${subcategoryMap[cat.key].slug}/` : '/best/'}
             class="text-center p-3 rounded-lg border bg-white border-gray-200 hover:border-gold-400 transition-all hover:shadow-md"
           >
             <div class="text-2xl mb-1">{cat.icon}</div>

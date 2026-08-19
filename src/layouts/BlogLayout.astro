@@ -10,7 +10,7 @@ export interface Props {
 
 const { content } = Astro.props;
 const site = 'https://www.birdiereport.com';
-const { title, description, date, updated, category, tags, author, featured_image, affiliate_links, bounty_links, comparison_products, rating, pros, cons, price, subcategory, seo_title, seo_description, affiliate_tracking_id } = content;
+const { title, description, date, updated, category, tags, author, review_basis, featured_image, affiliate_links, bounty_links, comparison_products, rating, pros, cons, price, subcategory, seo_title, seo_description, affiliate_tracking_id } = content;
 const pageTitle = seo_title || title;
 const pageDescription = seo_description || description;
 const affiliateContext = { category, subcategory, trackingId: affiliate_tracking_id };
@@ -37,7 +37,23 @@ const relatedPosts = allPosts
   .slice(0, 4);
 
 const isReview = category === 'reviews' || (rating && pros);
-const displayAuthor = (author === 'Brad Thompson') ? 'Kyle Reierson' : author;
+const displayAuthor = author;
+
+const reviewBasisLabels = {
+  'research-based': {
+    title: 'Research-based coverage',
+    description: 'Built from cited manufacturer information, current pricing, published sources, and clearly identified golfer feedback. This article is not presented as a hands-on product test.',
+  },
+  'hands-on': {
+    title: 'Hands-on coverage',
+    description: 'Based on direct use by the named author. The article explains the relevant testing conditions and limits.',
+  },
+  'hybrid': {
+    title: 'Hands-on and research-based coverage',
+    description: 'Combines direct use by the named author with cited product information, current pricing, and other published sources.',
+  },
+} as const;
+const reviewBasis = review_basis ? reviewBasisLabels[review_basis as keyof typeof reviewBasisLabels] : undefined;
 
 const categoryLabels: Record<string, string> = {
   best: 'Best Of',
@@ -134,6 +150,13 @@ const schemaMarkup = {
             <span id="reading-time" class="text-gray-400">5 min read</span>
             {rating && <span class="text-gold-600 font-bold">⭐ {rating}/10</span>}
           </div>
+
+          {reviewBasis && (
+            <aside class="mt-5 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3" aria-label="How this article was produced">
+              <p class="text-sm font-bold text-blue-950">{reviewBasis.title}</p>
+              <p class="mt-1 text-sm leading-relaxed text-blue-900">{reviewBasis.description}</p>
+            </aside>
+          )}
 
           <!-- Share -->
           <div class="flex items-center gap-3 mt-4">
@@ -269,12 +292,9 @@ const schemaMarkup = {
           <div class="mt-10 pt-6 border-t border-gray-200">
             <div class="flex flex-wrap gap-2">
               {tags.map((tag: string) => (
-                <a 
-                  href={`/tags/${tag.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}/`}
-                  class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full hover:bg-green-50 hover:text-green-700 transition-colors"
-                >
+                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">
                   #{tag}
-                </a>
+                </span>
               ))}
             </div>
           </div>

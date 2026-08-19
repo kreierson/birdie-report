@@ -2,6 +2,166 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/blog/houston-open-2026-preview-scheffler-masters-bubble",
+      "destination": "/blog/gary-woodland-wins-houston-open-2026-comeback/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/houston-open-2026-preview-scheffler-masters-bubble/",
+      "destination": "/blog/gary-woodland-wins-houston-open-2026-comeback/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/jeeno-thitikul-defends-mizuho-2026",
+      "destination": "/blog/jeeno-thitikul-made-the-lpga-season-better-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/jeeno-thitikul-defends-mizuho-2026/",
+      "destination": "/blog/jeeno-thitikul-made-the-lpga-season-better-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/jordan-spieth-comeback-2026-valspar",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/jordan-spieth-comeback-2026-valspar/",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/liv-golf-next-investor-must-buy-teams-opinion-2026",
+      "destination": "/blog/liv-golf-lead-investor-does-not-fix-stability-opinion-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/liv-golf-next-investor-must-buy-teams-opinion-2026/",
+      "destination": "/blog/liv-golf-lead-investor-does-not-fix-stability-opinion-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/masters-2026-no-tiger-no-phil-new-era-opinion",
+      "destination": "/blog/masters-2026-without-tiger-woods-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/masters-2026-no-tiger-no-phil-new-era-opinion/",
+      "destination": "/blog/masters-2026-without-tiger-woods-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pga-tour-2026-season-preview",
+      "destination": "/blog/2026-pga-tour-season-no-one-owns-it-yet-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pga-tour-2026-season-preview/",
+      "destination": "/blog/2026-pga-tour-season-no-one-owns-it-yet-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/rickie-fowler-masters-dream-dead-houston-open-2026",
+      "destination": "/blog/gary-woodland-wins-houston-open-2026-comeback/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/rickie-fowler-masters-dream-dead-houston-open-2026/",
+      "destination": "/blog/gary-woodland-wins-houston-open-2026-comeback/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/rory-mcilroy-skipping-cadillac-championship-opinion-2026",
+      "destination": "/blog/rory-limited-schedule-good-actually-opinion-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/rory-mcilroy-skipping-cadillac-championship-opinion-2026/",
+      "destination": "/blog/rory-limited-schedule-good-actually-opinion-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-response-golf-balls-launch-2026",
+      "destination": "/blog/taylormade-tour-response-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-response-golf-balls-launch-2026/",
+      "destination": "/blog/taylormade-tour-response-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tiger-woods-confirmed-masters-2026-27th-start",
+      "destination": "/blog/masters-2026-without-tiger-woods-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tiger-woods-confirmed-masters-2026-27th-start/",
+      "destination": "/blog/masters-2026-without-tiger-woods-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tiger-woods-tgl-finals-loss-masters-doubt-2026",
+      "destination": "/blog/masters-2026-without-tiger-woods-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tiger-woods-tgl-finals-loss-masters-doubt-2026/",
+      "destination": "/blog/masters-2026-without-tiger-woods-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/valspar-championship-2026-preview",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/valspar-championship-2026-preview/",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/valspar-championship-2026-round-1-recap",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/valspar-championship-2026-round-1-recap/",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/valspar-championship-2026-round-2-recap",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/valspar-championship-2026-round-2-recap/",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/valspar-championship-2026-round-3-recap",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/valspar-championship-2026-round-3-recap/",
+      "destination": "/blog/fitzpatrick-wins-valspar-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/victor-perez-leads-liv-golf-mexico-city-round-1-2026",
+      "destination": "/blog/jon-rahm-wins-liv-golf-mexico-city-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/victor-perez-leads-liv-golf-mexico-city-round-1-2026/",
+      "destination": "/blog/jon-rahm-wins-liv-golf-mexico-city-2026/",
+      "permanent": true
+    },
+    {
       "source": "/aberg-players-collapse-course-management",
       "destination": "/blog/aberg-players-collapse-course-management/",
       "permanent": true
@@ -343,7 +503,7 @@
     },
     {
       "source": "/masters-2026-no-tiger-no-phil-new-era-opinion",
-      "destination": "/blog/masters-2026-no-tiger-no-phil-new-era-opinion/",
+      "destination": "/blog/masters-2026-without-tiger-woods-opinion/",
       "permanent": true
     },
     {
@@ -488,7 +648,7 @@
     },
     {
       "source": "/victor-perez-leads-liv-golf-mexico-city-round-1-2026",
-      "destination": "/blog/victor-perez-leads-liv-golf-mexico-city-round-1-2026/",
+      "destination": "/blog/jon-rahm-wins-liv-golf-mexico-city-2026/",
       "permanent": true
     },
     {

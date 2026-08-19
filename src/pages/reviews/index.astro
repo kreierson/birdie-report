@@ -4,52 +4,46 @@ import CategoryPage from '../../components/CategoryPage.astro';
 ---
 
 <BaseLayout 
-  title="Golf Equipment Reviews — Honest Tests & Comparisons | The Birdie Report"
-  description="Comprehensive golf equipment reviews tested by real golfers. No sponsored content, just honest opinions."
+  title="Golf Equipment Reviews & Comparisons | The Birdie Report"
+  description="Golf equipment reviews with a clear disclosure of whether each article is research-based, hands-on, or a combination of both."
 >
   <CategoryPage
     category="reviews"
     title="Equipment Reviews"
-    description="Honest, in-depth reviews tested over months of actual play. Every review is based on real rounds, not a few swings on the range."
+    description="Practical equipment reviews that distinguish documented research from direct hands-on experience instead of treating them as the same thing."
     accentColor="forest"
     badgeLabel="Reviews"
     badgeClass="bg-forest-700 text-white"
   >
-    <!-- Testing Process -->
+    <!-- Editorial Method -->
     <div class="bg-forest-50 border border-forest-200 rounded-lg p-8 mt-16">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-2xl font-display font-bold text-forest-900 mb-4">Our Testing Process</h2>
-        <p class="text-gray-600 mb-8">Every piece of equipment goes through rigorous real-world testing.</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <h2 class="text-2xl font-display font-bold text-forest-900 mb-4">Know How Each Review Was Produced</h2>
+        <p class="text-gray-600 mb-8">A disclosure near the top of an article identifies its basis. If an article does not carry a hands-on label, do not assume the product was personally tested.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
           <div>
             <div class="w-12 h-12 bg-forest-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <span class="text-forest-700 font-bold text-lg">1</span>
             </div>
-            <h3 class="font-semibold text-gray-900 text-sm mb-1">Purchase</h3>
-            <p class="text-gray-600 text-xs">We buy with our own money</p>
+            <h3 class="font-semibold text-gray-900 text-sm mb-1">Research-based</h3>
+            <p class="text-gray-600 text-xs">Official documentation, current pricing, published sources, and identified feedback patterns</p>
           </div>
           <div>
             <div class="w-12 h-12 bg-forest-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <span class="text-forest-700 font-bold text-lg">2</span>
             </div>
-            <h3 class="font-semibold text-gray-900 text-sm mb-1">Test</h3>
-            <p class="text-gray-600 text-xs">Months of real-world play</p>
+            <h3 class="font-semibold text-gray-900 text-sm mb-1">Hands-on</h3>
+            <p class="text-gray-600 text-xs">Direct use by the named author, with relevant conditions and limitations explained</p>
           </div>
           <div>
             <div class="w-12 h-12 bg-forest-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <span class="text-forest-700 font-bold text-lg">3</span>
             </div>
-            <h3 class="font-semibold text-gray-900 text-sm mb-1">Compare</h3>
-            <p class="text-gray-600 text-xs">Side-by-side with competitors</p>
-          </div>
-          <div>
-            <div class="w-12 h-12 bg-forest-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <span class="text-forest-700 font-bold text-lg">4</span>
-            </div>
-            <h3 class="font-semibold text-gray-900 text-sm mb-1">Review</h3>
-            <p class="text-gray-600 text-xs">Honest, detailed writeup</p>
+            <h3 class="font-semibold text-gray-900 text-sm mb-1">Hybrid</h3>
+            <p class="text-gray-600 text-xs">Direct experience combined with attributed product research and current market context</p>
           </div>
         </div>
+        <p class="mt-8 text-sm text-gray-600">Read more about our <a href="/about/" class="font-semibold text-forest-700 underline underline-offset-2">editorial approach</a>.</p>
       </div>
     </div>
   </CategoryPage>

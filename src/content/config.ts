@@ -18,6 +18,7 @@ const blog = defineCollection({
     tags: z.array(z.string()),
     featured_image: z.string(),
     author: z.string().default('Kyle Reierson'),
+    review_basis: z.enum(['research-based', 'hands-on', 'hybrid']).optional(),
     rating: z.number().min(1).max(10).optional(),
     pros: z.array(z.string()).optional(),
     cons: z.array(z.string()).optional(),

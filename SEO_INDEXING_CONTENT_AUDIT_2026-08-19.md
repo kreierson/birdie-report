@@ -6,8 +6,8 @@ Search Console exported 53 article rows under **Crawled - currently not indexed*
 
 Recommended end state for the 50 articles:
 
-- **30 keep and refresh**: useful evergreen, commercial, course, or definitive-event pages.
-- **18 consolidate and permanently redirect**: duplicates, cannibalizing articles, or expired event coverage with a stronger destination.
+- **31 keep and refresh**: useful evergreen, commercial, course, or definitive-event pages.
+- **17 consolidate and permanently redirect**: duplicates, cannibalizing articles, or expired event coverage with a stronger destination.
 - **2 retire**: thin, expired stories with no search demand, traffic, or useful replacement.
 
 This is not evidence that all 50 articles are inherently poor. Most were last crawled before the August 19 canonical, redirect, and sitemap corrections. The plan therefore preserves useful URLs and concentrates destructive cleanup on clear duplicates and expired event coverage.
@@ -74,6 +74,7 @@ These pages have demonstrated demand, strong internal support, or a near-ranking
 | `short-game-secrets` | Keep, but rebuild as a hub | The current broad framing is generic. Turn it into a short-game hub that routes readers to chipping, pitching, bunker, flop-shot, and distance-control guides. |
 | `stop-short-siding-yourself-approach-strategy` | Keep and refresh | Strongest internal support in the set at 37 links. Add shot-pattern examples and green diagrams while preserving the focused intent. |
 | `taylormade-two-year-driver-cycle-opinion-2026` | Keep and refresh | Reframe as a sourced, durable analysis of TaylorMade's product cycle and what it means for buyers, with links to current driver reviews. |
+| `usga-shinnecock-no-target-score-opinion-2026` | Keep and differentiate | Preserve the course-setup intent. It is materially different from the later player-conduct-policy article, so redirecting it there would be misleading. Refresh it as a sourced analysis of the USGA's Shinnecock setup philosophy. |
 
 ## Consolidate and permanently redirect
 
@@ -93,7 +94,6 @@ Preserve any useful facts or original commentary in the destination before addin
 | `taylormade-tour-response-golf-balls-launch-2026` | `/blog/taylormade-tour-response-review/` | Commercial evergreen review is the better long-term search destination. |
 | `tiger-woods-confirmed-masters-2026-27th-start` | `/blog/masters-2026-without-tiger-woods-opinion/` | Superseded event update; merge relevant chronology into the resolved storyline. |
 | `tiger-woods-tgl-finals-loss-masters-doubt-2026` | `/blog/masters-2026-without-tiger-woods-opinion/` | Superseded speculative update about the same Masters storyline. |
-| `usga-shinnecock-no-target-score-opinion-2026` | `/blog/us-open-conduct-policy-worked-opinion-2026/` | Same U.S. Open/USGA thesis with a later, more conclusive destination. |
 | `valspar-championship-2026-preview` | `/blog/fitzpatrick-wins-valspar-championship-2026/` | Expired preview. |
 | `valspar-championship-2026-round-1-recap` | `/blog/fitzpatrick-wins-valspar-championship-2026/` | Superseded round recap. |
 | `valspar-championship-2026-round-2-recap` | `/blog/fitzpatrick-wins-valspar-championship-2026/` | Superseded round recap. |
@@ -112,7 +112,7 @@ Preserve any useful facts or original commentary in the destination before addin
 1. Refresh the eight Priority 0 pages and consolidate their known competing pages.
 2. Deploy, confirm canonicals and redirects, and ensure only surviving URLs remain in the sitemap.
 3. Request indexing for at most the five strongest refreshed URLs: Titleist/Ping, fairway woods/hybrids, slice, green reading, and break 80.
-4. Consolidate the 18 expired/duplicate pages and repair internal links so they point directly to destinations rather than through redirects.
+4. Consolidate the 17 expired/duplicate pages and repair internal links so they point directly to destinations rather than through redirects.
 5. Refresh the remaining evergreen pages in related clusters, not randomly: scoring, ball striking, short game, putting/mental game, then products/courses.
 6. Retire the two unsupported pages, allow them to return normal 404 responses, and remove their internal links.
 7. Re-export **Crawled - currently not indexed** after Google has had 3-4 weeks to recrawl the corrected site. Compare the surviving URLs rather than the old raw count, because the noindexed tags and consolidated pages should disappear by design.

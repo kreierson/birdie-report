@@ -2,163 +2,97 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout 
-  title="About The Birdie Report - Honest Golf Equipment Reviews"
-  description="Meet Kyle Reierson, the guy behind The Birdie Report. An avid golfer who tests equipment and shares honest reviews to help fellow golfers improve their game."
+<BaseLayout
+  title="About The Birdie Report | Our Editorial Approach"
+  description="Learn who publishes The Birdie Report, how we produce golf coverage, and how we distinguish hands-on experience from research-based analysis."
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <!-- Hero -->
-    <div class="text-center mb-16">
-      <h1 class="text-4xl font-bold text-gray-900 mb-6">
-        About The Birdie Report
-      </h1>
+    <header class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-gray-900 mb-6">About The Birdie Report</h1>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        Real golf equipment reviews from a real golfer. No corporate sponsorships, 
-        no BS marketing speak—just honest takes on what works and what doesn't.
+        Practical golf coverage with a clear line between direct experience, documented research, and opinion.
       </p>
-    </div>
+    </header>
 
-    <!-- Brad's Story -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16" aria-labelledby="publisher-heading">
       <div class="lg:col-span-2">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Hey, I'm Kyle</h2>
-        
-        <div class="prose prose-lg text-gray-600 space-y-6">
+        <h2 id="publisher-heading" class="text-2xl font-bold text-gray-900 mb-6">Published by Kyle Reierson</h2>
+        <div class="prose prose-lg text-gray-600">
           <p>
-            I'm a software engineer from North Dakota with a serious gear addiction. 
-            My garage looks like a Golf Galaxy exploded in it, and my credit card statement reads 
-            like a PGA Tour pro shop receipt.
+            Kyle Reierson founded The Birdie Report to make golf equipment and strategy coverage easier to use. The site publishes buyer guides, product comparisons, instructional articles, course coverage, news, and opinion for golfers who want a direct answer without the usual marketing fog.
           </p>
-          
           <p>
-            I've been playing competitive golf for years and have tested pretty much everything 
-            on the market—drivers, irons, wedges, putters, rangefinders, training aids, you name it. 
-            When you're chasing scratch, every piece of equipment matters, and I've learned the hard 
-            way what's worth the money and what's just marketing hype.
-          </p>
-          
-          <p>
-            After years of reading reviews that felt like they were written by robots or sponsored 
-            by manufacturers, I decided to start The Birdie Report. This is golf equipment reviews 
-            for real golfers, by a real golfer who actually plays enough to know the difference.
-          </p>
-          
-          <p>
-            I buy everything with my own money. I test it for months, not days. And if something 
-            is garbage, I'll tell you it's garbage. If it genuinely helped me hit it straighter 
-            or putt better, I'll tell you that too.
+            Not every article is produced the same way. Some coverage can include direct experience; much of the product library is research-based. We do not treat those as interchangeable, and we do not want readers to assume that every product mentioned on the site was purchased or personally tested.
           </p>
         </div>
       </div>
-      
+
       <div class="lg:col-span-1">
         <div class="bg-gray-50 rounded-lg p-6">
-          <img 
-            src="/images/kyle-reierson.jpg" 
+          <img
+            src="/images/kyle-reierson.jpg"
             alt="Kyle Reierson"
             class="w-full rounded-lg mb-4"
           />
           <h3 class="font-semibold text-gray-900 mb-2">Kyle Reierson</h3>
-          <p class="text-sm text-gray-600 mb-4">
-            Founder, The Birdie Report<br/>
-            Avid Golfer<br/>
-            North Dakota
-          </p>
-          
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between">
-              <span class="text-gray-600">Best Round:</span>
-              <span class="font-medium">79</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-600">Clubs Tested:</span>
-              <span class="font-medium">200+</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-600">Years Playing:</span>
-              <span class="font-medium">12</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-600">Home Course:</span>
-              <span class="font-medium">Austin CC</span>
-            </div>
-          </div>
+          <p class="text-sm text-gray-600">Founder and publisher<br />The Birdie Report</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Mission -->
-    <div class="bg-green-50 rounded-lg p-8 mb-16">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Our Mission</h2>
+    <section class="bg-green-50 rounded-lg p-8 mb-16" aria-labelledby="mission-heading">
+      <h2 id="mission-heading" class="text-2xl font-bold text-gray-900 mb-4 text-center">Our Editorial Goal</h2>
       <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto">
-        To provide honest, practical golf equipment reviews that actually help average golfers 
-        improve their games and make smarter purchasing decisions. No fluff, no corporate influence, 
-        just real insights from someone who plays the game like you do.
+        Help golfers understand the meaningful differences between products, make better purchasing decisions, and play smarter—while being candid about what we know, how we know it, and where uncertainty remains.
       </p>
-    </div>
+    </section>
 
-    <!-- How We Test -->
-    <div class="mb-16">
-      <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">How We Test Equipment</h2>
-      
+    <section class="mb-16" aria-labelledby="method-heading">
+      <h2 id="method-heading" class="text-2xl font-bold text-gray-900 mb-8 text-center">How Our Coverage Is Produced</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">We Buy Our Own Gear</h3>
+        <div class="rounded-lg border border-gray-200 p-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Research-based</h3>
           <p class="text-gray-600 text-sm">
-            Every club, ball, and gadget is purchased with our own money. 
-            No freebies, no sponsored content.
+            These articles use sources such as official specifications, product documentation, current pricing, published reporting, and clearly identified golfer-feedback patterns. They are not presented as hands-on tests.
           </p>
         </div>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Real-World Testing</h3>
+        <div class="rounded-lg border border-gray-200 p-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Hands-on</h3>
           <p class="text-gray-600 text-sm">
-            Minimum 2-3 months of actual play before writing a review. 
-            Range sessions and on-course performance both matter.
+            We use this label only when the named author has direct experience with the product or subject. The article should explain the relevant conditions and limits instead of making a vague testing claim.
           </p>
         </div>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Honest Opinions</h3>
+        <div class="rounded-lg border border-gray-200 p-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Hybrid</h3>
           <p class="text-gray-600 text-sm">
-            If something sucks, we'll tell you. If it's amazing, we'll tell you. 
-            No sugar-coating, no marketing fluff.
+            Some articles combine direct experience with published research. Those pieces should distinguish observed experience from specifications, pricing, and claims supplied by outside sources.
           </p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Contact -->
-    <div class="text-center">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+    <section class="prose prose-lg max-w-none text-gray-700 mb-16" aria-labelledby="standards-heading">
+      <h2 id="standards-heading">Editorial standards</h2>
+      <ul>
+        <li>We aim to verify current specifications, availability, and pricing against primary sources where possible.</li>
+        <li>We distinguish manufacturer claims from our own analysis.</li>
+        <li>We update material errors when we find them and show an updated date when an article materially changes.</li>
+        <li>Affiliate relationships do not guarantee favorable coverage. See our <a href="/affiliate-disclosure/">Affiliate Disclosure</a>.</li>
+        <li>If an article does not carry a hands-on label, readers should not assume that the product was personally tested.</li>
+      </ul>
+    </section>
+
+    <section class="text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Corrections and questions</h2>
       <p class="text-gray-600 mb-6">
-        Got a question about a review? Want to suggest equipment to test? 
-        Think I'm completely wrong about something? Let's chat.
+        Found an error, have a sourcing question, or want to know more about how an article was produced?
       </p>
-      <a 
-        href="mailto:brad@birdiereport.com"
+      <a
+        href="/contact/"
         class="inline-flex items-center px-6 py-3 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 transition-colors"
       >
-        Email Brad
-        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-        </svg>
+        Contact The Birdie Report
       </a>
-    </div>
+    </section>
   </div>
 </BaseLayout>
