@@ -2,6 +2,496 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/aberg-players-collapse-course-management",
+      "destination": "/blog/aberg-players-collapse-course-management/",
+      "permanent": true
+    },
+    {
+      "source": "/best-drivers-2026",
+      "destination": "/blog/best-drivers-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-drivers-high-handicappers-2026",
+      "destination": "/blog/best-drivers-high-handicappers-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-accessories-2026",
+      "destination": "/blog/best-golf-accessories-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-bags-2026",
+      "destination": "/blog/best-golf-bags-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-bags-walking-2026",
+      "destination": "/blog/best-golf-bags-walking-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-balls-2026",
+      "destination": "/blog/best-golf-balls-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-balls-high-handicappers",
+      "destination": "/blog/best-golf-balls-high-handicappers/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-balls-seniors-2026",
+      "destination": "/blog/best-golf-balls-seniors-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-courses-bandon-dunes-oregon",
+      "destination": "/blog/best-golf-courses-bandon-dunes-oregon/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-courses-colorado",
+      "destination": "/blog/best-golf-courses-colorado/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-courses-kiawah-island-south-carolina",
+      "destination": "/blog/best-golf-courses-kiawah-island-south-carolina/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-courses-minnesota",
+      "destination": "/blog/best-golf-courses-minnesota/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-courses-myrtle-beach-south-carolina",
+      "destination": "/blog/best-golf-courses-myrtle-beach-south-carolina/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-courses-pinehurst-north-carolina",
+      "destination": "/blog/best-golf-courses-pinehurst-north-carolina/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-courses-scottsdale-arizona",
+      "destination": "/blog/best-golf-courses-scottsdale-arizona/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-courses-wisconsin",
+      "destination": "/blog/best-golf-courses-wisconsin/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-gps-watches-2026",
+      "destination": "/blog/best-golf-gps-watches-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-gps-watches-seniors-2026",
+      "destination": "/blog/best-golf-gps-watches-seniors-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-push-carts-2026",
+      "destination": "/blog/best-golf-push-carts-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-rangefinders-seniors-2026",
+      "destination": "/blog/best-golf-rangefinders-seniors-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-shoes-2026",
+      "destination": "/blog/best-golf-shoes-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-shoes-walking-2026",
+      "destination": "/blog/best-golf-shoes-walking-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-training-aids-2026",
+      "destination": "/blog/best-golf-training-aids-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-golf-trips-under-1000",
+      "destination": "/blog/best-golf-trips-under-1000/",
+      "permanent": true
+    },
+    {
+      "source": "/best-irons-mid-handicappers-2026",
+      "destination": "/blog/best-irons-mid-handicappers-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-putters-2026",
+      "destination": "/blog/best-putters-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-rangefinders-2026",
+      "destination": "/blog/best-rangefinders-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best-rangefinders-under-200",
+      "destination": "/blog/best-rangefinders-under-200/",
+      "permanent": true
+    },
+    {
+      "source": "/best-wedges-2026",
+      "destination": "/blog/best-wedges-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best/best-golf-launch-monitors-2026",
+      "destination": "/blog/best-golf-launch-monitors-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best/best-golf-training-aids-2026",
+      "destination": "/blog/best-golf-training-aids-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/best/best-irons-high-handicappers-2026",
+      "destination": "/blog/best-irons-high-handicappers-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blade-vs-mallet-putters",
+      "destination": "/blog/blade-vs-mallet-putters/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cameron-young-wins-players-championship-2026",
+      "destination": "/blog/cameron-young-players-championship-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/bryson-dechambeau-wins-liv-golf-singapore-2026",
+      "destination": "/blog/bryson-dechambeau-wins-liv-golf-singapore-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/bunker-shot-basics-get-out-every-time",
+      "destination": "/blog/bunker-shot-basics-get-out-every-time/",
+      "permanent": true
+    },
+    {
+      "source": "/bushnell-ion-elite-gps-watch-review",
+      "destination": "/blog/bushnell-ion-elite-gps-watch-review/",
+      "permanent": true
+    },
+    {
+      "source": "/bushnell-ion-elite-vs-garmin-approach-s12",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/bushnell-tour-v6-shift-review",
+      "destination": "/blog/bushnell-tour-v6-shift-review/",
+      "permanent": true
+    },
+    {
+      "source": "/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
+      "permanent": true
+    },
+    {
+      "source": "/bushnell-tour-v6-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "permanent": true
+    },
+    {
+      "source": "/callaway-chrome-soft-x-golf-ball-review",
+      "destination": "/blog/callaway-chrome-soft-x-golf-ball-review/",
+      "permanent": true
+    },
+    {
+      "source": "/chip-shot-technique-around-the-green",
+      "destination": "/blog/chip-shot-technique-around-the-green/",
+      "permanent": true
+    },
+    {
+      "source": "/chrome-soft-vs-tp5",
+      "destination": "/blog/chrome-soft-vs-tp5/",
+      "permanent": true
+    },
+    {
+      "source": "/cobra-darkspeed-vs-taylormade-qi35-driver",
+      "destination": "/blog/cobra-darkspeed-vs-taylormade-qi35-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/copper-mountain-golf",
+      "destination": "/blog/copper-mountain-golf/",
+      "permanent": true
+    },
+    {
+      "source": "/course-management-tips",
+      "destination": "/blog/course-management-tips/",
+      "permanent": true
+    },
+    {
+      "source": "/driving-range-drills",
+      "destination": "/blog/driving-range-drills/",
+      "permanent": true
+    },
+    {
+      "source": "/ecco-biom-c4-golf-shoes-review",
+      "destination": "/blog/ecco-biom-c4-golf-shoes-review/",
+      "permanent": true
+    },
+    {
+      "source": "/footjoy-pro-sl-vs-ecco-biom-c4-golf-shoes",
+      "destination": "/blog/footjoy-pro-sl-vs-ecco-biom-c4-golf-shoes/",
+      "permanent": true
+    },
+    {
+      "source": "/garmin-approach-s70-review",
+      "destination": "/blog/garmin-approach-s70-review/",
+      "permanent": true
+    },
+    {
+      "source": "/garmin-approach-s70-vs-bushnell-ion-elite",
+      "destination": "/blog/garmin-approach-s70-vs-bushnell-ion-elite/",
+      "permanent": true
+    },
+    {
+      "source": "/golf-lessons-waste-of-money",
+      "destination": "/blog/golf-lessons-waste-of-money/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-break-90-for-real",
+      "destination": "/blog/how-to-break-90-for-real/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-fix-a-slice-for-good",
+      "destination": "/blog/how-to-fix-a-slice-for-good/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-hit-a-draw-step-by-step",
+      "destination": "/blog/how-to-hit-a-draw-step-by-step/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-make-more-short-putts-under-pressure",
+      "destination": "/blog/how-to-make-more-short-putts-under-pressure/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-play-golf-in-the-wind",
+      "destination": "/blog/how-to-play-golf-in-the-wind/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-play-golf-under-pressure",
+      "destination": "/blog/how-to-play-golf-under-pressure/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-practice-with-purpose",
+      "destination": "/blog/how-to-practice-with-purpose/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-strike-irons-pure-ball-first-contact",
+      "destination": "/blog/how-to-strike-irons-pure-ball-first-contact/",
+      "permanent": true
+    },
+    {
+      "source": "/jon-rahm-leads-liv-golf-mexico-city-round-2-2026",
+      "destination": "/blog/jon-rahm-leads-liv-golf-mexico-city-round-2-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/kirkland-golf-ball-vs-pro-v1",
+      "destination": "/blog/kirkland-golf-ball-vs-pro-v1/",
+      "permanent": true
+    },
+    {
+      "source": "/kirkland-signature-golf-ball-review",
+      "destination": "/blog/kirkland-signature-golf-ball-review/",
+      "permanent": true
+    },
+    {
+      "source": "/lag-putting-tips-eliminate-three-putts",
+      "destination": "/blog/lag-putting-tips-eliminate-three-putts/",
+      "permanent": true
+    },
+    {
+      "source": "/liv-golf-funding-rumors-mexico-city-2026",
+      "destination": "/blog/liv-golf-funding-rumors-mexico-city-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/ludvig-aberg-rbc-heritage-round-1-2026",
+      "destination": "/blog/ludvig-aberg-rbc-heritage-round-1-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/masters-2026-no-tiger-no-phil-new-era-opinion",
+      "destination": "/blog/masters-2026-no-tiger-no-phil-new-era-opinion/",
+      "permanent": true
+    },
+    {
+      "source": "/matt-fitzpatrick-leads-rbc-heritage-round-2-2026",
+      "destination": "/blog/matt-fitzpatrick-leads-rbc-heritage-round-2-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/mental-game-golf",
+      "destination": "/blog/mental-game-golf/",
+      "permanent": true
+    },
+    {
+      "source": "/mizuno-jpx925-forged-vs-taylormade-p790-irons",
+      "destination": "/blog/mizuno-jpx925-forged-vs-taylormade-p790-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/odyssey-ai-one-milled-putter-review",
+      "destination": "/blog/odyssey-ai-one-milled-putter-review/",
+      "permanent": true
+    },
+    {
+      "source": "/orange-whip-trainer-review",
+      "destination": "/blog/orange-whip-trainer-review/",
+      "permanent": true
+    },
+    {
+      "source": "/orange-whip-vs-sklz-gold-flex",
+      "destination": "/blog/orange-whip-vs-sklz-gold-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/ping-hoofer-lite-review",
+      "destination": "/blog/ping-hoofer-lite-review/",
+      "permanent": true
+    },
+    {
+      "source": "/pre-round-warm-up-routine",
+      "destination": "/blog/pre-round-warm-up-routine/",
+      "permanent": true
+    },
+    {
+      "source": "/precision-pro-nx10-rangefinder-review",
+      "destination": "/blog/precision-pro-nx10-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/pro-v1-vs-pro-v1x",
+      "destination": "/blog/pro-v1-vs-pro-v1x/",
+      "permanent": true
+    },
+    {
+      "source": "/putting-drills-that-work",
+      "destination": "/blog/putting-drills-that-work/",
+      "permanent": true
+    },
+    {
+      "source": "/rbc-heritage-2026-field-justin-rose-withdrawal",
+      "destination": "/blog/rbc-heritage-2026-field-justin-rose-withdrawal/",
+      "permanent": true
+    },
+    {
+      "source": "/rory-mcilroy-skipping-rbc-heritage-is-fine-2026",
+      "destination": "/blog/rory-mcilroy-skipping-rbc-heritage-is-fine-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/rory-mcilroy-wins-masters-2026-back-to-back",
+      "destination": "/blog/rory-mcilroy-wins-masters-2026-back-to-back/",
+      "permanent": true
+    },
+    {
+      "source": "/scotty-cameron-phantom-x-putter-review",
+      "destination": "/blog/scotty-cameron-phantom-x-putter-review/",
+      "permanent": true
+    },
+    {
+      "source": "/scotty-cameron-vs-odyssey-putters",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
+      "permanent": true
+    },
+    {
+      "source": "/short-game-secrets",
+      "destination": "/blog/short-game-secrets/",
+      "permanent": true
+    },
+    {
+      "source": "/srixon-zxi5-irons-review",
+      "destination": "/blog/srixon-zxi5-irons-review/",
+      "permanent": true
+    },
+    {
+      "source": "/stop-buying-new-drivers-every-year",
+      "destination": "/blog/stop-buying-new-drivers-every-year/",
+      "permanent": true
+    },
+    {
+      "source": "/taylormade-p790-vs-titleist-t200-irons",
+      "destination": "/blog/taylormade-p790-vs-titleist-t200-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/taylormade-spider-gt-vs-scotty-cameron-newport-2",
+      "destination": "/blog/taylormade-spider-gt-vs-scotty-cameron-newport-2/",
+      "permanent": true
+    },
+    {
+      "source": "/taylormade-spider-putter-prototypes-rbc-heritage-2026",
+      "destination": "/blog/taylormade-spider-putter-prototypes-rbc-heritage-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/titleist-pro-v1-2025-review",
+      "destination": "/blog/titleist-pro-v1-2025-review/",
+      "permanent": true
+    },
+    {
+      "source": "/titleist-vokey-sm10-wedge-review",
+      "destination": "/blog/titleist-vokey-sm10-wedge-review/",
+      "permanent": true
+    },
+    {
+      "source": "/versus/bushnell-tour-v6-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "permanent": true
+    },
+    {
+      "source": "/versus/garmin-r10-vs-rapsodo-mlm2pro",
+      "destination": "/blog/garmin-r10-vs-rapsodo-mlm2pro/",
+      "permanent": true
+    },
+    {
+      "source": "/versus/steel-vs-graphite-iron-shafts",
+      "destination": "/blog/steel-vs-graphite-iron-shafts/",
+      "permanent": true
+    },
+    {
+      "source": "/versus/taylormade-p790-vs-titleist-t200-irons",
+      "destination": "/blog/taylormade-p790-vs-titleist-t200-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/victor-perez-leads-liv-golf-mexico-city-round-1-2026",
+      "destination": "/blog/victor-perez-leads-liv-golf-mexico-city-round-1-2026/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
