@@ -22,3 +22,18 @@
 - Tone: conversational, opinionated, funny — NOT corporate
 - Light swearing OK
 - Be honest about product flaws
+
+## Editorial Trust
+- Every article in `reviews`, `best`, or `versus` must declare exactly one valid `review_basis`: `research-based`, `hands-on`, or `hybrid`.
+- Use `hands-on` or `hybrid` only when Kyle can substantiate the specific first-person use described in the article. Never infer hands-on experience from product familiarity or existing site copy.
+- Research-based coverage must be labeled `review_basis: "research-based"` and must not imply ownership, rounds played, launch-monitor sessions, fittings, measurements, or direct product testing.
+- Prefer current primary sources: official product pages, specifications, support documentation, governing bodies, tours, and direct company announcements. Attribute material claims and distinguish verified facts from editorial judgment.
+- Run `npm run validate:editorial-trust` through the normal build before committing. Do not bypass the validator.
+
+## SEO Recovery Mode
+- Scheduled jobs must not create new articles while recovery mode is active. Improve, consolidate, redirect, noindex, or retire existing pages instead.
+- Before proposing any future article, search the full article inventory for overlapping intent. Extend or improve an existing page when it can satisfy the query.
+- Do not create tag archives, add tag URLs to the sitemap, or add crawlable links to `/tags/` pages.
+- Keep canonicals, structured data, internal links, redirects, and sitemap URLs on `https://www.birdiereport.com`.
+- Prefer direct internal links to final canonical destinations; never deliberately link through a redirect.
+- Publishing may resume only after an explicit owner decision based on Search Console results. Initial cadence should be 1-2 substantiated, non-overlapping articles per week, not daily bulk publishing.

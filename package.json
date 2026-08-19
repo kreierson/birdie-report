@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/validate-editorial-trust.mjs && python3 scripts/validate-images.py --local-only-on-vercel",
+    "prebuild": "npm run validate:editorial-trust && python3 scripts/validate-images.py --local-only-on-vercel",
+    "validate:editorial-trust": "node scripts/validate-editorial-trust.mjs",
     "build": "astro build --force",
     "check:images": "python3 scripts/validate-images.py",
     "preview": "astro preview",
