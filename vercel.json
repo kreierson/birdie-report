@@ -497,7 +497,17 @@
       "permanent": true
     },
     {
+      "source": "/blog/fix-your-slice/",
+      "destination": "/blog/how-to-fix-a-slice-for-good/",
+      "permanent": true
+    },
+    {
       "source": "/blog/how-to-read-greens-better-without-guessing",
+      "destination": "/blog/how-to-read-greens-like-a-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-read-greens-better-without-guessing/",
       "destination": "/blog/how-to-read-greens-like-a-pro/",
       "permanent": true
     },
