@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "birdiereport.com"
+        }
+      ],
+      "destination": "https://www.birdiereport.com/:path*",
+      "permanent": true
+    }
+  ]
+}

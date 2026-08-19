@@ -8,7 +8,7 @@ export interface Props {
 }
 
 const { title, description, image, canonical, noindex = false } = Astro.props;
-const site = 'https://birdiereport.com';
+const site = 'https://www.birdiereport.com';
 const defaultImage = '/images/birdie-report-og.jpg';
 const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
 
@@ -43,7 +43,7 @@ const navItems = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {noindex && <meta name="robots" content="noindex" />}
     
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -69,8 +69,8 @@ const navItems = [
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "The Birdie Report",
-        "url": "https://birdiereport.com",
-        "logo": "https://birdiereport.com/logo.jpg",
+        "url": "https://www.birdiereport.com",
+        "logo": "https://www.birdiereport.com/logo.jpg",
         "description": "Golf equipment reviews, tips, and deals to help you improve your game and save money.",
         "founder": {
           "@type": "Person",
@@ -84,10 +84,10 @@ const navItems = [
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "The Birdie Report",
-        "url": "https://birdiereport.com",
+        "url": "https://www.birdiereport.com",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://birdiereport.com/?s={search_term_string}",
+          "target": "https://www.birdiereport.com/?s={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       }]
