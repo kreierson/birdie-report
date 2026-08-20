@@ -50,6 +50,8 @@ These pages have demonstrated demand, strong internal support, or a near-ranking
 
 ## Priority 1: remaining keep-and-refresh pages
 
+**Completion update — August 19, 2026:** The first five-page Priority 1 cluster is complete. `course-management-tips` now functions as the decision-system pillar; `chip-shot-technique-around-the-green` includes lie-based club selection, landing examples, and troubleshooting; `bunker-shot-basics-get-out-every-time` now separates greenside and fairway-bunker intent and adjusts for sand conditions; `pitch-shot-distance-control-scoring-zone` now contains a carry-based 30–80 yard matrix; and `short-game-secrets` is rebuilt as the short-game navigation hub. **18 Priority 1 pages remain.**
+
 | Page | Action | Required work |
 |---|---|---|
 | `bunker-shot-basics-get-out-every-time` | Keep and refresh | Add a greenside setup checklist, sand-condition adjustments, and clearer separation from the fairway-bunker articles. |
