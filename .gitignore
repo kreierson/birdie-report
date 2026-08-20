@@ -20,6 +20,14 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# local Python cache files
+__pycache__/
+*.py[cod]
+
+# temporary product-research downloads
+/tmp_driver_sources/
+/tmp_rangefinder_sources/
+
 # jetbrains setting folder
 .idea/
 .vercel
