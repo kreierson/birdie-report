@@ -12,7 +12,8 @@
     "build": "astro build --force",
     "check:images": "python3 scripts/validate-images.py",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:seo": "node --test scripts/analytics.test.mjs scripts/editorial.test.mjs && python3 scripts/test_seo.py"
   },
   "dependencies": {
     "@astrojs/mdx": "4.3.14",

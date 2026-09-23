@@ -139,13 +139,16 @@ const ratingColorClass = getRatingColor(rating);
       <a 
         href={affiliate_url}
         target="_blank"
-        rel="nofollow sponsored"
+        rel="nofollow sponsored noopener"
+        data-affiliate-link="true"
+        data-product={product}
+        data-retailer={retailer}
+        data-placement="review-card"
         class={`w-full inline-flex items-center justify-center px-4 py-3 text-white text-sm font-semibold rounded-lg transition-colors ${
           featured 
             ? 'bg-green-700 hover:bg-green-800' 
             : 'bg-gray-800 hover:bg-gray-900'
         }`}
-        onclick="trackAffiliateClick(this)"
       >
         Check Price at {retailer}
         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,19 +158,3 @@ const ratingColorClass = getRatingColor(rating);
     </div>
   </div>
 </div>
-
-<script>
-function trackAffiliateClick(element) {
-  // Track affiliate link clicks (placeholder for analytics)
-  const product = element.closest('.bg-white').querySelector('h3').textContent;
-  console.log('Affiliate click:', product, element.href);
-  
-  // You can integrate with Google Analytics, Plausible, etc. here
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'affiliate_click', {
-      'product_name': product,
-      'outbound_url': element.href
-    });
-  }
-}
-</script>

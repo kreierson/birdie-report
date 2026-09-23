@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "authorized_on": "2026-09-23",
+  "timezone": "America/Chicago",
+  "max_new_articles_per_week": 1,
+  "max_substantial_refreshes_per_week": 2,
+  "new_product_review_basis": "hands-on",
+  "priority_pages": ["ping-g440-vs-ping-g740-irons", "best-golf-cart-bags-2026", "best-golf-accessories-2026", "best-golf-bags-2026", "blade-vs-mallet-putters", "best-golf-sunglasses-2026", "best-wedges-high-handicappers-2026", "best-drivers-high-handicappers-2026", "best-golf-rain-jackets-2026", "ping-g740-irons-review"],
+  "monitor_pages": ["srixon-soft-feel-review", "taylormade-tour-preferred-flex-review", "best-golf-shoes-2026", "titleist-vokey-sm11-vs-titleist-vokey-sm10", "best-golf-gloves-2026", "course-management-tips", "chip-shot-technique-around-the-green", "bunker-shot-basics-get-out-every-time", "pitch-shot-distance-control-scoring-zone", "short-game-secrets", "steel-vs-graphite-iron-shafts", "best-golf-courses-wisconsin"],
+  "paused_categories_for_new_content": ["news", "opinion", "deals"],
+  "days": {"Monday": "refresh", "Wednesday": "refresh", "Friday": "new", "Tuesday": "monitor", "Thursday": "monitor", "Saturday": "monitor", "Sunday": "monitor"}
+}

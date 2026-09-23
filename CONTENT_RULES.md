@@ -30,10 +30,15 @@
 - Prefer current primary sources: official product pages, specifications, support documentation, governing bodies, tours, and direct company announcements. Attribute material claims and distinguish verified facts from editorial judgment.
 - Run `npm run validate:editorial-trust` through the normal build before committing. Do not bypass the validator.
 
-## SEO Recovery Mode
-- Scheduled jobs must not create new articles while recovery mode is active. Improve, consolidate, redirect, noindex, or retire existing pages instead.
+## Controlled SEO Publishing — authorized September 23, 2026
+- The owner has authorized automated publishing. Follow `docs/AUTONOMOUS_SEO.md` and `data/seo-policy.json`: at most one new article and two substantial existing-page refreshes per calendar week (America/Chicago). Monitoring may run daily.
+- New product coverage must be hands-on and cite `evidence_ids` from `data/hands-on-evidence.json`. The registry must point to actual owner confirmation or supplied testing records; a previous unverified article is not evidence. Never invent ownership, measurements, photos, or testing. Existing research-based articles retain honest labels.
+- If supported experience or distinct search intent is missing, skip new publication and continue maintenance without requesting routine approval. Never relabel research as hands-on to meet a quota.
+- No new news, opinion, or deal articles in this program. No mass deletion, noindexing, or redirects without a documented page-level rationale and verified replacement.
 - Before proposing any future article, search the full article inventory for overlapping intent. Extend or improve an existing page when it can satisfy the query.
 - Do not create tag archives, add tag URLs to the sitemap, or add crawlable links to `/tags/` pages.
 - Keep canonicals, structured data, internal links, redirects, and sitemap URLs on `https://www.birdiereport.com`.
 - Prefer direct internal links to final canonical destinations; never deliberately link through a redirect.
-- Publishing may resume only after an explicit owner decision based on Search Console results. Initial cadence should be 1-2 substantiated, non-overlapping articles per week, not daily bulk publishing.
+- Refresh dates only for material reader-facing changes. Keep original publication dates. Source specifications from current primary sources and distinguish them from personal experience.
+- A passing build and actual browser visual/interaction QA are required before deployment. Local testing must not send production analytics.
+- No paid link schemes, fabricated data, automated outreach, or purchases. Notify participating search engines of deployed changes through the IndexNow script; receipt is not proof of indexing.

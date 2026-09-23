@@ -29,14 +29,7 @@ const navItems = [
 <!DOCTYPE html>
 <html lang="en" class="h-full">
   <head>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ60ZX50XS"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-CQ60ZX50XS');
-    </script>
+    <script is:inline src="/scripts/analytics.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -214,11 +207,11 @@ const navItems = [
               <!-- Newsletter -->
               <div class="mb-6">
                 <h4 class="text-gold-400 text-sm font-semibold uppercase tracking-wide mb-3">Weekly Newsletter</h4>
-                <div class="flex max-w-sm">
+                <div class="flex flex-wrap gap-2 max-w-sm">
                   <input 
                     type="email" 
                     placeholder="your@email.com" 
-                    class="flex-1 px-3 py-2.5 bg-forest-800 border border-forest-700 rounded-l-md text-sm text-white placeholder-white/40 focus:ring-gold-500 focus:border-gold-500"
+                    class="min-w-0 w-full sm:w-auto flex-1 px-3 py-2.5 bg-forest-800 border border-forest-700 rounded-l-md text-sm text-white placeholder-white/40 focus:ring-gold-500 focus:border-gold-500"
                   />
                   <button 
                     type="submit" 

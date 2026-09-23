@@ -31,7 +31,7 @@ const isHero = variant === 'hero';
         name="email"
         placeholder="your@email.com" 
         required
-        class={`flex-1 px-3 py-2 border rounded-md text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
+        class={`min-w-0 w-full flex-1 px-3 py-2 border rounded-md text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500 ${
           isHero ? 'border-green-600 bg-white' : 'border-gray-300'
         } ${size === 'sm' ? 'text-sm' : 'text-base'}`}
       />
@@ -88,14 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
           button.className = button.className.replace('bg-gray-400', 'bg-green-700').replace('bg-gray-100', 'bg-white');
         }, 3000);
         
-        // Track newsletter signup
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'newsletter_signup', {
-            'email': email
-          });
-        }
-        
-        console.log('Newsletter signup:', email);
+        // This form has no subscription backend; never emit a successful signup
+        // or send an email address to analytics.
+
       }, 1500);
     });
   });

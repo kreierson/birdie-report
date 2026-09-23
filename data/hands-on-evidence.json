@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "policy": "Only explicit owner confirmation or genuine supplied test records can add experience. Automated research cannot establish hands-on use. New derivative articles must stay within the source scope and be listed in allowed_articles.",
+  "records": {
+    "owner-2026-08-19-best-drivers-2026": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "best-drivers-2026",
+      "scope": "Claims at least 10 rounds with every driver, Arccos tracking, hundreds of range balls, proper fittings, and testing by friends across handicaps.",
+      "allowed_articles": [
+        "best-drivers-2026"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-best-golf-apparel-2026": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "best-golf-apparel-2026",
+      "scope": "Claims direct experience with Lululemon pants.",
+      "allowed_articles": [
+        "best-golf-apparel-2026"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-best-golf-shoes-2026": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "best-golf-shoes-2026",
+      "scope": "Claims an 80% spikeless usage split and ten rounds in a specific shoe.",
+      "allowed_articles": [
+        "best-golf-shoes-2026"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-best-golf-training-aids-2026": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "best-golf-training-aids-2026",
+      "scope": "Claims a garage full of personally used aids and a direct testing process tied to a 2-handicap game.",
+      "allowed_articles": [
+        "best-golf-training-aids-2026"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-best-putters-2026": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "best-putters-2026",
+      "scope": "Claims six months of testing, at least eight rounds per putter, multiple green speeds, and controlled distance testing.",
+      "allowed_articles": [
+        "best-putters-2026"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-best-rangefinders-under-200": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "best-rangefinders-under-200",
+      "scope": "Claims personal ownership of a Leupold and direct testing of the listed rangefinders.",
+      "allowed_articles": [
+        "best-rangefinders-under-200"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-best-wedges-2026": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "best-wedges-2026",
+      "scope": "Claims at least 200 shots with each wedge/loft, multiple lies, and GCQuad spin testing.",
+      "allowed_articles": [
+        "best-wedges-2026"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-callaway-chrome-soft-x-golf-ball-review": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "callaway-chrome-soft-x-golf-ball-review",
+      "scope": "Claims long-term Pro V1 use and a full round with Chrome Soft X at The Wilds.",
+      "allowed_articles": [
+        "callaway-chrome-soft-x-golf-ball-review"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-kirkland-signature-golf-ball-review": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "kirkland-signature-golf-ball-review",
+      "scope": "Claims roughly 35 rounds over three months, Arccos tracking, testing by friends, and precise comparative distance results.",
+      "allowed_articles": [
+        "kirkland-signature-golf-ball-review"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-pro-v1-vs-chrome-soft": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "pro-v1-vs-chrome-soft",
+      "scope": "Claims a personally measured 200\u2013400 RPM driver-spin difference.",
+      "allowed_articles": [
+        "pro-v1-vs-chrome-soft"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-scotty-cameron-phantom-x-putter-review": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "scotty-cameron-phantom-x-putter-review",
+      "scope": "Claims direct testing of the Phantom X 5.",
+      "allowed_articles": [
+        "scotty-cameron-phantom-x-putter-review"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-steel-vs-graphite-iron-shafts": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "steel-vs-graphite-iron-shafts",
+      "scope": "Claims a specific personal iron-shaft setup and launch-monitor experience with graphite shafts.",
+      "allowed_articles": [
+        "steel-vs-graphite-iron-shafts",
+        "kbs-tour-120-stiff-review"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred.",
+      "supported_excerpt": "I play steel\u2014KBS Tour 120 stiff\u2014because that heavier feel helps me control trajectory and I like the feedback. That preference does not make steel universally better. I have hit graphite iron shafts on a launch monitor that produced comparable or better numbers."
+    },
+    "owner-2026-08-19-taylormade-qi35-irons-review": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "taylormade-qi35-irons-review",
+      "scope": "Claims eight rounds over two months, competitive use, and play at Sand Valley.",
+      "allowed_articles": [
+        "taylormade-qi35-irons-review"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-taylormade-vs-callaway-drivers": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "taylormade-vs-callaway-drivers",
+      "scope": "Makes a broad personal-experience claim about golfer feel preferences.",
+      "allowed_articles": [
+        "taylormade-vs-callaway-drivers"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-titleist-tsr3-driver-review": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "titleist-tsr3-driver-review",
+      "scope": "Claims a range session, member-guest use at Interlachen, 282-yard carry, and measured accuracy across a testing period.",
+      "allowed_articles": [
+        "titleist-tsr3-driver-review"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    },
+    "owner-2026-08-19-titleist-vokey-sm10-wedge-review": {
+      "confirmed_by": "Kyle Reierson",
+      "confirmed_on": "2026-08-19",
+      "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
+      "source_article": "titleist-vokey-sm10-wedge-review",
+      "scope": "Claims a personal wedge setup, GCQuad comparison, and a round of 71 at The Loop.",
+      "allowed_articles": [
+        "titleist-vokey-sm10-wedge-review"
+      ],
+      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+    }
+  }
+}

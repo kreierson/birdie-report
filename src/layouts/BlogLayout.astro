@@ -117,7 +117,7 @@ const schemaMarkup = {
       <article class="min-w-0">
         <!-- Header -->
         <header class="mb-10">
-          <div class="flex items-center gap-3 mb-4">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
             <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm ${categoryColors[category] || 'bg-gray-600 text-white'}`}>
               {categoryLabels[category] || category}
             </span>
@@ -208,7 +208,7 @@ const schemaMarkup = {
                     data-product={link.product}
                     data-retailer={link.retailer || 'Amazon'}
                     data-placement="article-top-shortlist"
-                    class="inline-flex items-center justify-center px-5 py-3 bg-forest-700 text-white rounded-md hover:bg-forest-800 transition-colors text-sm font-bold whitespace-nowrap"
+                    class="inline-flex items-center justify-center px-5 py-3 bg-forest-700 text-white rounded-md hover:bg-forest-800 transition-colors text-sm font-bold text-center"
                   >
                     Check Price
                   </a>
@@ -302,11 +302,11 @@ const schemaMarkup = {
 
         <!-- Affiliate Links -->
         {resolvedAffiliateLinks.length > 0 && (
-          <div class="mt-10 p-6 bg-forest-50 rounded-lg border-2 border-forest-200">
+          <div class="mt-10 p-3 sm:p-6 bg-forest-50 rounded-lg border-2 border-forest-200">
             <h3 class="text-lg font-display font-bold text-forest-900 mb-4">🛍️ Where to Buy</h3>
             <div class="grid gap-3">
               {resolvedAffiliateLinks.map((link: any) => (
-                <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-forest-100">
+                <div class="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 bg-white rounded-lg border border-forest-100">
                   <div>
                     <h4 class="font-semibold text-gray-900">{link.product}</h4>
                     {link.price && <p class="text-sm text-gray-600">{link.price} at {link.retailer}</p>}
@@ -319,7 +319,7 @@ const schemaMarkup = {
                     data-product={link.product}
                     data-retailer={link.retailer}
                     data-placement="article-bottom-buy-box"
-                    class="px-5 py-2.5 bg-forest-700 text-white rounded-lg hover:bg-forest-800 transition-colors text-sm font-bold whitespace-nowrap"
+                    class="px-5 py-2.5 bg-forest-700 text-white rounded-lg hover:bg-forest-800 transition-colors text-sm font-bold text-center"
                   >
                     Check Price
                   </a>
@@ -350,7 +350,7 @@ const schemaMarkup = {
                     data-product={link.offer}
                     data-retailer={link.retailer}
                     data-placement="article-bounty-box"
-                    class="px-5 py-2.5 bg-gold-500 text-forest-900 rounded-lg hover:bg-gold-400 transition-colors text-sm font-bold whitespace-nowrap"
+                    class="px-5 py-2.5 bg-gold-500 text-forest-900 rounded-lg hover:bg-gold-400 transition-colors text-sm font-bold text-center"
                   >
                     View Offer
                   </a>
@@ -441,7 +441,7 @@ const schemaMarkup = {
   <!-- Author Bio -->
   <section class="bg-forest-50 border-t border-forest-200 py-12">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-start gap-5">
+      <div class="flex flex-col sm:flex-row items-start gap-5">
         <img src="/images/kyle-reierson.jpg" alt="Kyle Reierson" class="w-16 h-16 rounded-full object-cover flex-shrink-0" />
         <div>
           <h3 class="text-xl font-display font-bold text-forest-900 mb-2">{displayAuthor}</h3>
@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // External links
     article.querySelectorAll('a[href]').forEach((link) => {
       if (link.hostname !== window.location.hostname) {
-        if (link.hostname.replace(/^www\./, '').endsWith('amazon.com')) {
+        if ((link.hostname === 'amazon.com' || link.hostname.endsWith('.amazon.com'))) {
           const affiliateUrl = new URL(link.href);
           affiliateUrl.searchParams.set('tag', activeAmazonTag);
           link.href = affiliateUrl.toString();
@@ -504,27 +504,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'nofollow sponsored noopener');
+        link.setAttribute('rel', link.dataset.affiliateLink === 'true' ? 'nofollow sponsored noopener' : 'noopener');
       }
     });
   }
 
-  document.querySelectorAll('a[data-affiliate-link="true"], a[rel~="sponsored"]').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (!(link instanceof HTMLAnchorElement)) return;
 
-      const eventData = {
-        product_name: link.dataset.product || link.textContent?.trim() || 'Unknown product',
-        retailer: link.dataset.retailer || 'Unknown retailer',
-        placement: link.dataset.placement || 'article-body-link',
-        link_url: link.href,
-        page_path: window.location.pathname,
-      };
-
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'affiliate_click', eventData);
-      }
-    });
-  });
 });
 </script>
+
+<style is:global>
+  article { min-width: 0; overflow-wrap: anywhere; }
+  article [data-affiliate-link] { overflow-wrap: normal; max-width: 100%; }
+  article h2, article h3 { scroll-margin-top: 6rem; }
+  article table { display: block; max-width: 100%; overflow-x: auto; }
+</style>

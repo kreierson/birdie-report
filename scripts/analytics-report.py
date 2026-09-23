@@ -1,294 +1,167 @@
 #!/usr/bin/env python3
-"""Birdie Report Analytics & Search Console daily report."""
-
+"""Complete-period GA4/GSC reporting; read-only APIs, local evidence artifacts."""
+import argparse
 import json
-import os
 import sys
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
-# --- Config ---
-SERVICE_ACCOUNT_FILE = Path(__file__).parent.parent / ".google-service-account.json"
-GA4_PROPERTY_ID = None  # Will be discovered
-SITE_URL = "sc-domain:birdiereport.com"  # Search Console property
+ROOT = Path(__file__).resolve().parents[1]
+SERVICE_ACCOUNT_FILE = ROOT / '.google-service-account.json'
+SITE_URL = 'sc-domain:birdiereport.com'
 
 def get_ga4_credentials():
     from google.oauth2 import service_account
-    SCOPES = [
-        "https://www.googleapis.com/auth/analytics.readonly",
-        "https://www.googleapis.com/auth/webmasters.readonly",
-    ]
-    return service_account.Credentials.from_service_account_file(
-        str(SERVICE_ACCOUNT_FILE), scopes=SCOPES
-    )
+    return service_account.Credentials.from_service_account_file(str(SERVICE_ACCOUNT_FILE), scopes=[
+        'https://www.googleapis.com/auth/analytics.readonly',
+        'https://www.googleapis.com/auth/webmasters.readonly'])
 
-def discover_ga4_property(credentials):
-    """List GA4 properties accessible to the service account."""
+def periods(end, days=28):
+    def window(n, offset=0):
+        last = end - timedelta(days=offset)
+        return [(last - timedelta(days=n-1)).isoformat(), last.isoformat()]
+    return {'current': window(days), 'previous': window(days, days),
+            'current7': window(7), 'previous7': window(7, 7)}
+
+def normalize_path(url):
+    from urllib.parse import urlsplit
+    path = urlsplit(url).path if '://' in url else url
+    return path.rstrip('/')+'/' if path and path != '(not set)' else path
+
+def collect(days=28, end=None):
     from google.analytics.data_v1beta import BetaAnalyticsDataClient
-    from google.analytics.admin_v1alpha import AnalyticsAdminServiceClient
-    try:
-        from google.analytics.admin_v1alpha import AnalyticsAdminServiceClient
-        admin_client = AnalyticsAdminServiceClient(credentials=credentials)
-        accounts = list(admin_client.list_accounts())
-        for account in accounts:
-            properties = list(admin_client.list_properties(
-                filter=f"parent:{account.name}"
-            ))
-            for prop in properties:
-                if "birdie" in prop.display_name.lower() or "birdie" in str(prop.name).lower():
-                    # Extract numeric ID from "properties/123456"
-                    return prop.name.split("/")[-1]
-        # Return first property found if no birdie match
-        if accounts:
-            properties = list(admin_client.list_properties(
-                filter=f"parent:{accounts[0].name}"
-            ))
-            if properties:
-                return properties[0].name.split("/")[-1]
-    except Exception as e:
-        print(f"Could not auto-discover GA4 property: {e}", file=sys.stderr)
-    return None
-
-def get_ga4_report(credentials, property_id, days=1):
-    """Pull GA4 data for the given number of days."""
-    from google.analytics.data_v1beta import BetaAnalyticsDataClient
-    from google.analytics.data_v1beta.types import (
-        RunReportRequest, DateRange, Dimension, Metric, OrderBy,
-        FilterExpression, Filter
-    )
-    
-    client = BetaAnalyticsDataClient(credentials=credentials)
-    end_date = datetime.now().strftime("%Y-%m-%d")
-    start_date = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
-    
-    # Overview metrics
-    overview = client.run_report(RunReportRequest(
-        property=f"properties/{property_id}",
-        date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
-        metrics=[
-            Metric(name="sessions"),
-            Metric(name="totalUsers"),
-            Metric(name="screenPageViews"),
-            Metric(name="averageSessionDuration"),
-            Metric(name="bounceRate"),
-        ],
-    ))
-    
-    # Top pages
-    top_pages = client.run_report(RunReportRequest(
-        property=f"properties/{property_id}",
-        date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
-        dimensions=[Dimension(name="pagePath")],
-        metrics=[
-            Metric(name="screenPageViews"),
-            Metric(name="totalUsers"),
-        ],
-        order_bys=[OrderBy(metric=OrderBy.MetricOrderBy(metric_name="screenPageViews"), desc=True)],
-        limit=10,
-    ))
-    
-    # Traffic sources
-    sources = client.run_report(RunReportRequest(
-        property=f"properties/{property_id}",
-        date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
-        dimensions=[Dimension(name="sessionDefaultChannelGroup")],
-        metrics=[
-            Metric(name="sessions"),
-            Metric(name="totalUsers"),
-        ],
-        order_bys=[OrderBy(metric=OrderBy.MetricOrderBy(metric_name="sessions"), desc=True)],
-        limit=10,
-    ))
-
-    affiliate_pages = None
-    affiliate_days = None
-    affiliate_filter = FilterExpression(
-        filter=Filter(
-            field_name="eventName",
-            string_filter=Filter.StringFilter(value="affiliate_click")
-        )
-    )
-
-    try:
-        affiliate_pages = client.run_report(RunReportRequest(
-            property=f"properties/{property_id}",
-            date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
-            dimensions=[Dimension(name="pagePath")],
-            metrics=[Metric(name="eventCount")],
-            dimension_filter=affiliate_filter,
-            order_bys=[OrderBy(metric=OrderBy.MetricOrderBy(metric_name="eventCount"), desc=True)],
-            limit=10,
-        ))
-
-        affiliate_days = client.run_report(RunReportRequest(
-            property=f"properties/{property_id}",
-            date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
-            dimensions=[Dimension(name="date")],
-            metrics=[Metric(name="eventCount")],
-            dimension_filter=affiliate_filter,
-            order_bys=[OrderBy(dimension=OrderBy.DimensionOrderBy(dimension_name="date"), desc=True)],
-            limit=14,
-        ))
-    except Exception as e:
-        print(f"Could not pull affiliate click events: {e}", file=sys.stderr)
-    
-    return overview, top_pages, sources, affiliate_pages, affiliate_days
-
-def get_search_console_report(credentials, days=3):
-    """Pull Search Console data (3-day delay typical)."""
+    from google.analytics.data_v1beta.types import RunReportRequest, DateRange, Dimension, Metric, FilterExpression, Filter, FilterExpressionList
     from googleapiclient.discovery import build
-    
-    service = build("searchconsole", "v1", credentials=credentials)
-    end_date = (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d")
-    start_date = (datetime.now() - timedelta(days=3 + days)).strftime("%Y-%m-%d")
-    
-    try:
-        response = service.searchanalytics().query(
-            siteUrl=SITE_URL,
-            body={
-                "startDate": start_date,
-                "endDate": end_date,
-                "dimensions": ["query"],
-                "rowLimit": 20,
-                "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
-            },
-        ).execute()
-        
-        page_response = service.searchanalytics().query(
-            siteUrl=SITE_URL,
-            body={
-                "startDate": start_date,
-                "endDate": end_date,
-                "dimensions": ["page"],
-                "rowLimit": 10,
-                "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
-            },
-        ).execute()
-        
-        return response.get("rows", []), page_response.get("rows", [])
-    except Exception as e:
-        return None, str(e)
+    from google.protobuf.json_format import MessageToDict
+    credentials = get_ga4_credentials()
+    property_file = ROOT / '.ga4-property-id'
+    if not property_file.exists():
+        raise RuntimeError('Missing .ga4-property-id; refusing to guess a GA property')
+    ga = BetaAnalyticsDataClient(credentials=credentials)
+    gsc = build('searchconsole', 'v1', credentials=credentials, cache_discovery=False)
+    property_id = property_file.read_text().strip()
+    today = datetime.now(ZoneInfo('America/Chicago')).date()
+    errors = {}
+    if end is None:
+        try:
+            probe = gsc.searchanalytics().query(siteUrl=SITE_URL, body={
+                'startDate': (today-timedelta(days=10)).isoformat(),
+                'endDate': (today-timedelta(days=2)).isoformat(),
+                'dimensions': ['date'], 'type': 'web', 'dataState': 'final', 'rowLimit': 25000}).execute()
+            end = max(date.fromisoformat(r['keys'][0]) for r in probe.get('rows', []))
+        except Exception as exc:
+            errors['final_date_probe'] = str(exc)
+            end = today-timedelta(days=3)
+    if end >= today:
+        raise ValueError('End date must exclude today and future days')
+    def exact(field, value):
+        return FilterExpression(filter=Filter(field_name=field, string_filter=Filter.StringFilter(value=value, match_type=Filter.StringFilter.MatchType.EXACT)))
+    amazon = FilterExpression(and_group=FilterExpressionList(expressions=[exact('eventName','click'), exact('linkDomain','amazon.com')]))
+    custom = exact('eventName', 'affiliate_click')
+    result = {'generated_at':datetime.now(ZoneInfo('America/Chicago')).isoformat(), 'property_id':property_id,
+              'site': SITE_URL, 'end':end.isoformat(), 'periods':{}, 'errors':errors,
+              'notes':['GA4 and Amazon counts use different measurement systems.', 'Custom affiliate events and enhanced-measurement Amazon outbound clicks are separate, never added together.', 'GA4 uses property timezone; Search Console uses Pacific time.', 'Missing query rows are not evidence of zero searches; site totals are queried directly.']}
+    def report(name, start, finish, dimensions, metrics, filt=None):
+        try:
+            kw=dict(property='properties/'+property_id,date_ranges=[DateRange(start_date=start,end_date=finish)],
+                    dimensions=[Dimension(name=x) for x in dimensions],metrics=[Metric(name=x) for x in metrics],limit=100000)
+            if filt:kw['dimension_filter']=filt
+            response=ga.run_report(RunReportRequest(**kw))
+            rows=[dict(zip(dimensions+metrics,[v.value for v in r.dimension_values]+[float(v.value) for v in r.metric_values])) for r in response.rows]
+            if response.row_count>len(rows):errors[name]='Report truncated; do not treat row sums as totals'
+            return {'rows':rows,'metadata':MessageToDict(response.metadata._pb),'row_count':response.row_count}
+        except Exception as exc:
+            errors[name]=str(exc);return {'rows':[], 'unavailable':True}
+    def search(name,start,finish,dimensions):
+        try:
+            response=gsc.searchanalytics().query(siteUrl=SITE_URL,body={'startDate':start,'endDate':finish,'dimensions':dimensions,'type':'web','dataState':'final','rowLimit':25000}).execute()
+            if len(response.get('rows',[]))==25000:errors[name]='GSC row limit reached; totals remain authoritative'
+            return response
+        except Exception as exc:
+            errors[name]=str(exc);return {'rows':[], 'unavailable':True}
+    for label,(start,finish) in periods(end,days).items():
+        prefix=label+'/'
+        metrics=['sessions','totalUsers','screenPageViews','engagedSessions','engagementRate']
+        p={'start':start,'end':finish}
+        p['overview']=report(prefix+'overview',start,finish,[],metrics)
+        p['sources']=report(prefix+'sources',start,finish,['sessionSourceMedium'],metrics)
+        p['organic']=report(prefix+'organic',start,finish,[],metrics,exact('sessionMedium','organic'))
+        p['amazon']=report(prefix+'amazon',start,finish,[],['eventCount','totalUsers','sessions'],amazon)
+        p['amazon_sources']=report(prefix+'amazon_sources',start,finish,['sessionSourceMedium'],['eventCount','sessions'],amazon)
+        p['custom_affiliate']=report(prefix+'custom',start,finish,[],['eventCount','totalUsers','sessions'],custom)
+        p['gsc']=search(prefix+'gsc',start,finish,[])
+        p['pages']=search(prefix+'pages',start,finish,['page'])
+        if label in ['current','previous']:
+            p['landing']=report(prefix+'landing',start,finish,['landingPage','sessionSourceMedium'],['sessions','engagedSessions'])
+            p['amazon_pages']=report(prefix+'amazon_pages',start,finish,['pagePath'],['eventCount','sessions'],amazon)
+            p['direct_countries']=report(prefix+'direct',start,finish,['country'],['sessions','engagedSessions'],exact('sessionSourceMedium','(direct) / (none)'))
+            p['queries']=search(prefix+'queries',start,finish,['query'])
+        result['periods'][label]=p
+        print(f'Collected {label}: {start}–{finish}',file=sys.stderr)
+    amazon_file=ROOT/'data/amazon-metrics.local.json'
+    if amazon_file.exists():result['amazon_portal']=json.loads(amazon_file.read_text())
+    return result
 
-def format_report(ga4_data, search_data):
-    """Format everything into a readable report."""
-    overview, top_pages, sources, affiliate_pages, affiliate_days = ga4_data
-    search_queries, search_pages = search_data
-    
-    lines = ["# 📊 Birdie Report — Daily Analytics", ""]
-    
-    # GA4 Overview
-    if overview.rows:
-        row = overview.rows[0]
-        sessions = row.metric_values[0].value
-        users = row.metric_values[1].value
-        pageviews = row.metric_values[2].value
-        avg_duration = float(row.metric_values[3].value)
-        bounce = float(row.metric_values[4].value) * 100
-        
-        lines.append("## Traffic Overview (Last 24h)")
-        lines.append(f"- **Sessions:** {sessions}")
-        lines.append(f"- **Users:** {users}")
-        lines.append(f"- **Pageviews:** {pageviews}")
-        lines.append(f"- **Avg Session Duration:** {avg_duration:.0f}s")
-        lines.append(f"- **Bounce Rate:** {bounce:.1f}%")
-        lines.append("")
-    else:
-        lines.append("## Traffic Overview")
-        lines.append("No data yet (GA4 can take 24-48h to start reporting)")
-        lines.append("")
-    
-    # Top Pages
-    if top_pages.rows:
-        lines.append("## Top Pages")
-        for row in top_pages.rows:
-            path = row.dimension_values[0].value
-            views = row.metric_values[0].value
-            users = row.metric_values[1].value
-            lines.append(f"- **{path}** — {views} views, {users} users")
-        lines.append("")
-    
-    # Traffic Sources
-    if sources.rows:
-        lines.append("## Traffic Sources")
-        for row in sources.rows:
-            source = row.dimension_values[0].value
-            sessions = row.metric_values[0].value
-            lines.append(f"- **{source}:** {sessions} sessions")
-        lines.append("")
+def first(report):
+    return report.get('rows',[{}])[0] if report.get('rows') else {}
 
-    if affiliate_pages and affiliate_pages.rows:
-        lines.append("## Affiliate Clicks")
-        for row in affiliate_pages.rows:
-            path = row.dimension_values[0].value
-            clicks = row.metric_values[0].value
-            lines.append(f"- **{path}** — {clicks} affiliate clicks")
-        lines.append("")
-
-    if affiliate_days and affiliate_days.rows:
-        lines.append("## Affiliate Click Spike Check")
-        for row in affiliate_days.rows:
-            raw_date = row.dimension_values[0].value
-            clicks = int(row.metric_values[0].value)
-            date_label = f"{raw_date[:4]}-{raw_date[4:6]}-{raw_date[6:]}"
-            lines.append(f"- **{date_label}:** {clicks} affiliate clicks")
-        lines.append("")
-    
-    # Search Console
-    if isinstance(search_queries, list) and search_queries:
-        lines.append("## Search Console — Top Queries (3-day delay)")
-        for row in search_queries[:15]:
-            query = row["keys"][0]
-            clicks = int(row["clicks"])
-            impressions = int(row["impressions"])
-            position = row["position"]
-            lines.append(f"- **\"{query}\"** — {clicks} clicks, {impressions} impressions, pos {position:.1f}")
-        lines.append("")
-    elif isinstance(search_queries, list):
-        lines.append("## Search Console")
-        lines.append("No search data yet (takes a few days after verification)")
-        lines.append("")
-    else:
-        lines.append("## Search Console")
-        lines.append(f"Error: {search_pages}")
-        lines.append("")
-    
-    if isinstance(search_pages, list) and search_pages:
-        lines.append("## Top Pages by Search Clicks")
-        for row in search_pages:
-            page = row["keys"][0].replace("https://birdiereport.com", "")
-            clicks = int(row["clicks"])
-            impressions = int(row["impressions"])
-            lines.append(f"- **{page}** — {clicks} clicks, {impressions} impressions")
-        lines.append("")
-    
-    return "\n".join(lines)
+def format_report(data):
+    cur=data['periods']['current'];prev=data['periods']['previous']
+    lines=['# Birdie Report — search and affiliate performance','',f"Complete days: **{cur['start']}–{cur['end']}** versus **{prev['start']}–{prev['end']}**.",'', '| Metric | Previous | Current | Change |','|---|---:|---:|---:|']
+    for label,key,metric in [('Sessions','overview','sessions'),('Organic sessions','organic','sessions'),('Engaged sessions','overview','engagedSessions'),('Google Search clicks','gsc','clicks'),('Google Search impressions','gsc','impressions'),('Google Search CTR (ratio)','gsc','ctr'),('Google average position (lower is better)','gsc','position'),('Amazon outbound clicks (GA)','amazon','eventCount'),('Sessions clicking Amazon','amazon','sessions'),('Custom affiliate events (separate)','custom_affiliate','eventCount')]:
+        a=first(prev[key]).get(metric);b=first(cur[key]).get(metric)
+        # An available event report with zero rows represents no recorded events.
+        if key in ['amazon','custom_affiliate']:
+            if not prev[key].get('unavailable'):a=0 if a is None else a
+            if not cur[key].get('unavailable'):b=0 if b is None else b
+        change=f'{(b/a-1)*100:+.1f}%' if a and b is not None else '—'
+        lines.append(f"| {label} | {a if a is not None else 'unavailable'} | {b if b is not None else 'unavailable'} | {change} |")
+    lines+=['','## Acquisition','', '| Source | Previous sessions | Current sessions | Current engagement | Amazon clicks (GA) |','|---|---:|---:|---:|---:|']
+    previous={r['sessionSourceMedium']:r for r in prev['sources']['rows']}
+    affiliate={r['sessionSourceMedium']:r['eventCount'] for r in cur['amazon_sources']['rows']}
+    for r in sorted(cur['sources']['rows'],key=lambda x:-x['sessions'])[:15]:
+        source=r['sessionSourceMedium']
+        before='unavailable' if prev['sources'].get('unavailable') else f"{previous.get(source,{}).get('sessions',0):.0f}"
+        clicks='unavailable' if cur['amazon_sources'].get('unavailable') else f"{affiliate.get(source,0):.0f}"
+        lines.append(f"| {source} | {before} | {r['sessions']:.0f} | {r['engagementRate']:.1%} | {clicks} |")
+    lines+=['','## Existing commercial opportunities','']
+    for r in sorted(cur.get('amazon_pages',{}).get('rows',[]),key=lambda x:-x['eventCount'])[:15]:lines.append(f"- {normalize_path(r['pagePath'])}: {r['eventCount']:.0f} Amazon outbound clicks; {r['sessions']:.0f} click-bearing sessions.")
+    lines+=['','## Fixed Google recovery cohort','', 'Cells show clicks / impressions / CTR / average position. A missing row is not proof of zero activity.', '', f"| Page | Previous {(date.fromisoformat(cur['end'])-date.fromisoformat(cur['start'])).days+1}d | Current {(date.fromisoformat(cur['end'])-date.fromisoformat(cur['start'])).days+1}d | Previous 7d | Current 7d |",'|---|---|---|---|---|']
+    policy=json.loads((ROOT/'data/seo-policy.json').read_text())
+    for slug in policy['monitor_pages']:
+        cells=[]
+        for label in ['previous','current','previous7','current7']:
+            report=data['periods'][label].get('pages',{})
+            row=next((r for r in report.get('rows',[]) if r['keys'][0]=='https://www.birdiereport.com/blog/'+slug+'/'),None)
+            cells.append('unavailable' if report.get('unavailable') else (f"{row['clicks']:.0f} / {row['impressions']:.0f} / {row['ctr']:.1%} / {row['position']:.1f}" if row else 'no returned row'))
+        lines.append('| '+slug+' | '+' | '.join(cells)+' |')
+    lines+=['','## Measurement checks','']
+    amazon=first(cur['amazon']).get('eventCount',0);custom=first(cur['custom_affiliate']).get('eventCount',0)
+    if not cur['custom_affiliate'].get('unavailable') and amazon and not custom:lines.append('- Amazon outbound events exist but no custom affiliate events were recorded. Investigate tracking; this is not zero affiliate activity.')
+    for r in cur.get('direct_countries',{}).get('rows',[]):
+        if r['sessions']>=100 and r['engagedSessions']/r['sessions']<0.02:lines.append(f"- Low-engagement direct segment: {r['country']}, {r['sessions']:.0f} sessions, {r['engagedSessions']:.0f} engaged. Investigate before calling this growth or bots.")
+    if 'amazon_portal' in data:
+        a=data['amazon_portal'];lines+=['',f"Amazon portal snapshot: retrieved {a.get('retrieved','unknown')}. Report these earnings only with their own date windows; never substitute GA revenue."]
+        for name,p in a.get('periods',{}).items():lines.append(f"- {name}: {p['start']}–{p['end']}; {p['clicks']} Amazon clicks; ${p['commissions_usd']:.2f} commissions.")
+        age=(date.fromisoformat(data['generated_at'][:10])-date.fromisoformat(a['retrieved'][:10])).days
+        if age>7:lines.append(f'- Amazon snapshot is stale ({age} days). Refresh through the authenticated browser; continue SEO work if login is unavailable.')
+    else:lines.append('- Amazon earnings unavailable. Do not interpret GA revenue as affiliate commissions.')
+    lines+=['','Errors: '+json.dumps(data['errors']), '', *('- '+n for n in data['notes'])]
+    return '\n'.join(lines)+'\n'
 
 def main():
-    credentials = get_ga4_credentials()
-    
-    # Try to load cached property ID
-    cache_file = Path(__file__).parent.parent / ".ga4-property-id"
-    property_id = None
-    if cache_file.exists():
-        property_id = cache_file.read_text().strip()
-    
-    if not property_id:
-        print("Discovering GA4 property...", file=sys.stderr)
-        property_id = discover_ga4_property(credentials)
-        if property_id:
-            cache_file.write_text(property_id)
-            print(f"Found GA4 property: {property_id}", file=sys.stderr)
-        else:
-            print("ERROR: Could not find GA4 property. You may need to grant the service account access.", file=sys.stderr)
-            sys.exit(1)
-    
-    days = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-    
-    ga4_data = get_ga4_report(credentials, property_id, days)
-    search_data = get_search_console_report(credentials, days)
-    
-    report = format_report(ga4_data, search_data)
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('days',nargs='?',default=28,type=int)
+    parser.add_argument('--end',type=date.fromisoformat)
+    parser.add_argument('--output',type=Path,default=ROOT/'reports/seo')
+    args=parser.parse_args()
+    if args.days<1 or args.days>90:parser.error('days must be 1–90')
+    data=collect(args.days,args.end);args.output.mkdir(parents=True,exist_ok=True)
+    stem=f"{data['end']}-{args.days}d"
+    (args.output/(stem+'.json')).write_text(json.dumps(data,indent=2))
+    report=format_report(data);(args.output/(stem+'.md')).write_text(report)
+    (args.output/'latest.json').write_text(json.dumps(data,indent=2));(args.output/'latest.md').write_text(report)
     print(report)
-
-if __name__ == "__main__":
-    main()
+    return 1 if data['errors'] else 0
+if __name__=='__main__':sys.exit(main())

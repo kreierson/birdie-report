@@ -100,7 +100,6 @@ const stars = starFull.repeat(rating) + starEmpty.repeat(5 - rating);
           data-retailer={retailer}
           data-placement="product-card"
           class="inline-flex items-center px-4 py-2 bg-green-700 text-white text-sm font-medium rounded-md hover:bg-green-800 transition-colors"
-          onclick="trackAffiliateClick(this)"
         >
           Check Price at {retailer}
           <svg class="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,19 +111,3 @@ const stars = starFull.repeat(rating) + starEmpty.repeat(5 - rating);
     </div>
   </div>
 </div>
-
-<script>
-function trackAffiliateClick(element) {
-  // Track affiliate link clicks (placeholder for analytics)
-  const product = element.closest('.bg-white').querySelector('h3').textContent;
-  console.log('Affiliate click:', product, element.href);
-  
-  // You can integrate with Google Analytics, Plausible, etc. here
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'affiliate_click', {
-      'product_name': product,
-      'outbound_url': element.href
-    });
-  }
-}
-</script>

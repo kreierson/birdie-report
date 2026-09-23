@@ -51,7 +51,7 @@ export function withAmazonTag(url: string, context: AffiliateContext = {}) {
     const parsed = new URL(url);
     const host = parsed.hostname.replace(/^www\./, '');
 
-    if (!host.endsWith('amazon.com')) return url;
+    if (host !== 'amazon.com' && !host.endsWith('.amazon.com')) return url;
 
     parsed.searchParams.set('tag', getAmazonTag(context));
     return parsed.toString();
