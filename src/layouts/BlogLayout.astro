@@ -1,7 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import NewsletterSignup from '../components/NewsletterSignup.astro';
+import GearGuideLinks from '../components/GearGuideLinks.astro';
 import { getCollection } from 'astro:content';
+import { selectRelatedPosts } from '../utils/discovery.mjs';
 import { getAmazonTag, normalizeAffiliateLinks } from '../utils/affiliate';
 
 export interface Props {
@@ -31,10 +32,8 @@ const heroBuyLinks = resolvedAffiliateLinks.length > 0
 const hasBuyerIntent = ['best', 'reviews', 'deals', 'versus'].includes(category) && heroBuyLinks.length > 0;
 
 const allPosts = await getCollection('blog');
-const relatedPosts = allPosts
-  .filter(post => post.data.category === category && post.data.title !== title)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 4);
+const currentSlug = Astro.url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
+const relatedPosts = selectRelatedPosts(allPosts, { slug: currentSlug, data: content });
 
 const isReview = category === 'reviews' || (rating && pros);
 const displayAuthor = author;
@@ -83,7 +82,7 @@ const schemaMarkup = {
   "headline": title,
   "description": description,
   "image": new URL(featured_image, site).toString(),
-  "author": { "@type": "Person", "name": displayAuthor },
+  "author": { "@type": "Person", "name": displayAuthor, "url": site + "/about/" },
   "publisher": {
     "@type": "Organization",
     "name": "The Birdie Report",
@@ -137,7 +136,7 @@ const schemaMarkup = {
           <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 pb-6 border-b border-gray-200">
             <div class="flex items-center gap-2">
               <img src="/images/kyle-reierson.jpg" alt="Kyle Reierson" class="w-8 h-8 rounded-full object-cover" />
-              <span class="font-medium text-gray-900">{displayAuthor}</span>
+              <a href="/about/" class="font-medium text-gray-900 underline underline-offset-4">{displayAuthor}</a>
             </div>
             <time datetime={date.toISOString()}>
               {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
@@ -184,7 +183,7 @@ const schemaMarkup = {
                 <p class="text-xs font-bold uppercase tracking-wide text-forest-700">Quick Buyer Shortlist</p>
                 <h2 class="text-xl font-display font-bold text-forest-900">Best places to start</h2>
               </div>
-              <p class="text-xs text-gray-500 max-w-sm">Affiliate links may earn us a commission at no extra cost to you.</p>
+              <p class="text-xs text-gray-500 max-w-sm">Affiliate links may earn us a commission. Amazon links open search results; verify the model, seller, and current price.</p>
             </div>
             <div class="divide-y divide-forest-100">
               {heroBuyLinks.map((link: any, i: number) => (
@@ -192,7 +191,6 @@ const schemaMarkup = {
                   <div>
                     <div class="flex flex-wrap items-center gap-2 mb-1">
                       <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-forest-800 text-white text-xs font-bold">{i + 1}</span>
-                      {link.price && <span class="text-sm font-semibold text-forest-700">{link.price}</span>}
                       {link.rating && <span class="text-sm font-semibold text-gold-700">{link.rating}/10</span>}
                     </div>
                     <h3 class="font-bold text-gray-950 leading-snug">{link.product}</h3>
@@ -210,7 +208,7 @@ const schemaMarkup = {
                     data-placement="article-top-shortlist"
                     class="inline-flex items-center justify-center px-5 py-3 bg-forest-700 text-white rounded-md hover:bg-forest-800 transition-colors text-sm font-bold text-center"
                   >
-                    Check Price
+                    See retailer options
                   </a>
                 </div>
               ))}
@@ -309,9 +307,9 @@ const schemaMarkup = {
                 <div class="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 bg-white rounded-lg border border-forest-100">
                   <div>
                     <h4 class="font-semibold text-gray-900">{link.product}</h4>
-                    {link.price && <p class="text-sm text-gray-600">{link.price} at {link.retailer}</p>}
+                    <p class="text-sm text-gray-600">Search current options at {link.retailer || 'Amazon'}</p>
                   </div>
-                  <a 
+                  <a
                     href={link.url}
                     target="_blank"
                     rel="nofollow sponsored noopener"
@@ -321,7 +319,7 @@ const schemaMarkup = {
                     data-placement="article-bottom-buy-box"
                     class="px-5 py-2.5 bg-forest-700 text-white rounded-lg hover:bg-forest-800 transition-colors text-sm font-bold text-center"
                   >
-                    Check Price
+                    See retailer options
                   </a>
                 </div>
               ))}
@@ -365,7 +363,7 @@ const schemaMarkup = {
 
         <!-- Newsletter -->
         <div class="mt-12">
-          <NewsletterSignup variant="card" />
+          <GearGuideLinks variant="card" />
         </div>
 
         <!-- Related Posts -->
@@ -376,10 +374,10 @@ const schemaMarkup = {
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {relatedPosts.map(post => (
-                <article class="group flex gap-4">
+                <article class="group flex flex-col sm:flex-row gap-4">
                   <a href={`/blog/${post.slug}/`} class="block w-24 h-20 flex-shrink-0 rounded overflow-hidden">
-                    <img 
-                      src={post.data.featured_image} 
+                    <img
+                      src={post.data.featured_image}
                       alt={post.data.title}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
@@ -418,7 +416,7 @@ const schemaMarkup = {
             <div class="mt-6 bg-forest-800 rounded-lg p-5 text-center">
               {rating && <div class="text-gold-400 font-display font-bold text-2xl mb-1">{rating}/10</div>}
               <div class="text-white font-semibold mb-3">{heroBuyLinks[0].product}</div>
-              <a 
+              <a
                 href={heroBuyLinks[0].url}
                 target="_blank"
                 rel="nofollow sponsored noopener"
@@ -428,7 +426,7 @@ const schemaMarkup = {
                 data-placement="sidebar-sticky-cta"
                 class="block w-full py-3 bg-gold-500 text-forest-900 font-bold rounded-lg hover:bg-gold-400 transition-colors"
               >
-                Check Best Price
+                See Amazon options
               </a>
               <p class="text-white/40 text-[10px] mt-2">at {heroBuyLinks[0].retailer || 'Amazon'}</p>
             </div>
@@ -444,16 +442,11 @@ const schemaMarkup = {
       <div class="flex flex-col sm:flex-row items-start gap-5">
         <img src="/images/kyle-reierson.jpg" alt="Kyle Reierson" class="w-16 h-16 rounded-full object-cover flex-shrink-0" />
         <div>
-          <h3 class="text-xl font-display font-bold text-forest-900 mb-2">{displayAuthor}</h3>
+          <h3 class="text-xl font-display font-bold text-forest-900 mb-2"><a href="/about/" class="underline underline-offset-4">{displayAuthor}</a></h3>
           <p class="text-gray-600 text-sm leading-relaxed">
-            Kyle is an obsessive equipment tester who's played 
-            everything from North Dakota's hidden gems to Pebble Beach. He shares 
-            honest, no-BS reviews to help golfers make smarter purchasing decisions.
+            Kyle is a 2-handicap golfer. His equipment coverage distinguishes
+            confirmed hands-on experience from research to help golfers make better buying decisions.
           </p>
-          <div class="flex items-center gap-4 mt-3 text-sm text-gray-500">
-            
-            <span>📍 North Dakota</span>
-          </div>
         </div>
       </div>
     </div>

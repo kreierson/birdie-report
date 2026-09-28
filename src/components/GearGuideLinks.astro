@@ -1,0 +1,18 @@
+---
+export interface Props { variant?: 'inline' | 'card' | 'hero'; size?: 'sm' | 'md' | 'lg'; }
+const { variant = 'card' } = Astro.props;
+const dark = variant === 'hero';
+const links = [
+  { label: 'Choose a golf bag', href: '/blog/best-golf-bags-2026/' },
+  { label: 'Compare golf balls', href: '/blog/best-golf-balls-2026/' },
+  { label: 'Find a rangefinder', href: '/blog/best-rangefinders-2026/' },
+];
+---
+<aside class={`rounded-lg border p-5 sm:p-6 ${dark ? 'bg-forest-800 border-forest-700 text-white' : 'bg-forest-50 border-forest-200 text-forest-900'}`} aria-label="Golf buying guides">
+  <h3 class="font-display font-bold text-xl mb-2">Make your next gear purchase count</h3>
+  <p class={`text-sm leading-relaxed mb-4 ${dark ? 'text-white/80' : 'text-gray-600'}`}>Start with fit, compare the tradeoffs, and check the details before buying.</p>
+  <nav aria-label="Browse buying guides" class="flex flex-col gap-2">
+    {links.map(link => <a href={link.href} class={`block rounded-md border px-4 py-3 text-base font-semibold transition-colors ${dark ? 'border-forest-600 hover:bg-forest-700' : 'border-forest-200 bg-white hover:border-forest-500'}`}>{link.label}</a>)}
+    <a href="/best/" class={`mt-1 text-sm font-semibold underline underline-offset-4 ${dark ? 'text-gold-300' : 'text-forest-700'}`}>See all buying guides</a>
+  </nav>
+</aside>

@@ -1,24 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import NewsletterSignup from '../components/NewsletterSignup.astro';
+import GearGuideLinks from '../components/GearGuideLinks.astro';
+import CommercialOpportunityPanel from '../components/CommercialOpportunityPanel.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog').catch(() => []);
-const sorted = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const sorted = allPosts.sort((a, b) => new Date(b.data.updated || b.data.date).getTime() - new Date(a.data.updated || a.data.date).getTime());
 
-// Hero: latest featured or latest post
-const heroPost = sorted.find(p => p.data.featured) || sorted[0];
+// Lead with the most recently published or materially refreshed buying guide.
+const heroPost = sorted.find(p => ['best', 'reviews', 'versus'].includes(p.data.category)) || sorted[0];
 const heroSlug = heroPost?.slug;
 
 // Editor's picks should feel curated, but not frozen when new articles are not marked featured.
-const latestPostDate = sorted[0]?.data.date ? new Date(sorted[0].data.date) : new Date();
+const latestPostDate = sorted[0] ? new Date(sorted[0].data.updated || sorted[0].data.date) : new Date();
 const freshCutoff = new Date(latestPostDate);
 freshCutoff.setDate(freshCutoff.getDate() - 21);
 const editorPickCategories = new Set(['best', 'reviews', 'versus', 'tips', 'courses', 'opinion']);
-const isFresh = (post: any) => new Date(post.data.date) >= freshCutoff;
+const isFresh = (post: any) => new Date(post.data.updated || post.data.date) >= freshCutoff;
 const notHero = (post: any) => post.slug !== heroSlug;
 const byDateThenFeatured = (a: any, b: any) => {
-  const dateDiff = new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  const dateDiff = new Date(b.data.updated || b.data.date).getTime() - new Date(a.data.updated || a.data.date).getTime();
   if (dateDiff !== 0) return dateDiff;
   return Number(Boolean(b.data.featured)) - Number(Boolean(a.data.featured));
 };
@@ -33,7 +34,7 @@ const notAlreadyPicked = (post: any) => !editorsPicks.find(e => e.slug === post.
 if (editorsPicks.length < 4) {
   editorsPicks.push(
     ...sorted
-      .filter(post => post.data.featured && notHero(post) && notAlreadyPicked(post))
+      .filter(post => editorPickCategories.has(post.data.category) && notHero(post) && notAlreadyPicked(post))
       .slice(0, 4 - editorsPicks.length)
   );
 }
@@ -62,7 +63,7 @@ function getCategoryStyle(cat: string) {
 }
 
 function formatDate(date: Date) {
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 ---
 
@@ -93,7 +94,7 @@ function formatDate(date: Date) {
           <div class="flex items-center gap-4 text-sm text-white/60">
             <span>By Kyle Reierson</span>
             <span>·</span>
-            <time>{formatDate(heroPost.data.date)}</time>
+            <time datetime={(heroPost.data.updated || heroPost.data.date).toISOString()}>{heroPost.data.updated ? 'Updated ' : ''}{formatDate(heroPost.data.updated || heroPost.data.date)}</time>
             {heroPost.data.rating && (
               <>
                 <span>·</span>
@@ -123,10 +124,12 @@ function formatDate(date: Date) {
     </div>
   </div>
 
+  <CommercialOpportunityPanel />
+
   <!-- Editor's Picks + Latest mixed layout -->
   <section class="py-12 lg:py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between mb-8">
+      <div class="flex flex-wrap gap-3 items-center justify-between mb-8">
         <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
           <span class="border-b-4 border-gold-500 pb-1">Editor's Picks</span>
         </h2>
@@ -163,7 +166,7 @@ function formatDate(date: Date) {
         <!-- Stacked small cards (right 1/3) -->
         <div class="space-y-6">
           {editorsPicks.slice(2, 4).map(post => (
-            <article class="group flex gap-4 items-start">
+            <article class="group flex flex-col sm:flex-row gap-4 items-start">
               <div class="w-28 h-20 flex-shrink-0 rounded overflow-hidden">
                 <img 
                   src={post.data.featured_image} 
@@ -186,15 +189,7 @@ function formatDate(date: Date) {
             </article>
           ))}
 
-          <!-- Newsletter inline -->
-          <div class="bg-forest-800 rounded-lg p-5 text-center">
-            <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mb-1">Newsletter</p>
-            <p class="text-white text-sm font-display font-semibold mb-3">Get the Weekly Birdie Report</p>
-            <form class="space-y-2" action="#" method="POST">
-              <input type="email" placeholder="your@email.com" required class="w-full px-3 py-2 bg-forest-700 border border-forest-600 rounded text-sm text-white placeholder-white/40 focus:ring-gold-500 focus:border-gold-500" />
-              <button type="submit" class="w-full px-3 py-2 bg-gold-500 text-forest-900 text-sm font-bold rounded hover:bg-gold-400 transition-colors">Subscribe Free</button>
-            </form>
-          </div>
+          <GearGuideLinks variant="hero" />
         </div>
       </div>
     </div>
@@ -204,7 +199,7 @@ function formatDate(date: Date) {
   {reviews.length > 0 && (
     <section class="py-12 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-wrap gap-3 items-center justify-between mb-8">
           <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
             <span class="border-b-4 border-forest-600 pb-1">Latest Reviews</span>
           </h2>
@@ -252,7 +247,7 @@ function formatDate(date: Date) {
   {bestOf.length > 0 && (
     <section class="py-12 lg:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-wrap gap-3 items-center justify-between mb-8">
           <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
             <span class="border-b-4 border-gold-500 pb-1">Buyer's Guides</span>
           </h2>
@@ -292,7 +287,7 @@ function formatDate(date: Date) {
   {tips.length > 0 && (
     <section class="py-12 bg-blue-50/50 border-y border-blue-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-wrap gap-3 items-center justify-between mb-8">
           <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
             <span class="border-b-4 border-blue-500 pb-1">Tips & Instruction</span>
           </h2>
@@ -334,9 +329,9 @@ function formatDate(date: Date) {
   {deals.length > 0 && (
     <section class="py-10 bg-gradient-to-r from-orange-500 to-orange-600">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-6">
+        <div class="flex flex-wrap gap-3 items-center justify-between mb-6">
           <h2 class="text-xl md:text-2xl font-display font-bold text-white">
-            🔥 Hot Deals This Week
+            🔥 Past Deals & Savings
           </h2>
           <a href="/deals/" class="text-white/80 font-semibold text-sm hover:text-white transition-colors uppercase tracking-wide">
             All Deals →
@@ -447,16 +442,7 @@ function formatDate(date: Date) {
             </div>
           )}
 
-          <!-- Newsletter -->
-          <div class="bg-forest-800 rounded-lg p-6">
-            <h3 class="text-gold-400 font-display font-bold text-lg mb-2">The Weekly Birdie</h3>
-            <p class="text-white/70 text-sm mb-4">Reviews, tips, and deals. Every Tuesday. Free.</p>
-            <form class="space-y-2" action="#" method="POST">
-              <input type="email" placeholder="your@email.com" required class="w-full px-3 py-2.5 bg-forest-700 border border-forest-600 rounded text-sm text-white placeholder-white/40 focus:ring-gold-500 focus:border-gold-500" />
-              <button type="submit" class="w-full px-3 py-2.5 bg-gold-500 text-forest-900 text-sm font-bold rounded hover:bg-gold-400 transition-colors">Get the Newsletter</button>
-            </form>
-            <p class="text-white/40 text-[10px] mt-2 text-center">No spam. Unsubscribe anytime.</p>
-          </div>
+          <GearGuideLinks variant="hero" />
         </aside>
       </div>
     </div>
@@ -472,9 +458,9 @@ function formatDate(date: Date) {
         Ready to Play Better Golf?
       </h2>
       <p class="text-white/70 text-lg mb-8">
-        Join golfers who get honest equipment intel and practical tips every Tuesday.
+        Find useful gear comparisons and practical tips for your next round.
       </p>
-      <NewsletterSignup variant="hero" size="lg" />
+      <GearGuideLinks variant="hero" size="lg" />
     </div>
   </section>
 </BaseLayout>
