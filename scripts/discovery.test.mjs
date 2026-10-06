@@ -13,3 +13,16 @@ test('related reading prioritizes the same equipment over unrelated recent posts
   const posts = [current, make('shoes', 'Golf shoes review', '2026-09-28'), make('rangefinder', 'Bushnell Tour V6 rangefinder review', '2026-01-01')];
   assert.deepEqual(selectRelatedPosts(posts, current).map(post => post.slug), ['rangefinder']);
 });
+
+import { archivePages, archiveHref, ARCHIVE_PAGE_SIZE } from '../src/utils/archive.mjs';
+test('archive pagination preserves every article exactly once with stable ordering and canonical links', () => {
+  const posts = Array.from({length: 1063}, (_, i) => ({slug: `article-${String(i).padStart(4, '0')}`, data: {date: new Date('2026-01-01')}}));
+  const pages = archivePages([...posts].reverse());
+  assert.equal(pages.length, 30);
+  assert.equal(pages[0].posts.length, ARCHIVE_PAGE_SIZE);
+  assert.equal(pages.at(-1).posts.length, 19);
+  assert.deepEqual(pages.flatMap(page => page.posts.map(post => post.slug)), posts.map(post => post.slug));
+  assert.equal(archiveHref(1), '/blog/');
+  assert.equal(archiveHref(30), '/blog/page/30/');
+  assert.equal(archivePages(posts.slice(0,36)).length, 1);
+});
