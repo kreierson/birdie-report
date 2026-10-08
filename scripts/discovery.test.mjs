@@ -26,3 +26,17 @@ test('archive pagination preserves every article exactly once with stable orderi
   assert.equal(archiveHref(30), '/blog/page/30/');
   assert.equal(archivePages(posts.slice(0,36)).length, 1);
 });
+
+import { comparisonPages, comparisonHref, comparisonData } from '../src/utils/comparisons.mjs';
+test('comparison archive preserves the full filter inventory across page boundaries', () => {
+  const posts = Array.from({length: 333}, (_, i) => ({slug: `compare-${String(i).padStart(3, '0')}`, data: {category: 'versus', subcategory: i % 2 ? 'balls' : 'irons', date: new Date('2026-01-01'), title: `Comparison ${i}`}}));
+  const pages = comparisonPages([...posts].reverse().concat({slug: 'other', data: {category: 'tips'}}));
+  assert.equal(pages.length, 10);
+  assert.equal(pages.at(-1).posts.length, 9);
+  const data = pages.flatMap(page => page.posts).map(comparisonData);
+  assert.equal(new Set(data.map(post => post.href)).size, 333);
+  assert.equal(data.filter(post => post.subcategory === 'balls').length, 166);
+  assert.equal(data[0].date, '2026-01-01');
+  assert.equal(comparisonHref(1), '/versus/');
+  assert.equal(comparisonHref(10), '/versus/page/10/');
+});

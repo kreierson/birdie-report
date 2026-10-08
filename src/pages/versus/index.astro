@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CategoryPage from '../../components/CategoryPage.astro';
+import ComparisonArchive from '../../components/ComparisonArchive.astro';
 
 const priorityComparisons = [
   {
@@ -40,14 +40,7 @@ const priorityComparisons = [
   title="Golf Equipment Comparisons | The Birdie Report"
   description="Head-to-head product comparisons to help you decide what's right for your game."
 >
-  <CategoryPage
-    category="versus"
-    title="Head-to-Head Comparisons"
-    description="Head-to-head product comparisons to help you decide what's right for your game."
-    accentColor="purple"
-    badgeLabel="Versus"
-    badgeClass="bg-purple-600 text-white"
-  >
+  <ComparisonArchive>
     <section class="mt-16 border-t border-gray-200 pt-10">
       <div class="max-w-4xl">
         <p class="text-xs font-bold uppercase tracking-wide text-purple-700 mb-2">Popular Buyer Matchups</p>
@@ -65,5 +58,5 @@ const priorityComparisons = [
         ))}
       </div>
     </section>
-  </CategoryPage>
+  </ComparisonArchive>
 </BaseLayout>

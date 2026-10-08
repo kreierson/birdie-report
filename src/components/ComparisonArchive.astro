@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import ComparisonCard from './ComparisonCard.astro';
+import { ARCHIVE_PAGE_SIZE } from '../utils/archive.mjs';
+import { comparisonPages, comparisonHref, comparisonData } from '../utils/comparisons.mjs';
+const all = await getCollection('blog');
+const { current = 1 } = Astro.props;
+const page = comparisonPages(all)[current - 1];
+const subcategories = [...new Set(all.filter(p => p.data.category === 'versus').map(p => p.data.subcategory).filter(Boolean))].sort();
+---
+<section class="bg-forest-950 text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-sm uppercase tracking-wide text-purple-200 mb-3">Versus</p>
+    <h1 class="text-xl sm:text-5xl font-display font-bold">Head-to-Head Comparisons</h1>
+    <p class="text-lg text-white/80 mt-4 max-w-2xl">Head-to-head product comparisons to help you decide what's right for your game.</p>
+  </div>
+</section>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="comparison-archive">
+  <div class="flex flex-wrap gap-2 mb-6" role="group" aria-label="Filter all comparisons by equipment">
+    <button type="button" class="comparison-filter" data-filter="all" aria-pressed="true">All comparisons</button>
+    {subcategories.map(sub => <button type="button" class="comparison-filter capitalize" data-filter={sub} aria-pressed="false">{sub.replaceAll('-', ' ')}</button>)}
+  </div>
+  <noscript><p class="mb-4">Browse all comparisons using the page links below. Equipment filters require JavaScript.</p></noscript>
+  <p id="comparison-status" aria-live="polite" class="text-gray-600 mb-6">Comparisons {(current - 1) * ARCHIVE_PAGE_SIZE + 1}–{Math.min(current * ARCHIVE_PAGE_SIZE, page.total)} of {page.total}</p>
+  <nav data-pagination aria-label="Comparison navigation" class="flex flex-wrap gap-4 items-center mb-8">
+    {current > 1 && <a class="underline p-3" href={comparisonHref(current - 1)} rel="prev">← Newer comparisons</a>}
+    <span>Page {current} of {page.last}</span>
+    {current < page.last && <a class="underline p-3" href={comparisonHref(current + 1)} rel="next">Older comparisons →</a>}
+  </nav>
+  <div id="comparison-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {page.posts.map(post => <ComparisonCard post={comparisonData(post)} />)}
+  </div>
+  <template id="comparison-template"><ComparisonCard /></template>
+  <nav data-pagination aria-label="Comparison pages" class="mt-10 border-t pt-6">
+    <ol class="flex flex-wrap justify-center gap-2">
+      {Array.from({length: page.last}, (_, i) => i + 1).map(n => <li><a href={comparisonHref(n)} aria-current={n === current ? 'page' : undefined} aria-label={`Page ${n}`} class={`inline-flex min-w-11 min-h-11 justify-center items-center border rounded px-3 py-2 ${n === current ? 'bg-forest-800 text-white' : 'border-gray-300'}`}>{n}</a></li>)}
+    </ol>
+  </nav>
+  <slot />
+</div>
+<style>
+  [data-pagination][hidden] { display: none; }
+  .comparison-filter { padding: .6rem .8rem; border: 1px solid #d1d5db; border-radius: 1.5rem; font-size: .875rem; }
+  .comparison-filter[aria-pressed="true"] { background: #14532d; color: white; border-color: #14532d; }
+  .comparison-filter:focus-visible { outline: 3px solid #7c3aed; outline-offset: 3px; }
+</style>
+<script>
+  const grid = document.querySelector<HTMLElement>('#comparison-grid');
+  const status = document.querySelector<HTMLElement>('#comparison-status');
+  const template = document.querySelector<HTMLTemplateElement>('#comparison-template');
+  if (grid && status && template) {
+    const initial = Array.from(grid.children);
+    const initialStatus = status.textContent;
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.comparison-filter');
+    let request = 0;
+    let data: Promise<any[]> | undefined;
+    buttons.forEach(button => button.addEventListener('click', async () => {
+      const version = ++request;
+      const filter = button.dataset.filter;
+      if (filter !== 'all') status.textContent = 'Loading equipment comparisons…';
+      try {
+        const posts = filter === 'all' ? [] : await (data ??= fetch('/versus/comparisons.json').then(r => {
+          if (!r.ok) throw new Error('Unable to load comparisons');
+          return r.json();
+        }).catch(error => { data = undefined; throw error; }));
+        if (version !== request) return;
+        const matches = posts.filter(post => post.subcategory === filter);
+        const cards = matches.map(post => {
+          const card = template.content.firstElementChild!.cloneNode(true) as HTMLElement;
+          card.querySelectorAll<HTMLAnchorElement>('a').forEach(a => { a.href = post.href; });
+          const img = card.querySelector<HTMLImageElement>('img')!;
+          img.src = post.image; img.alt = post.title;
+          card.querySelector('[data-card-title]')!.textContent = post.title;
+          card.querySelector('[data-card-description]')!.textContent = post.description;
+          card.querySelector('[data-card-category]')!.textContent = post.subcategory.replaceAll('-', ' ');
+          const time = card.querySelector('time')!;
+          time.dateTime = post.date;
+          time.textContent = new Date(post.date).toLocaleDateString('en-US', {timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric'});
+          return card;
+        });
+        grid.replaceChildren(...(filter === 'all' ? initial : cards));
+        status.textContent = filter === 'all' ? initialStatus : `${matches.length} ${filter!.replaceAll('-', ' ')} comparisons across the full archive`;
+        document.querySelectorAll<HTMLElement>('[data-pagination]').forEach(nav => { nav.hidden = filter !== 'all'; });
+        buttons.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+      } catch {
+        if (version === request) status.textContent = 'Equipment filters could not load. Your current results are unchanged. Try again or choose All comparisons.';
+      }
+    }));
+  }
+</script>
