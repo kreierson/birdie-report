@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-def scorecard(data, target=3000, today=None):
+def scorecard(data, target=10000, today=None):
     today = today or date.today()
     if not isinstance(target, (int, float)) or not isfinite(target) or target <= 0: raise ValueError('Target must be finite and positive')
     current = data['periods']['current']
@@ -106,7 +106,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--input',type=Path,default=ROOT/'reports/seo/latest.json')
     parser.add_argument('--output',type=Path,default=ROOT/'reports/seo')
-    parser.add_argument('--target',type=float,default=3000)
+    parser.add_argument('--target',type=float,default=10000)
     args=parser.parse_args()
     if args.target <= 0: parser.error('Target must be positive')
     result=scorecard(json.loads(args.input.read_text()),args.target)

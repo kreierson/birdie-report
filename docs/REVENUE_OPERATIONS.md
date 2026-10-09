@@ -1,6 +1,6 @@
 # Affiliate revenue operations
 
-Owner direction: September 28, 2026. Work autonomously toward $3,000/month in affiliate commissions, then continue improving sustainable revenue. This is an operating target, not a forecast or promise. Routine reversible improvements and verified publication are authorized; existing editorial evidence limits and release gates remain in force.
+Owner direction: September 28, 2026; monthly goal updated October 9, 2026. Work autonomously toward $10,000/month in verified affiliate commissions, then continue improving sustainable revenue. This is an operating target, not a forecast or promise. Routine reversible improvements and verified publication are authorized; existing editorial evidence limits and release gates remain in force.
 
 ## Measure the business
 
@@ -34,7 +34,7 @@ Primary references:
 
 ## Automation and evaluation
 
-The existing daily 08:00 America/Chicago task remains the only editorial operator. Preserve the four paused bulk jobs. Use the shared lease, weekly limits, source checks, normal build, actual browser QA, deployment verification and IndexNow workflow in AUTONOMOUS_SEO.md. On maintenance days, act on documented technical/conversion issues when useful. Select bounded work; do not require an owner decision for normal implementation choices.
+The existing daily 07:30 America/Chicago task remains the only editorial operator. Preserve the four paused bulk jobs. Use the shared lease, weekly limits, source checks, normal build, actual browser QA, deployment verification and IndexNow workflow in AUTONOMOUS_SEO.md. On maintenance days, act on documented technical/conversion issues when useful. Select bounded work; do not require an owner decision for normal implementation choices.
 
 GitHub Actions performs daily public health checks in the cloud, plus quality checks on pushes and pull requests. It has read-only repository access, no private account credentials and no permission to publish. It does not run editorial decisions or replace visual/interaction QA. The local editorial operator requires this computer and Codex running; Amazon needs an authenticated browser for revenue refreshes. Fully unattended account enrollment and physical testing are outside the available system.
 

@@ -31,7 +31,8 @@ class SEOGuards(unittest.TestCase):
         data={'periods':{'current':{'start':'2025-01-01','end':'2025-01-28'}},
               'amazon_portal':{'retrieved':'2025-01-31','periods':{'current':{'start':'2025-01-01','end':'2025-01-28','clicks':200,'commissions_usd':60.0}}}}
         result=m.scorecard(data,today=date(2025,1,31))
-        self.assertEqual(result['planning']['required_portal_clicks_at_observed_epc'],10000)
+        self.assertEqual(result['target_monthly_usd'],10000)
+        self.assertEqual(result['planning']['required_portal_clicks_at_observed_epc'],33334)
         self.assertAlmostEqual(result['planning']['revenue_30d_equivalent_usd'],60.0/28*30)
         self.assertIsNone(m.scorecard(data,today=date(2025,2,12))['planning'])
         data['amazon_portal']['periods']['current']['end']='2025-01-27'
