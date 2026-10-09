@@ -1,6 +1,6 @@
 # The Birdie Report operating plan
 
-The current objective is sustainable affiliate commissions of at least $3,000 per month, followed by continued growth. Revenue and ranking outcomes are uncertain; targets are not forecasts.
+The current objective is sustainable affiliate commissions of at least $10,000 per month, followed by continued growth. Revenue and ranking outcomes are uncertain; targets are not forecasts.
 
 The current operating instructions are [Revenue operations](docs/REVENUE_OPERATIONS.md), [Autonomous SEO](docs/AUTONOMOUS_SEO.md), and [Content rules](CONTENT_RULES.md). The earlier speculative traffic, keyword-volume and conversion projections have been retired because they were not measured account results.
 

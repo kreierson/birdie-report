@@ -1,6 +1,6 @@
 # Autonomous search growth and publishing
 
-Owner authorization: September 23, 2026. Operate without routine approvals within these limits. The existing Codex automation runs daily at 08:00 America/Chicago. Local execution requires this computer and Codex to be running; expired account access may temporarily reduce reporting coverage.
+Owner authorization: September 23, 2026. Operate without routine approvals within these limits. The existing Codex automation runs daily at 07:30 America/Chicago. Local execution requires this computer and Codex to be running; expired account access may temporarily reduce reporting coverage.
 
 ## Daily workflow
 
