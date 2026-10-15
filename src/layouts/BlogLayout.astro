@@ -34,6 +34,8 @@ const hasBuyerIntent = ['best', 'reviews', 'deals', 'versus'].includes(category)
 const allPosts = await getCollection('blog');
 const currentSlug = Astro.url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
 const relatedPosts = selectRelatedPosts(allPosts, { slug: currentSlug, data: content });
+// Keep this buyer-interface trial scoped; other observing pages retain their CTA copy.
+const showNamedRetailerCta = currentSlug === 'best-golf-rain-jackets-2026';
 
 const isReview = category === 'reviews' || (rating && pros);
 const displayAuthor = author;
@@ -206,9 +208,10 @@ const schemaMarkup = {
                     data-product={link.product}
                     data-retailer={link.retailer || 'Amazon'}
                     data-placement="article-top-shortlist"
+                    aria-label={showNamedRetailerCta ? `See ${link.product} options on ${link.retailer || 'Amazon'}` : undefined}
                     class="inline-flex items-center justify-center px-5 py-3 bg-forest-700 text-white rounded-md hover:bg-forest-800 transition-colors text-sm font-bold text-center"
                   >
-                    See retailer options
+                    {showNamedRetailerCta ? `See options on ${link.retailer || 'Amazon'}` : 'See retailer options'}
                   </a>
                 </div>
               ))}
