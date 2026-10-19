@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import CommercialOpportunityPanel from '../../components/CommercialOpportunityPanel.astro';
+import GuideShortlist from '../../components/GuideShortlist.astro';
 
 const allPosts = await getCollection('blog').catch(() => []);
 const bestPosts = allPosts
@@ -11,16 +12,17 @@ const bestPosts = allPosts
 const heroPost = bestPosts[0];
 const remaining = bestPosts.slice(1);
 
-const subcategoryMap: Record<string, any> = {
-  'drivers': bestPosts.find(p => p.slug.includes('driver')),
-  'irons': bestPosts.find(p => p.slug.includes('iron')),
-  'putters': bestPosts.find(p => p.slug.includes('putter') && !p.slug.includes('under')),
-  'balls': bestPosts.find(p => p.slug.includes('golf-balls') && !p.slug.includes('high')),
-  'wedges': bestPosts.find(p => p.slug.includes('wedge')),
-  'rangefinders': bestPosts.find(p => p.slug.includes('rangefinder') && !p.slug.includes('under')),
-  'bags': bestPosts.find(p => p.slug.includes('bag')),
-  'shoes': bestPosts.find(p => p.slug.includes('shoe')),
+// Category navigation should open the general guide, rather than whichever
+// seniors/handicap/style-specific article happened to be published last.
+const guideSlugs = {
+  drivers: 'best-drivers-2026', irons: 'best-irons-2026',
+  putters: 'best-putters-2026', balls: 'best-golf-balls-2026',
+  wedges: 'best-wedges-2026', rangefinders: 'best-rangefinders-2026',
+  bags: 'best-golf-bags-2026', shoes: 'best-golf-shoes-2026',
 };
+const subcategoryMap: Record<string, any> = Object.fromEntries(
+  Object.entries(guideSlugs).map(([key, slug]) => [key, bestPosts.find(post => post.slug === slug)])
+);
 
 const categories = [
   { name: 'Drivers', key: 'drivers', icon: '🏌️' },
@@ -69,6 +71,13 @@ function formatDate(date: Date) {
     title="Choose gear around the way you play"
     description="Compare options by fit, features, and budget. Each guide explains its research or hands-on basis."
   />
+
+  <GuideShortlist guides={categories.filter(cat => subcategoryMap[cat.key]).map(cat => ({
+    key: cat.key,
+    name: cat.name,
+    title: subcategoryMap[cat.key].data.title,
+    href: `/blog/${subcategoryMap[cat.key].slug}/`,
+  }))} />
 
   <!-- Quick Links Grid -->
   <section class="py-10 bg-gray-50 border-b border-gray-200">

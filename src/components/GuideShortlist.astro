@@ -1,0 +1,103 @@
+---
+interface Guide { key: string; name: string; title: string; href: string; }
+const { guides } = Astro.props as { guides: Guide[] };
+---
+
+<section data-guide-plan hidden class="guide-plan bg-forest-50 border-y border-forest-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h2 class="text-2xl font-display font-bold text-forest-900">Plan your next gear purchase</h2>
+    <p class="mt-3 text-gray-600 max-w-2xl">Pick up to three categories to collect the relevant buying guides in one place. Start with the gear you actually intend to replace.</p>
+    <form class="mt-6" data-guide-plan-form>
+      <fieldset>
+        <legend class="font-semibold text-forest-900 mb-3">What are you shopping for?</legend>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {guides.map(guide => (
+            <label class="flex items-center gap-3 rounded-lg border border-forest-200 bg-white p-4 cursor-pointer">
+              <input type="checkbox" name="guide-category" value={guide.key} data-guide-href={guide.href} data-guide-title={guide.title} class="w-5 h-5 shrink-0 accent-green-800" />
+              <span class="font-semibold">{guide.name}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <p data-guide-plan-status role="status" class="mt-3 text-sm text-forest-800 min-h-6">Choose one to three categories.</p>
+      <div class="flex flex-wrap gap-3 mt-3">
+        <button type="submit" class="rounded-lg bg-forest-800 text-white font-semibold px-5 py-3">Build my guide shortlist</button>
+        <button type="reset" class="rounded-lg border border-forest-300 px-5 py-3">Clear choices</button>
+      </div>
+    </form>
+    <div data-guide-plan-results hidden class="mt-6 border-t border-forest-200 pt-6">
+      <h3 tabindex="-1" class="text-xl font-display font-bold text-forest-900">Your guide shortlist</h3>
+      <p class="text-sm text-gray-600 mt-2">These are reading guides, not a recommendation to buy every item. Check the article’s research or hands-on basis and the fit details before shopping.</p>
+      <ul data-guide-plan-links class="mt-4 space-y-3"></ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .guide-plan[hidden], [data-guide-plan-results][hidden] { display: none; }
+  input:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #b8860b; outline-offset: 3px; }
+  label:has(input:checked) { border-color: #14532d; background: #f0fdf4; }
+  label:has(input:disabled) { opacity: .55; cursor: default; }
+</style>
+
+<script>
+  const plan = document.querySelector<HTMLElement>('[data-guide-plan]');
+  const form = plan?.querySelector<HTMLFormElement>('form');
+  if (plan && form) {
+    const choices = Array.from(form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'));
+    const status = plan.querySelector<HTMLElement>('[data-guide-plan-status]')!;
+    const results = plan.querySelector<HTMLElement>('[data-guide-plan-results]')!;
+    const links = plan.querySelector<HTMLUListElement>('[data-guide-plan-links]')!;
+    const track = (event: string, details = {}) => {
+      // Production visual/interaction QA must not look like buyer demand.
+      if (new URLSearchParams(location.search).get('qa') === 'guide-plan') return;
+      const analytics = window as Window & { gtag?: (...args: any[]) => void };
+      analytics.gtag?.('event', event, { experiment_id: 'guide-shortlist-v1', page_path: '/best/', ...details });
+    };
+    const selected = () => choices.filter(choice => choice.checked);
+    const update = () => {
+      const count = selected().length;
+      choices.forEach(choice => { choice.disabled = count >= 3 && !choice.checked; });
+      status.textContent = count ? `${count} of 3 selected. Build your shortlist when ready.` : 'Choose one to three categories.';
+      // An old result must never look as though it reflects newly changed choices.
+      results.hidden = true;
+    };
+    form.addEventListener('change', update);
+    form.addEventListener('reset', () => {
+      choices.forEach(choice => { choice.checked = false; choice.disabled = false; });
+      results.hidden = true; links.replaceChildren();
+      status.textContent = 'Choices cleared. Choose one to three categories.';
+    });
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const chosen = selected();
+      if (chosen.length < 1 || chosen.length > 3) {
+        status.textContent = 'Choose one to three categories before building your shortlist.';
+        choices[0]?.focus(); return;
+      }
+      links.replaceChildren(...chosen.map(choice => {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = choice.dataset.guideHref!;
+        link.textContent = choice.dataset.guideTitle!;
+        link.className = 'block rounded-lg border border-forest-200 bg-white p-4 font-semibold text-forest-800 underline underline-offset-4';
+        // Finite category event names remain queryable without changing GA4
+        // custom-dimension configuration.
+        link.addEventListener('click', () => track(`guide_plan_open_${choice.value}`));
+        item.append(link); return item;
+      }));
+      results.hidden = false;
+      results.querySelector('h3')?.focus();
+      status.textContent = `${chosen.length} guide${chosen.length === 1 ? '' : 's'} ready below.`;
+      track('guide_plan_build', { selection_count: chosen.length, gear_categories: chosen.map(choice => choice.value).join(',') });
+    });
+    plan.hidden = false;
+    // Count a view only when the planner actually reaches the viewport.
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) { track('guide_plan_view'); observer.disconnect(); }
+      }, { threshold: .2 });
+      observer.observe(plan);
+    }
+  }
+</script>
