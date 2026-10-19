@@ -1,0 +1,107 @@
+---
+import { standardSource, cbSource } from './ally-blue-plan.mjs';
+---
+<section class="not-prose buying-aid" aria-labelledby="ally-buying-title" data-ally-buying-aid>
+  <p class="eyebrow">Before you choose a listing</p>
+  <h2 id="ally-buying-title">Which Ally Blue Onset step comes next?</h2>
+  <p>Sort out fit, the standard-versus-CB build and the details to check with a seller. Your answers suggest a next step; they do not measure your stroke or establish which putter fits you.</p>
+  <div class="builds">
+    <div><h3>Standard Onset</h3><p>PING lists a 35-inch standard length and a straight-stroke fit.</p><a href={standardSource} target="_blank" rel="noopener">Standard specifications from PING</a></div>
+    <div><h3>Onset CB</h3><p>PING lists a 37.75-inch counterbalanced build with a 17-inch grip.</p><a href={cbSource} target="_blank" rel="noopener">CB specifications from PING</a></div>
+  </div>
+  <form hidden data-plan-form>
+    <div class="questions">
+      <label for="ally-stroke">1. Have you established your stroke fit?
+        <select id="ally-stroke" name="stroke" required><option value="">Choose an answer</option><option value="straight">Yes — straight stroke</option><option value="other">My fit points to another stroke type</option><option value="unknown">Not sure yet</option></select>
+      </label>
+      <label for="ally-version">2. Which build are you considering?
+        <select id="ally-version" name="version" required><option value="">Choose an answer</option><option value="standard">Standard Onset</option><option value="cb">Counterbalanced Onset CB</option><option value="unknown">I need to compare the two</option></select>
+      </label>
+      <label for="ally-address">3. Have you tried the onset setup picture?
+        <select id="ally-address" name="address" required><option value="">Choose an answer</option><option value="comfortable">Yes — it looks comfortable to me</option><option value="untried">Not in person yet</option><option value="dislike">Yes — I prefer a different look</option></select>
+      </label>
+    </div>
+    <label class="check" for="ally-sizing"><input id="ally-sizing" name="sizing" type="checkbox" /><span>I know the playing hand, fitted length and grip I need.</span></label>
+    <p class="small">Answers stay on this page and are not saved. No email or account needed.</p>
+    <button type="submit">Show my next step</button>
+    <button type="reset" class="secondary">Start over</button>
+  </form>
+  <div class="result" data-plan-result hidden>
+    <p role="heading" aria-level="3" tabindex="-1" data-plan-title></p>
+    <p data-plan-copy></p>
+    <a data-plan-link href={standardSource} data-placement="ally-blue-buying-aid">Read PING’s specifications</a>
+    <p class="small" data-affiliate-note hidden>Affiliate link: we may earn a commission. Amazon opens search results, not a verified offer.</p>
+  </div>
+  <p role="status" aria-live="polite" class="small" data-plan-status></p>
+  <details>
+    <summary>Shopping checklist — useful with or without the tool</summary>
+    <ul><li>Confirm stroke fit and try the address picture before choosing.</li><li>Match the full model name: standard Onset, Onset CB and other Ally Blue versions are not interchangeable.</li><li>Verify hand, length, grip and condition with the seller.</li><li>Compare total price and return terms; no current stock or price is verified here.</li></ul>
+  </details>
+  <p class="small">Manufacturer specifications checked October 19, 2026. No new hands-on testing is claimed.</p>
+</section>
+<script>
+  import { allyBluePlan } from './ally-blue-plan.mjs';
+  const root = document.querySelector<HTMLElement>('[data-ally-buying-aid]');
+  if (root) {
+    const form = root.querySelector<HTMLFormElement>('[data-plan-form]')!;
+    const result = root.querySelector<HTMLElement>('[data-plan-result]')!;
+    const title = root.querySelector<HTMLElement>('[data-plan-title]')!;
+    const copy = root.querySelector<HTMLElement>('[data-plan-copy]')!;
+    const link = root.querySelector<HTMLAnchorElement>('[data-plan-link]')!;
+    const status = root.querySelector<HTMLElement>('[data-plan-status]')!;
+    const note = root.querySelector<HTMLElement>('[data-affiliate-note]')!;
+    form.hidden = false;
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const values = new FormData(form);
+      const plan = allyBluePlan({ stroke: values.get('stroke'), version: values.get('version'), address: values.get('address'), sizing: values.has('sizing') });
+      title.textContent = plan.title;
+      copy.textContent = plan.text;
+      link.textContent = plan.label;
+      link.href = plan.href;
+      link.rel = plan.affiliate ? 'nofollow sponsored noopener' : 'noopener';
+      link.target = plan.href.startsWith('/') ? '_self' : '_blank';
+      delete link.dataset.affiliateLink;
+      delete link.dataset.product;
+      delete link.dataset.retailer;
+      if (plan.affiliate) {
+        link.dataset.affiliateLink = 'true';
+        link.dataset.product = 'PING Scottsdale TEC Ally Blue Onset Putter';
+        link.dataset.retailer = 'Amazon';
+      }
+      note.hidden = !plan.affiliate;
+      result.hidden = false;
+      status.textContent = 'Your next step is ready below.';
+      title.focus();
+    });
+    form.addEventListener('change', () => {
+      if (!result.hidden) { result.hidden = true; status.textContent = 'Answers changed. Choose Show my next step to update the result.'; }
+    });
+    form.addEventListener('reset', () => { result.hidden = true; status.textContent = 'Answers cleared.'; });
+  }
+</script>
+<style>
+  .buying-aid { margin: 2rem 0; padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid #b4c6bb; border-radius: .75rem; background: #f4f8f5; color: #17372a; min-width: 0; }
+  .eyebrow { font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  h2 { font-size: 1.6rem; line-height: 1.25; margin: .5rem 0 1rem; }
+  h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 .5rem; }
+  p { margin: .6rem 0 1rem; line-height: 1.6; }
+  a { text-decoration: underline; text-underline-offset: .2em; font-weight: 600; overflow-wrap: anywhere; }
+  .builds { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1rem; margin: 1.25rem 0; }
+  .builds > div { padding: 1rem; background: white; border-radius: .4rem; min-width: 0; }
+  .questions { display: grid; gap: 1rem; }
+  label { display: block; font-weight: 600; line-height: 1.5; }
+  select { display: block; width: 100%; min-width: 0; margin-top: .4rem; padding: .75rem .5rem; border: 1px solid #708779; border-radius: .3rem; color: #17372a; background: white; font: inherit; }
+  .check { display: flex; align-items: flex-start; gap: .7rem; margin: 1.25rem 0 .5rem; }
+  input { margin-top: .35rem; width: 1.2rem; height: 1.2rem; flex-shrink: 0; accent-color: #1e4b37; }
+  button { padding: .8rem 1rem; min-height: 44px; max-width: 100%; border-radius: .4rem; background: #1e4b37; color: white; font: inherit; font-weight: 700; margin: .3rem .5rem .3rem 0; }
+  button.secondary { background: white; color: #17372a; border: 1px solid #708779; }
+  :is(a, button, input, select, summary):focus-visible { outline: 3px solid #986900; outline-offset: 3px; }
+  .result { padding: 1.25rem; border-left: 4px solid #ad7d21; background: white; margin-top: 1rem; }
+  .result [data-plan-title] { scroll-margin-top: 7rem; font-size: 1.1rem; font-weight: 700; }
+  .small { font-size: .85rem; }
+  summary { cursor: pointer; padding: .7rem 0; font-weight: 700; }
+  ul { list-style: disc; padding-left: 1.3rem; line-height: 1.6; }
+  li { margin: .5rem 0; }
+  [hidden] { display: none !important; }
+</style>
