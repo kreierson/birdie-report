@@ -3,9 +3,11 @@ import { basename, extname } from 'node:path';
 const slugs = new Set(readdirSync(new URL('../src/content/blog/', import.meta.url))
   .filter(file => ['.md', '.mdx'].includes(extname(file))).map(file => basename(file, extname(file))));
 export function canonicalArticleHref(href) {
-  if (typeof href !== 'string' || !(href.startsWith('/blog/') || /^https:\/\/(?:www\.)?birdiereport\.com\/blog\//.test(href))) return href;
+  if (typeof href !== 'string' || !(/^\/(?!\/)/.test(href) || /^https:\/\/(?:www\.)?birdiereport\.com\//.test(href))) return href;
   const url = new URL(href, 'https://www.birdiereport.com');
-  const slug = url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
+  // Early articles used /slug links. Resolve only exact inventory matches;
+  // leave archives, unknown URLs, and external sites alone.
+  const slug = url.pathname.replace(/^\/(?:blog\/)?/, '').replace(/\/$/, '');
   if (!slugs.has(slug)) return href;
   return '/blog/' + slug + '/' + url.search + url.hash;
 }

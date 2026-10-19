@@ -5,7 +5,10 @@ import { selectRelatedPosts } from '../src/utils/discovery.mjs';
 test('article normalization only rewrites known destinations and preserves query/fragment', () => {
   assert.equal(canonicalArticleHref('/blog/best-golf-bags-2026?ref=guide#fit'), '/blog/best-golf-bags-2026/?ref=guide#fit');
   assert.equal(canonicalArticleHref('https://birdiereport.com/blog/best-golf-bags-2026'), '/blog/best-golf-bags-2026/');
-  for (const href of ['/blog/not-a-real-article', 'https://evil.example/blog/best-golf-bags-2026', '/tags/golf/', '#fit']) assert.equal(canonicalArticleHref(href), href);
+  assert.equal(canonicalArticleHref('/how-to-break-80'), '/blog/how-to-break-80/');
+  assert.equal(canonicalArticleHref('/best-golf-bags-2026?ref=guide#fit'), '/blog/best-golf-bags-2026/?ref=guide#fit');
+  assert.equal(canonicalArticleHref('https://birdiereport.com/best-golf-bags-2026/'), '/blog/best-golf-bags-2026/');
+  for (const href of ['/blog/not-a-real-article', '/not-a-real-article', 'https://evil.example/blog/best-golf-bags-2026', '//evil.example/how-to-break-80', '/tags/golf/', '/tips/', '#fit']) assert.equal(canonicalArticleHref(href), href);
 });
 test('related reading prioritizes the same equipment over unrelated recent posts', () => {
   const make = (slug, title, date) => ({ slug, data: { title, date, category: 'reviews', tags: ['golf', '2026'] } });

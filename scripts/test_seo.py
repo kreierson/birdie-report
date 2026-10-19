@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import tempfile
 import unittest
 from datetime import date
@@ -9,6 +10,24 @@ def module(name):
     spec=importlib.util.spec_from_file_location(name,ROOT/'scripts'/f'{name}.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
 
 class SEOGuards(unittest.TestCase):
+    def test_static_redirects_match_both_trailing_slash_forms(self):
+        config=json.loads((ROOT/'vercel.json').read_text())
+        self.assertTrue(config['trailingSlash'])
+        redirects={r['source']:r for r in config['redirects']}
+        self.assertEqual(len(redirects),len(config['redirects']))
+        for source,rule in redirects.items():
+            if any(c in source for c in ':*('):continue
+            # Slash-only rules already work after Vercel's normalization.
+            if not source.endswith('/'):
+                counterpart=source+'/'
+                self.assertIn(counterpart,redirects,source)
+                self.assertEqual(redirects[counterpart]['destination'],rule['destination'])
+            self.assertTrue(rule['permanent'])
+            target=rule['destination']
+            self.assertTrue(target.startswith('/blog/') and target.endswith('/'),target)
+            slug=target.removeprefix('/blog/').rstrip('/')
+            self.assertTrue(any((ROOT/'src/content/blog'/f'{slug}{ext}').is_file() for ext in ['.md','.mdx']),target)
+
     def test_complete_periods_do_not_overlap(self):
         p=module('analytics-report').periods(date(2026,9,21))
         self.assertEqual(p['current'],['2026-08-25','2026-09-21'])

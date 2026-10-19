@@ -7,6 +7,13 @@ import xml.etree.ElementTree as ET
 
 ORIGIN='https://www.birdiereport.com'
 PATHS=['/', '/best/', '/deals/', '/blog/ping-g440-vs-ping-g740-irons/', '/blog/best-golf-cart-bags-2026/']
+# Vercel applies trailingSlash before explicit redirects. A slashless rule alone
+# can turn the intended migration into a 308 followed by a 404.
+LEGACY_PATHS={
+    '/orange-whip-trainer-review': '/blog/orange-whip-trainer-review/',
+    '/best/best-irons-high-handicappers-2026': '/blog/best-irons-high-handicappers-2026/',
+    '/versus/steel-vs-graphite-iron-shafts': '/blog/steel-vs-graphite-iron-shafts/',
+}
 class Page(HTMLParser):
     def __init__(self): super().__init__(); self.canonical=[]; self.robots=[]; self.links=[]; self.fake_form=False
     def handle_starttag(self, tag, attrs):
@@ -25,6 +32,16 @@ def fetch(path):
 
 def main():
     errors=[]
+    for source,target in LEGACY_PATHS.items():
+        for variant in [source,source+'/']:
+            try:
+                with urlopen(ORIGIN+variant,timeout=30) as response:
+                    if response.status!=200 or response.geturl()!=ORIGIN+target:
+                        raise RuntimeError('legacy URL did not reach its canonical article')
+                    page=Page();page.feed(response.read().decode())
+                    if page.canonical != [ORIGIN+target]:raise RuntimeError('incorrect destination canonical')
+                print(f'Checked migration {variant}')
+            except Exception as exc:errors.append(f'{variant}: {exc}')
     for path in PATHS:
         try:
             page=Page();page.feed(fetch(path))
