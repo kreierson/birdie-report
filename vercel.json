@@ -564,22 +564,22 @@
     },
     {
       "source": "/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii",
-      "destination": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
-      "destination": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/bushnell-tour-v6-vs-precision-pro-nx10",
-      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/bushnell-tour-v6-vs-precision-pro-nx10/",
-      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
@@ -1089,22 +1089,22 @@
     },
     {
       "source": "/versus/bushnell-tour-v6-vs-precision-pro-nx10",
-      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/versus/bushnell-tour-v6-vs-precision-pro-nx10/",
-      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/versus/garmin-r10-vs-rapsodo-mlm2pro",
-      "destination": "/blog/garmin-r10-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
       "permanent": true
     },
     {
       "source": "/versus/garmin-r10-vs-rapsodo-mlm2pro/",
-      "destination": "/blog/garmin-r10-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
       "permanent": true
     },
     {
@@ -1485,6 +1485,1366 @@
     {
       "source": "/blog/vokey-sm11-vs-cleveland-rtx-6-zipcore-wedges/",
       "destination": "/blog/titleist-vokey-sm11-vs-titleist-vokey-sm10/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/adidas-codechaos-25-vs-footjoy-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/adidas-codechaos-25-vs-footjoy-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/adidas-codechaos-25-vs-nike-air-zoom-infinity-tour-next",
+      "destination": "/blog/adidas-codechaos-25-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/adidas-codechaos-25-vs-nike-air-zoom-infinity-tour-next/",
+      "destination": "/blog/adidas-codechaos-25-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bag-boy-nitron-vs-caddytek-caddylite-11-5-v3",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bag-boy-nitron-vs-caddytek-caddylite-11-5-v3/",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bag-boy-nitron-vs-sun-mountain-speed-cart-x",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bag-boy-nitron-vs-sun-mountain-speed-cart-x/",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-callaway-tour-authentic",
+      "destination": "/blog/callaway-tour-authentic-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-callaway-tour-authentic/",
+      "destination": "/blog/callaway-tour-authentic-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-titleist-perma-soft",
+      "destination": "/blog/titleist-perma-soft-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-titleist-perma-soft/",
+      "destination": "/blog/titleist-perma-soft-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-ping-hoofer-lite",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-ping-hoofer-lite/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-sun-mountain-2-5-plus",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-sun-mountain-2-5-plus/",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-sun-mountain-matchplay",
+      "destination": "/blog/sun-mountain-matchplay-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-sun-mountain-matchplay/",
+      "destination": "/blog/sun-mountain-matchplay-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-titleist-players-s4-stadry",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-titleist-players-s4-stadry/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-vessel-player-v-pro",
+      "destination": "/blog/callaway-fairway-c-hd-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-vessel-player-v-pro/",
+      "destination": "/blog/callaway-fairway-c-hd-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-quantum-org-14-vs-titleist-cart-14",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-quantum-org-14-vs-titleist-cart-14/",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-footjoy-stasof",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-footjoy-stasof/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-titleist-perma-soft",
+      "destination": "/blog/titleist-perma-soft-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-titleist-perma-soft/",
+      "destination": "/blog/titleist-perma-soft-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/chrome-tour-x-vs-tour-b-x",
+      "destination": "/blog/pro-v1x-vs-chrome-tour-x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/chrome-tour-x-vs-tour-b-x/",
+      "destination": "/blog/pro-v1x-vs-chrome-tour-x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/clicgear-model-4-5-vs-caddytek-caddylite-11-5-v3",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/clicgear-model-4-5-vs-caddytek-caddylite-11-5-v3/",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/clicgear-model-4-5-vs-sun-mountain-speed-cart-x",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/clicgear-model-4-5-vs-sun-mountain-speed-cart-x/",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-hydrotour-vs-under-armour-drive",
+      "destination": "/blog/footjoy-hydrolite-x-vs-footjoy-hydrotour/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-hydrotour-vs-under-armour-drive/",
+      "destination": "/blog/footjoy-hydrolite-x-vs-footjoy-hydrotour/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-adidas-tour360-24",
+      "destination": "/blog/footjoy-premiere-series-packard-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-adidas-tour360-24/",
+      "destination": "/blog/footjoy-premiere-series-packard-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-ecco-biom-c4-golf-shoes",
+      "destination": "/blog/footjoy-premiere-series-packard-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-ecco-biom-c4-golf-shoes/",
+      "destination": "/blog/footjoy-premiere-series-packard-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-footjoy-traditions",
+      "destination": "/blog/footjoy-traditions-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-footjoy-traditions/",
+      "destination": "/blog/footjoy-traditions-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-sl-2026-vs-adidas-tour360-24",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-sl-2026-vs-adidas-tour360-24/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-adidas-codechaos-25",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-adidas-codechaos-25/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-adidas-tour360-24",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-adidas-tour360-24/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-footjoy-premiere-series-packard",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-footjoy-premiere-series-packard/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-nike-air-zoom-infinity-tour-next",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-nike-air-zoom-infinity-tour-next/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-callaway-tour-authentic",
+      "destination": "/blog/footjoy-pure-touch-limited-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-callaway-tour-authentic/",
+      "destination": "/blog/footjoy-pure-touch-limited-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/footjoy-pure-touch-limited-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/footjoy-pure-touch-limited-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-stasof-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-stasof-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-traditions-vs-adidas-tour360-24",
+      "destination": "/blog/footjoy-traditions-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-traditions-vs-adidas-tour360-24/",
+      "destination": "/blog/footjoy-traditions-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-traditions-vs-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-traditions-vs-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-callaway-dawn-patrol",
+      "destination": "/blog/footjoy-weathersof-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-callaway-dawn-patrol/",
+      "destination": "/blog/footjoy-weathersof-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-titleist-perma-soft",
+      "destination": "/blog/footjoy-weathersof-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-titleist-perma-soft/",
+      "destination": "/blog/footjoy-weathersof-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/galvin-green-armstrong-vs-nike-storm-fit-adv",
+      "destination": "/blog/galvin-green-armstrong-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/galvin-green-armstrong-vs-nike-storm-fit-adv/",
+      "destination": "/blog/galvin-green-armstrong-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/galvin-green-armstrong-vs-under-armour-drive",
+      "destination": "/blog/galvin-green-armstrong-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/galvin-green-armstrong-vs-under-armour-drive/",
+      "destination": "/blog/galvin-green-armstrong-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kirkland-vs-vice-pro",
+      "destination": "/blog/kirkland-golf-ball-vs-pro-v1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kirkland-vs-vice-pro/",
+      "destination": "/blog/kirkland-golf-ball-vs-pro-v1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/new-balance-fresh-foam-x-defender-sl-vs-footjoy-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/new-balance-fresh-foam-x-defender-sl-vs-footjoy-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-air-zoom-infinity-tour-next-vs-adidas-tour360-24",
+      "destination": "/blog/nike-air-zoom-infinity-tour-next-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-air-zoom-infinity-tour-next-vs-adidas-tour360-24/",
+      "destination": "/blog/nike-air-zoom-infinity-tour-next-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-air-zoom-infinity-tour-next-vs-footjoy-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-air-zoom-infinity-tour-next-vs-footjoy-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-storm-fit-adv-vs-footjoy-hydrotour",
+      "destination": "/blog/footjoy-hydrolite-x-vs-footjoy-hydrotour/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-storm-fit-adv-vs-footjoy-hydrotour/",
+      "destination": "/blog/footjoy-hydrolite-x-vs-footjoy-hydrotour/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-hoofer-lite-vs-vessel-player-v-pro",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-hoofer-lite-vs-vessel-player-v-pro/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-pioneer-vs-callaway-quantum-org-14",
+      "destination": "/blog/ping-pioneer-cart-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-pioneer-vs-callaway-quantum-org-14/",
+      "destination": "/blog/ping-pioneer-cart-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pro-v1x-left-dash-vs-chrome-tour-x",
+      "destination": "/blog/chrome-tour-triple-diamond-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pro-v1x-left-dash-vs-chrome-tour-x/",
+      "destination": "/blog/chrome-tour-triple-diamond-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pro-v1x-vs-tp5x",
+      "destination": "/blog/pro-v1x-vs-chrome-tour-x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pro-v1x-vs-tp5x/",
+      "destination": "/blog/pro-v1x-vs-chrome-tour-x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skechers-go-golf-max-3-vs-new-balance-fresh-foam-x-defender-sl",
+      "destination": "/blog/skechers-go-golf-max-3-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skechers-go-golf-max-3-vs-new-balance-fresh-foam-x-defender-sl/",
+      "destination": "/blog/skechers-go-golf-max-3-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/srixon-z-star-vs-titleist-pro-v1",
+      "destination": "/blog/chrome-tour-vs-srixon-z-star/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/srixon-z-star-vs-titleist-pro-v1/",
+      "destination": "/blog/chrome-tour-vs-srixon-z-star/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-2-5-plus-vs-vessel-player-v-pro",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-2-5-plus-vs-vessel-player-v-pro/",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-ping-hoofer-lite",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-ping-hoofer-lite/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-sun-mountain-2-5-plus",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-sun-mountain-2-5-plus/",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-titleist-players-s4-stadry",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-titleist-players-s4-stadry/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-vessel-player-v-pro",
+      "destination": "/blog/sun-mountain-matchplay-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-vessel-player-v-pro/",
+      "destination": "/blog/sun-mountain-matchplay-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-speed-cart-x-vs-caddytek-caddylite-11-5-v3",
+      "destination": "/blog/sun-mountain-speed-cart-x-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-speed-cart-x-vs-caddytek-caddylite-11-5-v3/",
+      "destination": "/blog/sun-mountain-speed-cart-x-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-callaway-quantum-org-14",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-callaway-quantum-org-14/",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-ping-pioneer",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-ping-pioneer/",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-sun-mountain-c-130",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-sun-mountain-c-130/",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-preferred-flex-vs-titleist-perma-soft",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-preferred-flex-vs-titleist-perma-soft/",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-preferred-flex-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-preferred-flex-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-callaway-fairway-c-hd",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-callaway-fairway-c-hd/",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-sun-mountain-matchplay-ballistic",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-sun-mountain-matchplay-ballistic/",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-vessel-player-v-pro",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-vessel-player-v-pro/",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-s4-stadry-vs-sun-mountain-2-5-plus",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-s4-stadry-vs-sun-mountain-2-5-plus/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-pro-v1-vs-avx",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-pro-v1-vs-avx/",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tour-b-rxs-vs-tour-response",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tour-b-rxs-vs-tour-response/",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tour-b-x-vs-tp5x",
+      "destination": "/blog/tp5x-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tour-b-x-vs-tp5x/",
+      "destination": "/blog/tp5x-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tp5-vs-tour-response",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tp5-vs-tour-response/",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tp5-vs-tp5x",
+      "destination": "/blog/tp5x-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tp5-vs-tp5x/",
+      "destination": "/blog/tp5x-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/under-armour-drive-rain-jacket-vs-nike-storm-fit-adv",
+      "destination": "/blog/nike-storm-fit-adv-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/under-armour-drive-rain-jacket-vs-nike-storm-fit-adv/",
+      "destination": "/blog/nike-storm-fit-adv-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vessel-player-v-pro-vs-titleist-players-s4-stadry",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vessel-player-v-pro-vs-titleist-players-s4-stadry/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vice-pro-vs-pro-v1",
+      "destination": "/blog/pro-v1-vs-pro-v1x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vice-pro-vs-pro-v1/",
+      "destination": "/blog/pro-v1-vs-pro-v1x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-bushnell-tour-v7-shift",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-bushnell-tour-v7-shift/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-precision-pro-nx10",
+      "destination": "/blog/precision-pro-nx10-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-precision-pro-nx10/",
+      "destination": "/blog/precision-pro-nx10-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-voice-caddie-tl1",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-voice-caddie-tl1/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-ion-elite-vs-shot-scope-v5",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-ion-elite-vs-shot-scope-v5/",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-launch-pro-vs-rapsodo-mlm2pro",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-launch-pro-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-launch-pro-vs-swing-caddie-sc4-pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-launch-pro-vs-swing-caddie-sc4-pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-bushnell-ion-elite",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-bushnell-ion-elite/",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-garmin-approach-s44",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-garmin-approach-s44/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-shot-scope-v5",
+      "destination": "/blog/arccos-vs-shot-scope-shot-tracking/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-shot-scope-v5/",
+      "destination": "/blog/arccos-vs-shot-scope-shot-tracking/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-garmin-approach-z82",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-garmin-approach-z82/",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-pro-x3-plus-link-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-pro-x3-plus-link-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-tour-v6-shift",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-tour-v6-shift/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-voice-caddie-tl1",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-voice-caddie-tl1/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-shot-scope-pro-l2",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-shot-scope-pro-l2/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-garmin-approach-z82",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-garmin-approach-z82/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-shot-scope-pro-l2",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-shot-scope-pro-l2/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-voice-caddie-tl1",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-voice-caddie-tl1/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/flightscope-mevo-plus-vs-rapsodo-mlm2pro",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/flightscope-mevo-plus-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/flightscope-mevo-plus-vs-swing-caddie-sc4-pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/flightscope-mevo-plus-vs-swing-caddie-sc4-pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-flightscope-mevo-plus",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-flightscope-mevo-plus/",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-garmin-r10",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-garmin-r10/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-rapsodo-mlm2pro",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-skytrak-plus",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-skytrak-plus/",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-swing-caddie-sc4-pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-swing-caddie-sc4-pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-ct10-sensors-vs-shot-scope-v5",
+      "destination": "/blog/arccos-vs-garmin-approach-ct10-sensors/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-ct10-sensors-vs-shot-scope-v5/",
+      "destination": "/blog/arccos-vs-garmin-approach-ct10-sensors/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-r50-vs-bushnell-launch-pro",
+      "destination": "/blog/bushnell-launch-pro-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-r50-vs-bushnell-launch-pro/",
+      "destination": "/blog/bushnell-launch-pro-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-r50-vs-full-swing-kit",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-r50-vs-full-swing-kit/",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-apple-watch-ultra-2-golf",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-apple-watch-ultra-2-golf/",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-bushnell-ion-elite",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-bushnell-ion-elite/",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-shot-scope-v5",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-shot-scope-v5/",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s70-vs-garmin-approach-s12",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s70-vs-garmin-approach-s12/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s70-vs-shot-scope-v5",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s70-vs-shot-scope-v5/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-bushnell-tour-hybrid",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-bushnell-tour-hybrid/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-precision-pro-nx10",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-precision-pro-nx10/",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-shot-scope-pro-l2",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-shot-scope-pro-l2/",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-bushnell-launch-pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-bushnell-launch-pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-flightscope-mevo-plus",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-flightscope-mevo-plus/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-rapsodo-mlm2pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nikon-coolshot-50i-gii-vs-shot-scope-pro-l2",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nikon-coolshot-50i-gii-vs-shot-scope-pro-l2/",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-shot-scope-pro-l2",
+      "destination": "/blog/shot-scope-pro-l2-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-shot-scope-pro-l2/",
+      "destination": "/blog/shot-scope-pro-l2-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-voice-caddie-tl1",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-voice-caddie-tl1/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s44",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s44/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s50",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s50/",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s70",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s70/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-bushnell-launch-pro",
+      "destination": "/blog/bushnell-launch-pro-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-bushnell-launch-pro/",
+      "destination": "/blog/bushnell-launch-pro-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-flightscope-mevo-plus",
+      "destination": "/blog/skytrak-plus-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-flightscope-mevo-plus/",
+      "destination": "/blog/skytrak-plus-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-garmin-r10",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-garmin-r10/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-rapsodo-mlm2pro",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/swing-caddie-sc4-pro-vs-skytrak-plus",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/swing-caddie-sc4-pro-vs-skytrak-plus/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/voice-caddie-tl1-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/voice-caddie-tl1-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/voice-caddie-tl1-vs-shot-scope-pro-l2",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/voice-caddie-tl1-vs-shot-scope-pro-l2/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
