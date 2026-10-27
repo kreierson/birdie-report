@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { comparisonLinkErrors, comparisonObjectErrors, loadComparisonPages } from './comparison-links.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 
@@ -143,13 +144,25 @@ function main() {
     .filter((path) => ['.astro', '.js', '.mjs', '.md', '.mdx', '.ts', '.tsx'].includes(extname(path)))
     .filter((path) => statSync(path).isFile())
     .map((path) => ({ path: relative(root, path), source: readFileSync(path, 'utf8') }));
+  const blogDirectory = join(root, 'src/content/blog');
+  const blogFiles = readdirSync(blogDirectory)
+    .filter((name) => ['.md', '.mdx'].includes(extname(name)))
+    .map((name) => ({
+      slug: name.replace(/\.mdx?$/, ''),
+      source: readFileSync(join(blogDirectory, name), 'utf8'),
+    }));
+  const pages = loadComparisonPages(blogFiles);
   const errors = validateRedirectState({
     redirects: vercel.redirects,
     docs,
     holds,
     files,
-    blogSlugs: blogSlugs(join(root, 'src/content/blog')),
+    blogSlugs: blogSlugs(blogDirectory),
   });
+  for (const file of files) {
+    for (const error of comparisonLinkErrors(file.source, pages)) errors.push(`${file.path}: ${error}`);
+    for (const error of comparisonObjectErrors(file.source, pages)) errors.push(`${file.path}: ${error}`);
+  }
   if (errors.length) {
     console.error('Redirect validation failed:');
     for (const error of [...new Set(errors)]) console.error(`- ${error}`);
