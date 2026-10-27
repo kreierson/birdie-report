@@ -34,9 +34,24 @@ export function dealSnapshot(post, now = new Date()) {
   return { expired, asOf };
 }
 
-export function selectLatestArticles(posts, { excludeSlug, limit = 8 } = {}) {
+export function dealAsOfKey(value) {
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  return `${date.getUTCFullYear()}-${month}-${day}`;
+}
+
+// `YYYY-MM-DD` keys compare in UTC calendar order. A missing key is expired.
+export function isAsOfExpired(asOfKey, now = new Date()) {
+  if (!asOfKey) return true;
+  return asOfKey < dealAsOfKey(now);
+}
+
+export function selectLatestArticles(posts, { excludeSlug, limit = 8, now = new Date() } = {}) {
   return [...posts]
     .filter((post) => post.slug !== excludeSlug)
+    .filter((post) => dealSnapshot(post, now)?.expired !== true)
     .sort(compareByPublishDateDesc)
     .slice(0, limit);
 }

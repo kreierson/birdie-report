@@ -1,4 +1,5 @@
 const SITE = 'https://www.birdiereport.com';
+const BUYER_CATEGORIES = new Set(['best', 'reviews', 'deals', 'versus']);
 
 export function parseUsdPrice(value) {
   if (typeof value !== 'string') return null;
@@ -77,47 +78,56 @@ function namedProducts(input) {
     .filter((product) => hasText(product?.name))
     .map((product) => ({
       name: product.name.trim(),
-      rating: product.rating,
-      price: product.price,
-      pros: product.pros,
-      cons: product.cons,
+      rating: isRating(product.rating) ? product.rating : null,
+      pros: list(product.pros),
+      cons: list(product.cons),
     }));
 }
 
-function fallbackProductName(input) {
-  const links = Array.isArray(input.affiliateLinks) ? input.affiliateLinks : [];
-  const named = links.find((link) => hasText(link?.product));
-  if (named) return named.product.trim();
-  const title = hasText(input.title) ? input.title.trim() : '';
-  return title.split(':')[0].replace(/\s+review$/i, '').trim();
+function affiliateNames(input) {
+  if (!Array.isArray(input.affiliateLinks)) return [];
+  return input.affiliateLinks.map((link) => link?.product).filter(hasText).map((name) => name.trim());
 }
 
-function singleProductSource(input) {
-  const products = namedProducts(input);
-  if (products.length !== 1 && !(products.length === 0 && input.category === 'reviews' && isRating(input.rating))) {
-    return null;
-  }
-  if (products.length === 1) {
-    const product = products[0];
-    const pros = list(input.pros);
-    const cons = list(input.cons);
-    return {
-      name: product.name,
-      rating: isRating(input.rating) ? input.rating : product.rating,
-      price: hasText(input.price) ? input.price : product.price,
-      pros: pros.length ? pros : list(product.pros),
-      cons: cons.length ? cons : list(product.cons),
-    };
-  }
-  const name = fallbackProductName(input);
-  if (!name) return null;
+// Mirrors BlogLayout's Quick Verdict: page-level pros, cons, rating, and price.
+// Comparison-product pros are not part of that block.
+export function visibleVerdict(input) {
+  const pros = list(input.pros);
+  const cons = list(input.cons);
+  const rating = isRating(input.rating) ? input.rating : null;
+  const isReview = input.category === 'reviews' || Boolean(rating && pros.length);
+  if (!isReview || (!rating && pros.length === 0 && cons.length === 0)) return null;
   return {
-    name,
-    rating: input.rating,
-    price: input.price,
-    pros: list(input.pros),
-    cons: list(input.cons),
+    rating,
+    pros,
+    cons,
+    price: rating && hasText(input.price) ? input.price.trim() : null,
   };
+}
+
+// Fields GuideScorecard prints. Comparison prices are intentionally absent:
+// the layout does not show them, and there is no live price feed.
+export function visibleScorecard(input) {
+  const products = namedProducts(input);
+  const pagePros = list(input.pros);
+  const pageCons = list(input.cons);
+  if (products.length >= 2) return products;
+  if (products.length === 1 && pagePros.length === 0 && pageCons.length === 0) return products;
+  return [];
+}
+
+function visibleReviewedName(input) {
+  const scores = visibleScorecard(input);
+  if (scores.length === 1) return scores[0].name;
+  const names = affiliateNames(input);
+  if (BUYER_CATEGORIES.has(input.category) && names.length > 0) return names[0];
+  const products = namedProducts(input);
+  if (BUYER_CATEGORIES.has(input.category) && products.length === 1) return products[0].name;
+  if (names.length > 0) return names[0];
+  const title = hasText(input.title) ? input.title.trim() : '';
+  const head = title.split(':')[0].replace(/\s+review$/i, '').trim();
+  if (head && title.includes(head)) return head;
+  return null;
 }
 
 function reviewNode(product, input, extras = {}) {
@@ -138,7 +148,7 @@ function reviewNode(product, input, extras = {}) {
       worstRating: 1,
     },
   };
-  // Google's pros/cons markup needs at least two visible statements. Don't pad a shorter list.
+  // Pros/cons rich results need at least two visible statements. Don't pad.
   if (pros.length + cons.length >= 2) {
     if (pros.length) review.positiveNotes = notes(pros);
     if (cons.length) review.negativeNotes = notes(cons);
@@ -149,14 +159,12 @@ function reviewNode(product, input, extras = {}) {
 function productNode(product, input, extras = {}) {
   const review = reviewNode(product, input, extras);
   if (!review || !hasText(product.name)) return null;
-  const price = parseUsdPrice(product.price);
   const node = {
     '@type': 'Product',
     name: product.name.trim(),
     review,
   };
-  // Only a single unambiguous dollar amount is an Offer. Ranges, sale notes, and
-  // "check current price" stay on the page because there is no live price feed.
+  const price = parseUsdPrice(product.price);
   if (price != null) {
     node.offers = {
       '@type': 'Offer',
@@ -181,6 +189,36 @@ function itemListNode(items, input, pageUrl) {
       item,
     })),
   };
+}
+
+function singleVisibleProduct(input) {
+  const verdict = visibleVerdict(input);
+  const score = visibleScorecard(input)[0];
+  if (input.category === 'reviews' && verdict?.rating) {
+    const pros = verdict.pros.length ? verdict.pros : (score?.pros ?? []);
+    const cons = verdict.cons.length ? verdict.cons : (score?.cons ?? []);
+    return {
+      name: score?.name || visibleReviewedName(input),
+      rating: verdict.rating,
+      pros,
+      cons,
+      price: verdict.price,
+      reviewName: input.title,
+      reviewBody: input.description,
+    };
+  }
+  if (score?.rating) {
+    return {
+      name: score.name,
+      rating: score.rating,
+      pros: score.pros,
+      cons: score.cons,
+      price: null,
+      reviewName: input.title,
+      reviewBody: input.description,
+    };
+  }
+  return null;
 }
 
 export function buildStructuredData(input) {
@@ -208,23 +246,20 @@ export function buildStructuredData(input) {
       '@id': pageUrl,
     },
   });
-  const products = namedProducts(input);
+  const renderedScores = visibleScorecard(input);
   let extra;
-  if (products.length >= 2) {
-    const items = products
-      .map((product) => productNode({
-        name: product.name,
-        rating: product.rating,
-        price: product.price,
-        pros: list(product.pros),
-        cons: list(product.cons),
-      }, { ...input, site }))
+  if (renderedScores.length >= 2) {
+    const items = renderedScores
+      .filter((product) => isRating(product.rating))
+      .map((product) => productNode({ ...product, price: null }, { ...input, site }))
       .filter(Boolean);
     if (items.length >= 2) extra = itemListNode(items, input, pageUrl);
     else if (items.length === 1) extra = { ...items[0], '@id': `${pageUrl}#product` };
   } else {
-    const single = singleProductSource(input);
-    const node = single ? productNode(single, { ...input, site }, { reviewName: input.title, reviewBody: input.description }) : null;
+    const single = singleVisibleProduct(input);
+    const node = single
+      ? productNode(single, { ...input, site }, { reviewName: single.reviewName, reviewBody: single.reviewBody })
+      : null;
     if (node) extra = { ...node, '@id': `${pageUrl}#product` };
   }
   return {

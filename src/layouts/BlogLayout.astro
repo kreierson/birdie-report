@@ -1,10 +1,11 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import GearGuideLinks from '../components/GearGuideLinks.astro';
+import GuideScorecard from '../components/GuideScorecard.astro';
 import { getCollection } from 'astro:content';
 import { selectRelatedPosts } from '../utils/discovery.mjs';
 import { getAmazonTag, normalizeAffiliateLinks } from '../utils/affiliate';
-import { buildStructuredData, jsonLd } from '../utils/review-schema.mjs';
+import { buildStructuredData, jsonLd, visibleScorecard } from '../utils/review-schema.mjs';
 
 export interface Props {
   content: any;
@@ -79,7 +80,7 @@ const categoryColors: Record<string, string> = {
   opinion: 'bg-rose-600 text-white',
 };
 
-const schemaMarkup = buildStructuredData({
+const schemaInput = {
   site,
   pathname: Astro.url.pathname,
   title,
@@ -95,7 +96,9 @@ const schemaMarkup = buildStructuredData({
   price,
   comparisonProducts: comparison_products,
   affiliateLinks: affiliate_links,
-});
+};
+const schemaMarkup = buildStructuredData(schemaInput);
+const guideScores = visibleScorecard(schemaInput);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} image={featured_image}>
@@ -274,6 +277,8 @@ const schemaMarkup = buildStructuredData({
             </div>
           </div>
         )}
+
+        <GuideScorecard products={guideScores} />
 
         <!-- Article Content -->
         <div class="prose prose-lg max-w-none

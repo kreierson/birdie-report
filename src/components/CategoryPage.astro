@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import { dealSnapshot } from '../utils/listing.mjs';
+import DealFreshness from './DealFreshness.astro';
+import { dealAsOfKey, dealSnapshot } from '../utils/listing.mjs';
 
 export interface Props {
   category: string;
@@ -60,16 +61,16 @@ const borderColor: Record<string, string> = {
         <p class="text-lg text-white/70 mb-6 max-w-2xl">{description}</p>
         
         <!-- Featured article -->
-        <div class="bg-white/10 backdrop-blur rounded-lg p-5 mt-8 max-w-xl">
-          <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mb-2">{heroDeal?.expired ? 'Expired' : 'Featured'}</p>
+        <div class="bg-white/10 backdrop-blur rounded-lg p-5 mt-8 max-w-xl" data-deal-as-of={heroDeal ? dealAsOfKey(heroDeal.asOf) : undefined}>
+          <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mb-2" data-deal-state-label={heroDeal ? true : undefined}>{heroDeal?.expired ? 'Expired' : 'Featured'}</p>
           <h2 class="text-xl md:text-2xl font-display font-bold text-white mb-2 leading-snug">
             <a href={`/blog/${heroPost.slug}/`} class="hover:text-gold-300 transition-colors">
               {heroPost.data.title}
             </a>
           </h2>
           <p class="text-white/60 text-sm line-clamp-2">{heroPost.data.description}</p>
-          {heroDeal?.expired && (
-            <p class="text-sm text-white mt-3">Checked {formatDate(heroDeal.asOf)}. This deal check has expired. Confirm any price with the retailer.</p>
+          {heroDeal && (
+            <p data-deal-expired-note hidden={!heroDeal.expired} class="text-sm text-white mt-3">Checked {formatDate(heroDeal.asOf)}. This deal check has expired. Confirm any price with the retailer.</p>
           )}
           <div class="flex items-center gap-3 mt-3 text-sm text-white/50">
             <time datetime={heroPost.data.date.toISOString()}>{formatDate(heroPost.data.date)}</time>
@@ -123,7 +124,11 @@ const borderColor: Record<string, string> = {
     {remaining.length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid">
         {remaining.map((post, i) => (
-          <article class={`group article-card ${i === 0 ? 'md:col-span-2' : ''}`} data-subcategory={post.data.subcategory || ''}>
+          <article
+            class={`group article-card ${i === 0 ? 'md:col-span-2' : ''}`}
+            data-subcategory={post.data.subcategory || ''}
+            data-deal-as-of={category === 'deals' ? dealAsOfKey(dealSnapshot(post).asOf) : undefined}
+          >
             <a href={`/blog/${post.slug}/`} class="block relative overflow-hidden rounded-lg mb-3">
               <img 
                 src={post.data.featured_image} 
@@ -139,8 +144,8 @@ const borderColor: Record<string, string> = {
             </a>
             <div>
               <div class="flex items-center gap-2 mb-2">
-                {category === 'deals' && dealSnapshot(post)?.expired && (
-                  <span class="text-[10px] font-bold uppercase tracking-wider text-orange-800 bg-orange-100 px-1.5 py-0.5 rounded-sm">Expired</span>
+                {category === 'deals' && (
+                  <span data-deal-expired-badge hidden={!dealSnapshot(post)?.expired} class="text-[10px] font-bold uppercase tracking-wider text-orange-800 bg-orange-100 px-1.5 py-0.5 rounded-sm">Expired</span>
                 )}
                 {post.data.subcategory && (
                   <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">{post.data.subcategory.replace('-', ' ')}</span>
@@ -166,6 +171,8 @@ const borderColor: Record<string, string> = {
     <slot />
   </div>
 </section>
+
+<DealFreshness />
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
