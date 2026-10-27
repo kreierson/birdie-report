@@ -38,6 +38,7 @@
 - New product coverage must be hands-on and cite `evidence_ids` from `data/hands-on-evidence.json`. The registry must point to actual owner confirmation or supplied testing records; a previous unverified article is not evidence. Never invent ownership, measurements, photos, or testing. Existing research-based articles retain honest labels.
 - If supported experience or distinct search intent is missing, skip new publication and continue maintenance without requesting routine approval. Never relabel research as hands-on to meet a quota.
 - No new news, opinion, or deal articles in this program. No mass deletion, noindexing, or redirects without a documented page-level rationale and verified replacement.
+- Approved consolidations are recorded with a page-level reason in `docs/redirects.md`. Do not recreate those source slugs. Do not publish a new thin versus page that repeats one of those product pairs, including a Max or standard sibling of the same club type. Extend the destination page instead. Phase-2 hold slugs in `data/consolidation-holds.json` stay published until a separate review.
 - Before proposing any future article, search the full article inventory for overlapping intent. Extend or improve an existing page when it can satisfy the query.
 - Do not create tag archives, add tag URLs to the sitemap, or add crawlable links to `/tags/` pages.
 - Keep canonicals, structured data, internal links, redirects, and sitemap URLs on `https://www.birdiereport.com`.

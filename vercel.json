@@ -1049,12 +1049,12 @@
     },
     {
       "source": "/taylormade-spider-gt-vs-scotty-cameron-newport-2",
-      "destination": "/blog/taylormade-spider-gt-vs-scotty-cameron-newport-2/",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
       "permanent": true
     },
     {
       "source": "/taylormade-spider-gt-vs-scotty-cameron-newport-2/",
-      "destination": "/blog/taylormade-spider-gt-vs-scotty-cameron-newport-2/",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
       "permanent": true
     },
     {
@@ -1155,6 +1155,336 @@
     {
       "source": "/blog/how-to-read-greens-better-without-guessing/",
       "destination": "/blog/how-to-read-greens-like-a-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-max-vs-ping-g440-max-driver",
+      "destination": "/blog/callaway-paradym-ai-smoke-max-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-max-vs-ping-g440-max-driver/",
+      "destination": "/blog/callaway-paradym-ai-smoke-max-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-vs-ping-g440-max-driver",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-vs-ping-g440-max-driver/",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-vs-taylormade-qi35-irons",
+      "destination": "/blog/callaway-elyte-vs-ping-g440-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-vs-taylormade-qi35-irons/",
+      "destination": "/blog/callaway-elyte-vs-ping-g440-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-vs-titleist-gts2-driver",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-vs-titleist-gts2-driver/",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-vs-titleist-t200-irons",
+      "destination": "/blog/callaway-elyte-vs-ping-g440-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-elyte-vs-titleist-t200-irons/",
+      "destination": "/blog/callaway-elyte-vs-ping-g440-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-jaws-raw-vs-titleist-vokey-sm11",
+      "destination": "/blog/titleist-vokey-sm11-vs-titleist-vokey-sm10/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-jaws-raw-vs-titleist-vokey-sm11/",
+      "destination": "/blog/titleist-vokey-sm11-vs-titleist-vokey-sm10/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-opus-vs-titleist-vokey-sm10",
+      "destination": "/blog/titleist-vokey-sm11-vs-titleist-vokey-sm10/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-opus-vs-titleist-vokey-sm10/",
+      "destination": "/blog/titleist-vokey-sm11-vs-titleist-vokey-sm10/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-paradym-ai-smoke-max-vs-titleist-gt2-driver",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-paradym-ai-smoke-max-vs-titleist-gt2-driver/",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-paradym-ai-smoke-max-vs-titleist-gts2-driver",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-paradym-ai-smoke-max-vs-titleist-gts2-driver/",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cleveland-cbx4-vs-callaway-opus-wedges",
+      "destination": "/blog/cleveland-cbx4-vs-callaway-jaws-raw-wedges/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cleveland-cbx4-vs-callaway-opus-wedges/",
+      "destination": "/blog/cleveland-cbx4-vs-callaway-jaws-raw-wedges/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/lab-df3-vs-odyssey-ai-one-milled-rossie-v-t",
+      "destination": "/blog/lab-df3-vs-ping-scottsdale-tec-ally-blue-onset/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/lab-df3-vs-odyssey-ai-one-milled-rossie-v-t/",
+      "destination": "/blog/lab-df3-vs-ping-scottsdale-tec-ally-blue-onset/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/mizuno-jpx925-forged-vs-titleist-t200-irons",
+      "destination": "/blog/srixon-zxi5-vs-mizuno-jpx925-forged-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/mizuno-jpx925-forged-vs-titleist-t200-irons/",
+      "destination": "/blog/srixon-zxi5-vs-mizuno-jpx925-forged-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odyssey-ai-one-milled-2-ball-t-vs-odyssey-ai-one-milled-jailbird-mini-t",
+      "destination": "/blog/ping-scottsdale-tec-ally-blue-onset-vs-odyssey-ai-one-milled-jailbird-mini-t/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odyssey-ai-one-milled-2-ball-t-vs-odyssey-ai-one-milled-jailbird-mini-t/",
+      "destination": "/blog/ping-scottsdale-tec-ally-blue-onset-vs-odyssey-ai-one-milled-jailbird-mini-t/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odyssey-ai-one-milled-vs-scotty-cameron-newport-2",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odyssey-ai-one-milled-vs-scotty-cameron-newport-2/",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-g740-vs-taylormade-p790-irons",
+      "destination": "/blog/ping-g440-vs-ping-g740-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-g740-vs-taylormade-p790-irons/",
+      "destination": "/blog/ping-g440-vs-ping-g740-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-g740-vs-titleist-t200-irons",
+      "destination": "/blog/ping-g440-vs-ping-g740-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-g740-vs-titleist-t200-irons/",
+      "destination": "/blog/ping-g440-vs-ping-g740-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-pld-milled-anser-vs-scotty-cameron-newport-2",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-pld-milled-anser-vs-scotty-cameron-newport-2/",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/scotty-cameron-phantom-5-vs-odyssey-ai-one-milled-jailbird-mini-t",
+      "destination": "/blog/lab-df3-vs-scotty-cameron-phantom-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/scotty-cameron-phantom-5-vs-odyssey-ai-one-milled-jailbird-mini-t/",
+      "destination": "/blog/lab-df3-vs-scotty-cameron-phantom-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-max-vs-callaway-elyte-max-driver",
+      "destination": "/blog/taylormade-qi35-vs-callaway-elyte-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-max-vs-callaway-elyte-max-driver/",
+      "destination": "/blog/taylormade-qi35-vs-callaway-elyte-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-max-vs-cobra-darkspeed-max-driver",
+      "destination": "/blog/cobra-darkspeed-vs-taylormade-qi35-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-max-vs-cobra-darkspeed-max-driver/",
+      "destination": "/blog/cobra-darkspeed-vs-taylormade-qi35-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-vs-mizuno-jpx925-forged-irons",
+      "destination": "/blog/srixon-zxi5-vs-mizuno-jpx925-forged-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-vs-mizuno-jpx925-forged-irons/",
+      "destination": "/blog/srixon-zxi5-vs-mizuno-jpx925-forged-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-vs-ping-g440-irons",
+      "destination": "/blog/ping-g440-vs-ping-g740-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-vs-ping-g440-irons/",
+      "destination": "/blog/ping-g440-vs-ping-g740-irons/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-vs-ping-g440-max-driver",
+      "destination": "/blog/taylormade-qi35-max-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-qi35-vs-ping-g440-max-driver/",
+      "destination": "/blog/taylormade-qi35-max-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-spider-gt-vs-scotty-cameron-newport-2",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-spider-gt-vs-scotty-cameron-newport-2/",
+      "destination": "/blog/scotty-cameron-vs-odyssey-putters/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gt2-vs-cobra-darkspeed-max-driver",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gt2-vs-cobra-darkspeed-max-driver/",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gt2-vs-cobra-ds-adapt-max-k-driver",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gt2-vs-cobra-ds-adapt-max-k-driver/",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gts2-vs-cobra-darkspeed-max-driver",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gts2-vs-cobra-darkspeed-max-driver/",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gts2-vs-cobra-ds-adapt-max-k-driver",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gts2-vs-cobra-ds-adapt-max-k-driver/",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gts2-vs-taylormade-qi35-driver",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-gts2-vs-taylormade-qi35-driver/",
+      "destination": "/blog/titleist-gts2-vs-ping-g440-max-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-tsr3-vs-ping-g440-lst-driver",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-lst-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-tsr3-vs-ping-g440-lst-driver/",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-lst-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-tsr3-vs-ping-g440-max-driver",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-tsr3-vs-ping-g440-max-driver/",
+      "destination": "/blog/titleist-gt2-vs-ping-g440-driver/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vokey-sm10-vs-callaway-jaws-full-toe",
+      "destination": "/blog/vokey-sm10-vs-cleveland-rtx-6-zipcore-wedges/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vokey-sm10-vs-callaway-jaws-full-toe/",
+      "destination": "/blog/vokey-sm10-vs-cleveland-rtx-6-zipcore-wedges/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vokey-sm11-vs-cleveland-rtx-6-zipcore-wedges",
+      "destination": "/blog/titleist-vokey-sm11-vs-titleist-vokey-sm10/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vokey-sm11-vs-cleveland-rtx-6-zipcore-wedges/",
+      "destination": "/blog/titleist-vokey-sm11-vs-titleist-vokey-sm10/",
       "permanent": true
     },
     {

@@ -69,6 +69,20 @@ class SEOGuards(unittest.TestCase):
         data['amazon_portal']={'retrieved':'2025-01-31','periods':{'current':{'start':'2025-01-01','end':'2025-01-28','clicks':10,'commissions_usd':None}}}
         self.assertIn('commissions unavailable',m.render(m.scorecard(data,today=date(2025,1,31))))
 
+    def test_consolidation_blocks_retired_slugs_and_overlapping_versus_pairs(self):
+        m=module('seo-workflow')
+        redirects=[
+            ('/blog/taylormade-qi35-max-vs-callaway-elyte-max-driver/','/blog/taylormade-qi35-vs-callaway-elyte-driver/'),
+            ('/blog/best-golf-bags-2026/','/blog/best-golf-bags-2026/'),
+        ]
+        holds=['titleist-gts2-vs-taylormade-qi35-max-driver']
+        self.assertIsNone(m.consolidation_conflict('taylormade-qi35-vs-callaway-elyte-driver','versus',redirects,holds))
+        self.assertIn('retired URL', m.consolidation_conflict('taylormade-qi35-max-vs-callaway-elyte-max-driver','versus',redirects,holds))
+        self.assertIn('thin comparison', m.consolidation_conflict('callaway-elyte-max-vs-taylormade-qi35-driver','versus',redirects,holds))
+        self.assertIn('thin comparison', m.consolidation_conflict('titleist-gts2-vs-taylormade-qi35-driver','versus',redirects,holds))
+        self.assertIsNone(m.consolidation_conflict('callaway-elyte-vs-ping-g440-irons','versus',redirects,holds))
+        self.assertIsNone(m.consolidation_conflict('a-new-course-guide','courses',redirects,holds))
+
     def test_indexnow_rejects_external_and_noncanonical_urls(self):
         m=module('indexnow')
         for url in ['https://evil.example/blog/','https://www.birdiereport.com/blog/x','http://www.birdiereport.com/blog/x/','https://www.birdiereport.com/blog/x/?foo=1']:
