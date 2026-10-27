@@ -4,7 +4,7 @@ import GearGuideLinks from '../components/GearGuideLinks.astro';
 import GuideScorecard from '../components/GuideScorecard.astro';
 import { getCollection } from 'astro:content';
 import { selectRelatedPosts } from '../utils/discovery.mjs';
-import { getAmazonTag, normalizeAffiliateLinks } from '../utils/affiliate';
+import { getAmazonTag, isDirectAmazonProductUrl, normalizeAffiliateLinks } from '../utils/affiliate';
 import { buildStructuredData, jsonLd, visibleScorecard } from '../utils/review-schema.mjs';
 
 export interface Props {
@@ -190,7 +190,7 @@ const guideScores = visibleScorecard(schemaInput);
                 <p class="text-xs font-bold uppercase tracking-wide text-forest-700">Quick Buyer Shortlist</p>
                 <h2 class="text-xl font-display font-bold text-forest-900">Best places to start</h2>
               </div>
-              <p class="text-xs text-gray-500 max-w-sm">Affiliate links may earn us a commission. Amazon links open search results; verify the model, seller, and current price.</p>
+              <p class="text-xs text-gray-500 max-w-sm">Affiliate links may earn us a commission. A direct link opens one verified Amazon product page. A search link opens results. Confirm the model, seller, and current price.</p>
             </div>
             <div class="divide-y divide-forest-100">
               {heroBuyLinks.map((link: any, i: number) => (
@@ -317,7 +317,7 @@ const guideScores = visibleScorecard(schemaInput);
                 <div class="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 bg-white rounded-lg border border-forest-100">
                   <div>
                     <h4 class="font-semibold text-gray-900">{link.product}</h4>
-                    <p class="text-sm text-gray-600">Search current options at {link.retailer || 'Amazon'}</p>
+                    <p class="text-sm text-gray-600">{isDirectAmazonProductUrl(link.url) ? `Verified product page at ${link.retailer || 'Amazon'}` : `Search current options at ${link.retailer || 'Amazon'}`}</p>
                   </div>
                   <a
                     href={link.url}

@@ -1,3 +1,5 @@
+import registry from '../../data/verified-asins.json' with { type: 'json' };
+
 type AffiliateContext = {
   category?: string;
   subcategory?: string;
@@ -15,6 +17,8 @@ type AffiliateLink = {
 };
 
 const DEFAULT_AMAZON_TAG = 'birdiereport-20';
+const PRODUCT_PATH = /\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})(?![A-Z0-9])/i;
+const verifiedAsins = new Set(registry.asins.map((entry) => entry.asin.toUpperCase()));
 
 const AMAZON_TAGS: Record<string, string | undefined> = {
   default: import.meta.env.PUBLIC_AMAZON_TAG_DEFAULT,
@@ -44,20 +48,53 @@ export function getAmazonTag(context: AffiliateContext = {}) {
   );
 }
 
-export function withAmazonTag(url: string, context: AffiliateContext = {}) {
-  if (!url) return url;
-
+export function asinFromAmazonProductUrl(url: string) {
   try {
     const parsed = new URL(url);
     const host = parsed.hostname.replace(/^www\./, '');
+    if (host !== 'amazon.com' && !host.endsWith('.amazon.com')) return null;
+    return parsed.pathname.match(PRODUCT_PATH)?.[1].toUpperCase() ?? null;
+  } catch {
+    return null;
+  }
+}
 
-    if (host !== 'amazon.com' && !host.endsWith('.amazon.com')) return url;
+export function isDirectAmazonProductUrl(url: string) {
+  return Boolean(asinFromAmazonProductUrl(url));
+}
 
-    parsed.searchParams.set('tag', getAmazonTag(context));
-    return parsed.toString();
+export function amazonProductUrl(asin: string, context: AffiliateContext = {}) {
+  const normalized = asin.trim().toUpperCase();
+  if (!/^[A-Z0-9]{10}$/.test(normalized)) {
+    throw new Error(`Invalid ASIN: ${asin}`);
+  }
+  if (!verifiedAsins.has(normalized)) {
+    throw new Error(`ASIN ${normalized} is not in data/verified-asins.json`);
+  }
+
+  const url = new URL(`https://www.amazon.com/dp/${normalized}`);
+  url.searchParams.set('tag', getAmazonTag(context));
+  return url.toString();
+}
+
+export function withAmazonTag(url: string, context: AffiliateContext = {}) {
+  if (!url) return url;
+
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
   } catch {
     return url;
   }
+
+  const host = parsed.hostname.replace(/^www\./, '');
+  if (host !== 'amazon.com' && !host.endsWith('.amazon.com')) return url;
+
+  const asin = parsed.pathname.match(PRODUCT_PATH)?.[1];
+  if (asin) return amazonProductUrl(asin, context);
+
+  parsed.searchParams.set('tag', getAmazonTag(context));
+  return parsed.toString();
 }
 
 export function normalizeAffiliateUrl(link: AffiliateLink, context: AffiliateContext = {}) {

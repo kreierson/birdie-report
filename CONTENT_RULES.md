@@ -1,10 +1,13 @@
 # Content Rules — The Birdie Report
 
 ## Affiliate Links
-- ALWAYS use Amazon search URLs: `https://www.amazon.com/s?k=Product+Name&tag=birdiereport-20`
-- NEVER fabricate ASINs — sub-agents make them up and they 404
-- Test every affiliate link before publishing
+- Search links are the default: `https://www.amazon.com/s?k=Product+Name&tag=birdiereport-20`
+- A direct product link (`amazon.com/dp/ASIN`, `amazon.com/gp/product/ASIN`, or `amazon.com/gp/aw/d/ASIN`, including a slug before `/dp/`) is allowed only when that exact ASIN is an entry in `data/verified-asins.json`
+- Each registry entry needs the ASIN, the exact product and variant, `verified_at` (`YYYY-MM-DD`), the verification method, and the evidence. Evidence has to come from opening the live Amazon listing and confirming it is a new listing of the product and variant the article recommends. Used-only, refurbished-only, pre-owned-only, and third-party-or-used-only listings do not qualify. A search-index hit is not verification.
+- NEVER fabricate an ASIN. If the live page does not confirm the variant, leave the search link.
+- When code builds a direct href, use `amazonProductUrl()` in `src/utils/affiliate.ts`. That helper is the only URL builder, and it rejects ASINs that are not in the registry. A literal URL in content uses `https://www.amazon.com/dp/ASIN?tag=birdiereport-20`
 - Tag: `birdiereport-20`
+- Run `npm run validate:verified-asins` through the normal build before committing. The check fails if any direct Amazon product link in content, components, layouts, or pages is missing from the registry. Search links stay allowed.
 
 ## Images
 - NEVER publish with a broken image — verify every URL loads before committing

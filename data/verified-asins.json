@@ -1,0 +1,28 @@
+{
+  "asins": [
+    {
+      "asin": "B0DWNKD682",
+      "product": "Bushnell Golf Tour Hybrid Laser Rangefinder",
+      "variant": "Blue, model 202500, UPC 029757025500. Standalone rangefinder; Orange is a color on the same listing.",
+      "verified_at": "2026-10-27",
+      "verification_method": "Fetched the Amazon product page and All Offers Display for B0DWNKD682",
+      "evidence": "On 2026-10-27, https://www.amazon.com/dp/B0DWNKD682 returned title Bushnell Golf Tour Hybrid Laser Rangefinder, Blue, in stock, sold new by Amazon.com (merchant ATVPDKIKX0DER) at $499.99. Spec table: model 202500, UPC 029757025500, color Blue selected, Orange also offered. Feature text matches Bushnell's Tour Hybrid: slope-compensated laser and GPS distances, PinSeeker with Visual JOLT, magnetic cart mount, front/center/back yardages, 1,300-yard range. The All Offers Display pinned a New offer from Amazon.com at $499.99. Used and Amazon Resale offers exist alongside it and are not the buy box. This is the rangefinder the Tour Hybrid review describes. The review does not name a color."
+    },
+    {
+      "asin": "B0FKCT6B4K",
+      "product": "Titleist Cart 14 golf bag",
+      "variant": "Washed Indigo/Blue Bird/White, model TB22CT6-441. Same listing also offers Black/Black/Red, Cypress/Black/Black, Monterey/Black/Black, and Navy.",
+      "verified_at": "2026-10-27",
+      "verification_method": "Fetched the Amazon product page and All Offers Display for B0FKCT6B4K, and compared the copy with the Titleist Cart 14 page the article cites (22TGB01)",
+      "evidence": "On 2026-10-27, https://www.amazon.com/dp/B0FKCT6B4K returned title Titleist Cart 14 Golf Bag, color Washed Indigo/Blue Bird/White, in stock. Model TB22CT6-441, item type Cart 14. Amazon's description matches Titleist's current Cart 14 page (https://www.titleist.com/product/cart-14/22TGB01.html): lightweight symmetrical design, 10 cart-accessible pockets, premium single strap, strap loop. That Titleist page is the one the cart-bag guide cites, and it calls out the Black/Black/Red colorway, which is on this listing's color set. The All Offers Display pinned a New offer from Amazon.com at $245.00, the same reference price as the guide. Older colorway B09QT2BNVV (White/Black/Gray, TB22CT6-102) also loaded as a new Cart 14 and was not used, because this listing is the color family on the current Titleist page."
+    },
+    {
+      "asin": "B0DJ3HNGMK",
+      "product": "TaylorMade Cart Lite cart bag",
+      "variant": "2025 Coral, model N3828601. The listing's style selector also includes 2023 and other colors; this ASIN is the 2025 Coral variation.",
+      "verified_at": "2026-10-27",
+      "verification_method": "Fetched the Amazon product page and All Offers Display for B0DJ3HNGMK",
+      "evidence": "On 2026-10-27, https://www.amazon.com/dp/B0DJ3HNGMK returned TaylorMade Golf CartLite Bag, selected variation Coral and style 2025, model N3828601, 14 dividers, 11 pockets. Page copy: 14-way top, about 5 lb, geometrically engineered base for pushcarts. That is the Cart Lite the review describes (14-way top, 11 pockets, pushcart base, light cart bag). The review does not name a color. The All Offers Display showed New offers, including GlobalGolf at $224.98 and Amazon.com at $299.99. No used offer was in that offer list. Proposed ASIN B0CP9RPB3Z resolved to the 2023 style and had no featured offers, so it was not used."
+    }
+  ]
+}
