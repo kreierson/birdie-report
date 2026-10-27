@@ -1488,6 +1488,776 @@
       "permanent": true
     },
     {
+      "source": "/blog/adidas-codechaos-25-vs-footjoy-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/adidas-codechaos-25-vs-footjoy-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/adidas-codechaos-25-vs-nike-air-zoom-infinity-tour-next",
+      "destination": "/blog/adidas-codechaos-25-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/adidas-codechaos-25-vs-nike-air-zoom-infinity-tour-next/",
+      "destination": "/blog/adidas-codechaos-25-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bag-boy-nitron-vs-caddytek-caddylite-11-5-v3",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bag-boy-nitron-vs-caddytek-caddylite-11-5-v3/",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bag-boy-nitron-vs-sun-mountain-speed-cart-x",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bag-boy-nitron-vs-sun-mountain-speed-cart-x/",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-callaway-tour-authentic",
+      "destination": "/blog/callaway-tour-authentic-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-callaway-tour-authentic/",
+      "destination": "/blog/callaway-tour-authentic-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-titleist-perma-soft",
+      "destination": "/blog/titleist-perma-soft-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-titleist-perma-soft/",
+      "destination": "/blog/titleist-perma-soft-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-dawn-patrol-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-ping-hoofer-lite",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-ping-hoofer-lite/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-sun-mountain-2-5-plus",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-sun-mountain-2-5-plus/",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-sun-mountain-matchplay",
+      "destination": "/blog/sun-mountain-matchplay-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-sun-mountain-matchplay/",
+      "destination": "/blog/sun-mountain-matchplay-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-titleist-players-s4-stadry",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-titleist-players-s4-stadry/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-vessel-player-v-pro",
+      "destination": "/blog/callaway-fairway-c-hd-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-fairway-c-hd-vs-vessel-player-v-pro/",
+      "destination": "/blog/callaway-fairway-c-hd-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-quantum-org-14-vs-titleist-cart-14",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-quantum-org-14-vs-titleist-cart-14/",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-footjoy-stasof",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-footjoy-stasof/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-titleist-perma-soft",
+      "destination": "/blog/titleist-perma-soft-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-titleist-perma-soft/",
+      "destination": "/blog/titleist-perma-soft-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/callaway-tour-authentic-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/chrome-tour-x-vs-tour-b-x",
+      "destination": "/blog/pro-v1x-vs-chrome-tour-x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/chrome-tour-x-vs-tour-b-x/",
+      "destination": "/blog/pro-v1x-vs-chrome-tour-x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/clicgear-model-4-5-vs-caddytek-caddylite-11-5-v3",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/clicgear-model-4-5-vs-caddytek-caddylite-11-5-v3/",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/clicgear-model-4-5-vs-sun-mountain-speed-cart-x",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/clicgear-model-4-5-vs-sun-mountain-speed-cart-x/",
+      "destination": "/blog/bag-boy-nitron-vs-clicgear-model-4-5/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-hydrotour-vs-under-armour-drive",
+      "destination": "/blog/footjoy-hydrolite-x-vs-footjoy-hydrotour/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-hydrotour-vs-under-armour-drive/",
+      "destination": "/blog/footjoy-hydrolite-x-vs-footjoy-hydrotour/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-adidas-tour360-24",
+      "destination": "/blog/footjoy-premiere-series-packard-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-adidas-tour360-24/",
+      "destination": "/blog/footjoy-premiere-series-packard-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-ecco-biom-c4-golf-shoes",
+      "destination": "/blog/footjoy-premiere-series-packard-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-ecco-biom-c4-golf-shoes/",
+      "destination": "/blog/footjoy-premiere-series-packard-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-footjoy-traditions",
+      "destination": "/blog/footjoy-traditions-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-footjoy-traditions/",
+      "destination": "/blog/footjoy-traditions-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-premiere-series-packard-vs-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-sl-2026-vs-adidas-tour360-24",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-sl-2026-vs-adidas-tour360-24/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-adidas-codechaos-25",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-adidas-codechaos-25/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-adidas-tour360-24",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-adidas-tour360-24/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-footjoy-premiere-series-packard",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-footjoy-premiere-series-packard/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-nike-air-zoom-infinity-tour-next",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pro-slx-vs-nike-air-zoom-infinity-tour-next/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-callaway-tour-authentic",
+      "destination": "/blog/footjoy-pure-touch-limited-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-callaway-tour-authentic/",
+      "destination": "/blog/footjoy-pure-touch-limited-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/footjoy-pure-touch-limited-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/footjoy-pure-touch-limited-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-pure-touch-limited-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-stasof-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-stasof-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-traditions-vs-adidas-tour360-24",
+      "destination": "/blog/footjoy-traditions-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-traditions-vs-adidas-tour360-24/",
+      "destination": "/blog/footjoy-traditions-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-traditions-vs-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-traditions-vs-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-callaway-dawn-patrol",
+      "destination": "/blog/footjoy-weathersof-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-callaway-dawn-patrol/",
+      "destination": "/blog/footjoy-weathersof-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-taylormade-tour-preferred-flex",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-taylormade-tour-preferred-flex/",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-titleist-perma-soft",
+      "destination": "/blog/footjoy-weathersof-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-titleist-perma-soft/",
+      "destination": "/blog/footjoy-weathersof-golf-glove-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/footjoy-weathersof-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/galvin-green-armstrong-vs-nike-storm-fit-adv",
+      "destination": "/blog/galvin-green-armstrong-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/galvin-green-armstrong-vs-nike-storm-fit-adv/",
+      "destination": "/blog/galvin-green-armstrong-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/galvin-green-armstrong-vs-under-armour-drive",
+      "destination": "/blog/galvin-green-armstrong-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/galvin-green-armstrong-vs-under-armour-drive/",
+      "destination": "/blog/galvin-green-armstrong-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kirkland-vs-vice-pro",
+      "destination": "/blog/kirkland-golf-ball-vs-pro-v1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kirkland-vs-vice-pro/",
+      "destination": "/blog/kirkland-golf-ball-vs-pro-v1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/new-balance-fresh-foam-x-defender-sl-vs-footjoy-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/new-balance-fresh-foam-x-defender-sl-vs-footjoy-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-air-zoom-infinity-tour-next-vs-adidas-tour360-24",
+      "destination": "/blog/nike-air-zoom-infinity-tour-next-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-air-zoom-infinity-tour-next-vs-adidas-tour360-24/",
+      "destination": "/blog/nike-air-zoom-infinity-tour-next-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-air-zoom-infinity-tour-next-vs-footjoy-pro-sl-2026",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-air-zoom-infinity-tour-next-vs-footjoy-pro-sl-2026/",
+      "destination": "/blog/footjoy-pro-slx-vs-footjoy-pro-sl-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-storm-fit-adv-vs-footjoy-hydrotour",
+      "destination": "/blog/footjoy-hydrolite-x-vs-footjoy-hydrotour/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nike-storm-fit-adv-vs-footjoy-hydrotour/",
+      "destination": "/blog/footjoy-hydrolite-x-vs-footjoy-hydrotour/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-hoofer-lite-vs-vessel-player-v-pro",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-hoofer-lite-vs-vessel-player-v-pro/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-pioneer-vs-callaway-quantum-org-14",
+      "destination": "/blog/ping-pioneer-cart-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ping-pioneer-vs-callaway-quantum-org-14/",
+      "destination": "/blog/ping-pioneer-cart-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pro-v1x-left-dash-vs-chrome-tour-x",
+      "destination": "/blog/chrome-tour-triple-diamond-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pro-v1x-left-dash-vs-chrome-tour-x/",
+      "destination": "/blog/chrome-tour-triple-diamond-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pro-v1x-vs-tp5x",
+      "destination": "/blog/pro-v1x-vs-chrome-tour-x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pro-v1x-vs-tp5x/",
+      "destination": "/blog/pro-v1x-vs-chrome-tour-x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skechers-go-golf-max-3-vs-new-balance-fresh-foam-x-defender-sl",
+      "destination": "/blog/skechers-go-golf-max-3-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skechers-go-golf-max-3-vs-new-balance-fresh-foam-x-defender-sl/",
+      "destination": "/blog/skechers-go-golf-max-3-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/srixon-z-star-vs-titleist-pro-v1",
+      "destination": "/blog/chrome-tour-vs-srixon-z-star/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/srixon-z-star-vs-titleist-pro-v1/",
+      "destination": "/blog/chrome-tour-vs-srixon-z-star/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-2-5-plus-vs-vessel-player-v-pro",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-2-5-plus-vs-vessel-player-v-pro/",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-ping-hoofer-lite",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-ping-hoofer-lite/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-sun-mountain-2-5-plus",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-sun-mountain-2-5-plus/",
+      "destination": "/blog/sun-mountain-2-5-plus-stand-bag-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-titleist-players-s4-stadry",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-titleist-players-s4-stadry/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-vessel-player-v-pro",
+      "destination": "/blog/sun-mountain-matchplay-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-matchplay-vs-vessel-player-v-pro/",
+      "destination": "/blog/sun-mountain-matchplay-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-speed-cart-x-vs-caddytek-caddylite-11-5-v3",
+      "destination": "/blog/sun-mountain-speed-cart-x-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sun-mountain-speed-cart-x-vs-caddytek-caddylite-11-5-v3/",
+      "destination": "/blog/sun-mountain-speed-cart-x-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-callaway-quantum-org-14",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-callaway-quantum-org-14/",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-ping-pioneer",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-ping-pioneer/",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-sun-mountain-c-130",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-cart-lite-vs-sun-mountain-c-130/",
+      "destination": "/blog/taylormade-cart-lite-vs-titleist-cart-14/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-preferred-flex-vs-titleist-perma-soft",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-preferred-flex-vs-titleist-perma-soft/",
+      "destination": "/blog/taylormade-tour-preferred-flex-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-preferred-flex-vs-titleist-players-flex",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/taylormade-tour-preferred-flex-vs-titleist-players-flex/",
+      "destination": "/blog/footjoy-stasof-vs-titleist-players-flex/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-callaway-fairway-c-hd",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-callaway-fairway-c-hd/",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-sun-mountain-matchplay-ballistic",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-sun-mountain-matchplay-ballistic/",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-vessel-player-v-pro",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-4-carbon-vs-vessel-player-v-pro/",
+      "destination": "/blog/titleist-players-4-carbon-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-s4-stadry-vs-sun-mountain-2-5-plus",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-players-s4-stadry-vs-sun-mountain-2-5-plus/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-pro-v1-vs-avx",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/titleist-pro-v1-vs-avx/",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tour-b-rxs-vs-tour-response",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tour-b-rxs-vs-tour-response/",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tour-b-x-vs-tp5x",
+      "destination": "/blog/tp5x-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tour-b-x-vs-tp5x/",
+      "destination": "/blog/tp5x-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tp5-vs-tour-response",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tp5-vs-tour-response/",
+      "destination": "/blog/avx-vs-tour-response/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tp5-vs-tp5x",
+      "destination": "/blog/tp5x-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tp5-vs-tp5x/",
+      "destination": "/blog/tp5x-vs-pro-v1x-left-dash/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/under-armour-drive-rain-jacket-vs-nike-storm-fit-adv",
+      "destination": "/blog/nike-storm-fit-adv-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/under-armour-drive-rain-jacket-vs-nike-storm-fit-adv/",
+      "destination": "/blog/nike-storm-fit-adv-rain-jacket-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vessel-player-v-pro-vs-titleist-players-s4-stadry",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vessel-player-v-pro-vs-titleist-players-s4-stadry/",
+      "destination": "/blog/ping-hoofer-lite-vs-titleist-players-s4-stadry/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vice-pro-vs-pro-v1",
+      "destination": "/blog/pro-v1-vs-pro-v1x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vice-pro-vs-pro-v1/",
+      "destination": "/blog/pro-v1-vs-pro-v1x/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
