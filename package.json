@@ -7,14 +7,15 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "npm run validate:editorial-trust && npm run validate:verified-asins && python3 scripts/validate-images.py --local-only-on-vercel",
+    "prebuild": "npm run validate:editorial-trust && npm run validate:verified-asins && npm run validate:redirects && python3 scripts/validate-images.py --local-only-on-vercel",
     "validate:editorial-trust": "node scripts/validate-editorial-trust.mjs",
     "validate:verified-asins": "node scripts/validate-verified-asins.mjs",
+    "validate:redirects": "node scripts/validate-redirects.mjs",
     "build": "astro build --force",
     "check:images": "python3 scripts/validate-images.py",
     "preview": "astro preview",
     "astro": "astro",
-    "test:seo": "node --test scripts/analytics.test.mjs scripts/editorial.test.mjs scripts/discovery.test.mjs scripts/ally-blue-plan.test.mjs scripts/listing.test.mjs scripts/review-schema.test.mjs scripts/verified-asins.test.mjs && python3 scripts/test_seo.py"
+    "test:seo": "node --test scripts/analytics.test.mjs scripts/editorial.test.mjs scripts/discovery.test.mjs scripts/ally-blue-plan.test.mjs scripts/listing.test.mjs scripts/review-schema.test.mjs scripts/verified-asins.test.mjs scripts/redirects.test.mjs scripts/comparison-links.test.mjs && python3 scripts/test_seo.py"
   },
   "dependencies": {
     "@astrojs/mdx": "4.3.14",
