@@ -564,22 +564,22 @@
     },
     {
       "source": "/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii",
-      "destination": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
-      "destination": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/bushnell-tour-v6-vs-precision-pro-nx10",
-      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/bushnell-tour-v6-vs-precision-pro-nx10/",
-      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
@@ -1089,22 +1089,22 @@
     },
     {
       "source": "/versus/bushnell-tour-v6-vs-precision-pro-nx10",
-      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/versus/bushnell-tour-v6-vs-precision-pro-nx10/",
-      "destination": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
       "source": "/versus/garmin-r10-vs-rapsodo-mlm2pro",
-      "destination": "/blog/garmin-r10-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
       "permanent": true
     },
     {
       "source": "/versus/garmin-r10-vs-rapsodo-mlm2pro/",
-      "destination": "/blog/garmin-r10-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
       "permanent": true
     },
     {
@@ -2255,6 +2255,596 @@
     {
       "source": "/blog/vice-pro-vs-pro-v1/",
       "destination": "/blog/pro-v1-vs-pro-v1x/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-bushnell-tour-v7-shift",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-bushnell-tour-v7-shift/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-precision-pro-nx10",
+      "destination": "/blog/precision-pro-nx10-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-precision-pro-nx10/",
+      "destination": "/blog/precision-pro-nx10-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-voice-caddie-tl1",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-a1-slope-vs-voice-caddie-tl1/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-ion-elite-vs-shot-scope-v5",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-ion-elite-vs-shot-scope-v5/",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-launch-pro-vs-rapsodo-mlm2pro",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-launch-pro-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-launch-pro-vs-swing-caddie-sc4-pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-launch-pro-vs-swing-caddie-sc4-pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-bushnell-ion-elite",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-bushnell-ion-elite/",
+      "destination": "/blog/bushnell-ion-elite-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-garmin-approach-s44",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-garmin-approach-s44/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-shot-scope-v5",
+      "destination": "/blog/arccos-vs-shot-scope-shot-tracking/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-phantom-3-slope-vs-shot-scope-v5/",
+      "destination": "/blog/arccos-vs-shot-scope-shot-tracking/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-garmin-approach-z82",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-garmin-approach-z82/",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-pro-x3-plus-link-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-pro-x3-plus-link-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-tour-v6-shift",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-tour-v6-shift/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-voice-caddie-tl1",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-pro-x3-plus-link-vs-voice-caddie-tl1/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-shot-scope-pro-l2",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-shift-vs-shot-scope-pro-l2/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v6-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-garmin-approach-z82",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-garmin-approach-z82/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-precision-pro-nx10",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-precision-pro-nx10/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-shot-scope-pro-l2",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-shot-scope-pro-l2/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-voice-caddie-tl1",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/bushnell-tour-v7-shift-vs-voice-caddie-tl1/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/flightscope-mevo-plus-vs-rapsodo-mlm2pro",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/flightscope-mevo-plus-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/flightscope-mevo-plus-vs-swing-caddie-sc4-pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/flightscope-mevo-plus-vs-swing-caddie-sc4-pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-flightscope-mevo-plus",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-flightscope-mevo-plus/",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-garmin-r10",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-garmin-r10/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-rapsodo-mlm2pro",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-skytrak-plus",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-skytrak-plus/",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-swing-caddie-sc4-pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/full-swing-kit-vs-swing-caddie-sc4-pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-ct10-sensors-vs-shot-scope-v5",
+      "destination": "/blog/arccos-vs-garmin-approach-ct10-sensors/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-ct10-sensors-vs-shot-scope-v5/",
+      "destination": "/blog/arccos-vs-garmin-approach-ct10-sensors/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-r50-vs-bushnell-launch-pro",
+      "destination": "/blog/bushnell-launch-pro-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-r50-vs-bushnell-launch-pro/",
+      "destination": "/blog/bushnell-launch-pro-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-r50-vs-full-swing-kit",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-r50-vs-full-swing-kit/",
+      "destination": "/blog/full-swing-kit-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-apple-watch-ultra-2-golf",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-apple-watch-ultra-2-golf/",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-bushnell-ion-elite",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-bushnell-ion-elite/",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-shot-scope-v5",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s50-vs-shot-scope-v5/",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s70-vs-garmin-approach-s12",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s70-vs-garmin-approach-s12/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s70-vs-shot-scope-v5",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-s70-vs-shot-scope-v5/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-bushnell-tour-hybrid",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-bushnell-tour-hybrid/",
+      "destination": "/blog/bushnell-tour-hybrid-vs-tour-v7-shift/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-precision-pro-nx10",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-precision-pro-nx10/",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-shot-scope-pro-l2",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-approach-z82-vs-shot-scope-pro-l2/",
+      "destination": "/blog/garmin-approach-z82-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-bushnell-launch-pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-bushnell-launch-pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-flightscope-mevo-plus",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-flightscope-mevo-plus/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-rapsodo-mlm2pro",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/garmin-r10-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nikon-coolshot-50i-gii-vs-shot-scope-pro-l2",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nikon-coolshot-50i-gii-vs-shot-scope-pro-l2/",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/nikon-coolshot-50i-gii-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-shot-scope-pro-l2",
+      "destination": "/blog/shot-scope-pro-l2-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-shot-scope-pro-l2/",
+      "destination": "/blog/shot-scope-pro-l2-rangefinder-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-voice-caddie-tl1",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/precision-pro-nx10-vs-voice-caddie-tl1/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s44",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s44/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s50",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s50/",
+      "destination": "/blog/garmin-approach-s50-vs-garmin-approach-s12/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s70",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/samsung-galaxy-watch-ultra-vs-garmin-approach-s70/",
+      "destination": "/blog/garmin-approach-s70-vs-garmin-approach-s44/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-bushnell-launch-pro",
+      "destination": "/blog/bushnell-launch-pro-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-bushnell-launch-pro/",
+      "destination": "/blog/bushnell-launch-pro-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-flightscope-mevo-plus",
+      "destination": "/blog/skytrak-plus-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-flightscope-mevo-plus/",
+      "destination": "/blog/skytrak-plus-review/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-garmin-r10",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-garmin-r10/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-rapsodo-mlm2pro",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/skytrak-plus-vs-rapsodo-mlm2pro/",
+      "destination": "/blog/rapsodo-mlm2pro-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/swing-caddie-sc4-pro-vs-skytrak-plus",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/swing-caddie-sc4-pro-vs-skytrak-plus/",
+      "destination": "/blog/garmin-r10-vs-swing-caddie-sc4-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/voice-caddie-tl1-vs-nikon-coolshot-50i-gii",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/voice-caddie-tl1-vs-nikon-coolshot-50i-gii/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/voice-caddie-tl1-vs-shot-scope-pro-l2",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/voice-caddie-tl1-vs-shot-scope-pro-l2/",
+      "destination": "/blog/bushnell-tour-v6-shift-vs-voice-caddie-tl1/",
       "permanent": true
     },
     {
