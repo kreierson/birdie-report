@@ -120,6 +120,18 @@ test('collapsing a link run leaves indentation and markdown line breaks alone', 
   assert.doesNotMatch(fixed, /the new/);
 });
 
+test('dropping the new does not leave a dangling page', () => {
+  const source = 'See the new [Titleist GT2 vs Cobra Darkspeed Max](/blog/titleist-gt2-vs-ping-g440-driver/) page before you buy.';
+  const fixed = rewriteComparisonLinks(source, pages);
+  assert.equal(fixed, 'See [Titleist GT2 vs Cobra Darkspeed Max Driver](/blog/titleist-gt2-vs-ping-g440-driver/#titleist-gt2-vs-cobra-darkspeed-max-driver) before you buy.');
+});
+
+test('an article before a section link keeps the following noun', () => {
+  const source = 'Read the direct [Titleist GT2 vs Cobra Darkspeed Max](/blog/titleist-gt2-vs-ping-g440-driver/) comparison before you buy.';
+  const fixed = rewriteComparisonLinks(source, pages);
+  assert.match(fixed, /comparison before you buy/);
+});
+
 test('non-comparison duplicates stay as separate links', () => {
   const source = [
     '- [Tiger Got Demolished in the TGL Finals](/blog/masters-2026-without-tiger-woods-opinion/)',

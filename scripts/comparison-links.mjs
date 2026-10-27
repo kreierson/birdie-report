@@ -138,7 +138,7 @@ export function comparisonLinkErrors(source, pages) {
 }
 
 function rewriteOne(source, pages) {
-  return source.replace(/(?<!!)((?:the sharper new|the newer|the new|a new) )?\[([^\]]+)\]\(([^)\s]+)\)/gi, (full, stale, label, href) => {
+  return source.replace(/(?<!!)((?:the sharper new|the newer|the new|a new) )?\[([^\]]+)\]\(([^)\s]+)\)( (?:page|comparison))?/gi, (full, stale, label, href, trailing) => {
     const parsed = parseBlogHref(href);
     if (!parsed || !pages.has(parsed.slug) || !isComparisonLabel(label)) return full;
     const page = pages.get(parsed.slug);
@@ -147,7 +147,8 @@ function rewriteOne(source, pages) {
     const titleExtra = titleMatch ? significantTokens(page.title).length - significantTokens(label).length : Infinity;
     const headingExtra = heading ? significantTokens(heading.text).length - significantTokens(label).length : Infinity;
     if (heading && headingExtra < titleExtra) {
-      return `[${heading.text}](${formatHref(parsed.origin, parsed.slug, heading.id)})`;
+      const noun = stale ? '' : (trailing || '');
+      return `[${heading.text}](${formatHref(parsed.origin, parsed.slug, heading.id)})${noun}`;
     }
     if (titleMatch && parsed.hash) return `${stale || ''}[${label}](${formatHref(parsed.origin, parsed.slug, '')})`;
     return full;
@@ -302,9 +303,15 @@ function mergeList(list, pages) {
   return result;
 }
 
+function tidyUngrammaticalFoldNouns(source) {
+  return source.replace(/(?:\b(?:the|a|our|this|that)\b(?:\s+\w+){0,2}\s+)?(\[[^\]]+\]\([^)\s]*#[a-z0-9-]+\)) (?:page|comparison)\b/gi, (full, link) => {
+    return full.startsWith(link) ? link : full;
+  });
+}
+
 export function rewriteComparisonLinks(source, pages) {
   const rewritten = rewriteOne(source, pages);
-  return collapseLists(collapseRuns(rewritten, pages), pages);
+  return tidyUngrammaticalFoldNouns(collapseLists(collapseRuns(rewritten, pages), pages));
 }
 
 export function pageRecord(title, headings) {
