@@ -1,9 +1,11 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import GearGuideLinks from '../components/GearGuideLinks.astro';
+import GuideScorecard from '../components/GuideScorecard.astro';
 import { getCollection } from 'astro:content';
 import { selectRelatedPosts } from '../utils/discovery.mjs';
 import { getAmazonTag, normalizeAffiliateLinks } from '../utils/affiliate';
+import { buildStructuredData, jsonLd, visibleScorecard } from '../utils/review-schema.mjs';
 
 export interface Props {
   content: any;
@@ -78,26 +80,29 @@ const categoryColors: Record<string, string> = {
   opinion: 'bg-rose-600 text-white',
 };
 
-const schemaMarkup = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": title,
-  "description": description,
-  "image": new URL(featured_image, site).toString(),
-  "author": { "@type": "Person", "name": displayAuthor, "url": site + "/about/" },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The Birdie Report",
-    "logo": { "@type": "ImageObject", "url": new URL('/logo.jpg', site).toString() }
-  },
-  "datePublished": date.toISOString(),
-  "dateModified": (updated || date).toISOString(),
-  "mainEntityOfPage": { "@type": "WebPage", "@id": new URL(Astro.url.pathname, site).toString() }
+const schemaInput = {
+  site,
+  pathname: Astro.url.pathname,
+  title,
+  description,
+  date,
+  updated,
+  author: displayAuthor,
+  featuredImage: featured_image,
+  category,
+  rating,
+  pros,
+  cons,
+  price,
+  comparisonProducts: comparison_products,
+  affiliateLinks: affiliate_links,
 };
+const schemaMarkup = buildStructuredData(schemaInput);
+const guideScores = visibleScorecard(schemaInput);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} image={featured_image}>
-  <script type="application/ld+json" set:html={JSON.stringify(schemaMarkup)} />
+  <script type="application/ld+json" set:html={jsonLd(schemaMarkup)} />
 
   <!-- Breadcrumbs -->
   <div class="bg-gray-50 border-b border-gray-200">
@@ -272,6 +277,8 @@ const schemaMarkup = {
             </div>
           </div>
         )}
+
+        <GuideScorecard products={guideScores} />
 
         <!-- Article Content -->
         <div class="prose prose-lg max-w-none

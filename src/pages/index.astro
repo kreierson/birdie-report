@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GearGuideLinks from '../components/GearGuideLinks.astro';
 import CommercialOpportunityPanel from '../components/CommercialOpportunityPanel.astro';
+import DealFreshness from '../components/DealFreshness.astro';
 import { getCollection } from 'astro:content';
+import { dealAsOf, dealAsOfKey, selectLatestArticles, selectPromotedDeals } from '../utils/listing.mjs';
 
 const allPosts = await getCollection('blog').catch(() => []);
 const sorted = allPosts.sort((a, b) => new Date(b.data.updated || b.data.date).getTime() - new Date(a.data.updated || a.data.date).getTime());
@@ -43,9 +45,10 @@ if (editorsPicks.length < 4) {
 const reviews = sorted.filter(p => p.data.category === 'reviews').slice(0, 4);
 const tips = sorted.filter(p => p.data.category === 'tips').slice(0, 3);
 const bestOf = sorted.filter(p => p.data.category === 'best').slice(0, 6);
-const deals = sorted.filter(p => p.data.category === 'deals').slice(0, 3);
 const courses = sorted.filter(p => p.data.category === 'courses').slice(0, 3);
-const latest = sorted.filter(p => p.slug !== heroSlug).slice(0, 8);
+// Publish date, not a later refresh. Expired day-of deal checks are not promoted.
+const latest = selectLatestArticles(allPosts, { excludeSlug: heroSlug });
+const deals = selectPromotedDeals(allPosts);
 
 const categories = [
   { slug: 'best', label: 'Best Of', color: 'bg-gold-500 text-forest-900' },
@@ -327,11 +330,11 @@ function formatDate(date: Date) {
 
   <!-- Deals Strip -->
   {deals.length > 0 && (
-    <section class="py-10 bg-gradient-to-r from-orange-500 to-orange-600">
+    <section class="py-10 bg-gradient-to-r from-orange-500 to-orange-600" data-deal-promote-group>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap gap-3 items-center justify-between mb-6">
           <h2 class="text-xl md:text-2xl font-display font-bold text-white">
-            🔥 Past Deals & Savings
+            Deals & Savings
           </h2>
           <a href="/deals/" class="text-white/80 font-semibold text-sm hover:text-white transition-colors uppercase tracking-wide">
             All Deals →
@@ -339,7 +342,7 @@ function formatDate(date: Date) {
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           {deals.map(post => (
-            <a href={`/blog/${post.slug}/`} class="group flex items-center gap-4 bg-white/10 backdrop-blur rounded-lg p-4 hover:bg-white/20 transition-colors">
+            <a href={`/blog/${post.slug}/`} data-deal-promote data-deal-as-of={dealAsOfKey(dealAsOf(post.data))} class="group flex items-center gap-4 bg-white/10 backdrop-blur rounded-lg p-4 hover:bg-white/20 transition-colors">
               <img src={post.data.featured_image} alt={post.data.title} class="w-16 h-16 rounded object-cover flex-shrink-0" loading="lazy" />
               <div class="min-w-0">
                 <h3 class="text-white font-semibold text-sm line-clamp-2 leading-snug">{post.data.title}</h3>
@@ -363,7 +366,11 @@ function formatDate(date: Date) {
           </h2>
           <div class="space-y-8">
             {latest.slice(0, 5).map((post, i) => (
-              <article class={`group ${i > 0 ? 'border-t border-gray-200 pt-8' : ''}`}>
+              <article
+                class={`group ${i > 0 ? 'border-t border-gray-200 pt-8' : ''}`}
+                data-deal-promote={post.data.category === 'deals' ? true : undefined}
+                data-deal-as-of={post.data.category === 'deals' ? dealAsOfKey(dealAsOf(post.data)) : undefined}
+              >
                 <div class="flex flex-col sm:flex-row gap-5">
                   <a href={`/blog/${post.slug}/`} class="block sm:w-56 flex-shrink-0 overflow-hidden rounded-lg">
                     <img 
@@ -463,4 +470,5 @@ function formatDate(date: Date) {
       <GearGuideLinks variant="hero" size="lg" />
     </div>
   </section>
+  <DealFreshness />
 </BaseLayout>
