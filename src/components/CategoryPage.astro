@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { dealSnapshot } from '../utils/listing.mjs';
 
 export interface Props {
   category: string;
@@ -22,8 +23,12 @@ const remaining = posts.slice(1);
 const subcategories = [...new Set(posts.map(p => p.data.subcategory).filter(Boolean))];
 
 function formatDate(date: Date) {
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
+
+const heroDeal = heroPost && category === 'deals' ? dealSnapshot(heroPost) : null;
+const dealPosts = category === 'deals' ? posts : [];
+const expiredDealCount = dealPosts.filter((post) => dealSnapshot(post)?.expired).length;
 
 const borderColor: Record<string, string> = {
   forest: 'border-forest-600',
@@ -56,15 +61,18 @@ const borderColor: Record<string, string> = {
         
         <!-- Featured article -->
         <div class="bg-white/10 backdrop-blur rounded-lg p-5 mt-8 max-w-xl">
-          <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mb-2">Featured</p>
+          <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mb-2">{heroDeal?.expired ? 'Expired' : 'Featured'}</p>
           <h2 class="text-xl md:text-2xl font-display font-bold text-white mb-2 leading-snug">
             <a href={`/blog/${heroPost.slug}/`} class="hover:text-gold-300 transition-colors">
               {heroPost.data.title}
             </a>
           </h2>
           <p class="text-white/60 text-sm line-clamp-2">{heroPost.data.description}</p>
+          {heroDeal?.expired && (
+            <p class="text-sm text-white mt-3">Checked {formatDate(heroDeal.asOf)}. This deal check has expired. Confirm any price with the retailer.</p>
+          )}
           <div class="flex items-center gap-3 mt-3 text-sm text-white/50">
-            <time>{formatDate(heroPost.data.date)}</time>
+            <time datetime={heroPost.data.date.toISOString()}>{formatDate(heroPost.data.date)}</time>
             {heroPost.data.rating && <span class="text-gold-400 font-semibold">⭐ {heroPost.data.rating}/10</span>}
           </div>
         </div>
@@ -105,6 +113,13 @@ const borderColor: Record<string, string> = {
 <!-- Articles Grid -->
 <section class="py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {expiredDealCount > 0 && (
+      <p class="mb-8 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm leading-relaxed text-orange-950" role="note">
+        {expiredDealCount === dealPosts.length
+          ? 'Every deal check in this archive is past its date. The articles stay up, and each one is marked expired. Prices were only confirmed on the date shown.'
+          : 'Deal checks past their date are marked expired. Prices were only confirmed on the date shown.'}
+      </p>
+    )}
     {remaining.length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid">
         {remaining.map((post, i) => (
@@ -124,10 +139,13 @@ const borderColor: Record<string, string> = {
             </a>
             <div>
               <div class="flex items-center gap-2 mb-2">
+                {category === 'deals' && dealSnapshot(post)?.expired && (
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-orange-800 bg-orange-100 px-1.5 py-0.5 rounded-sm">Expired</span>
+                )}
                 {post.data.subcategory && (
                   <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">{post.data.subcategory.replace('-', ' ')}</span>
                 )}
-                <time class="text-xs text-gray-400">{formatDate(post.data.date)}</time>
+                <time class="text-xs text-gray-400" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
               </div>
               <h3 class={`font-semibold text-gray-900 leading-snug line-clamp-2 ${i === 0 ? 'text-xl md:text-2xl font-display' : 'text-base'}`}>
                 <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">

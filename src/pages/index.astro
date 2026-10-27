@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import GearGuideLinks from '../components/GearGuideLinks.astro';
 import CommercialOpportunityPanel from '../components/CommercialOpportunityPanel.astro';
 import { getCollection } from 'astro:content';
+import { selectLatestArticles, selectPromotedDeals } from '../utils/listing.mjs';
 
 const allPosts = await getCollection('blog').catch(() => []);
 const sorted = allPosts.sort((a, b) => new Date(b.data.updated || b.data.date).getTime() - new Date(a.data.updated || a.data.date).getTime());
@@ -43,9 +44,10 @@ if (editorsPicks.length < 4) {
 const reviews = sorted.filter(p => p.data.category === 'reviews').slice(0, 4);
 const tips = sorted.filter(p => p.data.category === 'tips').slice(0, 3);
 const bestOf = sorted.filter(p => p.data.category === 'best').slice(0, 6);
-const deals = sorted.filter(p => p.data.category === 'deals').slice(0, 3);
 const courses = sorted.filter(p => p.data.category === 'courses').slice(0, 3);
-const latest = sorted.filter(p => p.slug !== heroSlug).slice(0, 8);
+// Publish date, not a later refresh. Expired day-of deal checks are not promoted.
+const latest = selectLatestArticles(allPosts, { excludeSlug: heroSlug });
+const deals = selectPromotedDeals(allPosts);
 
 const categories = [
   { slug: 'best', label: 'Best Of', color: 'bg-gold-500 text-forest-900' },
@@ -331,7 +333,7 @@ function formatDate(date: Date) {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap gap-3 items-center justify-between mb-6">
           <h2 class="text-xl md:text-2xl font-display font-bold text-white">
-            🔥 Past Deals & Savings
+            Deals & Savings
           </h2>
           <a href="/deals/" class="text-white/80 font-semibold text-sm hover:text-white transition-colors uppercase tracking-wide">
             All Deals →
