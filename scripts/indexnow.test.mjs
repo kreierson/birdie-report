@@ -1,5 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
@@ -12,8 +15,8 @@ import {
   chunk,
   diffRedirectUrls,
   formatDryRun,
-  redirectsAt,
   loadKey,
+  main,
   sitemapLocs,
   submitBatches,
   urlsForRepoPath,
@@ -58,31 +61,78 @@ test('redirect diffs keep new sources and targets and drop unchanged rules', () 
   assert.deepEqual(diffRedirectUrls(before, after), [retired, target]);
 });
 
-test('f934680 redirect range lists each retired comparison and its target', () => {
-  const deleted = spawnSync('git', ['diff', '--diff-filter=D', '--name-only', 'f934680^', 'f934680', '--', 'src/content/blog'], {
-    cwd: root,
-    encoding: 'utf8',
-  });
-  assert.equal(deleted.status, 0);
-  const slugs = deleted.stdout.trim().split('\n').map((file) => file.match(/\/([^/]+)\.mdx?$/)?.[1]);
-  assert.equal(slugs.length, 169);
-  const urls = diffRedirectUrls(redirectsAt('f934680^', root), redirectsAt('f934680', root));
-  for (const slug of slugs) {
-    assert.ok(urls.includes(`https://www.birdiereport.com/blog/${slug}/`), slug);
-  }
-  assert.ok(urls.includes(target));
-  assert.equal(urls.includes('https://www.birdiereport.com/blog/fix-your-slice/'), false);
-  assert.equal(new Set(urls).size, urls.length);
-  for (const url of urls) assert.equal(buildPayload([url], 'abc12345').urlList[0], url);
-  assert.ok(urls.length > 169);
-  assert.ok(urls.length < 10000);
-});
+test('a git range lists retired URLs, their targets, and edited pages', async () => {
+  const repo = mkdtempSync(join(tmpdir(), 'birdie-indexnow-'));
+  const retiredPage = 'https://www.birdiereport.com/blog/old-vs-new/';
+  const keptPage = 'https://www.birdiereport.com/blog/kept-comparison/';
+  try {
+    const run = (args) => {
+      const result = spawnSync('git', args, {
+        cwd: repo,
+        encoding: 'utf8',
+        env: {
+          ...process.env,
+          GIT_AUTHOR_NAME: 'IndexNow Test',
+          GIT_AUTHOR_EMAIL: 'indexnow@example.com',
+          GIT_COMMITTER_NAME: 'IndexNow Test',
+          GIT_COMMITTER_EMAIL: 'indexnow@example.com',
+        },
+      });
+      assert.equal(result.status, 0, result.stderr);
+    };
+    run(['init', '-b', 'main']);
+    mkdirSync(join(repo, 'src/content/blog'), { recursive: true });
+    mkdirSync(join(repo, 'src/pages'), { recursive: true });
+    writeFileSync(join(repo, 'src/content/blog/old-vs-new.mdx'), '---\n---\nOld comparison.\n');
+    writeFileSync(join(repo, 'src/content/blog/kept-comparison.mdx'), '---\n---\nKept comparison.\n');
+    writeFileSync(join(repo, 'vercel.json'), JSON.stringify({
+      redirects: [
+        { source: '/blog/fix-your-slice/', destination: '/blog/how-to-fix-a-slice-for-good/', permanent: true },
+        { source: '/:path*', destination: 'https://www.birdiereport.com/:path*', permanent: true, has: [{ type: 'host', value: 'birdiereport.com' }] },
+      ],
+    }));
+    run(['add', '.']);
+    run(['commit', '-m', 'before']);
+    rmSync(join(repo, 'src/content/blog/old-vs-new.mdx'));
+    writeFileSync(join(repo, 'src/pages/about.astro'), '---\n---\n');
+    writeFileSync(join(repo, 'vercel.json'), JSON.stringify({
+      redirects: [
+        { source: '/blog/fix-your-slice/', destination: '/blog/how-to-fix-a-slice-for-good/', permanent: true },
+        { source: '/blog/old-vs-new', destination: '/blog/kept-comparison/', permanent: true },
+        { source: '/blog/old-vs-new/', destination: '/blog/kept-comparison/', permanent: true },
+        { source: '/:path*', destination: 'https://www.birdiereport.com/:path*', permanent: true, has: [{ type: 'host', value: 'birdiereport.com' }] },
+      ],
+    }));
+    run(['add', '-A']);
+    run(['commit', '-m', 'retire the thin comparison']);
 
-test('changed files between f934680 and its parent include the retired URL', () => {
-  const urls = changedUrls('f934680^', 'f934680', root);
-  assert.ok(urls.includes(retired));
-  assert.ok(urls.includes(target));
-  assert.equal(urls.includes('https://www.birdiereport.com/tags/'), false);
+    const changed = changedUrls('HEAD~1', 'HEAD', repo);
+    assert.ok(changed.includes(retiredPage));
+    assert.ok(changed.includes(keptPage));
+    assert.ok(changed.includes('https://www.birdiereport.com/about/'));
+    assert.equal(changed.includes('https://www.birdiereport.com/blog/fix-your-slice/'), false);
+    assert.equal(changed.includes('https://www.birdiereport.com/tags/'), false);
+
+    const logs = [];
+    let posted = false;
+    const code = await main(['--dry-run', '--mode', 'redirects', '--from', 'HEAD~1', '--to', 'HEAD'], repo, {
+      log: (line) => logs.push(line),
+      fetchImpl: async () => {
+        posted = true;
+        return { status: 500, text: async () => '' };
+      },
+    });
+    assert.equal(code, 0);
+    assert.equal(posted, false);
+    const output = logs.join('\n');
+    assert.match(output, /^mode: redirects\nrefs: HEAD~1\.\.HEAD\ncount: 2\n/);
+    assert.match(output, new RegExp(retiredPage));
+    assert.match(output, new RegExp(keptPage));
+    assert.doesNotMatch(output, /fix-your-slice/);
+    assert.doesNotMatch(output, /api\.indexnow\.org/);
+  } finally {
+    rmSync(repo, { recursive: true, force: true });
+  }
 });
 
 test('full sitemap mode follows the sitemap index and skips tag archives', async () => {
@@ -151,22 +201,11 @@ test('submission logs response codes and does not throw when IndexNow fails', as
 });
 
 test('dry-run output is the URL list and does not post', () => {
-  const urls = [retired, target];
-  const text = formatDryRun({ mode: 'redirects', from: 'f934680^', to: 'f934680', urls });
+  const text = formatDryRun({ mode: 'redirects', from: 'f934680^', to: 'f934680', urls: [retired, target] });
   assert.match(text, /^mode: redirects\nrefs: f934680\^\.\.f934680\ncount: 2\n/);
   assert.match(text, new RegExp(retired));
-  const run = spawnSync(process.execPath, [
-    fileURLToPath(new URL('./indexnow.mjs', import.meta.url)),
-    '--dry-run',
-    '--mode', 'redirects',
-    '--from', 'f934680^',
-    '--to', 'f934680',
-  ], { cwd: root, encoding: 'utf8' });
-  assert.equal(run.status, 0, run.stderr);
-  assert.match(run.stdout, new RegExp(`^mode: redirects\\nrefs: f934680\\^\\.\\.f934680\\ncount: \\d+\\n`));
-  assert.match(run.stdout, new RegExp(retired));
-  assert.match(run.stdout, new RegExp(target));
-  assert.doesNotMatch(run.stdout, /api\.indexnow\.org/);
+  assert.match(text, new RegExp(target));
+  assert.doesNotMatch(text, /api\.indexnow\.org/);
 });
 
 test('deployment wait accepts a changed production page and gives up on timeout', async () => {
