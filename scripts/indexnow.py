@@ -8,16 +8,34 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST = 'www.birdiereport.com'
+KEY_CHARS = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-')
+
+def indexnow_key():
+    """The public key hosted at /<key>.txt. Batch submission lives in scripts/indexnow.mjs."""
+    public = ROOT/'public'
+    spec = []
+    for path in sorted(public.glob('*.txt')):
+        body = path.read_text().strip()
+        if path.stem == body and 8 <= len(body) <= 128 and set(body) <= KEY_CHARS:
+            spec.append(body)
+    if len(spec) == 1:
+        return spec[0]
+    if len(spec) > 1:
+        raise RuntimeError('Multiple IndexNow key files found')
+    fallback = public/'indexnow-key.txt'
+    if fallback.is_file():
+        return fallback.read_text().strip()
+    raise RuntimeError('IndexNow key file not found')
 
 def payload(urls):
-    key = (ROOT/'public/indexnow-key.txt').read_text().strip()
+    key = indexnow_key()
     clean = list(dict.fromkeys(urls))
     if not clean or len(clean)>10000: raise ValueError('Supply 1–10000 changed URLs')
     for url in clean:
         p = urlsplit(url)
         if p.scheme!='https' or p.netloc!=HOST or p.query or p.fragment or not p.path.endswith('/'):
             raise ValueError('Only canonical HTTPS URLs on our host are allowed: '+url)
-    return {'host':HOST,'key':key,'keyLocation':f'https://{HOST}/indexnow-key.txt','urlList':clean}
+    return {'host':HOST,'key':key,'keyLocation':f'https://{HOST}/{key}.txt','urlList':clean}
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('urls',nargs='+');p.add_argument('--submit',action='store_true');args=p.parse_args()

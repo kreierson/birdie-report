@@ -45,4 +45,4 @@
 - Prefer direct internal links to final canonical destinations; never deliberately link through a redirect.
 - Refresh dates only for material reader-facing changes. Keep original publication dates. Source specifications from current primary sources and distinguish them from personal experience.
 - A passing build and actual browser visual/interaction QA are required before deployment. Local testing must not send production analytics.
-- No paid link schemes, fabricated data, automated outreach, or purchases. Notify participating search engines of deployed changes through the IndexNow script; receipt is not proof of indexing.
+- No paid link schemes, fabricated data, automated outreach, or purchases. Notify participating search engines of deployed changes through the IndexNow script or the IndexNow GitHub Action; receipt is not proof of indexing.

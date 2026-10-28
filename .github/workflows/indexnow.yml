@@ -1,0 +1,55 @@
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: URLs to submit
+        type: choice
+        options:
+          - changed
+          - redirects
+          - full
+        default: changed
+      from:
+        description: Base git ref for changed or redirects mode
+        required: false
+        type: string
+      to:
+        description: Head git ref for changed or redirects mode
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+# One run per pushed commit so a later editorial commit does not cancel the URL list from the previous one.
+concurrency:
+  group: indexnow-${{ github.sha }}-${{ github.event_name }}-${{ inputs.mode || 'changed' }}
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Submit URLs after the Vercel production deploy is live
+        env:
+          INDEXNOW_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'changed' }}
+          INDEXNOW_FROM: ${{ github.event_name == 'workflow_dispatch' && inputs.from || github.event.before }}
+          INDEXNOW_TO: ${{ github.event_name == 'workflow_dispatch' && inputs.to || github.sha }}
+        run: |
+          args=(--submit --wait --timeout-seconds 1200 --interval-seconds 20)
+          if [ "${{ github.event_name }}" = "push" ]; then
+            args+=(--require-change)
+          fi
+          # IndexNow HTTP errors and deploy-wait timeouts exit 0. They must not fail this job.
+          node scripts/indexnow.mjs "${args[@]}"

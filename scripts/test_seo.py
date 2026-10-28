@@ -89,5 +89,7 @@ class SEOGuards(unittest.TestCase):
             with self.assertRaises(ValueError):m.payload([url])
         body=m.payload(['https://www.birdiereport.com/blog/test/']*2)
         self.assertEqual(len(body['urlList']),1)
+        self.assertEqual(body['host'],'www.birdiereport.com')
+        self.assertTrue(body['keyLocation'].endswith('/'+body['key']+'.txt'), body['keyLocation'])
 
 if __name__=='__main__':unittest.main()
