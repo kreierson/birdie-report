@@ -32,6 +32,13 @@ const blog = defineCollection({
       retailer: z.string(),
       tracking_id: z.string().optional()
     })).optional(),
+    quick_picks: z.array(z.object({
+      award: z.string().min(1),
+      product: z.string().min(1),
+      why: z.string().min(1),
+      url: z.string().url(),
+      retailer: z.string().min(1),
+    })).min(3).max(5).optional(),
     bounty_links: z.array(z.object({
       offer: z.string(),
       description: z.string().optional(),

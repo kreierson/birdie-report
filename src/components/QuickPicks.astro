@@ -1,0 +1,46 @@
+---
+import { QUICK_PICKS_DISCLOSURE, QUICK_PICKS_PLACEMENT } from '../utils/quick-picks.mjs';
+
+const { picks = [] } = Astro.props;
+---
+
+{picks.length > 0 && (
+  <section class="quick-picks not-prose mb-8 border border-forest-200 bg-forest-50 rounded-lg overflow-hidden" aria-labelledby="quick-picks-title" data-quick-picks>
+    <div class="px-4 py-4 bg-white border-b border-forest-100">
+      <p class="text-xs font-bold uppercase tracking-wide text-forest-700">Quick picks</p>
+      <h2 id="quick-picks-title" class="text-xl font-display font-bold text-forest-900 leading-tight">Our top picks at a glance</h2>
+      <p class="text-sm text-gray-700 mt-2 leading-snug max-w-2xl">{QUICK_PICKS_DISCLOSURE}</p>
+    </div>
+    <ol class="list-none m-0 p-0 divide-y divide-forest-100">
+      {picks.map((pick) => (
+        <li class="p-4 bg-white/70 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+          <div class="min-w-0">
+            <p class="text-sm font-bold text-forest-800">{pick.award}</p>
+            <h3 class="font-bold text-gray-950 leading-snug">{pick.product}</h3>
+            <p class="text-sm text-gray-700 mt-1 leading-snug">{pick.why}</p>
+          </div>
+          <a
+            href={pick.url}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            data-affiliate-link="true"
+            data-product={pick.product}
+            data-retailer={pick.retailer}
+            data-placement={QUICK_PICKS_PLACEMENT}
+            aria-label={pick.accessibleName}
+            class="inline-flex items-center justify-center min-h-11 w-full sm:w-auto px-5 py-3 bg-forest-700 text-white rounded-md hover:bg-forest-800 text-sm font-bold text-center"
+          >
+            {pick.cta}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+<style>
+  .quick-picks a:focus-visible {
+    outline: 3px solid #b8860b;
+    outline-offset: 3px;
+  }
+</style>
