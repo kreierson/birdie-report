@@ -4,7 +4,9 @@ import GearGuideLinks from '../components/GearGuideLinks.astro';
 import GuideScorecard from '../components/GuideScorecard.astro';
 import { getCollection } from 'astro:content';
 import { selectRelatedPosts } from '../utils/discovery.mjs';
-import { getAmazonTag, isDirectAmazonProductUrl, normalizeAffiliateLinks } from '../utils/affiliate';
+import QuickPicks from '../components/QuickPicks.astro';
+import { getAmazonTag, isDirectAmazonProductUrl, normalizeAffiliateLinks, normalizeAffiliateUrl } from '../utils/affiliate';
+import { resolveQuickPicks } from '../utils/quick-picks.mjs';
 import { buildStructuredData, jsonLd, visibleScorecard } from '../utils/review-schema.mjs';
 
 export interface Props {
@@ -32,6 +34,11 @@ const heroBuyLinks = resolvedAffiliateLinks.length > 0
       pros: product.pros,
     }));
 const hasBuyerIntent = ['best', 'reviews', 'deals', 'versus'].includes(category) && heroBuyLinks.length > 0;
+const quickPicks = resolveQuickPicks(content.quick_picks, affiliateContext, {
+  normalizeAffiliateUrl,
+  isDirectAmazonProductUrl,
+});
+const stickyCta = quickPicks[0] || heroBuyLinks[0];
 
 const allPosts = await getCollection('blog');
 const currentSlug = Astro.url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
@@ -177,13 +184,15 @@ const guideScores = visibleScorecard(schemaInput);
           </div>
         </header>
 
+        {quickPicks.length > 0 && <QuickPicks picks={quickPicks} />}
+
         <!-- Featured Image -->
         <div class="aspect-video w-full mb-10 rounded-lg overflow-hidden">
           <img src={featured_image} alt={title} class="w-full h-full object-cover" />
         </div>
 
         <!-- Above-the-fold buyer module -->
-        {hasBuyerIntent && (
+        {hasBuyerIntent && quickPicks.length === 0 && (
           <section class="mb-10 border border-forest-200 bg-forest-50 rounded-lg overflow-hidden" aria-label="Recommended products">
             <div class="px-5 py-4 bg-white border-b border-forest-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
@@ -422,23 +431,23 @@ const guideScores = visibleScorecard(schemaInput);
           </div>
 
           <!-- Sticky Buy CTA for reviews -->
-          {hasBuyerIntent && heroBuyLinks.length > 0 && (
+          {hasBuyerIntent && stickyCta && (
             <div class="mt-6 bg-forest-800 rounded-lg p-5 text-center">
               {rating && <div class="text-gold-400 font-display font-bold text-2xl mb-1">{rating}/10</div>}
-              <div class="text-white font-semibold mb-3">{heroBuyLinks[0].product}</div>
+              <div class="text-white font-semibold mb-3">{stickyCta.product}</div>
               <a
-                href={heroBuyLinks[0].url}
+                href={stickyCta.url}
                 target="_blank"
                 rel="nofollow sponsored noopener"
                 data-affiliate-link="true"
-                data-product={heroBuyLinks[0].product}
-                data-retailer={heroBuyLinks[0].retailer || 'Amazon'}
+                data-product={stickyCta.product}
+                data-retailer={stickyCta.retailer || 'Amazon'}
                 data-placement="sidebar-sticky-cta"
                 class="block w-full py-3 bg-gold-500 text-forest-900 font-bold rounded-lg hover:bg-gold-400 transition-colors"
               >
                 See Amazon options
               </a>
-              <p class="text-white/40 text-[10px] mt-2">at {heroBuyLinks[0].retailer || 'Amazon'}</p>
+              <p class="text-white/40 text-[10px] mt-2">at {stickyCta.retailer || 'Amazon'}</p>
             </div>
           )}
         </div>
