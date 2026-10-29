@@ -107,7 +107,8 @@ test('only the measured buying guides carry grounded quick picks', () => {
     for (const pick of resolved) {
       assert.equal(pick.retailer, 'Amazon', `${slug} ${pick.product}`);
       assert.ok(stripped.includes(pick.product), `${slug} missing product ${pick.product}`);
-      assert.ok(stripped.includes(pick.why), `${slug} why is not already in the article: ${pick.why}`);
+      // Summaries may paraphrase the research; copying body text can reintroduce stale prices.
+      assert.doesNotMatch(pick.why, /\$\s*\d/, `${slug} quick-pick reason must not assert a price`);
       assert.ok(stripped.includes(pick.url), `${slug} url is not an existing article link: ${pick.url}`);
       const asin = pick.url.match(PRODUCT_PATH)?.[1];
       if (asin) assert.ok(verified.has(asin.toUpperCase()), `${slug} ${asin}`);
