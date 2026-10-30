@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageUrl = 'https://www.birdiereport.com/tools/';
+const title = 'Free Golf Tools | The Birdie Report';
+const description = 'Free golf tools from The Birdie Report. Start with the club gapping calculator to estimate carry gaps from one distance you already know.';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.birdiereport.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Tools', item: pageUrl },
+  ],
+};
+const jsonLd = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
+---
+
+<BaseLayout title={title} description={description} canonical={pageUrl}>
+  <script is:inline type="application/ld+json" set:html={jsonLd}></script>
+  <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500">
+      <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <li><a class="hover:text-forest-800" href="/">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-gray-800">Tools</li>
+      </ol>
+    </nav>
+    <h1 class="font-display text-4xl font-black text-forest-900">Golf Tools</h1>
+    <p class="mt-4 text-lg leading-relaxed text-gray-700">
+      Small calculators for decisions that do not need a new article. Each one says how the numbers are made. None of them pretend to be a launch monitor.
+    </p>
+    <ul class="mt-8 space-y-4">
+      <li>
+        <article class="rounded-lg border border-gray-200 p-5">
+          <h2 class="font-display text-2xl font-bold text-forest-900">
+            <a class="hover:text-forest-700" href="/tools/golf-club-gapping-calculator/">Golf club gapping calculator</a>
+          </h2>
+          <p class="mt-2 leading-relaxed text-gray-700">
+            Enter one known carry, check the clubs in your bag, and see an estimated carry for the rest. Gaps under 8 yards or over 15–18 yards get a plain-English note, such as adding a gap wedge or swapping a 4-iron for a hybrid.
+          </p>
+          <a class="mt-4 inline-flex min-h-11 items-center font-semibold text-forest-800 underline underline-offset-4" href="/tools/golf-club-gapping-calculator/">Open the calculator</a>
+        </article>
+      </li>
+    </ul>
+  </div>
+</BaseLayout>

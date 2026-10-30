@@ -15,7 +15,7 @@
     "check:images": "python3 scripts/validate-images.py",
     "preview": "astro preview",
     "astro": "astro",
-    "test:seo": "node --test scripts/analytics.test.mjs scripts/editorial.test.mjs scripts/discovery.test.mjs scripts/ally-blue-plan.test.mjs scripts/listing.test.mjs scripts/review-schema.test.mjs scripts/verified-asins.test.mjs scripts/redirects.test.mjs scripts/comparison-links.test.mjs scripts/indexnow.test.mjs scripts/quick-picks.test.mjs scripts/gift-guide.test.mjs && python3 scripts/test_seo.py"
+    "test:seo": "node --test scripts/analytics.test.mjs scripts/editorial.test.mjs scripts/discovery.test.mjs scripts/ally-blue-plan.test.mjs scripts/listing.test.mjs scripts/review-schema.test.mjs scripts/verified-asins.test.mjs scripts/redirects.test.mjs scripts/comparison-links.test.mjs scripts/indexnow.test.mjs scripts/quick-picks.test.mjs scripts/gift-guide.test.mjs scripts/gapping.test.mjs && python3 scripts/test_seo.py"
   },
   "dependencies": {
     "@astrojs/mdx": "4.3.14",
