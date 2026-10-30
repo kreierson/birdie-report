@@ -1,0 +1,317 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { chartBodyHtml } from '../../utils/gapping-render.mjs';
+import { CLUBS, buildChart, clubsByGroup, formatLoft, parseState } from '../../utils/gapping.mjs';
+
+const pageUrl = 'https://www.birdiereport.com/tools/golf-club-gapping-calculator/';
+const title = 'Free Golf Club Gapping Calculator | The Birdie Report';
+const description = 'Estimate full-swing carry for every club from one distance you know. Flags gaps under 8 yards or over 15–18 yards, with plain-English bag fixes. Free.';
+const initial = parseState(Astro.url.searchParams);
+const model = buildChart(initial);
+const selected = new Set(initial.clubs.map((club) => club.id));
+const loftById = new Map(initial.clubs.map((club) => [club.id, club.loft]));
+const groups = clubsByGroup();
+const embedHtml = `<p>Estimate your club gaps with the <a href="${pageUrl}">free golf club gapping calculator</a> from The Birdie Report.</p>`;
+
+const faqs = [
+  {
+    question: 'How do I use this if I only know my driver carry?',
+    answer: 'Choose Driver as the club you know and type that carry. The chart still moves 3 yards for each degree of loft. A real driver is often longer than a chart anchored on an iron, because the shaft is longer and the ball is teed up. Starting from the driver avoids that miss. Either way, the gaps are the useful part.',
+  },
+  {
+    question: 'What is a good gap between golf clubs?',
+    answer: 'On a full swing, about 8 to 15 yards between neighboring clubs is a useful target. Under 8 yards, two clubs are doing one job. Over 15 yards is wide. Over 18 yards is a hole you will guess at. This page uses those same bands for woods, hybrids, irons, and wedges so the rule stays obvious.',
+  },
+  {
+    question: 'Should I swap my 4-iron for a hybrid?',
+    answer: 'Swap it when the 4-iron is piled on top of another club, or when the window around it is marked too big and a hybrid is the club that fits. Also swap it when you simply do not strike the 4-iron solidly. The chart cannot see your strike. It only sees the lofts and the one carry you typed.',
+  },
+  {
+    question: 'Why does this not match my launch monitor?',
+    answer: 'This is not a launch monitor, and it is not launch-monitor data. It does not measure ball speed, smash, spin, or strike. It moves 3 yards of carry for each degree of loft away from the one number you typed. Use it to see holes in the bag. Use a monitor, or a flat range session with one ball, when you need your own carries.',
+  },
+  {
+    question: 'Do partial wedge swings count?',
+    answer: 'No. Every number here is a full-swing carry. A 60-yard pitch is a different shot, not the lob wedge full carry. If your sand wedge and lob wedge land close on full swings, you can still keep both for chips and bunker shots. Just know they are not two different full-swing distances.',
+  },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'Golf Club Gapping Calculator',
+      url: pageUrl,
+      description,
+      applicationCategory: 'SportsApplication',
+      operatingSystem: 'Web',
+      browserRequirements: 'Requires JavaScript for live updates. The chart also renders from the URL without extra software.',
+      isAccessibleForFree: true,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'The Birdie Report',
+        url: 'https://www.birdiereport.com',
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.birdiereport.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.birdiereport.com/tools/' },
+        { '@type': 'ListItem', position: 3, name: 'Golf Club Gapping Calculator', item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    },
+  ],
+};
+const jsonLd = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
+---
+
+<BaseLayout title={title} description={description} canonical={pageUrl}>
+  <script is:inline type="application/ld+json" set:html={jsonLd}></script>
+  <article class="bg-white">
+    <header class="border-b border-gray-200 bg-forest-950 text-white">
+      <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
+        <nav aria-label="Breadcrumb" class="mb-4 text-sm text-white/70">
+          <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <li><a class="hover:text-gold-300" href="/">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a class="hover:text-gold-300" href="/tools/">Tools</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-white">Golf club gapping calculator</li>
+          </ol>
+        </nav>
+        <p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-400">Free tool · No account</p>
+        <h1 class="font-display text-3xl font-black leading-tight sm:text-5xl">Golf Club Gapping Calculator</h1>
+        <p class="mt-4 max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">
+          Type one carry you already know. Check the clubs you actually bag. This page estimates the rest from loft, then flags gaps that are too big or too small. The numbers are planning estimates, not launch-monitor data.
+        </p>
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
+      <section aria-labelledby="builder-heading" class="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-6">
+        <h2 id="builder-heading" class="font-display text-2xl font-bold text-forest-900">Build the chart</h2>
+        <p class="mt-2 text-sm leading-relaxed text-gray-700">
+          Lofts start as round planning numbers, not one manufacturer’s spec sheet. Change the degree box to the loft printed on your club. A putter is not in the chart.
+        </p>
+        <noscript>
+          <p class="mt-3 rounded-md border border-amber-600 bg-amber-50 px-3 py-2 text-sm text-gray-900">
+            JavaScript updates the chart as you type. Without it, the chart stays on the numbers already in the page URL.
+          </p>
+        </noscript>
+
+        <form id="gapping-form" class="mt-5 space-y-6" data-unit={initial.unit}>
+          <fieldset class="space-y-3">
+            <legend class="text-sm font-bold uppercase tracking-wide text-forest-800">The carry you know</legend>
+            <div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_8rem_auto] sm:items-end">
+              <div>
+                <label for="anchor" class="mb-1 block text-sm font-semibold text-gray-900">Club</label>
+                <select id="anchor" name="anchor" class="min-h-11 w-full rounded-md border border-gray-300 bg-white px-3 text-base text-gray-900">
+                  {initial.clubs.map((club) => (
+                    <option value={club.id} selected={club.id === initial.anchor}>{CLUBS.find((entry) => entry.id === club.id)?.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label for="carry" class="mb-1 block text-sm font-semibold text-gray-900">Carry</label>
+                <input
+                  id="carry"
+                  name="carry"
+                  type="number"
+                  inputmode="decimal"
+                  aria-describedby="carry-help"
+                  step={initial.unit === 'm' ? '0.1' : '1'}
+                  value={initial.carry ?? ''}
+                  class="min-h-11 w-full rounded-md border border-gray-300 bg-white px-3 text-base text-gray-900"
+                />
+              </div>
+              <fieldset>
+                <legend class="mb-1 block text-sm font-semibold text-gray-900">Unit</legend>
+                <div class="flex min-h-11 overflow-hidden rounded-md border border-gray-300 bg-white">
+                  <label class="flex items-center gap-2 px-3 text-sm font-semibold">
+                    <input type="radio" name="unit" value="yd" checked={initial.unit === 'yd'} />
+                    Yards
+                  </label>
+                  <label class="flex items-center gap-2 border-l border-gray-300 px-3 text-sm font-semibold">
+                    <input type="radio" name="unit" value="m" checked={initial.unit === 'm'} />
+                    Meters
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+            <p id="carry-help" class="text-sm text-gray-600">
+              Full-swing carry in <span id="carry-unit">{initial.unit === 'm' ? 'meters' : 'yards'}</span>. Something like a 7-iron or a driver. Partial pitches do not belong here.
+            </p>
+            <div class="flex flex-col gap-2 sm:flex-row" role="group" aria-labelledby="preset-label">
+              <p id="preset-label" class="sr-only">Examples</p>
+              <button type="button" data-preset="7i" data-carry="150" class="min-h-11 rounded-md border border-forest-700 bg-white px-3 text-sm font-semibold text-forest-800 hover:bg-forest-50">Use a 150-yard 7-iron</button>
+              <button type="button" data-preset="driver" data-carry="230" class="min-h-11 rounded-md border border-forest-700 bg-white px-3 text-sm font-semibold text-forest-800 hover:bg-forest-50">Use a 230-yard driver</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="space-y-4">
+            <legend class="text-sm font-bold uppercase tracking-wide text-forest-800">Clubs in the bag</legend>
+            {groups.map((group) => (
+              <fieldset class="space-y-2">
+                <legend class="text-sm font-semibold text-gray-800">{group.name}</legend>
+                <div class="grid gap-2 sm:grid-cols-2">
+                  {group.clubs.map((club) => (
+                    <div class="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-1">
+                      <label class="flex min-h-11 flex-1 items-center gap-3 text-sm font-semibold text-gray-900">
+                        <input class="h-5 w-5 accent-forest-700" type="checkbox" name="club" value={club.id} checked={selected.has(club.id)} />
+                        <span>{club.name}</span>
+                      </label>
+                      <label class="sr-only" for={`loft-${club.id}`}>{club.name} loft in degrees</label>
+                      <input
+                        id={`loft-${club.id}`}
+                        name={`loft-${club.id}`}
+                        type="number"
+                        inputmode="decimal"
+                        min="5"
+                        max="64"
+                        step="0.5"
+                        value={formatLoft(loftById.get(club.id) ?? club.loft)}
+                        class="min-h-11 w-20 rounded-md border border-gray-300 px-2 text-base text-gray-900"
+                      />
+                      <span aria-hidden="true" class="text-sm text-gray-500">°</span>
+                    </div>
+                  ))}
+                </div>
+              </fieldset>
+            ))}
+          </fieldset>
+
+          <button type="submit" class="min-h-11 rounded-md bg-forest-800 px-4 py-2 text-sm font-bold text-white hover:bg-forest-700">Update chart</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="results-heading" class="mt-8">
+        <div class="flex flex-wrap items-end justify-between gap-3">
+          <h2 id="results-heading" tabindex="-1" class="font-display text-2xl font-bold text-forest-900 outline-none">Estimated carries</h2>
+          <button type="button" id="copy-results" class="min-h-11 rounded-md border border-forest-700 px-3 text-sm font-semibold text-forest-800 hover:bg-forest-50">Copy link to these results</button>
+        </div>
+        <p id="copy-results-status" role="status" class="mt-1 text-sm text-forest-700"></p>
+        <p class="mt-3 text-sm leading-relaxed text-gray-600">
+          Estimates for gapping only. Not launch-monitor numbers. A gap under 8 yards is too small, over 15 is wide, and over 18 is a hole. In meters that is about 7.3 m, 13.7 m, and 16.5 m. The bands are judged in yards either way.
+        </p>
+        <p id="gapping-summary" aria-live="polite" class="mt-4 rounded-md bg-forest-50 px-3 py-3 text-sm font-semibold leading-relaxed text-forest-900">{model.summary}</p>
+        <div id="gapping-chart" class="mt-4" set:html={chartBodyHtml(model)} />
+      </section>
+
+      <div class="prose prose-gray mt-14 max-w-3xl">
+        <h2>How to use this calculator</h2>
+        <ol>
+          <li>Pick the club whose full-swing carry you know. A 7-iron or a driver both work.</li>
+          <li>Type that carry and choose yards or meters. Switching units converts the number you already typed.</li>
+          <li>Check the clubs in your bag. Change any loft that does not match the number on the sole.</li>
+          <li>Read the chart from the longest club down. A note under a row means that gap is too big or too small.</li>
+          <li>Copy the results link if you want a fitter, a friend, or another page to open the same chart. The bag lives in the URL.</li>
+        </ol>
+        <p>
+          When a gap is flagged, the page links to a Birdie Report guide and, where it is relevant, an Amazon search. Those shopping links are affiliate links. The estimate does not change if you ignore them.
+        </p>
+
+        <h2>What good gapping looks like</h2>
+        <p>
+          A useful full-swing bag gives you a different number with every club. On this page the target is about 8 to 15 yards between neighbors. Ten to 12 yards is a comfortable middle of that range. It is a planning target, not a measured average from a study.
+        </p>
+        <ul>
+          <li>Under 8 yards, one of the two clubs can usually leave the bag, or a loft needs to move.</li>
+          <li>Over 15 yards, you will start guessing the in-between shot. Over 18 yards, call it a hole.</li>
+          <li>The classic scoring-zone hole is a pitching wedge and a sand wedge with nothing in between. A gap wedge, often 48 to 52 degrees, is the usual add. The <a href="/blog/best-wedges-2026/">wedge guide</a> is the longer version of that shopping decision.</li>
+          <li>The classic long-iron hole is a 4-iron you do not hit, or a 4-iron that duplicates a hybrid. Swapping the 4-iron for a hybrid is the usual fix. Read <a href="/blog/how-to-hit-fairway-woods-hybrids-off-the-deck/">how to hit hybrids off the deck</a> and <a href="/blog/how-to-hit-a-hybrid-from-rough/">how to hit a hybrid from rough</a> before you buy one for the wrong reason.</li>
+          <li>Irons that are already evenly lofted do not need a new set to “fix the gaps.” If the whole set is the problem, start with the <a href="/blog/best-irons-2026/">iron guide</a>.</li>
+          <li>Partial wedge shots are a different chart. This one is full-swing carry only.</li>
+        </ul>
+
+        <h2>How this works</h2>
+        <p>
+          The model is one line. There is no hidden ball-speed curve and no borrowed launch-monitor table.
+        </p>
+        <p>
+          <strong>Estimated carry = anchor carry + (anchor loft − club loft) × 3 yards.</strong>
+        </p>
+        <p>
+          A 7-iron at 30 degrees that carries 150 yards puts a 6-iron at 27 degrees on 159 yards, and an 8-iron at 34 degrees on 138. Four degrees of loft is 12 yards. The anchor club always comes back as the carry you typed, after rounding to the nearest yard.
+        </p>
+        <h3>Planning lofts</h3>
+        <p>
+          These are the starting lofts in the form. They are round, modern-ish numbers so a default bag is easy to read. They are not a claim about any current iron set. Type your own if the sole says something else. Stronger lofts make every club longer by 3 yards per degree you take away.
+        </p>
+        <div class="not-prose overflow-x-auto">
+          <table class="w-full min-w-[16rem] border-collapse text-sm">
+            <caption class="sr-only">Starting lofts used by the calculator</caption>
+            <thead>
+              <tr class="border-b border-gray-300 text-left">
+                <th scope="col" class="py-2 pr-4 font-semibold">Club</th>
+                <th scope="col" class="py-2 font-semibold">Starting loft</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CLUBS.map((club) => (
+                <tr class="border-b border-gray-200">
+                  <th scope="row" class="py-2 pr-4 text-left font-medium">{club.name}</th>
+                  <td class="py-2">{formatLoft(club.loft)}°</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <h3>Assumptions</h3>
+        <ul>
+          <li>Same quality of strike with every club. There is no mishit penalty and no “you hit the long irons worse” adjustment.</li>
+          <li>Full swings only, on a flat lie, with no wind, temperature, or altitude term.</li>
+          <li>Woods and the driver use the same 3 yards per degree as the irons. That can make a driver look short when you anchor a 7-iron, because a driver is longer and the ball is teed up. Anchor the driver if that is the number you trust.</li>
+          <li>Gaps are the difference between rounded yard carries. Meter mode converts those yards at 0.9144 meters per yard and shows one decimal.</li>
+          <li>A gap under 8 yards is too small. A gap over 15 yards is wide. A gap over 18 yards is too big.</li>
+          <li>Nothing here is fitted to a published data set. If a fitter’s monitor disagrees, believe the monitor.</li>
+        </ul>
+
+        <h2>Common questions</h2>
+        <div class="not-prose space-y-6">
+          {faqs.map((faq) => (
+            <section>
+              <h3 class="text-xl font-bold text-gray-900">{faq.question}</h3>
+              <p class="mt-2 leading-relaxed text-gray-700">{faq.answer}</p>
+            </section>
+          ))}
+        </div>
+
+      </div>
+
+      <section aria-labelledby="embed-heading" class="mt-10 max-w-3xl">
+        <h2 id="embed-heading" class="font-display text-2xl font-bold text-forest-900">Link to this tool</h2>
+        <p class="mt-3 leading-relaxed text-gray-700">
+          Other golf sites can cite it with a normal link. The URL does not include a year, so it can stay put. Please point at the page rather than copying the chart into an article. The method is on this page so readers can see what the numbers are.
+        </p>
+        <div class="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-5">
+        <label for="embed-code" class="block text-sm font-semibold text-gray-900">HTML link</label>
+        <textarea id="embed-code" class="mt-2 min-h-24 w-full rounded-md border border-gray-300 bg-white p-3 font-mono text-sm leading-relaxed text-gray-900" readonly rows="4">{embedHtml}</textarea>
+        <button type="button" id="copy-embed" class="mt-3 min-h-11 rounded-md bg-forest-800 px-4 py-2 text-sm font-bold text-white hover:bg-forest-700">Copy HTML link</button>
+        <p id="copy-embed-status" role="status" class="mt-2 text-sm text-forest-700"></p>
+        </div>
+      </section>
+    </div>
+  </article>
+  <script>
+    import { initGappingCalculator } from '../../scripts/gapping-calculator.js';
+    initGappingCalculator();
+  </script>
+</BaseLayout>
