@@ -141,11 +141,9 @@
       "confirmed_on": "2026-08-19",
       "confirmation_record": "SEO_EDITORIAL_TRUST_AUDIT_2026-08-19.md",
       "source_article": "taylormade-qi35-irons-review",
-      "scope": "Claims eight rounds over two months, competitive use, and play at Sand Valley.",
-      "allowed_articles": [
-        "taylormade-qi35-irons-review"
-      ],
-      "rule": "Use only the confirmed product and described experience; no new tests, measurements, dates, models or ownership inferred."
+      "scope": "Withdrawn for product use. The 2026-08-19 note recorded on-course claims for a TaylorMade Qi35 iron. TaylorMade does not sell a Qi35 iron. Do not use this record to support hands-on Qi or Qi35 iron claims, carry numbers, or rounds played.",
+      "allowed_articles": [],
+      "rule": "Do not attach this record to an article. The Qi irons page is research-based and uses TaylorMade's published specs."
     },
     "owner-2026-08-19-taylormade-vs-callaway-drivers": {
       "confirmed_by": "Kyle Reierson",
