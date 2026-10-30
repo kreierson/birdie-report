@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, copyFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, copyFileSync, rmSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -24,4 +24,12 @@ test('new research-only commercial articles cannot bypass hands-on publishing po
 test('hands-on publication needs a recognized evidence record scoped to the article',()=>{
  const missing=validate('hands-on','invented');assert.equal(missing.status,1);assert.match(missing.stderr,/missing or does not support/);
  assert.equal(validate('hands-on','confirmed').status,0);
+});
+test('the gift guide is the only named research compilation',()=>{
+ const validator=readFileSync(new URL('./validate-editorial-trust.mjs',import.meta.url),'utf8');
+ assert.match(validator,/best-golf-gifts\.mdx/);
+ assert.equal((validator.match(/best-golf-gifts\.mdx/g)||[]).length,1);
+ const article=readFileSync(new URL('../src/content/blog/best-golf-gifts.mdx',import.meta.url),'utf8');
+ assert.match(article,/^category:\s*best$/m);
+ assert.match(article,/^review_basis:\s*"research-based"$/m);
 });

@@ -7,6 +7,9 @@ const blogDirectory = fileURLToPath(new URL('../src/content/blog/', import.meta.
 const sourceDirectory = fileURLToPath(new URL('../src/', import.meta.url));
 
 const commercialCategories = new Set(['reviews', 'best', 'versus']);
+// One research compilation of products already covered elsewhere. It is not a
+// new product test, and it is not a pattern for future reviews.
+const researchCompilations = new Set(['best-golf-gifts.mdx']);
 const allowedReviewBases = new Set(['research-based', 'hands-on', 'hybrid']);
 const pendingOwnerConfirmation = new Set();
 const policy = JSON.parse(readFileSync(join(root, 'data/seo-policy.json'), 'utf8'));
@@ -43,9 +46,11 @@ for (const filename of readdirSync(blogDirectory).filter((name) => ['.md', '.mdx
   const reviewBasis = source.match(/^review_basis:\s*["']?([^"'\n]+)["']?/m)?.[1]?.trim();
 
   const published = source.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+  const isResearchCompilation = researchCompilations.has(filename);
   if (published >= policy.authorized_on) {
     if (policy.paused_categories_for_new_content.includes(category)) errors.push(`${filename}: new ${category} coverage is paused`);
-    if (commercialCategories.has(category) && reviewBasis !== 'hands-on') errors.push(`${filename}: new commercial coverage must have supported hands-on evidence`);
+    if (commercialCategories.has(category) && reviewBasis !== 'hands-on' && !isResearchCompilation) errors.push(`${filename}: new commercial coverage must have supported hands-on evidence`);
+    if (isResearchCompilation && reviewBasis !== 'research-based') errors.push(`${filename}: research compilation must stay review_basis research-based`);
   }
 
   if (reviewBasis && !allowedReviewBases.has(reviewBasis)) {

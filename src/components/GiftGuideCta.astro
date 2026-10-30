@@ -1,0 +1,46 @@
+---
+import { isDirectAmazonProductUrl, normalizeAffiliateUrl } from '../utils/affiliate';
+import { GIFT_GUIDE_PLACEMENT } from '../utils/gift-guide.mjs';
+
+interface Props {
+  product: string;
+  url: string;
+  retailer?: string;
+}
+
+const { product, url, retailer = 'Amazon' } = Astro.props;
+if (!product?.trim() || !url?.trim()) {
+  throw new Error('GiftGuideCta requires product and url');
+}
+
+const href = normalizeAffiliateUrl({ url }, { category: 'best' });
+const direct = isDirectAmazonProductUrl(href);
+const cta = direct ? `See this product on ${retailer}` : `See options on ${retailer}`;
+const note = direct
+  ? 'Opens one verified Amazon product page. Confirm the color, seller, and current price.'
+  : 'Opens Amazon search results. Confirm the model, seller, and current price.';
+---
+
+<div class="gift-guide-cta not-prose my-4">
+  <a
+    href={href}
+    target="_blank"
+    rel="nofollow sponsored noopener"
+    data-affiliate-link="true"
+    data-product={product}
+    data-retailer={retailer}
+    data-placement={GIFT_GUIDE_PLACEMENT}
+    aria-label={`${cta} for ${product} (opens in a new tab)`}
+    class="inline-flex items-center justify-center min-h-11 px-5 py-3 bg-forest-700 text-white rounded-md hover:bg-forest-800 text-sm font-bold text-center"
+  >
+    {cta}
+  </a>
+  <p class="text-xs text-gray-500 mt-2 mb-0">{note}</p>
+</div>
+
+<style>
+  .gift-guide-cta a:focus-visible {
+    outline: 3px solid #b8860b;
+    outline-offset: 3px;
+  }
+</style>
