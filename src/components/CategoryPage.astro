@@ -59,6 +59,8 @@ const borderColor: Record<string, string> = {
           {title}
         </h1>
         <p class="text-lg text-white/70 mb-6 max-w-2xl">{description}</p>
+
+        <slot name="lead" />
         
         <!-- Featured article -->
         <div class="bg-white/10 backdrop-blur rounded-lg p-5 mt-8 max-w-xl" data-deal-as-of={heroDeal ? dealAsOfKey(heroDeal.asOf) : undefined}>
@@ -90,6 +92,7 @@ const borderColor: Record<string, string> = {
       </span>
       <h1 class="text-3xl md:text-5xl font-display font-black text-white mb-4">{title}</h1>
       <p class="text-lg text-white/70 max-w-2xl mx-auto">{description}</p>
+      <slot name="lead" />
     </div>
   </section>
 )}
