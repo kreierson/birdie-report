@@ -6,16 +6,25 @@ import CommercialOpportunityPanel from '../../components/CommercialOpportunityPa
 
 <BaseLayout 
   title="Golf Deals & Savings | The Birdie Report"
-  description="Past golf deals and buying guides. Check the retailer for current pricing and availability."
+  description="2026 Black Friday and Cyber Monday golf deals, plus the dated deal archive. Confirm current prices with the retailer."
 >
   <CategoryPage
     category="deals"
     title="Deals & Savings"
-    description="Browse our deal archive. Offers are dated and may have ended; confirm current prices with the retailer."
+    description="The 2026 Black Friday hub is the current page. The archive below is dated checks. Confirm current prices with the retailer."
     accentColor="orange"
     badgeLabel="Deals"
     badgeClass="bg-orange-500 text-white"
   >
+    <div slot="lead" class="bg-white/10 backdrop-blur rounded-lg p-5 mt-2 mb-4 max-w-xl" aria-labelledby="black-friday-hub">
+      <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mb-2">Current</p>
+      <h2 id="black-friday-hub" class="text-xl md:text-2xl font-display font-bold text-white mb-2 leading-snug">
+        <a href="/deals/black-friday-golf-deals/" class="hover:text-gold-300 transition-colors">Black Friday golf deals 2026</a>
+      </h2>
+      <p class="text-white/70 text-sm leading-relaxed">
+        Black Friday is November 27 and Cyber Monday is November 30. The <a href="/deals/black-friday-golf-deals/" class="font-semibold text-white underline underline-offset-2 hover:text-gold-300">2026 Black Friday golf deals hub</a> sorts gear this site already reviews and sends you to check today's price. The articles below are dated checks. When the date has passed, they are marked expired.
+      </p>
+    </div>
     <CommercialOpportunityPanel
       title="Check the fit before chasing the discount"
       description="A discount only helps if the gear suits your game. Use these guides to compare the features you actually need."
