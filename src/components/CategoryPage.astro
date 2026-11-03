@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import DealFreshness from './DealFreshness.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import { sectionTrail } from '../utils/breadcrumbs.mjs';
 import { dealAsOfKey, dealSnapshot } from '../utils/listing.mjs';
 
 export interface Props {
@@ -13,6 +15,7 @@ export interface Props {
 }
 
 const { category, title, description, accentColor, badgeLabel, badgeClass } = Astro.props;
+const breadcrumbs = sectionTrail(category);
 
 const allPosts = await getCollection('blog').catch(() => []);
 const posts = allPosts
@@ -42,6 +45,8 @@ const borderColor: Record<string, string> = {
   gold: 'border-gold-500',
 };
 ---
+
+<Breadcrumbs items={breadcrumbs} />
 
 <!-- Hero -->
 {heroPost && (

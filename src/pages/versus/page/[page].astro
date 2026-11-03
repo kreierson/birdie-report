@@ -1,13 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import ComparisonArchive from '../../../components/ComparisonArchive.astro';
-import { comparisonPages } from '../../../utils/comparisons.mjs';
+import { comparisonHref, comparisonPages } from '../../../utils/comparisons.mjs';
+import { sectionTrail } from '../../../utils/breadcrumbs.mjs';
 export async function getStaticPaths() {
   return comparisonPages(await getCollection('blog')).slice(1).map(page => ({params: {page: String(page.current)}, props: {current: page.current}}));
 }
 const { current } = Astro.props;
 ---
 <BaseLayout title={`Golf Equipment Comparisons — Page ${current} | The Birdie Report`} description="Browse head-to-head golf equipment comparisons, newest first.">
+  <Breadcrumbs items={sectionTrail('versus', { name: `Page ${current}`, href: comparisonHref(current) })} />
   <ComparisonArchive current={current} />
 </BaseLayout>

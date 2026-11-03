@@ -395,14 +395,6 @@ export function blackFridayStructuredData({ title, description }) {
         },
       },
       {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-          { '@type': 'ListItem', position: 2, name: 'Deals', item: `${SITE}/deals/` },
-          { '@type': 'ListItem', position: 3, name: 'Black Friday Golf Deals 2026', item: BF_HUB_URL },
-        ],
-      },
-      {
         '@type': 'ItemList',
         '@id': `${BF_HUB_URL}#shortlist`,
         name: 'Black Friday 2026 golf gear shortlist',

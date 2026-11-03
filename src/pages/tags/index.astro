@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
+import { sectionTrail } from '../../utils/breadcrumbs.mjs';
 
 const allPosts = await getCollection('blog').catch(() => []);
 
@@ -23,6 +25,7 @@ const tags = [...tagMap.entries()]
   description="Browse all golf articles by topic tag."
   noindex
 >
+  <Breadcrumbs items={sectionTrail('tags')} />
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold text-gray-900 mb-4">Browse by Tag</h1>

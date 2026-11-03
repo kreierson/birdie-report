@@ -1,0 +1,68 @@
+---
+import { breadcrumbList, jsonLdScript } from '../utils/breadcrumbs.mjs';
+
+interface Item {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  items: Item[];
+  tone?: 'light' | 'dark';
+  layout?: 'bar' | 'inline';
+  class?: string;
+}
+
+const { items, tone = 'light', layout = 'bar', class: className = '' } = Astro.props;
+const data = breadcrumbList(items);
+const json = jsonLdScript(data);
+const linkClass = tone === 'dark'
+  ? 'shrink-0 whitespace-nowrap text-white/80 transition-colors hover:text-gold-300'
+  : 'shrink-0 whitespace-nowrap text-gray-500 transition-colors hover:text-forest-700';
+const currentClass = tone === 'dark' ? 'font-medium text-white' : 'font-medium text-gray-900';
+const sepClass = tone === 'dark' ? 'text-white/40' : 'text-gray-300';
+const navClass = layout === 'bar'
+  ? 'mx-auto max-w-7xl px-4 py-1.5 text-sm leading-5 sm:px-6 lg:px-8'
+  : `text-sm leading-5 ${className}`;
+---
+
+{layout === 'bar' ? (
+  <div class:list={['border-b border-gray-200 bg-gray-50', className]}>
+    <nav aria-label="Breadcrumb" class={navClass}>
+      <ol class="flex min-w-0 items-center">
+        {items.map((item, index) => {
+          const last = index === items.length - 1;
+          return (
+            <li class:list={['flex min-w-0 items-center', last ? 'flex-1' : 'shrink-0']} aria-current={last ? 'page' : undefined}>
+              {index > 0 && <span aria-hidden="true" class:list={['shrink-0 px-1.5', sepClass]}>/</span>}
+              {last ? (
+                <span class:list={['block min-w-0 truncate', currentClass]}>{item.name}</span>
+              ) : (
+                <a href={item.href} class={linkClass}>{item.name}</a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  </div>
+) : (
+  <nav aria-label="Breadcrumb" class={navClass}>
+    <ol class="flex min-w-0 items-center">
+      {items.map((item, index) => {
+        const last = index === items.length - 1;
+        return (
+          <li class:list={['flex min-w-0 items-center', last ? 'flex-1' : 'shrink-0']} aria-current={last ? 'page' : undefined}>
+            {index > 0 && <span aria-hidden="true" class:list={['shrink-0 px-1.5', sepClass]}>/</span>}
+            {last ? (
+              <span class:list={['block min-w-0 truncate', currentClass]}>{item.name}</span>
+            ) : (
+              <a href={item.href} class={linkClass}>{item.name}</a>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </nav>
+)}
+<script is:inline type="application/ld+json" set:html={json} />

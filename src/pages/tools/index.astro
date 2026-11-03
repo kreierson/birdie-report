@@ -1,30 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { sectionTrail } from '../../utils/breadcrumbs.mjs';
 
 const pageUrl = 'https://www.birdiereport.com/tools/';
 const title = 'Free Golf Tools | The Birdie Report';
 const description = 'Free golf tools from The Birdie Report. Start with the club gapping calculator to estimate carry gaps from one distance you already know.';
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.birdiereport.com/' },
-    { '@type': 'ListItem', position: 2, name: 'Tools', item: pageUrl },
-  ],
-};
-const jsonLd = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
+const breadcrumbs = sectionTrail('tools');
 ---
 
 <BaseLayout title={title} description={description} canonical={pageUrl}>
-  <script is:inline type="application/ld+json" set:html={jsonLd}></script>
   <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500">
-      <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <li><a class="hover:text-forest-800" href="/">Home</a></li>
-        <li aria-hidden="true">/</li>
-        <li class="text-gray-800">Tools</li>
-      </ol>
-    </nav>
+    <Breadcrumbs items={breadcrumbs} layout="inline" class="mb-6" />
     <h1 class="font-display text-4xl font-black text-forest-900">Golf Tools</h1>
     <p class="mt-4 text-lg leading-relaxed text-gray-700">
       Small calculators for decisions that do not need a new article. Each one says how the numbers are made. None of them pretend to be a launch monitor.

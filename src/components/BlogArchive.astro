@@ -1,12 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
 import { archiveHref, ARCHIVE_PAGE_SIZE } from '../utils/archive.mjs';
+import { sectionTrail } from '../utils/breadcrumbs.mjs';
 import type { CollectionEntry } from 'astro:content';
 interface Props { posts: CollectionEntry<'blog'>[]; current: number; total: number; last: number; }
 const { posts, current, total, last } = Astro.props;
 const title = current === 1 ? 'All Articles | The Birdie Report' : `All Articles — Page ${current} | The Birdie Report`;
+const breadcrumbs = current === 1
+  ? sectionTrail('blog')
+  : sectionTrail('blog', { name: `Page ${current}`, href: archiveHref(current) });
 ---
 <BaseLayout title={title} description={`Browse golf reviews, comparisons, tips and course guides. Page ${current} of ${last}, newest first.`}>
+  <Breadcrumbs items={breadcrumbs} />
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center mb-8">
       <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">All Articles{current > 1 && ` — Page ${current}`}</h1>
