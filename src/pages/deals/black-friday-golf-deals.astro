@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlackFridayCta from '../../components/BlackFridayCta.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { sectionTrail } from '../../utils/breadcrumbs.mjs';
 import {
+  BF_HUB_PATH,
   BF_HUB_URL,
   bfBuyingTips,
   bfCategories,
@@ -12,6 +15,10 @@ import {
 const title = 'Black Friday Golf Deals 2026 | The Birdie Report';
 const description = '2026 Black Friday and Cyber Monday golf deals by category. Gear Birdie Report already reviews, with links to the guides. Check today\'s price.';
 const structuredData = blackFridayStructuredData({ title, description });
+const breadcrumbs = sectionTrail('deals', {
+  name: 'Black Friday Golf Deals 2026',
+  href: BF_HUB_PATH,
+});
 const jsonLd = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
 
 const published = new Date('2026-11-02T00:00:00Z');
@@ -28,15 +35,7 @@ const publishedLabel = published.toLocaleDateString('en-US', {
   <article class="bg-white">
     <header class="border-b border-gray-200 bg-forest-950 text-white">
       <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-        <nav aria-label="Breadcrumb" class="mb-4 text-sm text-white/70">
-          <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <li><a class="hover:text-gold-300" href="/">Home</a></li>
-            <li aria-hidden="true">/</li>
-            <li><a class="hover:text-gold-300" href="/deals/">Deals</a></li>
-            <li aria-hidden="true">/</li>
-            <li class="text-white">Black Friday golf deals 2026</li>
-          </ol>
-        </nav>
+        <Breadcrumbs items={breadcrumbs} layout="inline" tone="dark" class="mb-4" />
         <p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-400">Black Friday and Cyber Monday 2026</p>
         <h1 class="font-display text-3xl font-black leading-tight sm:text-5xl">Black Friday Golf Deals 2026</h1>
         <p class="mt-4 max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">

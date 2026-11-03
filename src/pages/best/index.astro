@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CommercialOpportunityPanel from '../../components/CommercialOpportunityPanel.astro';
 import GuideShortlist from '../../components/GuideShortlist.astro';
+import { sectionTrail } from '../../utils/breadcrumbs.mjs';
 
 const allPosts = await getCollection('blog').catch(() => []);
 const bestPosts = allPosts
@@ -44,6 +46,8 @@ function formatDate(date: Date) {
   title="Best Golf Equipment 2026 — Buyer's Guides | The Birdie Report"
   description="Find golf equipment for your game and budget with buyer's guides that clearly distinguish research from direct hands-on experience."
 >
+  <Breadcrumbs items={sectionTrail('best')} />
+
   <!-- Hero -->
   {heroPost && (
     <section class="relative bg-forest-950 overflow-hidden">

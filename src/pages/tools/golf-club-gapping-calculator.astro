@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { sectionTrail } from '../../utils/breadcrumbs.mjs';
 import { chartBodyHtml } from '../../utils/gapping-render.mjs';
 import { CLUBS, buildChart, clubsByGroup, formatLoft, parseState } from '../../utils/gapping.mjs';
 
@@ -12,6 +14,10 @@ const selected = new Set(initial.clubs.map((club) => club.id));
 const loftById = new Map(initial.clubs.map((club) => [club.id, club.loft]));
 const groups = clubsByGroup();
 const embedHtml = `<p>Estimate your club gaps with the <a href="${pageUrl}">free golf club gapping calculator</a> from The Birdie Report.</p>`;
+const breadcrumbs = sectionTrail('tools', {
+  name: 'Golf Club Gapping Calculator',
+  href: pageUrl,
+});
 
 const faqs = [
   {
@@ -60,14 +66,6 @@ const structuredData = {
       },
     },
     {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.birdiereport.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.birdiereport.com/tools/' },
-        { '@type': 'ListItem', position: 3, name: 'Golf Club Gapping Calculator', item: pageUrl },
-      ],
-    },
-    {
       '@type': 'FAQPage',
       mainEntity: faqs.map((faq) => ({
         '@type': 'Question',
@@ -88,15 +86,7 @@ const jsonLd = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
   <article class="bg-white">
     <header class="border-b border-gray-200 bg-forest-950 text-white">
       <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-        <nav aria-label="Breadcrumb" class="mb-4 text-sm text-white/70">
-          <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <li><a class="hover:text-gold-300" href="/">Home</a></li>
-            <li aria-hidden="true">/</li>
-            <li><a class="hover:text-gold-300" href="/tools/">Tools</a></li>
-            <li aria-hidden="true">/</li>
-            <li class="text-white">Golf club gapping calculator</li>
-          </ol>
-        </nav>
+        <Breadcrumbs items={breadcrumbs} layout="inline" tone="dark" class="mb-4" />
         <p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-400">Free tool · No account</p>
         <h1 class="font-display text-3xl font-black leading-tight sm:text-5xl">Golf Club Gapping Calculator</h1>
         <p class="mt-4 max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">

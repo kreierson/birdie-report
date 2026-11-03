@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ComparisonArchive from '../../components/ComparisonArchive.astro';
+import { sectionTrail } from '../../utils/breadcrumbs.mjs';
 
 const priorityComparisons = [
   {
@@ -40,6 +42,7 @@ const priorityComparisons = [
   title="Golf Equipment Comparisons | The Birdie Report"
   description="Head-to-head product comparisons to help you decide what's right for your game."
 >
+  <Breadcrumbs items={sectionTrail('versus')} />
   <ComparisonArchive>
     <section class="mt-16 border-t border-gray-200 pt-10">
       <div class="max-w-4xl">

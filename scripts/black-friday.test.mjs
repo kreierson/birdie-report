@@ -123,9 +123,9 @@ test('structured data lists the guides and does not mark up a price', () => {
   visit(data);
   assert.equal(JSON.stringify(data).includes('amazon.com'), false);
   const graph = data['@graph'];
-  const crumbs = graph.find((node) => node['@type'] === 'BreadcrumbList');
   const list = graph.find((node) => node['@type'] === 'ItemList');
-  assert.equal(crumbs.itemListElement.at(-1).item, 'https://www.birdiereport.com/deals/black-friday-golf-deals/');
+  assert.equal(graph.some((node) => node['@type'] === 'BreadcrumbList'), false);
+  assert.match(read('src/pages/deals/black-friday-golf-deals.astro'), /<Breadcrumbs /);
   assert.equal(list.numberOfItems, bfPicks().length);
   assert.equal(list.itemListElement.length, bfPicks().length);
   assert.equal(list.itemListElement[0].name, bfPicks()[0].product);
