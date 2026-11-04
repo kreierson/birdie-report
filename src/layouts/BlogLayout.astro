@@ -35,6 +35,17 @@ const quickPicks = resolveQuickPicks(content.quick_picks, affiliateContext, {
   isDirectAmazonProductUrl,
 });
 const stickyCta = quickPicks[0] || heroBuyLinks[0];
+function cardRetailer(link: { url?: string; retailer?: string } | undefined) {
+  const stored = link?.retailer || 'Amazon';
+  try {
+    const host = new URL(link?.url || '').hostname.replace(/^www\./, '');
+    if (host === 'amazon.com' || host.endsWith('.amazon.com')) return 'Amazon';
+  } catch {
+    return stored;
+  }
+  return stored;
+}
+const stickyRetailer = cardRetailer(stickyCta);
 
 const allPosts = await getCollection('blog');
 const currentSlug = Astro.url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
@@ -313,7 +324,7 @@ const breadcrumbs = postTrail(category, title, Astro.url.pathname);
                 <div class="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 bg-white rounded-lg border border-forest-100">
                   <div>
                     <h4 class="font-semibold text-gray-900">{link.product}</h4>
-                    <p class="text-sm text-gray-600">{isDirectAmazonProductUrl(link.url) ? `Verified product page at ${link.retailer || 'Amazon'}` : `Search current options at ${link.retailer || 'Amazon'}`}</p>
+                    <p class="text-sm text-gray-600">{isDirectAmazonProductUrl(link.url) ? `Verified product page at ${cardRetailer(link)}` : `Search current options at ${cardRetailer(link)}`}</p>
                   </div>
                   <a
                     href={link.url}
@@ -321,7 +332,7 @@ const breadcrumbs = postTrail(category, title, Astro.url.pathname);
                     rel="nofollow sponsored noopener"
                     data-affiliate-link="true"
                     data-product={link.product}
-                    data-retailer={link.retailer}
+                    data-retailer={cardRetailer(link)}
                     data-placement="article-bottom-buy-box"
                     class="px-5 py-2.5 bg-forest-700 text-white rounded-lg hover:bg-forest-800 transition-colors text-sm font-bold text-center"
                   >
@@ -431,13 +442,13 @@ const breadcrumbs = postTrail(category, title, Astro.url.pathname);
                 rel="nofollow sponsored noopener"
                 data-affiliate-link="true"
                 data-product={stickyCta.product}
-                data-retailer={stickyCta.retailer || 'Amazon'}
+                data-retailer={stickyRetailer}
                 data-placement="sidebar-sticky-cta"
                 class="block w-full py-3 bg-gold-500 text-forest-900 font-bold rounded-lg hover:bg-gold-400 transition-colors"
               >
-                See Amazon options
+                See {stickyRetailer} options
               </a>
-              <p class="text-white/40 text-[10px] mt-2">at {stickyCta.retailer || 'Amazon'}</p>
+              <p class="text-white/40 text-[10px] mt-2">at {stickyRetailer}</p>
             </div>
           )}
         </div>
