@@ -2,10 +2,13 @@
 import BaseLayout from './BaseLayout.astro';
 import GearGuideLinks from '../components/GearGuideLinks.astro';
 import GuideScorecard from '../components/GuideScorecard.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
 import { getCollection } from 'astro:content';
 import { selectRelatedPosts } from '../utils/discovery.mjs';
 import QuickPicks from '../components/QuickPicks.astro';
 import { getAmazonTag, isDirectAmazonProductUrl, normalizeAffiliateLinks, normalizeAffiliateUrl } from '../utils/affiliate';
+import { buyerProductsFromContent } from '../utils/buyer-links.mjs';
+import { selectRelatedGuides } from '../utils/related-guides.mjs';
 import { resolveQuickPicks } from '../utils/quick-picks.mjs';
 import { buildStructuredData, jsonLd, visibleScorecard } from '../utils/review-schema.mjs';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
@@ -22,20 +25,11 @@ const pageTitle = seo_title || title;
 const pageDescription = seo_description || description;
 const affiliateContext = { category, subcategory, trackingId: affiliate_tracking_id };
 const activeAmazonTag = getAmazonTag(affiliateContext);
-const resolvedAffiliateLinks = normalizeAffiliateLinks(affiliate_links || [], affiliateContext);
+const resolvedBuyerProducts = normalizeAffiliateLinks(buyerProductsFromContent(content), affiliateContext);
 const resolvedBountyLinks = normalizeAffiliateLinks(bounty_links || [], affiliateContext);
-const resolvedComparisonProducts = normalizeAffiliateLinks(comparison_products || [], affiliateContext);
-const heroBuyLinks = resolvedAffiliateLinks.length > 0
-  ? resolvedAffiliateLinks.slice(0, 3)
-  : resolvedComparisonProducts.slice(0, 3).map((product: any) => ({
-      product: product.name,
-      url: product.affiliate_url,
-      price: product.price,
-      retailer: 'Amazon',
-      rating: product.rating,
-      pros: product.pros,
-    }));
-const hasBuyerIntent = ['best', 'reviews', 'deals', 'versus'].includes(category) && heroBuyLinks.length > 0;
+const heroBuyLinks = resolvedBuyerProducts.slice(0, 3);
+// News covers retail launches. The same modules run once a post has product links.
+const hasBuyerIntent = ['best', 'reviews', 'deals', 'versus', 'news'].includes(category) && heroBuyLinks.length > 0;
 const quickPicks = resolveQuickPicks(content.quick_picks, affiliateContext, {
   normalizeAffiliateUrl,
   isDirectAmazonProductUrl,
@@ -45,6 +39,7 @@ const stickyCta = quickPicks[0] || heroBuyLinks[0];
 const allPosts = await getCollection('blog');
 const currentSlug = Astro.url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
 const relatedPosts = selectRelatedPosts(allPosts, { slug: currentSlug, data: content });
+const relatedGuides = selectRelatedGuides({ slug: currentSlug, title, description, category, subcategory, tags });
 // Keep this buyer-interface trial scoped; other observing pages retain their CTA copy.
 const showNamedRetailerCta = currentSlug === 'best-golf-rain-jackets-2026';
 
@@ -310,11 +305,11 @@ const breadcrumbs = postTrail(category, title, Astro.url.pathname);
         )}
 
         <!-- Affiliate Links -->
-        {resolvedAffiliateLinks.length > 0 && (
+        {resolvedBuyerProducts.length > 0 && (
           <div class="mt-10 p-3 sm:p-6 bg-forest-50 rounded-lg border-2 border-forest-200">
             <h3 class="text-lg font-display font-bold text-forest-900 mb-4">🛍️ Where to Buy</h3>
             <div class="grid gap-3">
-              {resolvedAffiliateLinks.map((link: any) => (
+              {resolvedBuyerProducts.map((link: any) => (
                 <div class="flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 bg-white rounded-lg border border-forest-100">
                   <div>
                     <h4 class="font-semibold text-gray-900">{link.product}</h4>
@@ -372,10 +367,13 @@ const breadcrumbs = postTrail(category, title, Astro.url.pathname);
           </div>
         )}
 
-        <!-- Newsletter -->
-        <div class="mt-12">
-          <GearGuideLinks variant="card" />
-        </div>
+        {relatedGuides.length > 0 ? (
+          <RelatedGuides guides={relatedGuides} category={category} />
+        ) : (
+          <div class="mt-12">
+            <GearGuideLinks variant="card" />
+          </div>
+        )}
 
         <!-- Related Posts -->
         {relatedPosts.length > 0 && (

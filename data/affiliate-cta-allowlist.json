@@ -1,0 +1,36 @@
+{
+  "exceptions": [
+    {
+      "slug": "bridgestone-covington-plant-closure-2026",
+      "reason": "Factory-closure news, not a page about a club or ball a reader can buy."
+    },
+    {
+      "slug": "golf-equipment-trends-2026",
+      "reason": "Season trend roundup across categories, not a specific product page."
+    },
+    {
+      "slug": "matt-fitzpatrick-ping-driver-switch-travelers-2026",
+      "reason": "Player bag news about a mid-event driver switch, not a product page."
+    },
+    {
+      "slug": "nelly-korda-us-womens-open-equipment-switch-2026",
+      "reason": "Player winning-setup news, not a product page."
+    },
+    {
+      "slug": "srixon-zxi-rkt-drivers-travelers-2026",
+      "reason": "Tour debut that the article says has no retail date yet."
+    },
+    {
+      "slug": "taylormade-kingdom-london-opening-2026",
+      "reason": "Retail-store opening, not a product page."
+    },
+    {
+      "slug": "taylormade-spider-putter-prototypes-rbc-heritage-2026",
+      "reason": "Prototype sighting, not a retail product page."
+    },
+    {
+      "slug": "travelers-putter-changes-spaun-fowler-rose-2026",
+      "reason": "Player putter-change news, not a product page."
+    }
+  ]
+}

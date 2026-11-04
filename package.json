@@ -7,16 +7,17 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "npm run validate:editorial-trust && npm run validate:verified-asins && npm run validate:redirects && python3 scripts/validate-images.py --local-only-on-vercel",
+    "prebuild": "npm run validate:editorial-trust && npm run validate:verified-asins && npm run validate:redirects && npm run validate:affiliate-ctas && python3 scripts/validate-images.py --local-only-on-vercel",
     "validate:editorial-trust": "node scripts/validate-editorial-trust.mjs",
+    "validate:affiliate-ctas": "node scripts/validate-affiliate-ctas.mjs --source",
     "validate:verified-asins": "node scripts/validate-verified-asins.mjs",
     "validate:redirects": "node scripts/validate-redirects.mjs",
     "build": "astro build --force",
-    "postbuild": "node scripts/validate-breadcrumbs.mjs",
+    "postbuild": "node scripts/validate-breadcrumbs.mjs && node scripts/validate-affiliate-ctas.mjs --rendered",
     "check:images": "python3 scripts/validate-images.py",
     "preview": "astro preview",
     "astro": "astro",
-    "test:seo": "node --test scripts/analytics.test.mjs scripts/editorial.test.mjs scripts/discovery.test.mjs scripts/ally-blue-plan.test.mjs scripts/listing.test.mjs scripts/review-schema.test.mjs scripts/verified-asins.test.mjs scripts/redirects.test.mjs scripts/comparison-links.test.mjs scripts/indexnow.test.mjs scripts/quick-picks.test.mjs scripts/gift-guide.test.mjs scripts/gapping.test.mjs scripts/black-friday.test.mjs scripts/breadcrumbs.test.mjs && python3 scripts/test_seo.py"
+    "test:seo": "node --test scripts/analytics.test.mjs scripts/editorial.test.mjs scripts/discovery.test.mjs scripts/ally-blue-plan.test.mjs scripts/listing.test.mjs scripts/review-schema.test.mjs scripts/verified-asins.test.mjs scripts/redirects.test.mjs scripts/comparison-links.test.mjs scripts/indexnow.test.mjs scripts/quick-picks.test.mjs scripts/gift-guide.test.mjs scripts/gapping.test.mjs scripts/black-friday.test.mjs scripts/breadcrumbs.test.mjs scripts/affiliate-ctas.test.mjs && python3 scripts/test_seo.py"
   },
   "dependencies": {
     "@astrojs/mdx": "4.3.14",
