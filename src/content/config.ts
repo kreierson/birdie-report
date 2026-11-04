@@ -32,6 +32,18 @@ const blog = defineCollection({
       retailer: z.string(),
       tracking_id: z.string().optional()
     })).optional(),
+    // Older reviews stored one product link outside affiliate_links.
+    affiliate_url: z.string().optional(),
+    product_pros: z.array(z.string()).optional(),
+    product_cons: z.array(z.string()).optional(),
+    review_product: z.object({
+      name: z.string(),
+      rating: z.number().min(1).max(10).optional(),
+      price: z.string().optional(),
+      pros: z.array(z.string()).optional(),
+      cons: z.array(z.string()).optional(),
+      affiliate_url: z.string(),
+    }).optional(),
     quick_picks: z.array(z.object({
       award: z.string().min(1),
       product: z.string().min(1),

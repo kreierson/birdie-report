@@ -1,0 +1,39 @@
+---
+import { RELATED_GUIDES_PLACEMENT, relatedGuidesIntro } from '../utils/related-guides.mjs';
+
+export interface Props {
+  guides: { href: string; title: string; note: string }[];
+  category?: string;
+}
+
+const { guides = [], category = '' } = Astro.props;
+const intro = relatedGuidesIntro(category);
+---
+
+{guides.length > 0 && (
+  <aside class="related-guides mt-12 rounded-lg border border-gray-200 bg-gray-50 px-5 py-5" aria-labelledby="gear-for-this">
+    <h2 id="gear-for-this" class="text-xl font-display font-bold text-forest-900">Gear for this</h2>
+    <p class="mt-1 text-sm leading-relaxed text-gray-600">{intro}</p>
+    <ul class="mt-4 space-y-3">
+      {guides.map((guide) => (
+        <li>
+          <a
+            href={guide.href}
+            data-placement={RELATED_GUIDES_PLACEMENT}
+            class="font-semibold text-forest-800 underline underline-offset-2 hover:text-forest-900"
+          >
+            {guide.title}
+          </a>
+          <p class="text-sm leading-relaxed text-gray-600">{guide.note}</p>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}
+
+<style>
+  .related-guides a:focus-visible {
+    outline: 3px solid #b8860b;
+    outline-offset: 3px;
+  }
+</style>
