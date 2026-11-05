@@ -4,7 +4,19 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
-import { buildStructuredData, jsonLd, parseUsdPrice, visibleScorecard, visibleVerdict } from '../src/utils/review-schema.mjs';
+import {
+  absoluteImageUrl,
+  buildStructuredData,
+  isNonProductImageHost,
+  jsonLd,
+  parseUsdPrice,
+  selectProductImage,
+  stockImageUrls,
+  visibleImageUrls,
+  visibleScorecard,
+  visibleVerdict,
+} from '../src/utils/review-schema.mjs';
+import { validateProductImageHtml } from './validate-product-images.mjs';
 
 const site = 'https://www.birdiereport.com';
 
@@ -54,7 +66,7 @@ test('a rated review becomes one Product review on a 10-point scale', () => {
     pros: ['Lightstrike cushioning', 'Waterproof build'],
     cons: ['Loud styling'],
     affiliateLinks: [{ product: 'adidas Codechaos 25 Spikeless Golf Shoes' }],
-    featuredImage: '/images/articles/golfer-walking-course.jpg',
+    featuredImage: '/images/articles/adidas-codechaos-25-spikeless.jpg',
     pathname: '/blog/adidas-codechaos-25-review/',
   });
   const [article, product] = graph['@graph'];
@@ -64,7 +76,11 @@ test('a rated review becomes one Product review on a 10-point scale', () => {
   assert.equal(article.datePublished, '2026-06-13T00:00:00.000Z');
   assert.equal(product['@type'], 'Product');
   assert.equal(product.name, 'adidas Codechaos 25 Spikeless Golf Shoes');
+  assert.equal(product.image, 'https://www.birdiereport.com/images/articles/adidas-codechaos-25-spikeless.jpg');
   assert.equal(product.offers, undefined);
+  assert.equal(product.shippingDetails, undefined);
+  assert.equal(product.hasMerchantReturnPolicy, undefined);
+  assert.equal(product.seller, undefined);
   assert.equal(product.review['@type'], 'Review');
   assert.equal(product.review.itemReviewed, undefined);
   assert.equal(product.review.author['@type'], 'Person');
@@ -89,6 +105,7 @@ test('one comparison product keeps the visible verdict fields and a single offer
     pros: ['Cavity-back help', 'Credible short-game tech'],
     cons: ['Not a players wedge'],
     affiliateLinks: [{ product: 'Cleveland CBX4 ZipCore Wedge' }],
+    featuredImage: '/images/articles/cleveland-cbx4-zipcore-wedge.jpg',
     comparisonProducts: [{
       name: 'Cleveland CBX4 ZipCore',
       rating: 9.2,
@@ -100,6 +117,7 @@ test('one comparison product keeps the visible verdict fields and a single offer
   const product = graph['@graph'][1];
   assert.equal(product['@type'], 'Product');
   assert.equal(product.name, 'Cleveland CBX4 ZipCore Wedge');
+  assert.equal(product.image, 'https://www.birdiereport.com/images/articles/cleveland-cbx4-zipcore-wedge.jpg');
   assert.equal(product.offers.price, 129.99);
   assert.equal(product.offers.priceCurrency, 'USD');
   assert.equal(product.offers.url, undefined);
@@ -122,6 +140,7 @@ test('best-of and versus guides become an ItemList of reviewed products', () => 
     category: 'best',
     rating: 9.2,
     pros: ['This rating describes the guide, not one bag'],
+    featuredImage: '/images/articles/titleist-players-4-stadry-vs-ping-hoofer-lite.jpg',
     comparisonProducts: [
       { name: 'Titleist Players 4 StaDry', rating: 9.4, price: '$295', pros: ['Waterproof', 'Light'], cons: ['Pricey'] },
       { name: 'Ping Hoofer Lite', rating: 9.3, price: '$649.99 (42mm) / $699.99 (47mm)', pros: ['Light'], cons: [] },
@@ -133,6 +152,8 @@ test('best-of and versus guides become an ItemList of reviewed products', () => 
   assert.equal(list.numberOfItems, 2);
   assert.deepEqual(list.itemListElement.map((entry) => entry.position), [1, 2]);
   assert.equal(list.itemListElement[0].item.name, 'Titleist Players 4 StaDry');
+  assert.equal(list.itemListElement[0].item.image, 'https://www.birdiereport.com/images/articles/titleist-players-4-stadry-vs-ping-hoofer-lite.jpg');
+  assert.equal(list.itemListElement[1].item.image, list.itemListElement[0].item.image);
   assert.equal(list.itemListElement[0].item.review.reviewRating.ratingValue, 9.4);
   assert.deepEqual(
     list.itemListElement[0].item.review.positiveNotes.itemListElement.map((item) => item.name),
@@ -205,6 +226,7 @@ test('a review without an author or with a single note does not invent either', 
     rating: 8,
     pros: ['Only one'],
     affiliateLinks: [{ product: 'Example Club' }],
+    featuredImage: '/images/articles/example-club.jpg',
   });
   assert.equal(oneNote['@graph'][1].review.positiveNotes, undefined);
   assert.equal(jsonLd({ danger: '</script><script>' }).includes('<'), false);
@@ -223,41 +245,235 @@ test('a lone comparison product is marked up only when its scorecard is shown, w
       pros: ['Fast face', 'Forgiving'],
       cons: ['Price'],
     }],
+    featuredImage: '/images/articles/callaway-elyte-irons.jpg',
   };
   assert.equal(visibleScorecard(input).length, 1);
   assert.equal(visibleVerdict(input), null);
   const product = graphFor(input)['@graph'][1];
   assert.equal(product.name, 'Callaway Elyte Irons');
   assert.equal(product.offers, undefined);
+  assert.equal(product.image, 'https://www.birdiereport.com/images/articles/callaway-elyte-irons.jpg');
   assert.deepEqual(product.review.positiveNotes.itemListElement.map((item) => item.name), ['Fast face', 'Forgiving']);
   assert.equal(JSON.stringify(product).includes('1,099'), false);
 });
 
 test('the scorecard and the JSON-LD are the same visible product list', () => {
   const layout = readFileSync(fileURLToPath(new URL('../src/layouts/BlogLayout.astro', import.meta.url)), 'utf8');
+  const page = readFileSync(fileURLToPath(new URL('../src/pages/blog/[...slug].astro', import.meta.url)), 'utf8');
   const scorecard = readFileSync(fileURLToPath(new URL('../src/components/GuideScorecard.astro', import.meta.url)), 'utf8');
   assert.match(layout, /visibleScorecard\(schemaInput\)/);
   assert.match(layout, /<GuideScorecard products=\{guideScores\}/);
+  assert.match(layout, /stockImageUrls\(allPosts/);
+  assert.match(layout, /body,/);
+  assert.match(page, /body=\{post\.body\}/);
   assert.doesNotMatch(scorecard, /price/i);
+});
+
+test('a product photo on the page becomes the Product image, and a scenic photo does not', () => {
+  const pictured = graphFor({
+    title: 'Callaway Quantum Max Driver Review',
+    description: 'The 2026 total-performance head.',
+    date: '2026-11-05',
+    category: 'reviews',
+    rating: 9.1,
+    pros: ['Neutral center of gravity', 'Adjustable 10-gram weight'],
+    cons: ['Not every miss pattern'],
+    affiliateLinks: [{ product: 'Callaway Quantum Max Driver' }],
+    featuredImage: '/images/articles/callaway-quantum-max-driver-review.png',
+    body: '![Callaway Quantum Max driver sole](/images/articles/callaway-quantum-max-driver-review.png)',
+    pathname: '/blog/callaway-quantum-max-driver-review/',
+  });
+  const product = pictured['@graph'][1];
+  assert.equal(product.image, 'https://www.birdiereport.com/images/articles/callaway-quantum-max-driver-review.png');
+  assert.equal(product.review.positiveNotes.itemListElement.length, 2);
+  assert.equal(pictured['@graph'][0].image, product.image);
+
+  const scenic = graphFor({
+    title: 'Ping G440 Max Driver Review',
+    description: 'Forgiveness.',
+    date: '2026-06-15',
+    category: 'reviews',
+    rating: 9.3,
+    pros: ['Forgiving', 'Stable'],
+    cons: ['Price'],
+    affiliateLinks: [{ product: 'PING G440 Max Driver' }],
+    featuredImage: '/images/articles/tournament-golfer-swing.jpg',
+    body: '![Golfer making a full driver swing](/images/articles/tournament-golfer-swing.jpg)',
+    stockImages: ['/images/articles/tournament-golfer-swing.jpg'],
+  });
+  assert.equal(scenic['@graph'].length, 1);
+
+  const context = graphFor({
+    title: 'adidas Codechaos 25 Review',
+    description: 'Shoes.',
+    date: '2026-06-13',
+    category: 'reviews',
+    rating: 8.9,
+    pros: ['Light', 'Dry'],
+    cons: ['Loud'],
+    affiliateLinks: [{ product: 'adidas Codechaos 25' }],
+    featuredImage: '/images/articles/adidas-codechaos-25.jpg',
+    body: '![adidas Codechaos 25 golf shoe review context](/images/articles/adidas-codechaos-25.jpg)',
+  });
+  assert.equal(context['@graph'].length, 1);
+});
+
+test('comparison products keep a shared photo only when it shows each one', () => {
+  const shared = graphFor({
+    title: 'Cobra DS-ADAPT MAX-K vs TaylorMade Qi35 Max',
+    description: 'Two max drivers.',
+    date: '2026-08-09',
+    category: 'versus',
+    comparisonProducts: [
+      { name: 'Cobra DS-ADAPT MAX-K', rating: 9.2, pros: ['Price', 'Forgiving'], cons: ['Older'] },
+      { name: 'TaylorMade Qi35 Max', rating: 9.3, pros: ['Feel', 'Finish'], cons: ['Price'] },
+    ],
+    featuredImage: '/images/articles/cobra-ds-adapt-max-k-vs-taylormade-qi35-max-driver.jpg',
+  });
+  const list = shared['@graph'][1];
+  assert.equal(list['@type'], 'ItemList');
+  assert.equal(list.numberOfItems, 2);
+  const image = 'https://www.birdiereport.com/images/articles/cobra-ds-adapt-max-k-vs-taylormade-qi35-max-driver.jpg';
+  assert.deepEqual(list.itemListElement.map((entry) => entry.item.image), [image, image]);
+  assert.equal(list.itemListElement[0].item.offers, undefined);
+
+  const oneSided = graphFor({
+    title: 'adidas Tour360 24 vs ECCO Biom C4',
+    description: 'Shoes.',
+    date: '2026-04-24',
+    category: 'versus',
+    comparisonProducts: [
+      { name: 'adidas Tour360 24', rating: 8.8, pros: ['Boost', 'Grip'], cons: ['Weight'] },
+      { name: 'ECCO Biom C4', rating: 9.3, pros: ['Leather', 'Support'], cons: ['Price'] },
+    ],
+    featuredImage: 'https://assets.adidas.com/images/tour360-24/Tour360_24_Golf_Shoes.jpg',
+    body: '![adidas Tour360 24 golf shoes](https://assets.adidas.com/images/tour360-24/Tour360_24_Golf_Shoes.jpg)',
+  });
+  const only = oneSided['@graph'][1];
+  assert.equal(only['@type'], 'Product');
+  assert.equal(only.name, 'adidas Tour360 24');
+  assert.equal(only.image, 'https://assets.adidas.com/images/tour360-24/Tour360_24_Golf_Shoes.jpg');
+  assert.equal(oneSided['@graph'].length, 2);
+
+  const separate = graphFor({
+    title: 'Garmin Approach S70 vs Garmin Approach S44',
+    description: 'Watches.',
+    date: '2026-04-19',
+    category: 'versus',
+    comparisonProducts: [
+      { name: 'Garmin Approach S70', rating: 9.3, pros: ['Screen', 'Caddie'], cons: ['Price'] },
+      { name: 'Garmin Approach S44', rating: 8.8, pros: ['Price', 'Simple'], cons: ['Screen'] },
+    ],
+    featuredImage: 'https://res.garmin.com/s70/cf-lg.jpg',
+    body: [
+      '![Garmin Approach S70 golf watch](https://res.garmin.com/s70/cf-lg.jpg)',
+      '![Garmin Approach S44 golf watch](https://res.garmin.com/s44/cf-lg.jpg)',
+    ].join('\n'),
+  });
+  const watches = separate['@graph'][1];
+  assert.equal(watches['@type'], 'ItemList');
+  assert.equal(watches.itemListElement[0].item.image, 'https://res.garmin.com/s70/cf-lg.jpg');
+  assert.equal(watches.itemListElement[1].item.image, 'https://res.garmin.com/s44/cf-lg.jpg');
+
+  const family = graphFor({
+    title: 'TaylorMade Qi35 vs TaylorMade Qi35 Max',
+    description: 'Same family.',
+    date: '2026-05-01',
+    category: 'versus',
+    comparisonProducts: [
+      { name: 'TaylorMade Qi35', rating: 9.0, pros: ['Speed', 'Shape'], cons: ['Spin'] },
+      { name: 'TaylorMade Qi35 Max', rating: 9.2, pros: ['Forgiving', 'Easy'], cons: ['Spin'] },
+    ],
+    featuredImage: '/images/articles/taylormade-qi35-max-driver.jpg',
+  });
+  const maxOnly = family['@graph'][1];
+  assert.equal(maxOnly['@type'], 'Product');
+  assert.equal(maxOnly.name, 'TaylorMade Qi35 Max');
+  assert.equal(family['@graph'].length, 2);
+
+  const maxK = graphFor({
+    title: 'Cobra DS-ADAPT MAX vs Cobra DS-ADAPT MAX-K',
+    description: 'Same family.',
+    date: '2026-08-09',
+    category: 'versus',
+    comparisonProducts: [
+      { name: 'Cobra DS-ADAPT MAX', rating: 9.0, pros: ['Forgiving', 'Price'], cons: ['Spin'] },
+      { name: 'Cobra DS-ADAPT MAX-K', rating: 9.2, pros: ['Draw', 'MOI'], cons: ['Look'] },
+    ],
+    featuredImage: '/images/articles/cobra-ds-adapt-max-k-driver.jpg',
+  });
+  assert.equal(maxK['@graph'][1]['@type'], 'Product');
+  assert.equal(maxK['@graph'][1].name, 'Cobra DS-ADAPT MAX-K');
+});
+
+test('built Product JSON-LD fails without a visible absolute image', () => {
+  const image = 'https://www.birdiereport.com/images/articles/callaway-quantum-max-driver-review.png';
+  const page = (product) => `<html><head>
+    <meta property="og:image" content="${image}" />
+  </head><body>
+    <img src="/images/articles/callaway-quantum-max-driver-review.png" alt="Callaway Quantum Max driver" />
+    <script type="application/ld+json">${JSON.stringify(product)}</script>
+  </body></html>`;
+  assert.deepEqual(validateProductImageHtml(page({
+    '@type': 'Product',
+    name: 'Callaway Quantum Max Driver',
+    image,
+  })), []);
+  assert.deepEqual(validateProductImageHtml(page({
+    '@type': 'Product',
+    name: 'Callaway Quantum Max Driver',
+    image: { '@type': 'ImageObject', url: image },
+  })), []);
+  const missing = validateProductImageHtml(page({ '@type': 'Product', name: 'Callaway Quantum Max Driver' }));
+  assert.equal(missing.some((problem) => problem.includes('missing image')), true);
+  const offsite = validateProductImageHtml(page({
+    '@type': 'Product',
+    name: 'Callaway Quantum Max Driver',
+    image: 'https://evil.example/club.jpg',
+  }));
+  assert.equal(offsite.some((problem) => problem.includes('not a visible image') || problem.includes('host')), true);
+  const relative = validateProductImageHtml(page({
+    '@type': 'Product',
+    name: 'Callaway Quantum Max Driver',
+    image: '/images/articles/callaway-quantum-max-driver-review.png',
+  }));
+  assert.equal(relative.some((problem) => problem.includes('absolute https')), true);
 });
 
 test('every published post gets schema.org review data only from fields it has', () => {
   const directory = fileURLToPath(new URL('../src/content/blog/', import.meta.url));
-  const failures = [];
-  for (const file of readdirSync(directory).filter((name) => name.endsWith('.mdx'))) {
+  const files = readdirSync(directory).filter((name) => name.endsWith('.mdx'));
+  const featured = [];
+  const sources = new Map();
+  for (const file of files) {
     const source = readFileSync(join(directory, file), 'utf8');
+    sources.set(file, source);
     const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1];
     const data = parse(frontmatter);
+    if (typeof data.featured_image === 'string') featured.push(data.featured_image);
+  }
+  const stockImages = stockImageUrls(featured);
+  const failures = [];
+  for (const file of files) {
+    const source = sources.get(file);
+    const frontmatterMatch = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    const data = parse(frontmatterMatch[1]);
+    const body = source.slice(frontmatterMatch[0].length);
     const slug = file.replace(/\.mdx$/, '');
-    const graph = buildStructuredData({
+    const imageInput = {
       site,
+      featuredImage: data.featured_image,
+      body,
+      stockImages,
+    };
+    const graph = buildStructuredData({
+      ...imageInput,
       pathname: `/blog/${slug}/`,
       title: data.title,
       description: data.description,
       date: data.date,
       updated: data.updated,
       author: data.author || 'Kyle Reierson',
-      featuredImage: data.featured_image,
       category: data.category,
       rating: data.rating,
       pros: data.pros,
@@ -310,15 +526,52 @@ test('every published post gets schema.org review data only from fields it has',
       : extra?.['@type'] === 'Product'
         ? [extra]
         : [];
+    const siblingNames = ratedScores.map((product) => product.name);
+    const imagedScores = ratedScores.filter((product) => selectProductImage(product.name, imageInput, siblingNames));
     if (ratedScores.length >= 2) {
-      if (extra?.['@type'] !== 'ItemList' || extra.numberOfItems !== ratedScores.length) failures.push(`${slug} itemlist`);
+      if (imagedScores.length >= 2) {
+        if (extra?.['@type'] !== 'ItemList' || extra.numberOfItems !== imagedScores.length) failures.push(`${slug} itemlist`);
+      } else if (imagedScores.length === 1) {
+        if (extra?.['@type'] !== 'Product' || extra.name !== imagedScores[0].name) failures.push(`${slug} imaged product`);
+      } else if (schemaProducts.length) {
+        failures.push(`${slug} imageless product`);
+      }
     }
+    if (slug === 'callaway-quantum-max-driver-review') {
+      const expected = 'https://www.birdiereport.com/images/articles/callaway-quantum-max-driver-review.png';
+      if (extra?.['@type'] !== 'Product' || extra.image !== expected) failures.push('callaway product image');
+      if (extra?.shippingDetails || extra?.hasMerchantReturnPolicy || extra?.seller || extra?.offers?.availability) {
+        failures.push('callaway merchant field');
+      }
+    }
+    const visibleUrls = new Set(visibleImageUrls(imageInput));
+    const allowedHosts = new Set(['www.birdiereport.com', 'birdiereport.com']);
+    for (const url of visibleUrls) {
+      try { allowedHosts.add(new URL(url).hostname); } catch { /* ignore */ }
+    }
+    const stockUrls = new Set(stockImages.flatMap((url) => [url, absoluteImageUrl(site, url)].filter(Boolean)));
     schemaProducts.forEach((product, index) => {
       if (product?.['@type'] !== 'Product' || !visibleNames.has(product.name)) failures.push(`${slug} product name`);
-      if (extra?.['@type'] === 'ItemList') {
+      const listed = extra?.['@type'] === 'ItemList' ? imagedScores[index] : imagedScores.find((entry) => entry.name === product.name);
+      if (extra?.['@type'] === 'ItemList' || ratedScores.length >= 2) {
         if (product?.offers) failures.push(`${slug} list offer`);
-        if (product?.name !== ratedScores[index]?.name) failures.push(`${slug} list name`);
-        if (product?.review?.reviewRating?.ratingValue !== ratedScores[index]?.rating) failures.push(`${slug} list rating`);
+        if (!listed || product?.name !== listed.name) failures.push(`${slug} list name`);
+        if (product?.review?.reviewRating?.ratingValue !== listed?.rating) failures.push(`${slug} list rating`);
+      }
+      const imageUrl = typeof product?.image === 'string'
+        ? product.image
+        : product?.image?.url || product?.image?.contentUrl;
+      if (typeof imageUrl !== 'string' || !/^https:\/\//.test(imageUrl)) failures.push(`${slug} product image`);
+      else {
+        let host = '';
+        try { host = new URL(imageUrl).hostname; } catch { host = ''; }
+        if (!visibleUrls.has(imageUrl)) failures.push(`${slug} image not on page`);
+        if (stockUrls.has(imageUrl) || isNonProductImageHost(host) || (host && !allowedHosts.has(host))) {
+          failures.push(`${slug} image host`);
+        }
+      }
+      if (product?.shippingDetails || product?.hasMerchantReturnPolicy || product?.seller || product?.offers?.availability) {
+        failures.push(`${slug} merchant field`);
       }
       if (product?.offers) {
         const expected = parseUsdPrice(verdict?.price);
@@ -327,8 +580,8 @@ test('every published post gets schema.org review data only from fields it has',
         }
       }
       const allowedNotes = new Set(
-        extra?.['@type'] === 'ItemList'
-          ? [...(ratedScores[index]?.pros || []), ...(ratedScores[index]?.cons || [])]
+        listed && (extra?.['@type'] === 'ItemList' || ratedScores.length >= 2)
+          ? [...(listed.pros || []), ...(listed.cons || [])]
           : [...(verdict?.pros || []), ...(verdict?.cons || []), ...(scores[0]?.pros || []), ...(scores[0]?.cons || [])]
       );
       for (const review of reviewsIn(product)) {

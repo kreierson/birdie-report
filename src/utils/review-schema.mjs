@@ -39,6 +39,219 @@ function absolute(site, value) {
   }
 }
 
+// Reused scenic files (golfer walking, flag, bag) are not product photos.
+// Real product shots on this site are reused at most a handful of times.
+export const STOCK_IMAGE_MIN_POSTS = 8;
+
+const NON_PRODUCT_HOST = /(^|\.)((unsplash|pexels)\.com|youtube\.com|ytimg\.com)$/i;
+
+const GENERIC_IMAGE_WORD = new Set([
+  'golf', 'golfer', 'golfers', 'review', 'reviews', 'best', 'versus', 'comparison',
+  'the', 'and', 'for', 'with', 'from', 'that', 'this', 'your', 'our',
+  'driver', 'drivers', 'iron', 'irons', 'wedge', 'wedges', 'putter', 'putters',
+  'ball', 'balls', 'bag', 'bags', 'shoe', 'shoes', 'glove', 'gloves', 'watch', 'watches',
+  'rangefinder', 'rangefinders', 'hybrid', 'hybrids', 'fairway', 'wood', 'woods',
+  'set', 'sets', 'mens', 'men', 'womens', 'women', 'new', 'left', 'right', 'hand',
+  'steel', 'graphite', 'image', 'images', 'photo', 'photos', 'picture', 'official',
+  'product', 'products', 'club', 'clubs', 'premium', 'edition', 'standard',
+  'black', 'white', 'navy', 'red', 'blue', 'green', 'senior', 'seniors', 'ladies',
+  'sale', 'current', 'price', 'head', 'heads', 'model', 'models', 'shaft', 'grip',
+  'www', 'com', 'jpg', 'jpeg', 'png', 'webp', 'gif', 'svg', 'html',
+  'spikeless', 'spiked', 'limited', 'waterproof', 'stand', 'cart', 'carry',
+]);
+
+// Model words that distinguish one head, ball, or shoe from the next.
+const MODEL_QUALIFIER = new Set([
+  'max', 'mini', 'lite', 'lst', 'ls', 'ltd', 'pro', 'tour', 'fast', 'raw',
+  'td', 'sl', 'slx', 'sft', 'plus', 'soft', 'x', 'k', 'd', 'rx', 'one', 'ai',
+  'db', 'hl',
+]);
+
+export function stockImageUrls(urls) {
+  const counts = new Map();
+  for (const url of urls) {
+    if (typeof url !== 'string' || !url.trim()) continue;
+    const key = url.trim();
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return [...counts].filter(([, count]) => count >= STOCK_IMAGE_MIN_POSTS).map(([url]) => url);
+}
+
+export function absoluteImageUrl(site, value) {
+  if (!hasText(value)) return undefined;
+  try {
+    const url = new URL(value.trim(), site || SITE);
+    if (url.protocol !== 'https:') return undefined;
+    return url.href;
+  } catch {
+    return undefined;
+  }
+}
+
+export function isNonProductImageHost(hostname) {
+  return NON_PRODUCT_HOST.test(hostname || '');
+}
+
+function rawImageTokens(value) {
+  return value.toLowerCase().split(/[^a-z0-9]+/).filter((token) => token && !GENERIC_IMAGE_WORD.has(token));
+}
+
+function requiredImageTokens(name) {
+  const parts = rawImageTokens(name);
+  const picked = [];
+  parts.forEach((token, index) => {
+    const digit = /\d/.test(token);
+    const qualifier = MODEL_QUALIFIER.has(token);
+    const headWord = index < 4 && token.length >= 4 && !digit && !qualifier;
+    if (digit || qualifier || headWord) picked.push(token);
+  });
+  return [...new Set(picked)];
+}
+
+function imageTokenIdentity(tokens) {
+  if (tokens.some((token) => /\d/.test(token) || token.length >= 5)) return true;
+  return tokens.filter((token) => MODEL_QUALIFIER.has(token) || token.length >= 4).length >= 2;
+}
+
+function imageTokenSets(name) {
+  const tokens = requiredImageTokens(name);
+  if (!imageTokenIdentity(tokens)) return [];
+  const sets = [tokens];
+  const [brand, ...rest] = tokens;
+  if (
+    rest.length >= 2
+    && brand
+    && !/\d/.test(brand)
+    && !MODEL_QUALIFIER.has(brand)
+    && brand.length >= 4
+    && imageTokenIdentity(rest)
+  ) {
+    sets.push(rest);
+  }
+  return sets;
+}
+
+function imageBlob(image) {
+  const path = image.url.split('?')[0];
+  let decoded = path;
+  try {
+    decoded = decodeURIComponent(path);
+  } catch {
+    decoded = path;
+  }
+  const text = `${decoded} ${image.alts.join(' ')}`.toLowerCase();
+  return ` ${text.replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim()} `;
+}
+
+function imageBlocked(image, stock) {
+  if (image.alts.some((alt) => /\bcontext\b/i.test(alt))) return true;
+  if (stock.has(image.url.trim())) return true;
+  try {
+    if (isNonProductImageHost(new URL(image.url, SITE).hostname)) return true;
+  } catch {
+    return true;
+  }
+  return false;
+}
+
+function tokenCounts(blob) {
+  const counts = new Map();
+  for (const token of blob.trim().split(/\s+/).filter(Boolean)) {
+    counts.set(token, (counts.get(token) || 0) + 1);
+  }
+  return counts;
+}
+
+function coversTokens(counts, tokens) {
+  return tokens.every((token) => (counts.get(token) || 0) > 0);
+}
+
+function modelTokens(name, tokens) {
+  const brand = rawImageTokens(name)[0];
+  return tokens.filter((token) => token !== brand && (/\d/.test(token) || MODEL_QUALIFIER.has(token) || token.length >= 5));
+}
+
+function depictsProduct(image, name, siblingNames) {
+  const counts = tokenCounts(imageBlob(image));
+  const matched = imageTokenSets(name).find((tokens) => coversTokens(counts, tokens));
+  if (!matched) return false;
+  const mine = modelTokens(name, matched);
+  if (!mine.length) return true;
+  for (const sibling of siblingNames) {
+    const sets = imageTokenSets(sibling);
+    const specific = [...sets].sort((a, b) => b.length - a.length)[0];
+    if (!specific) continue;
+    const theirs = modelTokens(sibling, specific);
+    const extra = theirs.filter((token) => !mine.includes(token));
+    if (!extra.length || !mine.every((token) => theirs.includes(token))) continue;
+    const formed = Math.min(...theirs.map((token) => counts.get(token) || 0));
+    if (formed <= 0) continue;
+    const leftover = mine.every((token) => (counts.get(token) || 0) - formed > 0);
+    if (!leftover) return false;
+  }
+  return true;
+}
+
+function pageImages(input) {
+  const byUrl = new Map();
+  const add = (url, alt, featured) => {
+    if (!hasText(url)) return;
+    const key = url.trim();
+    const caption = typeof alt === 'string' ? alt.trim() : '';
+    const existing = byUrl.get(key);
+    if (existing) {
+      if (caption && !existing.alts.includes(caption)) existing.alts.push(caption);
+      existing.featured = existing.featured || featured;
+      return;
+    }
+    byUrl.set(key, { url: key, alts: caption ? [caption] : [], featured });
+  };
+  add(input.featuredImage, '', true);
+  const body = typeof input.body === 'string' ? input.body : '';
+  for (const match of body.matchAll(/!\[([^\]]*)]\(\s*<?([^)\s>]+)>?/g)) {
+    add(match[2], match[1], false);
+  }
+  for (const tag of body.matchAll(/<img\b[^>]*>/gi)) {
+    const src = tag[0].match(/\bsrc=["']([^"']+)["']/i);
+    const alt = tag[0].match(/\balt=["']([^"']*)["']/i);
+    if (src) add(src[1], alt?.[1] || '', false);
+  }
+  return [...byUrl.values()];
+}
+
+export function visibleImageUrls(input) {
+  const site = input.site || SITE;
+  return pageImages(input)
+    .map((image) => absoluteImageUrl(site, image.url))
+    .filter(Boolean);
+}
+
+function usableImages(input) {
+  const stock = new Set(Array.isArray(input.stockImages) ? input.stockImages.filter(hasText).map((url) => url.trim()) : []);
+  return pageImages(input).filter((image) => !imageBlocked(image, stock));
+}
+
+function chooseProductImage(name, images, siblingNames) {
+  const matches = images.filter((image) => depictsProduct(image, name, siblingNames));
+  if (!matches.length) return null;
+  const exclusive = matches.filter((image) => siblingNames.every((sibling) => !depictsProduct(image, sibling, [])));
+  const pool = exclusive.length ? exclusive : matches;
+  return pool.find((image) => image.featured) || pool[0];
+}
+
+// Absolute URL of a photo that is already on the page and names this product.
+// Stock, context, and lifestyle-host images do not qualify.
+export function selectProductImage(name, input, siblingNames = []) {
+  if (!hasText(name)) return undefined;
+  const productName = name.trim();
+  const others = (Array.isArray(siblingNames) ? siblingNames : [])
+    .filter((entry) => typeof entry === 'string' && entry.trim() && entry.trim() !== productName)
+    .map((entry) => entry.trim());
+  const chosen = chooseProductImage(productName, usableImages(input), others);
+  if (!chosen) return undefined;
+  return absoluteImageUrl(input.site || SITE, chosen.url);
+}
+
 function clean(value) {
   if (Array.isArray(value)) return value.map(clean);
   if (value && typeof value === 'object') {
@@ -159,9 +372,15 @@ function reviewNode(product, input, extras = {}) {
 function productNode(product, input, extras = {}) {
   const review = reviewNode(product, input, extras);
   if (!review || !hasText(product.name)) return null;
+  // Editorial product snippet, not a merchant listing. The image has to be a
+  // product photo already visible on the page. No seller, shipping, returns,
+  // or availability — this site does not sell the club.
+  const image = absoluteImageUrl(input.site || SITE, product.image);
+  if (!image) return null;
   const node = {
     '@type': 'Product',
     name: product.name.trim(),
+    image,
     review,
   };
   const price = parseUsdPrice(product.price);
@@ -247,18 +466,25 @@ export function buildStructuredData(input) {
     },
   });
   const renderedScores = visibleScorecard(input);
+  const schemaInput = { ...input, site };
   let extra;
   if (renderedScores.length >= 2) {
+    const siblingNames = renderedScores.map((product) => product.name);
     const items = renderedScores
       .filter((product) => isRating(product.rating))
-      .map((product) => productNode({ ...product, price: null }, { ...input, site }))
+      .map((product) => {
+        const image = selectProductImage(product.name, schemaInput, siblingNames);
+        if (!image) return null;
+        return productNode({ ...product, price: null, image }, schemaInput);
+      })
       .filter(Boolean);
     if (items.length >= 2) extra = itemListNode(items, input, pageUrl);
     else if (items.length === 1) extra = { ...items[0], '@id': `${pageUrl}#product` };
   } else {
     const single = singleVisibleProduct(input);
-    const node = single
-      ? productNode(single, { ...input, site }, { reviewName: single.reviewName, reviewBody: single.reviewBody })
+    const image = single ? selectProductImage(single.name, schemaInput) : undefined;
+    const node = single && image
+      ? productNode({ ...single, image }, schemaInput, { reviewName: single.reviewName, reviewBody: single.reviewBody })
       : null;
     if (node) extra = { ...node, '@id': `${pageUrl}#product` };
   }
