@@ -13,6 +13,10 @@ const researchCompilations = new Set(['best-golf-gifts.mdx']);
 const allowedReviewBases = new Set(['research-based', 'hands-on', 'hybrid']);
 const pendingOwnerConfirmation = new Set();
 const policy = JSON.parse(readFileSync(join(root, 'data/seo-policy.json'), 'utf8'));
+// Named cited reviews the owner scheduled without a hands-on record. This is
+// not a way to publish an unlisted research review. Each file must stay
+// review_basis research-based.
+const scheduledResearchReviews = new Set(policy.scheduled_research_reviews || []);
 const evidence = JSON.parse(readFileSync(join(root, 'data/hands-on-evidence.json'), 'utf8')).records;
 
 const forbiddenIdentityPatterns = [
@@ -49,8 +53,9 @@ for (const filename of readdirSync(blogDirectory).filter((name) => ['.md', '.mdx
   const isResearchCompilation = researchCompilations.has(filename);
   if (published >= policy.authorized_on) {
     if (policy.paused_categories_for_new_content.includes(category)) errors.push(`${filename}: new ${category} coverage is paused`);
-    if (commercialCategories.has(category) && reviewBasis !== 'hands-on' && !isResearchCompilation) errors.push(`${filename}: new commercial coverage must have supported hands-on evidence`);
+    if (commercialCategories.has(category) && reviewBasis !== 'hands-on' && !isResearchCompilation && !scheduledResearchReviews.has(filename)) errors.push(`${filename}: new commercial coverage must have supported hands-on evidence`);
     if (isResearchCompilation && reviewBasis !== 'research-based') errors.push(`${filename}: research compilation must stay review_basis research-based`);
+    if (scheduledResearchReviews.has(filename) && reviewBasis !== 'research-based') errors.push(`${filename}: scheduled research review must stay review_basis research-based`);
   }
 
   if (reviewBasis && !allowedReviewBases.has(reviewBasis)) {
@@ -74,6 +79,12 @@ for (const filename of readdirSync(blogDirectory).filter((name) => ['.md', '.mdx
     labeledCommercialArticles += 1;
   } else if (!pendingOwnerConfirmation.has(filename)) {
     errors.push(`${filename}: ${category} articles must declare review_basis`);
+  }
+}
+
+for (const filename of scheduledResearchReviews) {
+  if (!statSync(join(blogDirectory, filename), { throwIfNoEntry: false })) {
+    errors.push(`${filename}: scheduled research review is missing`);
   }
 }
 

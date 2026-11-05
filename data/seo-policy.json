@@ -5,6 +5,9 @@
   "max_new_articles_per_week": 1,
   "max_substantial_refreshes_per_week": 2,
   "new_product_review_basis": "hands-on",
+  "scheduled_research_reviews": [
+    "callaway-quantum-max-driver-review.mdx"
+  ],
   "priority_pages": [
     "chrome-soft-vs-chrome-tour",
     "samsung-galaxy-watch-ultra-golf-review",

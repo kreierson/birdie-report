@@ -25,6 +25,16 @@ test('hands-on publication needs a recognized evidence record scoped to the arti
  const missing=validate('hands-on','invented');assert.equal(missing.status,1);assert.match(missing.stderr,/missing or does not support/);
  assert.equal(validate('hands-on','confirmed').status,0);
 });
+test('the scheduled Quantum Max review is the only named research-review exception',()=>{
+ const policy=JSON.parse(readFileSync(new URL('../data/seo-policy.json',import.meta.url),'utf8'));
+ assert.deepEqual(policy.scheduled_research_reviews,['callaway-quantum-max-driver-review.mdx']);
+ const article=readFileSync(new URL('../src/content/blog/callaway-quantum-max-driver-review.mdx',import.meta.url),'utf8');
+ assert.match(article,/^date:\s*2026-11-05$/m);
+ assert.match(article,/^category:\s*"reviews"$/m);
+ assert.match(article,/^review_basis:\s*"research-based"$/m);
+ const validator=readFileSync(new URL('./validate-editorial-trust.mjs',import.meta.url),'utf8');
+ assert.match(validator,/scheduled_research_reviews/);
+});
 test('the gift guide is the only named research compilation',()=>{
  const validator=readFileSync(new URL('./validate-editorial-trust.mjs',import.meta.url),'utf8');
  assert.match(validator,/best-golf-gifts\.mdx/);
