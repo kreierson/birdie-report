@@ -13,7 +13,7 @@
     "validate:verified-asins": "node scripts/validate-verified-asins.mjs",
     "validate:redirects": "node scripts/validate-redirects.mjs",
     "build": "astro build --force",
-    "postbuild": "node scripts/validate-breadcrumbs.mjs && node scripts/validate-affiliate-ctas.mjs --rendered",
+    "postbuild": "node scripts/validate-breadcrumbs.mjs && node scripts/validate-affiliate-ctas.mjs --rendered && node scripts/validate-product-images.mjs",
     "check:images": "python3 scripts/validate-images.py",
     "preview": "astro preview",
     "astro": "astro",
