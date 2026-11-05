@@ -234,7 +234,7 @@ export const bfCategories = [
   {
     id: 'shoes',
     title: 'Shoes',
-    lede: 'Fit beats a weekend price. The shoes guide is hands-on. The walking-shoe guide is the page for a dry, flat round.',
+    lede: 'Fit beats a weekend price. The shoes guide is a research roundup. The walking-shoe guide is the page for a dry, flat round.',
     guides: [
       { href: '/blog/best-golf-shoes-2026/', label: 'golf shoes guide' },
       { href: '/blog/best-golf-shoes-walking-2026/', label: 'walking shoes guide' },
@@ -242,7 +242,7 @@ export const bfCategories = [
     picks: [
       {
         product: 'FootJoy Pro/SL',
-        note: 'The shoes guide’s best overall, from hands-on rounds: support, traction, and walking comfort. Spikeless will not match a spiked shoe in the wet, which is why the Tour360 is the other pick.',
+        note: 'The shoes guide’s best overall, from the published fit case: support, traction, and walking comfort. Spikeless will not match a spiked shoe in the wet, which is why the Tour360 is the other pick.',
         guideHref: '/blog/best-golf-shoes-2026/',
         guideLabel: 'golf shoes guide',
         url: 'https://www.amazon.com/s?k=FootJoy+Pro+SL&tag=birdiereport-20',

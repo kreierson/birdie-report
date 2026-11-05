@@ -1,5 +1,7 @@
 # Editorial Trust Audit — August 19, 2026
 
+**Correction, November 4, 2026.** The "owner confirmation" section below restated first-person testing stories that were already in the articles. Those stories were not supplied test records. `data/hands-on-evidence.json` withdraws every record from that list except the bounded steel-versus-graphite shaft note, which has an allowed excerpt, and the Qi35 iron record already withdrawn because TaylorMade does not sell a Qi35 iron. Articles that lost their record are research-based.
+
 ## Completed without owner input
 
 - Removed the site's universal claims that every product is purchased personally and tested for months.
