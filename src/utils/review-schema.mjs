@@ -231,12 +231,23 @@ function usableImages(input) {
   return pageImages(input).filter((image) => !imageBlocked(image, stock));
 }
 
+function comparisonShot(image) {
+  const blob = `${image.url} ${image.alts.join(' ')}`.toLowerCase();
+  return /(?:^|[^a-z0-9])vs(?:[^a-z0-9]|$)|versus/.test(blob);
+}
+
 function chooseProductImage(name, images, siblingNames) {
   const matches = images.filter((image) => depictsProduct(image, name, siblingNames));
   if (!matches.length) return null;
   const exclusive = matches.filter((image) => siblingNames.every((sibling) => !depictsProduct(image, sibling, [])));
   const pool = exclusive.length ? exclusive : matches;
-  return pool.find((image) => image.featured) || pool[0];
+  // A filename or alt that only compares two products is a weaker depiction.
+  // Use it when it is the only photo that names the product.
+  return [...pool].sort((left, right) => {
+    const comparison = Number(comparisonShot(left)) - Number(comparisonShot(right));
+    if (comparison) return comparison;
+    return Number(right.featured) - Number(left.featured);
+  })[0];
 }
 
 // Absolute URL of a photo that is already on the page and names this product.
@@ -369,28 +380,90 @@ function reviewNode(product, input, extras = {}) {
   return clean(review);
 }
 
+// Longest token first so "Scotty Cameron" wins over a shorter prefix.
+const PRODUCT_BRANDS = [
+  ['scotty cameron', 'Scotty Cameron'],
+  ['galvin green', 'Galvin Green'],
+  ['under armour', 'Under Armour'],
+  ['new balance', 'New Balance'],
+  ['true linkswear', 'True Linkswear'],
+  ['sun mountain', 'Sun Mountain'],
+  ['precision pro', 'Precision Pro'],
+  ['voice caddie', 'Voice Caddie'],
+  ['swing caddie', 'Swing Caddie'],
+  ['blue tees', 'Blue Tees'],
+  ['shot scope', 'Shot Scope'],
+  ['tour edge', 'Tour Edge'],
+  ['full swing', 'Full Swing'],
+  ['golf pride', 'Golf Pride'],
+  ['superstroke', 'SuperStroke'],
+  ['taylormade', 'TaylorMade'],
+  ['taylor made', 'TaylorMade'],
+  ['titleist', 'Titleist'],
+  ['callaway', 'Callaway'],
+  ['bridgestone', 'Bridgestone'],
+  ['flightscope', 'FlightScope'],
+  ['cleveland', 'Cleveland'],
+  ['footjoy', 'FootJoy'],
+  ['foot joy', 'FootJoy'],
+  ['bushnell', 'Bushnell'],
+  ['samsung', 'Samsung'],
+  ['clicgear', 'Clicgear'],
+  ['skytrak', 'SkyTrak'],
+  ['rapsodo', 'Rapsodo'],
+  ['odyssey', 'Odyssey'],
+  ['srixon', 'Srixon'],
+  ['mizuno', 'Mizuno'],
+  ['garmin', 'Garmin'],
+  ['stewart', 'Stewart'],
+  ['vessel', 'Vessel'],
+  ['wilson', 'Wilson'],
+  ['skechers', 'Skechers'],
+  ['cobra', 'Cobra'],
+  ['vice', 'Vice'],
+  ['honma', 'Honma'],
+  ['apple', 'Apple'],
+  ['nike', 'Nike'],
+  ['ping', 'PING'],
+  ['pxg', 'PXG'],
+  ['ecco', 'ECCO'],
+  ['adidas', 'adidas'],
+  ['puma', 'Puma'],
+  ['xxio', 'XXIO'],
+].sort((left, right) => right[0].length - left[0].length);
+
+export function brandFromProductName(name) {
+  if (!hasText(name)) return undefined;
+  const normalized = name.trim().toLowerCase().replace(/[^a-z0-9+]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const match = PRODUCT_BRANDS.find(([token]) => normalized === token || normalized.startsWith(`${token} `));
+  return match?.[1];
+}
+
+function productDescription(input, extras) {
+  if (hasText(extras.reviewBody)) return extras.reviewBody.trim();
+  if (hasText(input.description)) return input.description.trim();
+  return '';
+}
+
 function productNode(product, input, extras = {}) {
   const review = reviewNode(product, input, extras);
   if (!review || !hasText(product.name)) return null;
-  // Editorial product snippet, not a merchant listing. The image has to be a
-  // product photo already visible on the page. No seller, shipping, returns,
-  // or availability — this site does not sell the club.
+  // Editorial Product snippet, not a merchant listing. The photo has to be one
+  // already visible on the page. Price stays in the article. An Offer makes
+  // Google ask for availability, returns, and shipping that this site does not have.
   const image = absoluteImageUrl(input.site || SITE, product.image);
-  if (!image) return null;
+  const description = productDescription(input, extras);
+  if (!image || !description) return null;
+  const name = product.name.trim();
   const node = {
     '@type': 'Product',
-    name: product.name.trim(),
+    name,
+    description,
     image,
     review,
   };
-  const price = parseUsdPrice(product.price);
-  if (price != null) {
-    node.offers = {
-      '@type': 'Offer',
-      price,
-      priceCurrency: 'USD',
-    };
-  }
+  const brand = brandFromProductName(name);
+  if (brand) node.brand = { '@type': 'Brand', name: brand };
   return node;
 }
 

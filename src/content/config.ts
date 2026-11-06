@@ -29,6 +29,7 @@ const blog = defineCollection({
       product: z.string(),
       url: z.string(),
       price: z.string().optional(),
+      image: z.string().optional(),
       retailer: z.string(),
       tracking_id: z.string().optional()
     })).optional(),
@@ -40,6 +41,7 @@ const blog = defineCollection({
       name: z.string(),
       rating: z.number().min(1).max(10).optional(),
       price: z.string().optional(),
+      image: z.string().optional(),
       pros: z.array(z.string()).optional(),
       cons: z.array(z.string()).optional(),
       affiliate_url: z.string(),
@@ -50,6 +52,7 @@ const blog = defineCollection({
       why: z.string().min(1),
       url: z.string().url(),
       retailer: z.string().min(1),
+      image: z.string().optional(),
     })).min(3).max(5).optional(),
     bounty_links: z.array(z.object({
       offer: z.string(),
@@ -62,6 +65,7 @@ const blog = defineCollection({
       name: z.string(),
       rating: z.number(),
       price: z.string(),
+      image: z.string().optional(),
       pros: z.array(z.string()),
       cons: z.array(z.string()),
       affiliate_url: z.string()

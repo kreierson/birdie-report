@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
 import {
   absoluteImageUrl,
+  brandFromProductName,
   buildStructuredData,
   isNonProductImageHost,
   jsonLd,
@@ -76,6 +77,8 @@ test('a rated review becomes one Product review on a 10-point scale', () => {
   assert.equal(article.datePublished, '2026-06-13T00:00:00.000Z');
   assert.equal(product['@type'], 'Product');
   assert.equal(product.name, 'adidas Codechaos 25 Spikeless Golf Shoes');
+  assert.equal(product.description, 'A research-based review of the adidas Codechaos 25.');
+  assert.deepEqual(product.brand, { '@type': 'Brand', name: 'adidas' });
   assert.equal(product.image, 'https://www.birdiereport.com/images/articles/adidas-codechaos-25-spikeless.jpg');
   assert.equal(product.offers, undefined);
   assert.equal(product.shippingDetails, undefined);
@@ -94,7 +97,7 @@ test('a rated review becomes one Product review on a 10-point scale', () => {
   assert.equal(JSON.stringify(graph).includes('reviewCount'), false);
 });
 
-test('one comparison product keeps the visible verdict fields and a single offer price', () => {
+test('one comparison product keeps the visible verdict fields and leaves price off the Product node', () => {
   const graph = graphFor({
     title: 'Cleveland CBX4 ZipCore Wedge Review',
     description: 'Forgiveness and spin.',
@@ -117,11 +120,11 @@ test('one comparison product keeps the visible verdict fields and a single offer
   const product = graph['@graph'][1];
   assert.equal(product['@type'], 'Product');
   assert.equal(product.name, 'Cleveland CBX4 ZipCore Wedge');
+  assert.equal(product.description, 'Forgiveness and spin.');
+  assert.deepEqual(product.brand, { '@type': 'Brand', name: 'Cleveland' });
   assert.equal(product.image, 'https://www.birdiereport.com/images/articles/cleveland-cbx4-zipcore-wedge.jpg');
-  assert.equal(product.offers.price, 129.99);
-  assert.equal(product.offers.priceCurrency, 'USD');
-  assert.equal(product.offers.url, undefined);
-  assert.equal(product.offers.availability, undefined);
+  assert.equal(product.offers, undefined);
+  assert.equal(product.gtin, undefined);
   assert.equal(product.review.positiveNotes.itemListElement[0].name, 'Cavity-back help');
   assert.equal(product.review.negativeNotes.itemListElement[0].name, 'Not a players wedge');
   assert.equal(product.aggregateRating, undefined);
@@ -129,6 +132,7 @@ test('one comparison product keeps the visible verdict fields and a single offer
   assert.equal(serialized.includes('Different list that is not the verdict'), false);
   assert.equal(serialized.includes('Different con'), false);
   assert.equal(serialized.includes('99.99'), false);
+  assert.equal(serialized.includes('129.99'), false);
   assert.equal(serialized.includes('Cleveland CBX4 ZipCore"'), false);
 });
 
@@ -160,6 +164,9 @@ test('best-of and versus guides become an ItemList of reviewed products', () => 
     ['Waterproof', 'Light']
   );
   assert.equal(list.itemListElement[0].item.review.negativeNotes.itemListElement[0].name, 'Pricey');
+  assert.equal(list.itemListElement[0].item.description, 'Stand, cart, and carry bags.');
+  assert.deepEqual(list.itemListElement[0].item.brand, { '@type': 'Brand', name: 'Titleist' });
+  assert.deepEqual(list.itemListElement[1].item.brand, { '@type': 'Brand', name: 'PING' });
   assert.equal(list.itemListElement[0].item.offers, undefined);
   assert.equal(list.itemListElement[1].item.offers, undefined);
   assert.equal(list.itemListElement[1].item.review.positiveNotes, undefined);
@@ -406,23 +413,62 @@ test('comparison products keep a shared photo only when it shows each one', () =
   assert.equal(maxK['@graph'][1].name, 'Cobra DS-ADAPT MAX-K');
 });
 
+test('a dedicated product photo beats a comparison composite of the same product', () => {
+  const clearer = selectProductImage('Garmin Approach R10', {
+    featuredImage: '/images/articles/full-swing-kit-vs-garmin-r10.jpg',
+    body: [
+      '![Full Swing KIT versus Garmin Approach R10](/images/articles/full-swing-kit-vs-garmin-r10.jpg)',
+      '![Garmin Approach R10 launch monitor](https://ph.garmin.com/m/ph/g/products/approach-r10-cf-lg.jpg)',
+    ].join('\n'),
+  });
+  assert.equal(clearer, 'https://ph.garmin.com/m/ph/g/products/approach-r10-cf-lg.jpg');
+
+  const onlyComposite = selectProductImage('Garmin Approach R10 Launch Monitor', {
+    featuredImage: '/images/articles/full-swing-kit-vs-garmin-r10.jpg',
+    body: '![Garmin Approach R10 launch monitor](/images/articles/full-swing-kit-vs-garmin-r10.jpg)',
+  });
+  assert.equal(onlyComposite, 'https://www.birdiereport.com/images/articles/full-swing-kit-vs-garmin-r10.jpg');
+  assert.equal(brandFromProductName('Garmin Approach R10 Launch Monitor'), 'Garmin');
+  assert.equal(brandFromProductName('Qi35 Max Driver'), undefined);
+});
+
 test('built Product JSON-LD fails without a visible absolute image', () => {
   const image = 'https://www.birdiereport.com/images/articles/callaway-quantum-max-driver-review.png';
+  const described = {
+    '@type': 'Product',
+    name: 'Callaway Quantum Max Driver',
+    description: 'The 2026 total-performance head.',
+  };
   const page = (product) => `<html><head>
     <meta property="og:image" content="${image}" />
   </head><body>
     <img src="/images/articles/callaway-quantum-max-driver-review.png" alt="Callaway Quantum Max driver" />
     <script type="application/ld+json">${JSON.stringify(product)}</script>
   </body></html>`;
+  assert.deepEqual(validateProductImageHtml(page({ ...described, image })), []);
   assert.deepEqual(validateProductImageHtml(page({
-    '@type': 'Product',
-    name: 'Callaway Quantum Max Driver',
-    image,
-  })), []);
-  assert.deepEqual(validateProductImageHtml(page({
-    '@type': 'Product',
-    name: 'Callaway Quantum Max Driver',
+    ...described,
     image: { '@type': 'ImageObject', url: image },
+  })), []);
+  const missingDescription = validateProductImageHtml(page({ ...described, description: '  ', image }));
+  assert.equal(missingDescription.some((problem) => problem.includes('description')), true);
+  const bareOffer = validateProductImageHtml(page({
+    ...described,
+    image,
+    offers: { '@type': 'Offer', price: 649.99, priceCurrency: 'USD' },
+  }));
+  assert.equal(bareOffer.some((problem) => problem.includes('availability')), true);
+  assert.equal(bareOffer.some((problem) => problem.includes('url')), true);
+  assert.deepEqual(validateProductImageHtml(page({
+    ...described,
+    image,
+    offers: {
+      '@type': 'Offer',
+      price: 649.99,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: 'https://www.amazon.com/s?k=Callaway+Quantum+Max+Driver',
+    },
   })), []);
   const missing = validateProductImageHtml(page({ '@type': 'Product', name: 'Callaway Quantum Max Driver' }));
   assert.equal(missing.some((problem) => problem.includes('missing image')), true);
@@ -540,8 +586,15 @@ test('every published post gets schema.org review data only from fields it has',
     if (slug === 'callaway-quantum-max-driver-review') {
       const expected = 'https://www.birdiereport.com/images/articles/callaway-quantum-max-driver-review.png';
       if (extra?.['@type'] !== 'Product' || extra.image !== expected) failures.push('callaway product image');
-      if (extra?.shippingDetails || extra?.hasMerchantReturnPolicy || extra?.seller || extra?.offers?.availability) {
+      if (extra?.shippingDetails || extra?.hasMerchantReturnPolicy || extra?.seller || extra?.offers) {
         failures.push('callaway merchant field');
+      }
+    }
+    if (slug === 'garmin-approach-r10-review') {
+      const expected = 'https://www.birdiereport.com/images/articles/full-swing-kit-vs-garmin-r10.jpg';
+      if (extra?.['@type'] !== 'Product' || extra.image !== expected) failures.push('r10 product image');
+      if (extra?.offers || extra?.brand?.name !== 'Garmin' || extra?.description !== data.description) {
+        failures.push('r10 product snippet');
       }
     }
     const visibleUrls = new Set(visibleImageUrls(imageInput));
@@ -570,14 +623,20 @@ test('every published post gets schema.org review data only from fields it has',
           failures.push(`${slug} image host`);
         }
       }
-      if (product?.shippingDetails || product?.hasMerchantReturnPolicy || product?.seller || product?.offers?.availability) {
-        failures.push(`${slug} merchant field`);
+      if (typeof product?.description !== 'string' || product.description !== data.description) {
+        failures.push(`${slug} description`);
       }
-      if (product?.offers) {
-        const expected = parseUsdPrice(verdict?.price);
-        if (expected == null || product.offers.price !== expected || product.offers.url || product.offers.availability) {
-          failures.push(`${slug} offer not visible`);
-        }
+      const expectedBrand = brandFromProductName(product?.name);
+      if (expectedBrand) {
+        if (product?.brand?.['@type'] !== 'Brand' || product.brand.name !== expectedBrand) failures.push(`${slug} brand`);
+      } else if (product?.brand) {
+        failures.push(`${slug} invented brand`);
+      }
+      if (product?.gtin || product?.gtin8 || product?.gtin12 || product?.gtin13 || product?.gtin14 || product?.mpn || product?.sku) {
+        failures.push(`${slug} gtin`);
+      }
+      if (product?.shippingDetails || product?.hasMerchantReturnPolicy || product?.seller || product?.offers) {
+        failures.push(`${slug} merchant field`);
       }
       const allowedNotes = new Set(
         listed && (extra?.['@type'] === 'ItemList' || ratedScores.length >= 2)

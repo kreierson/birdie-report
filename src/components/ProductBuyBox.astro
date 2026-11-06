@@ -1,0 +1,107 @@
+---
+import ProductBuyRow from './ProductBuyRow.astro';
+import { QUICK_PICKS_DISCLOSURE } from '../utils/quick-picks.mjs';
+
+interface Item {
+  product: string;
+  href: string;
+  retailer?: string;
+  image?: string;
+  price?: string;
+  pros?: string[];
+  why?: string;
+  award?: string;
+  rating?: number;
+  cta?: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  placement: string;
+  items: Item[];
+  titleId?: string;
+  ordered?: boolean;
+  numbered?: boolean;
+  class?: string;
+  marker?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  placement,
+  items,
+  titleId = `product-buy-${placement}`,
+  ordered = false,
+  numbered = false,
+  class: className = '',
+  marker,
+} = Astro.props;
+
+---
+
+{items.length > 0 && (
+  <section
+    class:list={[
+      'product-buy-box not-prose border border-forest-200 bg-forest-50 rounded-lg overflow-hidden',
+      marker === 'quick-picks' && 'quick-picks',
+      className,
+    ]}
+    aria-labelledby={titleId}
+    data-quick-picks={marker === 'quick-picks' ? '' : undefined}
+  >
+    <div class="px-4 py-4 sm:px-5 bg-white border-b border-forest-100">
+      <p class="text-xs font-bold uppercase tracking-wide text-forest-700">{eyebrow}</p>
+      <h2 id={titleId} class="text-xl font-display font-bold text-forest-900 leading-tight">{title}</h2>
+      <p class="text-sm text-gray-600 mt-2 leading-snug max-w-2xl">{QUICK_PICKS_DISCLOSURE}</p>
+    </div>
+    {ordered ? (
+      <ol class="list-none m-0 p-0 divide-y divide-forest-100">
+        {items.map((item, index) => (
+          <ProductBuyRow
+            as="li"
+            product={item.product}
+            href={item.href}
+            retailer={item.retailer}
+            placement={placement}
+            image={item.image}
+            price={item.price}
+            pros={item.pros}
+            why={item.why}
+            award={item.award}
+            rating={item.rating}
+            cta={item.cta}
+            rank={numbered ? index + 1 : undefined}
+          />
+        ))}
+      </ol>
+    ) : (
+      <div class="m-0 p-0 divide-y divide-forest-100">
+        {items.map((item, index) => (
+          <ProductBuyRow
+            product={item.product}
+            href={item.href}
+            retailer={item.retailer}
+            placement={placement}
+            image={item.image}
+            price={item.price}
+            pros={item.pros}
+            why={item.why}
+            award={item.award}
+            rating={item.rating}
+            cta={item.cta}
+            rank={numbered ? index + 1 : undefined}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+)}
+
+<style>
+  .product-buy-box a:focus-visible {
+    outline: 3px solid #b8860b;
+    outline-offset: 3px;
+  }
+</style>

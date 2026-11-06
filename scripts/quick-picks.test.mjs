@@ -52,30 +52,45 @@ test('quick picks placement is distinct and the disclosure matches the existing 
   assert.equal(QUICK_PICKS_PLACEMENT, 'quick_picks');
   const layout = read('src/layouts/BlogLayout.astro');
   const component = read('src/components/QuickPicks.astro');
-  assert.ok(layout.includes(QUICK_PICKS_DISCLOSURE));
-  assert.match(component, /rel="nofollow sponsored noopener"/);
-  assert.match(component, /data-affiliate-link="true"/);
-  assert.match(component, /data-placement=\{QUICK_PICKS_PLACEMENT\}/);
+  const box = read('src/components/ProductBuyBox.astro');
+  const row = read('src/components/ProductBuyRow.astro');
+  assert.match(box, /QUICK_PICKS_DISCLOSURE/);
+  assert.match(read('src/utils/quick-picks.mjs'), /Affiliate links may earn us a commission/);
+  assert.match(row, /rel="nofollow sponsored noopener"/);
+  assert.match(row, /data-affiliate-link="true"/);
+  assert.match(row, /data-product=\{product\}/);
+  assert.match(row, /data-retailer=\{retailer\}/);
+  assert.match(row, /data-placement=\{placement\}/);
+  assert.match(component, /placement=\{QUICK_PICKS_PLACEMENT\}/);
   assert.match(component, /Our top picks at a glance/);
-  assert.match(component, /<ol/);
+  assert.match(component, /<ProductBuyBox/);
+  assert.match(box, /<ol/);
   assert.doesNotMatch(component, /<script/);
+  assert.doesNotMatch(row, /<script/);
   assert.match(layout, /quickPicks\.length === 0/);
   assert.match(layout, /normalizeAffiliateUrl/);
-  assert.match(layout, /<QuickPicks picks=\{quickPicks\}/);
+  assert.match(layout, /<QuickPicks picks=\{quickPickCards\}/);
   assert.match(read('src/content/config.ts'), /quick_picks:/);
 });
 
 test('resolver keeps 3 to 5 picks, retailer CTAs, and direct-link failures', () => {
   const resolved = resolveQuickPicks(samplePicks(), { category: 'best' }, helpers);
   assert.equal(resolved.length, 3);
-  assert.equal(resolved[0].cta, 'See options on Amazon');
+  assert.equal(resolved[0].cta, 'Check price on Amazon');
   assert.equal(resolved[0].direct, false);
-  assert.equal(resolved[0].accessibleName, 'See options on Amazon for One (opens in a new tab)');
+  assert.equal(resolved[0].accessibleName, 'Check price on Amazon for One (opens in a new tab)');
 
   const direct = resolveQuickPicks(samplePicks('https://www.amazon.com/dp/B0FKCT6B4K?tag=birdiereport-20'), {}, helpers);
-  assert.equal(direct[0].cta, 'See this product on Amazon');
+  assert.equal(direct[0].cta, 'Check price on Amazon');
   assert.equal(direct[0].direct, true);
-  assert.match(direct[0].accessibleName, /^See this product on Amazon for One /);
+  assert.match(direct[0].accessibleName, /^Check price on Amazon for One /);
+
+  const otherRetailer = resolveQuickPicks([
+    { award: 'Best overall', product: 'One', why: 'Because one.', url: 'https://www.pgatoursuperstore.com/search?q=putter', retailer: 'PGA Tour Superstore' },
+    { award: 'Best value', product: 'Two', why: 'Because two.', url: 'https://www.pgatoursuperstore.com/search?q=putter', retailer: 'PGA Tour Superstore' },
+    { award: 'Best for rain', product: 'Three', why: 'Because three.', url: 'https://www.pgatoursuperstore.com/search?q=putter', retailer: 'PGA Tour Superstore' },
+  ], {}, helpers);
+  assert.equal(otherRetailer[0].cta, 'Check price at PGA Tour Superstore');
 
   assert.deepEqual(resolveQuickPicks(undefined, {}, helpers), []);
   assert.throws(() => resolveQuickPicks(samplePicks().slice(0, 2), {}, helpers), /3 to 5/);
