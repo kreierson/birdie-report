@@ -119,8 +119,16 @@ function allowedHosts(visible) {
   return hosts;
 }
 
-// Problems for one built page. Empty means every Product image is an absolute
-// https URL of a photo already referenced on that page.
+const IN_STOCK = 'https://schema.org/InStock';
+
+function offerList(offers) {
+  if (!offers) return [];
+  return Array.isArray(offers) ? offers : [offers];
+}
+
+// Problems for one built page. Empty means every Product has an absolute https
+// image already shown on the page, a description, and no Offer unless that
+// Offer has availability and a url. Return and shipping policies are rejected.
 export function validateProductImageHtml(html) {
   const parsed = jsonLdBlocks(html);
   if (parsed.error) return [parsed.error];
@@ -132,10 +140,7 @@ export function validateProductImageHtml(html) {
   products.forEach((product, index) => {
     const label = product.name || `product ${index + 1}`;
     const urls = productImageUrls(product.image);
-    if (!urls.length) {
-      problems.push(`${label} Product is missing image`);
-      return;
-    }
+    if (!urls.length) problems.push(`${label} Product is missing image`);
     for (const raw of urls) {
       const url = absoluteHttps(raw);
       if (!url) {
@@ -147,6 +152,21 @@ export function validateProductImageHtml(html) {
       }
       if (!visible.has(url.href)) {
         problems.push(`${label} image is not a visible image on the page`);
+      }
+    }
+    if (typeof product.description !== 'string' || !product.description.trim()) {
+      problems.push(`${label} Product is missing description`);
+    }
+    if (product.hasMerchantReturnPolicy || product.shippingDetails) {
+      problems.push(`${label} Product includes a return or shipping policy`);
+    }
+    for (const offer of offerList(product.offers)) {
+      if (offer?.availability !== IN_STOCK) problems.push(`${label} Offer is missing availability`);
+      if (typeof offer?.url !== 'string' || !/^https:\/\//i.test(offer.url.trim())) {
+        problems.push(`${label} Offer is missing url`);
+      }
+      if (offer?.hasMerchantReturnPolicy || offer?.shippingDetails) {
+        problems.push(`${label} Offer includes a return or shipping policy`);
       }
     }
   });
@@ -196,7 +216,7 @@ function main() {
     if (problems.length > 40) console.error(`- …and ${problems.length - 40} more`);
     process.exit(1);
   }
-  console.log('Product JSON-LD images are absolute and visible on the page.');
+  console.log('Product JSON-LD has an absolute visible image, a description, and no bare Offer.');
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) main();
