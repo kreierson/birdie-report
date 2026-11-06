@@ -1,5 +1,7 @@
 // GA4 affiliate_click placement. Keep this stable so the block can be measured
 // apart from in-article links and the older top shortlist.
+import { priceCheckAccessibleName, priceCheckCta } from './product-buy.mjs';
+
 export const QUICK_PICKS_PLACEMENT = 'quick_picks';
 
 export const QUICK_PICKS_DISCLOSURE = 'Affiliate links may earn us a commission. A direct link opens one verified Amazon product page. A search link opens results. Confirm the model, seller, and current price.';
@@ -13,7 +15,7 @@ function requiredText(pick, field, index) {
 }
 
 export function quickPickCta(pick) {
-  return pick.direct ? `See this product on ${pick.retailer}` : `See options on ${pick.retailer}`;
+  return priceCheckCta(pick?.retailer);
 }
 
 export function resolveQuickPicks(picks, context = {}, deps) {
@@ -34,7 +36,8 @@ export function resolveQuickPicks(picks, context = {}, deps) {
     const url = deps.normalizeAffiliateUrl({ url: sourceUrl, tracking_id: pick.tracking_id }, context);
     const direct = deps.isDirectAmazonProductUrl(url);
     const cta = quickPickCta({ direct, retailer });
-    return {
+    const image = typeof pick.image === 'string' ? pick.image.trim() : '';
+    const resolved = {
       award,
       product,
       why,
@@ -43,7 +46,9 @@ export function resolveQuickPicks(picks, context = {}, deps) {
       direct,
       cta,
       // Visible label must stay inside the accessible name (WCAG 2.5.3).
-      accessibleName: `${cta} for ${product} (opens in a new tab)`,
+      accessibleName: priceCheckAccessibleName(cta, product),
     };
+    if (image) resolved.image = image;
+    return resolved;
   });
 }

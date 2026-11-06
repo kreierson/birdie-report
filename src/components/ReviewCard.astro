@@ -1,4 +1,6 @@
 ---
+import { priceCheckAccessibleName, priceCheckCta } from '../utils/product-buy.mjs';
+
 export interface Props {
   product: string;
   image: string;
@@ -40,6 +42,7 @@ const getRatingColor = (rating: number) => {
 };
 
 const ratingColorClass = getRatingColor(rating);
+const cta = priceCheckCta(retailer);
 ---
 
 <div class={`bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow ${featured ? 'border-2 border-green-300 shadow-md' : ''}`}>
@@ -144,14 +147,11 @@ const ratingColorClass = getRatingColor(rating);
         data-product={product}
         data-retailer={retailer}
         data-placement="review-card"
-        class={`w-full inline-flex items-center justify-center px-4 py-3 text-white text-sm font-semibold rounded-lg transition-colors ${
-          featured 
-            ? 'bg-green-700 hover:bg-green-800' 
-            : 'bg-gray-800 hover:bg-gray-900'
-        }`}
+        aria-label={priceCheckAccessibleName(cta, product)}
+        class="w-full inline-flex min-h-11 items-center justify-center px-4 py-3 bg-gold-500 text-forest-900 text-sm font-bold rounded-lg hover:bg-gold-400 transition-colors"
       >
-        Check Price at {retailer}
-        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        {cta}
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
         </svg>
       </a>

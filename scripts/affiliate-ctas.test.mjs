@@ -55,6 +55,49 @@ test('buyer modules accept the older product frontmatter shapes', () => {
     comparison_products: [{ name: 'Dropped', affiliate_url: 'https://www.amazon.com/s?k=Dropped' }],
   });
   assert.deepEqual(affiliateWins.map((link) => link.product), ['Kept']);
+
+  const enriched = buyerProductsFromContent({
+    affiliate_links: [{
+      product: 'FootJoy HydroTour',
+      url: 'https://www.amazon.com/s?k=FootJoy+HydroTour',
+      retailer: 'Amazon',
+      image: '/images/articles/footjoy-hydrotour.jpg',
+    }],
+    comparison_products: [{
+      name: 'FootJoy HydroTour Rain Jacket',
+      rating: 9.5,
+      price: '$325',
+      pros: ['4-way stretch'],
+      cons: ['Price'],
+      affiliate_url: 'https://www.amazon.com/s?k=ignored',
+    }],
+  });
+  assert.equal(enriched[0].price, '$325');
+  assert.equal(enriched[0].image, '/images/articles/footjoy-hydrotour.jpg');
+  assert.deepEqual(enriched[0].pros, ['4-way stretch']);
+  assert.equal(enriched[0].rating, 9.5);
+
+  const distinct = buyerProductsFromContent({
+    affiliate_links: [{ product: 'Titleist Pro V1', url: 'https://www.amazon.com/s?k=Pro+V1', retailer: 'Amazon', price: '$55' }],
+    comparison_products: [{
+      name: 'Titleist Pro V1x',
+      rating: 9,
+      price: '$57',
+      pros: ['Firmer'],
+      cons: ['Price'],
+      affiliate_url: 'https://www.amazon.com/s?k=Pro+V1x',
+    }],
+  });
+  assert.equal(distinct[0].price, '$55');
+  assert.equal(distinct[0].pros, undefined);
+
+  const singleReview = buyerProductsFromContent({
+    affiliate_links: [{ product: 'Callaway Quantum Max Driver', url: 'https://www.amazon.com/s?k=Quantum', retailer: 'Amazon', price: 'Check current price' }],
+    pros: ['Neutral center of gravity'],
+    rating: 9.1,
+  });
+  assert.deepEqual(singleReview[0].pros, ['Neutral center of gravity']);
+  assert.equal(singleReview[0].rating, 9.1);
 });
 
 test('gear product posts have CTA sources, and the allowlist stays explicit', () => {
@@ -78,10 +121,17 @@ test('gear product posts have CTA sources, and the allowlist stays explicit', ()
   }
 
   const layout = readFileSync(join(root, 'src/layouts/BlogLayout.astro'), 'utf8');
+  const row = readFileSync(join(root, 'src/components/ProductBuyRow.astro'), 'utf8');
   assert.match(layout, /buyerProductsFromContent/);
   assert.match(layout, /'news'/);
-  assert.match(layout, /data-placement="article-top-shortlist"/);
-  assert.match(layout, /data-placement="article-bottom-buy-box"/);
+  assert.match(layout, /placement="article-top-shortlist"/);
+  assert.match(layout, /placement="article-bottom-buy-box"/);
+  assert.match(layout, /retailer: link\.retailer \|\| 'Amazon'/);
+  assert.match(layout, /retailer: cardRetailer\(link\)/);
+  assert.match(row, /data-affiliate-link="true"/);
+  assert.match(row, /data-product=\{product\}/);
+  assert.match(row, /data-retailer=\{retailer\}/);
+  assert.match(row, /data-placement=\{placement\}/);
   const component = readFileSync(join(root, 'src/components/RelatedGuides.astro'), 'utf8');
   assert.match(component, /data-placement=\{RELATED_GUIDES_PLACEMENT\}/);
   assert.equal(component.includes('data-affiliate-link'), false);
