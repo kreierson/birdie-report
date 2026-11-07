@@ -106,7 +106,31 @@
       transport_type: 'beacon',
     });
   }
-  // One delegated handler also covers cards outside BlogLayout and SVG clicks.
+
+  // Internal buying-guide CTAs marked data-guide-link="true". Outbound retailer
+  // links stay affiliate_click. Unmarked header, footer, and editorial links
+  // are ignored. The guide-plan shortlist keeps its own guide_plan_* events.
+  function trackGuide(event) {
+    if (event.type === 'auxclick' && event.button !== 1) return;
+    if (event.type === 'click' && event.button !== 0) return;
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!link || link.dataset?.guideLink !== 'true' || link.dataset.affiliateLink === 'true') return;
+    const url = new URL(link.href, window.location.href);
+    const amazon = url.hostname === 'amazon.com' || url.hostname.endsWith('.amazon.com');
+    if (!['https:', 'http:'].includes(url.protocol) || amazon || url.hostname !== window.location.hostname) return;
+    start({ fetchPriority: 'high' });
+    window.gtag('event', 'guide_click', {
+      guide_name: (link.dataset.guideName || link.textContent || '').trim().slice(0, 100) || 'Buying guide',
+      placement: (link.dataset.placement || '').trim().slice(0, 100) || 'guide-link',
+      link_url: `${url.pathname}${url.search}${url.hash}`,
+      page_path: window.location.pathname,
+      transport_type: 'beacon',
+    });
+  }
+
+  // Delegated handlers also cover cards outside BlogLayout and clicks on nested text or images.
   document.addEventListener('click', track);
   document.addEventListener('auxclick', track);
+  document.addEventListener('click', trackGuide);
+  document.addEventListener('auxclick', trackGuide);
 })();

@@ -2,11 +2,13 @@
 export interface Props {
   title?: string;
   description?: string;
+  placement?: string;
 }
 
 const {
   title = 'Find the right gear for your game',
   description = 'Compare the features that matter, understand the tradeoffs, and narrow your shortlist before you buy.',
+  placement = 'commercial-opportunity',
 } = Astro.props;
 
 const opportunities = [
@@ -46,7 +48,7 @@ const opportunities = [
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {opportunities.map((item) => (
-        <a href={item.href} class="group block bg-white border border-forest-100 rounded-lg p-5 hover:border-gold-400 hover:shadow-md transition-all">
+        <a href={item.href} data-guide-link="true" data-guide-name={item.title} data-placement={placement} class="group block bg-white border border-forest-100 rounded-lg p-5 hover:border-gold-400 hover:shadow-md transition-all">
           <span class="text-sm font-bold uppercase tracking-wide text-gold-700">{item.label}</span>
           <h3 class="text-lg font-display font-bold text-forest-900 mt-2 group-hover:text-forest-700">{item.title}</h3>
           <p class="text-sm text-gray-600 mt-2 leading-relaxed">{item.note}</p>
