@@ -77,7 +77,8 @@ test('sticky nav is opt-in and does not launch itself', () => {
   assert.match(script, /picks_view/);
   assert.match(script, /sticky_nav_click/);
   assert.doesNotMatch(script, /track\('guide_click'/);
-  assert.doesNotMatch(analytics, /guide_click|picks_view|sticky_nav_click/);
+  assert.match(analytics, /gtag\('event', 'guide_click'/);
+  assert.doesNotMatch(analytics, /picks_view|sticky_nav_click/);
 });
 
 test('retailer labels follow direct versus search and prices stay out of the new fields', () => {
