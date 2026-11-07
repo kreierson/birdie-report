@@ -1,0 +1,76 @@
+---
+import { SHORT_DISCLOSURE } from '../utils/guide-template.mjs';
+
+interface Pick {
+  award: string;
+  product: string;
+  why: string;
+  href: string;
+  retailer: string;
+  cta: string;
+  accessibleName: string;
+  placement: string;
+}
+
+interface Props {
+  heading: string;
+  picks: Pick[];
+  jumpLabel: string;
+  slug: string;
+}
+
+const { heading, picks = [], jumpLabel, slug } = Astro.props;
+---
+
+<section
+  id="guide-top-picks"
+  class="guide-picks mb-6 scroll-mt-24 rounded-lg bg-[#F3F6F2] px-4 py-4 text-[#12301C]"
+  aria-labelledby="our-top-picks"
+  data-picks-view
+  data-guide-slug={slug}
+  tabindex="-1"
+>
+  <h2 id="our-top-picks" class="font-display text-2xl font-bold leading-tight" data-guide-toc>{heading}</h2>
+  <p class="mt-2 max-w-2xl text-sm leading-snug">
+    {SHORT_DISCLOSURE}{' '}
+    <a href="/affiliate-disclosure/" class="guide-control font-semibold text-forest-700 underline underline-offset-2">Disclosure<span aria-hidden="true"> ›</span></a>
+  </p>
+  <ol class="mt-3 space-y-3">
+    {picks.map((pick) => (
+      <li class="rounded-lg border border-[#d5e0d4] bg-white p-3">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div class="min-w-0">
+            <p class="text-xs font-bold uppercase tracking-wide text-forest-800">{pick.award}</p>
+            <h3 class="break-words font-bold leading-snug">{pick.product}</h3>
+            {pick.why && <p class="mt-1 text-sm leading-snug text-gray-800">{pick.why}</p>}
+          </div>
+          <a
+            href={pick.href}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            data-affiliate-link="true"
+            data-product={pick.product}
+            data-retailer={pick.retailer}
+            data-placement={pick.placement}
+            aria-label={pick.accessibleName}
+            class="guide-control inline-flex min-h-11 w-full shrink-0 items-center justify-center rounded-md bg-[#1A472A] px-4 text-center text-sm font-bold text-white sm:w-auto sm:min-w-[110px]"
+          >
+            {pick.cta}
+          </a>
+        </div>
+      </li>
+    ))}
+  </ol>
+  {jumpLabel && (
+    <button type="button" class="guide-control mt-3 inline-flex min-h-11 items-center font-bold text-forest-800 underline underline-offset-2" data-guide-jump="compare-at-a-glance">
+      {jumpLabel}<span aria-hidden="true"> ↓</span>
+    </button>
+  )}
+</section>
+
+<style>
+  .guide-control:focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 2px;
+  }
+</style>

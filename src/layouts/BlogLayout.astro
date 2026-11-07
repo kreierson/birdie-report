@@ -6,12 +6,17 @@ import RelatedGuides from '../components/RelatedGuides.astro';
 import { getCollection } from 'astro:content';
 import { selectRelatedPosts } from '../utils/discovery.mjs';
 import QuickPicks from '../components/QuickPicks.astro';
+import GuideByline from '../components/GuideByline.astro';
+import GuideCompare from '../components/GuideCompare.astro';
+import GuideStickyNav from '../components/GuideStickyNav.astro';
+import GuideTopPicks from '../components/GuideTopPicks.astro';
 import ProductBuyBox from '../components/ProductBuyBox.astro';
 import { getAmazonTag, isDirectAmazonProductUrl, normalizeAffiliateLinks, normalizeAffiliateUrl } from '../utils/affiliate';
 import { buyerProductsFromContent } from '../utils/buyer-links.mjs';
 import { imageForBuyer, productNamesMatch } from '../utils/product-buy.mjs';
 import { selectRelatedGuides } from '../utils/related-guides.mjs';
 import { resolveQuickPicks } from '../utils/quick-picks.mjs';
+import { buildGuideModel, formatGuideDate, isBuyerGuide as buyerGuidePage, researchDisclosure } from '../utils/guide-template.mjs';
 import { buildStructuredData, jsonLd, stockImageUrls, visibleScorecard } from '../utils/review-schema.mjs';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { postTrail } from '../utils/breadcrumbs.mjs';
@@ -58,21 +63,11 @@ const relatedGuides = selectRelatedGuides({ slug: currentSlug, title, descriptio
 const isReview = category === 'reviews' || (rating && pros);
 const displayAuthor = author;
 
-const reviewBasisLabels = {
-  'research-based': {
-    title: 'Research-based coverage',
-    description: 'Built from cited manufacturer information, current pricing, published sources, and clearly identified golfer feedback. This article is not presented as a hands-on product test.',
-  },
-  'hands-on': {
-    title: 'Hands-on coverage',
-    description: 'Based on direct use by the named author. The article explains the relevant testing conditions and limits.',
-  },
-  'hybrid': {
-    title: 'Hands-on and research-based coverage',
-    description: 'Combines direct use by the named author with cited product information, current pricing, and other published sources.',
-  },
-} as const;
-const reviewBasis = review_basis ? reviewBasisLabels[review_basis as keyof typeof reviewBasisLabels] : undefined;
+const reviewBasis = researchDisclosure(review_basis);
+const buyerGuide = buyerGuidePage(content);
+const guideModel = buyerGuide ? buildGuideModel({ picks: quickPicks, body, subcategory }) : null;
+const guideDate = updated || date;
+const guideDateLabel = updated ? 'Updated' : 'Published';
 
 const categoryLabels: Record<string, string> = {
   best: 'Best Of',
@@ -136,16 +131,30 @@ const quickPickCards = quickPicks.map((pick) => {
 });
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} image={featured_image}>
+<BaseLayout title={pageTitle} description={pageDescription} image={featured_image} guideTemplate={buyerGuide}>
   <script type="application/ld+json" set:html={jsonLd(schemaMarkup)} />
 
   <Breadcrumbs items={breadcrumbs} />
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+  <div class:list={['max-w-7xl mx-auto px-4 sm:px-6 lg:px-8', buyerGuide ? 'py-4 lg:py-12' : 'py-8 lg:py-12']}>
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
       <!-- Main Article -->
-      <article class="min-w-0">
+      <article class:list={['min-w-0', buyerGuide && 'guide-template']} data-guide-template={buyerGuide ? 'buyer' : undefined}>
         <!-- Header -->
+        {buyerGuide ? (
+          <header class="mb-4">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-black text-forest-900 leading-tight line-clamp-2 sm:line-clamp-none" title={title}>
+              {title}
+            </h1>
+            <GuideByline
+              author={displayAuthor}
+              dateLabel={guideDateLabel}
+              dateText={formatGuideDate(guideDate)}
+              dateISO={guideDate.toISOString()}
+              disclosure={reviewBasis}
+            />
+          </header>
+        ) : (
         <header class="mb-10">
           <div class="flex flex-wrap items-center gap-3 mb-4">
             <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm ${categoryColors[category] || 'bg-gray-600 text-white'}`}>
@@ -200,13 +209,26 @@ const quickPickCards = quickPicks.map((pick) => {
             <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✓'" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors text-sm" title="Copy link">🔗</button>
           </div>
         </header>
+        )}
 
-        {quickPickCards.length > 0 && <QuickPicks picks={quickPickCards} />}
+        {buyerGuide && guideModel?.hasPicks && (
+          <GuideTopPicks
+            heading={guideModel.heading}
+            picks={guideModel.top}
+            jumpLabel={guideModel.jumpLabel}
+            slug={currentSlug}
+          />
+        )}
+        {buyerGuide && guideModel?.hasPicks && (
+          <GuideCompare rows={guideModel.rows} scores={guideScores} />
+        )}
+        {!buyerGuide && quickPickCards.length > 0 && <QuickPicks picks={quickPickCards} />}
 
-        <!-- Featured Image -->
-        <div class="aspect-video w-full mb-10 rounded-lg overflow-hidden">
-          <img src={featured_image} alt={title} class="w-full h-full object-cover" />
-        </div>
+        {!buyerGuide && (
+          <div class="aspect-video w-full mb-10 rounded-lg overflow-hidden">
+            <img src={featured_image} alt={title} class="w-full h-full object-cover" />
+          </div>
+        )}
 
         <!-- Above-the-fold buyer module -->
         {hasBuyerIntent && quickPicks.length === 0 && (
@@ -282,7 +304,18 @@ const quickPickCards = quickPicks.map((pick) => {
           </div>
         )}
 
-        <GuideScorecard products={guideScores} />
+        {!(buyerGuide && guideModel?.hasPicks) && <GuideScorecard products={guideScores} />}
+
+        {buyerGuide && (
+          <>
+            {description && (
+              <p class="text-lg text-gray-600 leading-relaxed mb-6">{description}</p>
+            )}
+            <div class="aspect-video w-full mb-10 rounded-lg overflow-hidden">
+              <img src={featured_image} alt={title} width="1200" height="675" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+            </div>
+          </>
+        )}
 
         <!-- Article Content -->
         <div class="prose prose-lg max-w-none
@@ -298,6 +331,22 @@ const quickPickCards = quickPicks.map((pick) => {
         ">
           <slot />
         </div>
+
+        {buyerGuide && (
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <span id="reading-time" class="text-sm text-gray-600">5 min read</span>
+            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Share:</span>
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, site).toString())}`} target="_blank" rel="noopener" class="w-11 h-11 rounded-full bg-gray-100 hover:bg-blue-100 flex items-center justify-center text-gray-500 hover:text-blue-500 transition-colors" title="Share on X">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span class="sr-only">Share on X (opens in a new tab)</span>
+            </a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, site).toString())}`} target="_blank" rel="noopener" class="w-11 h-11 rounded-full bg-gray-100 hover:bg-blue-100 flex items-center justify-center text-gray-500 hover:text-blue-600 transition-colors" title="Share on Facebook">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <span class="sr-only">Share on Facebook (opens in a new tab)</span>
+            </a>
+            <button type="button" onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✓'" class="w-11 h-11 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors text-sm" title="Copy link">🔗<span class="sr-only">Copy link</span></button>
+          </div>
+        )}
 
         <!-- Tags -->
         {tags && tags.length > 0 && (
@@ -405,11 +454,11 @@ const quickPickCards = quickPicks.map((pick) => {
       </article>
 
       <!-- Sidebar -->
-      <aside class="hidden lg:block space-y-8">
+      <aside class:list={['hidden lg:block', buyerGuide ? 'lg:sticky lg:top-24 lg:self-start' : 'space-y-8']}>
         <!-- Table of Contents -->
-        <div class="sticky top-24">
+        <div class:list={[!buyerGuide && 'sticky top-24']}>
           <div class="bg-gray-50 border border-gray-200 rounded-lg p-5">
-            <h3 class="text-sm font-bold text-forest-900 uppercase tracking-wide mb-3">Table of Contents</h3>
+            <h3 class="text-sm font-bold text-forest-900 uppercase tracking-wide mb-3">{buyerGuide ? 'On this page' : 'Table of Contents'}</h3>
             <nav id="toc" class="space-y-1.5 text-sm">
               <p class="text-gray-400 text-xs">Loading...</p>
             </nav>
@@ -444,7 +493,7 @@ const quickPickCards = quickPicks.map((pick) => {
   <section class="bg-forest-50 border-t border-forest-200 py-12">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col sm:flex-row items-start gap-5">
-        <img src="/images/kyle-reierson.jpg" alt="Kyle Reierson" class="w-16 h-16 rounded-full object-cover flex-shrink-0" />
+        <img src="/images/kyle-reierson.jpg" alt="Kyle Reierson" width="64" height="64" loading="lazy" decoding="async" class="w-16 h-16 rounded-full object-cover flex-shrink-0" />
         <div>
           <h3 class="text-xl font-display font-bold text-forest-900 mb-2"><a href="/about/" class="underline underline-offset-4">{displayAuthor}</a></h3>
           <p class="text-gray-600 text-sm leading-relaxed">
@@ -455,6 +504,9 @@ const quickPickCards = quickPicks.map((pick) => {
       </div>
     </div>
   </section>
+  {buyerGuide && guideModel?.hasPicks && (
+    <GuideStickyNav slug={currentSlug} label={guideModel.navLabel} />
+  )}
 </BaseLayout>
 
 <script define:vars={{ activeAmazonTag }}>
@@ -472,8 +524,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Table of contents
   const toc = document.getElementById('toc');
   const headings = document.querySelectorAll('article .prose h2, article .prose h3');
-  if (toc && headings.length > 0) {
+  const guideHeadings = document.querySelectorAll('[data-guide-toc]');
+  if (toc && (headings.length > 0 || guideHeadings.length > 0)) {
     toc.innerHTML = '';
+    guideHeadings.forEach((heading) => {
+      if (!heading.id) return;
+      const link = document.createElement('a');
+      link.href = `#${heading.id}`;
+      link.textContent = heading.textContent || '';
+      link.className = 'block font-medium text-gray-600 hover:text-forest-700 transition-colors leading-snug';
+      toc.appendChild(link);
+    });
     headings.forEach((heading, i) => {
       const id = heading.id || `heading-${i}`;
       heading.id = id;

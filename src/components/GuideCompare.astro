@@ -1,0 +1,161 @@
+---
+interface Field {
+  label: string;
+  value: string;
+}
+
+interface Row {
+  product: string;
+  bestFor: string;
+  fields: Field[];
+  href: string;
+  retailer: string;
+  cta: string;
+  accessibleName: string;
+  placement: string;
+  reviewHref: string;
+}
+
+interface Score {
+  name: string;
+  rating?: number | null;
+  pros?: string[];
+  cons?: string[];
+}
+
+interface Props {
+  rows: Row[];
+  scores?: Score[];
+}
+
+const { rows = [], scores = [] } = Astro.props;
+const columns = rows[0]?.fields || [];
+---
+
+{rows.length > 0 && (
+  <section id="compare-at-a-glance" class="guide-compare mb-8 scroll-mt-24" aria-labelledby="compare-heading" data-guide-compare tabindex="-1">
+    <h2 id="compare-heading" class="mb-3 font-display text-2xl font-bold text-forest-900" data-guide-toc>Compare at a glance</h2>
+
+    <div class="space-y-3 lg:hidden" data-compare-fields>
+      {rows.map((row) => (
+        <article class="rounded-lg border border-[#d5e0d4] bg-[#F3F6F2] p-3 text-[#12301C]">
+          <h3 class="break-words font-bold leading-snug">{row.product}</h3>
+          <p class="mt-2 text-sm leading-snug"><span class="font-semibold">Best for:</span>{' '}{row.bestFor}</p>
+          {row.fields.map((field) => (
+            <p class="mt-1 text-sm leading-snug"><span class="font-semibold">{field.label}:</span>{' '}{field.value}</p>
+          ))}
+          <a
+            href={row.href}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            data-affiliate-link="true"
+            data-product={row.product}
+            data-retailer={row.retailer}
+            data-placement={row.placement}
+            aria-label={row.accessibleName}
+            class="guide-control mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-[#1A472A] px-4 text-sm font-bold text-white"
+          >
+            {row.cta}
+          </a>
+          {row.reviewHref && (
+            <a href={row.reviewHref} class="guide-control mt-1 inline-flex min-h-11 items-center font-semibold text-forest-800 underline underline-offset-2" aria-label={`Read review of ${row.product}`}>
+              Read review<span aria-hidden="true"> ↓</span>
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+
+    <div class="hidden overflow-x-auto lg:block" data-compare-fields>
+      <table class="w-full border-collapse text-left text-sm">
+        <caption class="sr-only">Compare at a glance</caption>
+        <thead class="bg-[#12301C] text-white">
+          <tr>
+            <th scope="col" class="px-3 py-3 font-semibold">Pick</th>
+            <th scope="col" class="px-3 py-3 font-semibold">Best for</th>
+            {columns.map((column) => (
+              <th scope="col" class="px-3 py-3 font-semibold">{column.label}</th>
+            ))}
+            <th scope="col" class="px-3 py-3 font-semibold">Retailer</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr class="border-b border-[#d5e0d4] align-top">
+              <th scope="row" class="px-3 py-3 font-semibold text-forest-900">
+                <span class="break-words">{row.product}</span>
+                {row.reviewHref && (
+                  <a href={row.reviewHref} class="guide-control mt-1 flex min-h-11 items-center font-semibold text-forest-700 underline underline-offset-2" aria-label={`Read review of ${row.product}`}>
+                    Read review<span aria-hidden="true"> ↓</span>
+                  </a>
+                )}
+              </th>
+              <td class="px-3 py-3 text-gray-800">{row.bestFor}</td>
+              {row.fields.map((field) => (
+                <td class="px-3 py-3 text-gray-800">{field.value}</td>
+              ))}
+              <td class="px-3 py-3">
+                <a
+                  href={row.href}
+                  target="_blank"
+                  rel="nofollow sponsored noopener"
+                  data-affiliate-link="true"
+                  data-product={row.product}
+                  data-retailer={row.retailer}
+                  data-placement={row.placement}
+                  aria-label={row.accessibleName}
+                  class="guide-control inline-flex min-h-11 min-w-[110px] items-center justify-center rounded-md bg-[#1A472A] px-4 text-sm font-bold text-white"
+                >
+                  {row.cta}
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {scores.length > 0 && (
+      <div class="mt-6 border-t border-forest-100 pt-4" data-guide-scores>
+        <h3 id="scores-in-this-guide" class="font-display text-xl font-bold text-forest-900">Scores in this guide</h3>
+        <div class="mt-3 divide-y divide-forest-100">
+          {scores.map((product) => (
+            <div class="py-4">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h4 class="text-lg font-display font-bold text-forest-900">{product.name}</h4>
+                {product.rating && <p class="font-bold text-forest-800">{product.rating}/10</p>}
+              </div>
+              {product.pros && product.pros.length > 0 && (
+                <div class="mt-3">
+                  <h5 class="mb-2 text-sm font-bold uppercase tracking-wide text-forest-700">Pros</h5>
+                  <ul class="space-y-1.5">
+                    {product.pros.map((pro) => (
+                      <li class="flex items-start gap-2 text-sm text-gray-700"><span class="text-forest-500" aria-hidden="true">+</span>{pro}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {product.cons && product.cons.length > 0 && (
+                <div class="mt-3">
+                  <h5 class="mb-2 text-sm font-bold uppercase tracking-wide text-red-600">Cons</h5>
+                  <ul class="space-y-1.5">
+                    {product.cons.map((con) => (
+                      <li class="flex items-start gap-2 text-sm text-gray-700"><span class="text-red-400" aria-hidden="true">−</span>{con}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </section>
+)}
+
+<style>
+  .guide-control:focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 2px;
+  }
+</style>

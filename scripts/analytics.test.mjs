@@ -326,3 +326,25 @@ test('blocked storage still tracks affiliate clicks and does not throw', () => {
   assert.equal(production.scripts.length, 1);
   assert.equal(production.window.dataLayer[1].length, 2);
 });
+
+test('guide_compare reuses affiliate_click and a preview queue is not ingestion', () => {
+  const s = setup('127.0.0.1');
+  const href = 'https://www.amazon.com/s?k=Oakley+Flak&tag=birdiereport-20';
+  s.click(href, {
+    data: { product: 'Oakley Flak 2.0 XL', retailer: 'Amazon', placement: 'guide_compare', affiliateLink: 'true' },
+    text: 'See options on Amazon',
+  });
+  assert.equal(s.scripts.length, 0);
+  assert.equal(s.window.dataLayer.length, 1);
+  assert.equal(s.window.dataLayer[0][1], 'affiliate_click');
+  const hit = s.window.dataLayer[0][2];
+  assert.equal(hit.placement, 'guide_compare');
+  assert.equal(hit.product_name, 'Oakley Flak 2.0 XL');
+  assert.equal(hit.retailer, 'Amazon');
+  assert.equal(hit.transport_type, 'beacon');
+  assert.equal(hit.link_url, href);
+  assert.equal(commands(s.window.dataLayer).filter((name) => name === 'affiliate_click').length, 1);
+  assert.equal(commands(s.window.dataLayer).includes('picks_view'), false);
+  assert.equal(commands(s.window.dataLayer).includes('sticky_nav_click'), false);
+  assert.equal(commands(s.window.dataLayer).includes('guide_click'), false);
+});

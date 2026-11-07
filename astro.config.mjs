@@ -6,6 +6,7 @@ import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import canonicalArticleLinks from './scripts/canonical-article-links.mjs';
+import guideMarkdown from './scripts/guide-markdown.mjs';
 
 const site = 'https://www.birdiereport.com';
 const blogDirectory = new URL('./src/content/blog/', import.meta.url);
@@ -29,7 +30,7 @@ export default defineConfig({
   build: {
     assets: 'br-assets',
   },
-  markdown: { remarkPlugins: [canonicalArticleLinks] },
+  markdown: { remarkPlugins: [canonicalArticleLinks, guideMarkdown] },
   integrations: [
     tailwind(),
     mdx(),
