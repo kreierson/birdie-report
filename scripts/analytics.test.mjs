@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const source = readFileSync(new URL('../public/scripts/analytics.js', import.meta.url), 'utf8');
 const VISIBLE_DELAY_MS = Number(source.match(/const VISIBLE_DELAY_MS = (\d+);/)[1]);
@@ -325,4 +327,165 @@ test('blocked storage still tracks affiliate clicks and does not throw', () => {
   production.human('pointerdown');
   assert.equal(production.scripts.length, 1);
   assert.equal(production.window.dataLayer[1].length, 2);
+});
+
+function events(dataLayer) {
+  return [...dataLayer].filter((entry) => entry[0] === 'event').map((entry) => [entry[1], entry[2]]);
+}
+
+test('guide_click fires once for a marked internal guide and leaves affiliate_click alone', () => {
+  const s = setup();
+  vm.runInContext(source, s.context);
+  s.click('https://127.0.0.1/blog/best-golf-balls-2026/?qa=1#fit', {
+    data: { guideLink: 'true', guideName: '  Best golf balls  ', placement: 'home-buyer-card' },
+    text: 'Best Of Best golf balls',
+  });
+  s.click('https://127.0.0.1/blog/best-drivers-2026/');
+  s.click('https://127.0.0.1/reviews/');
+  s.click('https://127.0.0.1/blog/best-irons-2026/', {
+    data: { guideHref: '/blog/best-irons-2026/', guideTitle: 'Best irons' },
+    text: 'Best irons',
+  });
+  s.click('https://127.0.0.1/blog/best-wedges-2026/', {
+    data: { guideLink: 'true', affiliateLink: 'true', guideName: 'Wedges', placement: 'home-buyer-card', product: 'Wedge' },
+  });
+  s.click(AMAZON, {
+    data: { guideLink: 'true', guideName: 'Should not win', placement: 'home-buyer-card', product: 'KBS Tour', retailer: 'Amazon' },
+  });
+  s.click('https://retailer.example/product', {
+    data: { guideLink: 'true', affiliateLink: 'true', guideName: 'Retailer guide', product: 'Retailer product', retailer: 'Retailer', placement: 'product-card' },
+  });
+  s.click('https://127.0.0.1/best/', {
+    type: 'auxclick',
+    button: 2,
+    data: { guideLink: 'true', guideName: 'Best Of', placement: 'home-pill' },
+  });
+  s.click('https://127.0.0.1/deals/', {
+    type: 'auxclick',
+    button: 1,
+    data: { guideLink: 'true', guideName: 'Deals', placement: 'home-pill' },
+  });
+  s.click('https://127.0.0.1/tools/golf-club-gapping-calculator/', {
+    type: 'click',
+    button: 1,
+    data: { guideLink: 'true', guideName: 'Gapping tool', placement: 'home-pill' },
+  });
+  s.click('https://127.0.0.1/best/', {
+    data: { guideLink: 'true' },
+    text: '   ',
+  });
+
+  assert.equal(s.scripts.length, 0);
+  assert.deepEqual(events(s.window.dataLayer).map(([name]) => name), [
+    'guide_click',
+    'affiliate_click',
+    'affiliate_click',
+    'guide_click',
+    'guide_click',
+  ]);
+  const [primary, amazon, retailer, middle, fallback] = events(s.window.dataLayer);
+  assert.equal(primary[0], 'guide_click');
+  assert.equal(primary[1].guide_name, 'Best golf balls');
+  assert.equal(primary[1].placement, 'home-buyer-card');
+  assert.equal(primary[1].link_url, '/blog/best-golf-balls-2026/?qa=1#fit');
+  assert.equal(primary[1].page_path, '/blog/test/');
+  assert.equal(primary[1].transport_type, 'beacon');
+  assert.equal(primary[1].product_name, undefined);
+  assert.equal(amazon[0], 'affiliate_click');
+  assert.equal(amazon[1].product_name, 'KBS Tour');
+  assert.equal(amazon[1].retailer, 'Amazon');
+  assert.equal(amazon[1].placement, 'home-buyer-card');
+  assert.equal(amazon[1].guide_name, undefined);
+  assert.equal(retailer[0], 'affiliate_click');
+  assert.equal(retailer[1].retailer, 'Retailer');
+  assert.equal(retailer[1].placement, 'product-card');
+  assert.equal(retailer[1].product_name, 'Retailer product');
+  assert.equal(middle[1].guide_name, 'Deals');
+  assert.equal(middle[1].placement, 'home-pill');
+  assert.equal(middle[1].link_url, '/deals/');
+  assert.equal(fallback[1].guide_name, 'Buying guide');
+  assert.equal(fallback[1].placement, 'guide-link');
+  assert.equal(fallback[1].link_url, '/best/');
+
+  const long = setup();
+  long.click('https://127.0.0.1/blog/best-golf-bags-2026/', {
+    data: { guideLink: 'true', guideName: ` ${'A'.repeat(120)} `, placement: ` ${'B'.repeat(120)} ` },
+  });
+  assert.equal(long.window.dataLayer.at(-1)[1], 'guide_click');
+  assert.equal(long.window.dataLayer.at(-1)[2].guide_name.length, 100);
+  assert.equal(long.window.dataLayer.at(-1)[2].placement.length, 100);
+});
+
+test('a guide click on production loads GA before guide_click and keeps guide_plan_view', () => {
+  const s = setup('www.birdiereport.com');
+  s.window.gtag('event', 'guide_plan_view', { experiment_id: 'guide-shortlist-v1', page_path: '/best/' });
+  s.click('https://www.birdiereport.com/blog/best-rangefinders-2026/', {
+    data: { guideLink: 'true', guideName: 'Rangefinders', placement: 'home-opportunity' },
+  });
+  s.advance(VISIBLE_DELAY_MS);
+  assert.equal(s.scripts.length, 1);
+  assert.equal(s.scripts[0].async, true);
+  assert.equal(s.scripts[0].fetchPriority, 'high');
+  assert.equal(s.scripts[0].src, `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`);
+  assert.deepEqual(commands(s.window.dataLayer), ['js', 'config', 'guide_plan_view', 'guide_click']);
+  assert.equal(s.window.dataLayer[2][2].experiment_id, 'guide-shortlist-v1');
+  const hit = s.window.dataLayer.at(-1)[2];
+  assert.equal(hit.guide_name, 'Rangefinders');
+  assert.equal(hit.placement, 'home-opportunity');
+  assert.equal(hit.link_url, '/blog/best-rangefinders-2026/');
+  assert.equal(hit.page_path, '/blog/test/');
+  assert.equal(hit.transport_type, 'beacon');
+  assert.equal(commands(s.window.dataLayer).includes('affiliate_click'), false);
+});
+
+test('marked guide surfaces stay off ordinary nav and the guide-plan widget', () => {
+  const root = fileURLToPath(new URL('..', import.meta.url));
+  const read = (path) => readFileSync(join(root, path), 'utf8');
+  const index = read('src/pages/index.astro');
+  const slice = (start, end) => {
+    const from = index.indexOf(start);
+    const to = index.indexOf(end, from + start.length);
+    assert.ok(from >= 0 && to > from, `${start} → ${end}`);
+    return index.slice(from, to);
+  };
+  const picks = slice("<!-- Editor's Picks", '<!-- Latest Reviews -->');
+  const reviews = slice('<!-- Latest Reviews -->', '<!-- Best Of Guides');
+  const buyer = slice('<!-- Best Of Guides', '<!-- Tips Section');
+  const tips = slice('<!-- Tips Section', '<!-- Deals Strip -->');
+  const deals = slice('<!-- Deals Strip -->', '<!-- Latest Articles');
+  const latest = slice('<!-- Latest Articles', '<!-- Course Guides -->');
+  assert.equal(picks.includes('data-guide-link'), false);
+  assert.match(picks, /placement="home-gear-guides"/);
+  assert.match(buyer, /data-placement="home-buyer-card"/);
+  assert.match(buyer, /data-placement="home-deals-hub"/);
+  assert.match(buyer, /data-placement="home-gift-guide"/);
+  assert.equal(reviews.includes('data-guide-link'), false);
+  assert.equal(tips.includes('data-guide-link'), false);
+  assert.equal(deals.includes('data-guide-link'), false);
+  assert.equal(latest.includes('data-guide-link'), false);
+  assert.match(index, /data-placement=\{heroPost\.data\.category === 'best' \? 'home-hero' : undefined\}/);
+  assert.match(index, /data-placement=\{cat\.guide \? 'home-pill' : undefined\}/);
+  assert.match(index, /placement="home-opportunity"/);
+  assert.match(index, /placement="home-gear-guides"/);
+  assert.match(index, /placement="home-sidebar-guides"/);
+  assert.match(index, /placement="home-cta-guides"/);
+  assert.equal(index.includes("guide: true"), true);
+
+  const layout = read('src/layouts/BaseLayout.astro');
+  assert.equal(layout.includes('data-guide-link'), false);
+  const planner = read('src/components/GuideShortlist.astro');
+  assert.equal(planner.includes('data-guide-link'), false);
+  assert.match(planner, /guide_plan_view/);
+  assert.equal(planner.includes('guide_click'), false);
+  assert.match(read('src/components/RelatedGuides.astro'), /data-guide-link="true"/);
+  assert.match(read('src/components/RelatedGuides.astro'), /data-placement=\{RELATED_GUIDES_PLACEMENT\}/);
+  assert.match(read('src/pages/best/index.astro'), /data-placement="best-archive"/);
+  assert.match(read('src/pages/best/index.astro'), /placement="best-opportunity"/);
+  assert.match(read('src/pages/deals/index.astro'), /data-placement="deals-hub"/);
+  assert.match(read('src/pages/deals/index.astro'), /placement="deals-opportunity"/);
+  assert.match(read('src/pages/deals/black-friday-golf-deals.astro'), /bf-hub-guide/);
+  assert.match(read('src/pages/tools/index.astro'), /data-placement="tools-calculator"/);
+  assert.match(read('src/layouts/BlogLayout.astro'), /placement="article-gear-guides"/);
+  assert.match(source, /gtag\('event', 'guide_click'/);
+  assert.equal(source.includes("gtag('event', 'guide_plan"), false);
 });

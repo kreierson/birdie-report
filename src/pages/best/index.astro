@@ -74,6 +74,7 @@ function formatDate(date: Date) {
   <CommercialOpportunityPanel
     title="Choose gear around the way you play"
     description="Compare options by fit, features, and budget. Each guide explains its research or hands-on basis."
+    placement="best-opportunity"
   />
 
   <GuideShortlist guides={categories.filter(cat => subcategoryMap[cat.key]).map(cat => ({
@@ -91,6 +92,9 @@ function formatDate(date: Date) {
         {categories.map(cat => (
           <a 
             href={subcategoryMap[cat.key] ? `/blog/${subcategoryMap[cat.key].slug}/` : '/best/'}
+            data-guide-link="true"
+            data-guide-name={cat.name}
+            data-placement="best-archive"
             class="text-center p-3 rounded-lg border bg-white border-gray-200 hover:border-gold-400 transition-all hover:shadow-md"
           >
             <div class="text-2xl mb-1">{cat.icon}</div>
@@ -98,7 +102,7 @@ function formatDate(date: Date) {
           </a>
         ))}
       </div>
-      <p class="mt-4 text-sm text-gray-600 max-w-3xl">Buying a gift? The <a href="/blog/best-golf-gifts/" class="font-semibold text-forest-800 underline underline-offset-2">2026 golf gift guide</a> groups published picks from stocking stuffers through the splurge tier. Not sure which club is missing? The <a href="/tools/golf-club-gapping-calculator/" class="font-semibold text-forest-800 underline underline-offset-2">golf club gapping calculator</a> estimates carry gaps from one distance you already know.</p>
+      <p class="mt-4 text-sm text-gray-600 max-w-3xl">Buying a gift? The <a href="/blog/best-golf-gifts/" data-guide-link="true" data-guide-name="2026 golf gift guide" data-placement="best-archive" class="font-semibold text-forest-800 underline underline-offset-2">2026 golf gift guide</a> groups published picks from stocking stuffers through the splurge tier. Not sure which club is missing? The <a href="/tools/golf-club-gapping-calculator/" data-guide-link="true" data-guide-name="Golf club gapping calculator" data-placement="best-archive" class="font-semibold text-forest-800 underline underline-offset-2">golf club gapping calculator</a> estimates carry gaps from one distance you already know.</p>
     </div>
   </section>
 
@@ -111,7 +115,7 @@ function formatDate(date: Date) {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {bestPosts.map((post, i) => (
           <article class={`group ${i === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}>
-            <a href={`/blog/${post.slug}/`} class="block relative overflow-hidden rounded-lg mb-3">
+            <a href={`/blog/${post.slug}/`} data-guide-link="true" data-guide-name={post.data.title} data-placement="best-archive" class="block relative overflow-hidden rounded-lg mb-3">
               <img 
                 src={post.data.featured_image} 
                 alt={post.data.title}
@@ -124,7 +128,7 @@ function formatDate(date: Date) {
             </a>
             <div>
               <h3 class={`font-semibold text-gray-900 leading-snug line-clamp-2 ${i === 0 ? 'text-xl md:text-2xl font-display' : 'text-base'}`}>
-                <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">
+                <a href={`/blog/${post.slug}/`} data-guide-link="true" data-guide-name={post.data.title} data-placement="best-archive" class="hover:text-forest-700 transition-colors">
                   {post.data.title}
                 </a>
               </h3>
