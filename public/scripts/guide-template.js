@@ -23,11 +23,10 @@
     return 'desktop';
   }
 
+  // Half of the picks panel itself. A panel taller than the viewport can
+  // never reach this ratio, so covering half the screen is not enough.
   function halfVisible(entry) {
-    if (entry.intersectionRatio >= 0.5) return true;
-    const viewport = entry.rootBounds?.height || window.innerHeight || 0;
-    const tall = viewport > 0 && entry.boundingClientRect.height > viewport;
-    return tall && entry.intersectionRect.height >= viewport * 0.5;
+    return Number(entry?.intersectionRatio) >= 0.5;
   }
 
   const picks = document.querySelector('[data-picks-view]');

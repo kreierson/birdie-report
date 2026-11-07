@@ -28,6 +28,7 @@ export const REVIEW_BASIS = {
 
 const PRODUCT_PATH = /\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})(?![A-Z0-9])/i;
 const PRICE_TEXT = /\$\s*\d|\bapprox\.?\b/i;
+const UNKNOWN_SOURCE = /^(?:n\/?a|unknown|tbd|not (?:stated|listed|available|published|specified|disclosed|provided)(?:\s+.*)?|[—–-])$/i;
 
 export function isBuyerGuide(content) {
   return content?.category === 'best';
@@ -88,9 +89,16 @@ function cleanText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
+/** A published disagreement, such as "Conflicting figures*", is not an unknown. */
+export function isDocumentedConflict(value) {
+  return /\bconflicts?\b|\bconflicting\b/i.test(cleanText(value));
+}
+
 export function publishedField(value) {
   const text = cleanText(value);
   if (!text || containsPriceText(text)) return NOT_LISTED;
+  if (isDocumentedConflict(text)) return text;
+  if (UNKNOWN_SOURCE.test(text)) return NOT_LISTED;
   return text;
 }
 

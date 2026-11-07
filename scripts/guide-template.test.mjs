@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
@@ -14,6 +14,7 @@ import {
   guideRetailerCta,
   inspectRetailerUrl,
   isBuyerGuide,
+  markdownHeadings,
   researchDisclosure,
   stickyNavRequested,
   topPicksHeading,
@@ -119,7 +120,7 @@ test('static retailer checks do not fetch and do not treat an unverified ASIN as
 });
 
 test('cart bags use the published weight and divider cells, not the price column', () => {
-  const { model } = modelFor('best-golf-cart-bags-2026');
+  const { model, page } = modelFor('best-golf-cart-bags-2026');
   assert.equal(model.top.length, 3);
   assert.equal(model.rows.length, 5);
   assert.equal(model.jumpLabel, 'Compare all 5 picks');
@@ -132,9 +133,12 @@ test('cart bags use the published weight and divider cells, not the price column
   assert.equal(titleist.cta, 'Check Amazon');
   assert.match(titleist.accessibleName, /Check Amazon for Titleist Cart 14 \(opens in a new tab\)/);
   const callaway = model.rows.find((row) => row.product === 'Callaway Quantum ORG 14');
-  assert.equal(field(callaway, 'Published empty weight'), 'Not stated on cited page');
+  assert.equal(field(callaway, 'Published empty weight'), 'Not listed');
+  assert.match(page.body, /Not stated on cited page/);
   const taylor = model.rows.find((row) => row.product === 'TaylorMade Cart Lite');
   assert.equal(field(taylor, 'Published empty weight'), 'Conflicting figures*');
+  assert.match(page.body, /Conflicting figures\*/);
+  assert.match(page.body, /5 pounds in its description and 5\.5 pounds/);
   for (const row of model.rows) {
     assert.equal(containsPriceText(JSON.stringify(row.fields)), false);
     assert.equal(containsPriceText(row.bestFor), false);
@@ -222,6 +226,52 @@ test('missing, empty, short, and price-bearing sources do not get invented value
   assert.equal(editorialPrice.rows[0].fields[0].value, 'Not listed');
   assert.match(editorialPrice.rows[0].accessibleName, /Long Name Sunglasses With A Very Wide Frame Description/);
   assert.equal(editorialPrice.top[0].cta, 'See options on Amazon');
+});
+
+test('every best guide keeps sourced comparison fields and does not invent a second spec', () => {
+  const files = readdirSync(join(root, 'src/content/blog')).filter((name) => name.endsWith('.mdx'));
+  const problems = [];
+  let checked = 0;
+  for (const file of files) {
+    const slug = file.replace(/\.mdx$/, '');
+    const page = article(slug);
+    if (page.data.category !== 'best') continue;
+    checked += 1;
+    const picks = page.data.quick_picks
+      ? resolveQuickPicks(page.data.quick_picks, { category: 'best', subcategory: page.data.subcategory }, helpers)
+      : [];
+    const model = buildGuideModel({ picks, body: page.body, subcategory: page.data.subcategory });
+    const allowed = {
+      bags: ['Published empty weight', 'Dividers'],
+      drivers: ['Swing speed'],
+      irons: ["Who it's for"],
+      editorial: ['Our take'],
+    }[model.fieldMode];
+    const sources = [page.body, ...picks.flatMap((pick) => [pick.award, pick.why, pick.product])].join('\n').replace(/\s+/g, ' ');
+    const headingIds = new Set(markdownHeadings(page.body).map((heading) => heading.id));
+    if (Boolean(page.data.quick_picks) !== model.hasPicks) problems.push(`${slug}: picks gate mismatch`);
+    for (const row of model.rows) {
+      const labels = row.fields.map((item) => item.label);
+      if (labels.join('|') !== allowed.join('|')) problems.push(`${slug}: ${row.product} fields ${labels.join('|')}`);
+      for (const item of row.fields) {
+        if (item.value === 'Not listed') continue;
+        if (!sources.includes(item.value)) problems.push(`${slug}: unsourced ${item.label} for ${row.product}: ${item.value}`);
+        if (/Not stated on cited page|Approx\.|\$\s*\d/.test(item.value)) {
+          problems.push(`${slug}: ${row.product} shows ${item.value} in ${item.label}`);
+        }
+      }
+      if (row.reviewHref && !headingIds.has(row.reviewHref.slice(1))) {
+        problems.push(`${slug}: missing heading ${row.reviewHref}`);
+      }
+    }
+    for (const pick of model.top) {
+      if (/Approx\.|\$\s*\d/.test(`${pick.award} ${pick.why}`)) {
+        problems.push(`${slug}: top pick shows a price for ${pick.product}`);
+      }
+    }
+  }
+  assert.ok(checked >= 40, `expected every category:best guide, checked ${checked}`);
+  assert.deepEqual(problems, []);
 });
 
 test('picks_view fires once at half visibility and sticky_nav_click stays on the test arm', () => {
@@ -324,7 +374,14 @@ test('picks_view fires once at half visibility and sticky_nav_click stays on the
     intersectionRect: { height: 168 },
     rootBounds: { height: 812 },
   }]);
+  picksObserver.callback([{
+    intersectionRatio: 0.25,
+    boundingClientRect: { height: 2000, top: 0, bottom: 2000 },
+    intersectionRect: { height: 500 },
+    rootBounds: { height: 812 },
+  }]);
   assert.equal(plain.window.dataLayer.length, 0);
+  assert.doesNotMatch(source, /rootBounds/);
   picksObserver.callback([{
     intersectionRatio: 0.5,
     boundingClientRect: { height: 420, top: 180, bottom: 600 },

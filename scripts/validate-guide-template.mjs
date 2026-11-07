@@ -220,7 +220,18 @@ function main() {
   if (home.includes('data-picks-view') || home.includes('guide_compare')) {
     problems.push('homepage: buyer-guide template leaked onto the homepage');
   }
-  for (const slug of REPRESENTATIVE_GUIDES) {
+  const bestSlugs = readdirSync(join(root, 'src/content/blog'))
+    .filter((name) => name.endsWith('.mdx'))
+    .map((name) => name.slice(0, -'.mdx'.length))
+    .filter((slug) => {
+      try {
+        return loadPage(root, slug).data.category === 'best';
+      } catch {
+        return false;
+      }
+    });
+  if (bestSlugs.length < 40) problems.push(`expected every category:best guide, found ${bestSlugs.length}`);
+  for (const slug of bestSlugs) {
     const html = pages.get(slug);
     if (!html) {
       problems.push(`${slug}: page was not built`);
@@ -234,8 +245,11 @@ function main() {
   const bagFields = between(bags, 'data-compare-fields', 'data-compare-fields');
   if (bagFields.includes('$330')) problems.push('best-golf-cart-bags-2026: comparison copied the manufacturer price');
   if (!bags.includes('$330')) problems.push('best-golf-cart-bags-2026: body price table was removed');
+  if (!bags.includes('Not stated on cited page')) problems.push('best-golf-cart-bags-2026: source footnote was removed');
+  if (!bags.includes('Conflicting figures*')) problems.push('best-golf-cart-bags-2026: documented weight conflict was removed');
+  if (bagFields.includes('Not stated on cited page')) problems.push('best-golf-cart-bags-2026: unknown weight was not shown as Not listed');
   if (!problems.length) {
-    console.log(`Guide template check passed for ${REPRESENTATIVE_GUIDES.length} representative guides.`);
+    console.log(`Guide template check passed for ${bestSlugs.length} category:best guides.`);
     return;
   }
   console.error(`Guide template check failed (${problems.length}):`);
