@@ -21,6 +21,15 @@ const breadcrumbs = sectionTrail('deals', {
 });
 const jsonLd = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
 
+function guideClickAttrs(href: string, name: string) {
+  if (!href.startsWith('/blog/best-') && !href.startsWith('/tools/')) return {};
+  return {
+    'data-guide-link': 'true',
+    'data-guide-name': name,
+    'data-placement': 'bf-hub-guide',
+  };
+}
+
 const published = new Date('2026-11-02T00:00:00Z');
 const publishedLabel = published.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -54,7 +63,7 @@ const publishedLabel = published.toLocaleDateString('en-US', {
         This URL stays the same each year. The year in the title is the season we are covering. Nothing below is a weekend price we checked, and nothing here is a historical low. There is no countdown. A "see options" button opens Amazon search. A "see this product" button opens one verified product page. Confirm the model, the seller, and today's price either way. We may earn a commission if you buy through those links. The longer version is the <a class="font-semibold text-forest-800 underline underline-offset-2" href="/affiliate-disclosure/">affiliate disclosure</a>.
       </p>
       <p class="mt-4 text-base leading-relaxed text-gray-800">
-        Shopping by budget instead of by club? The <a class="font-semibold text-forest-800 underline underline-offset-2" href="/blog/best-golf-gifts/">2026 golf gift guide</a> sorts gear this site already covers from stocking stuffers through the splurge tier. The dated posts on the <a class="font-semibold text-forest-800 underline underline-offset-2" href="/deals/">deals archive</a> are old checks. When their date has passed, they are marked expired. This hub does not send you to them.
+        Shopping by budget instead of by club? The <a class="font-semibold text-forest-800 underline underline-offset-2" href="/blog/best-golf-gifts/" {...guideClickAttrs('/blog/best-golf-gifts/', '2026 golf gift guide')}>2026 golf gift guide</a> sorts gear this site already covers from stocking stuffers through the splurge tier. The dated posts on the <a class="font-semibold text-forest-800 underline underline-offset-2" href="/deals/">deals archive</a> are old checks. When their date has passed, they are marked expired. This hub does not send you to them.
       </p>
 
       <nav aria-label="On this page" class="mt-8 rounded-lg border border-forest-100 bg-forest-50 p-4">
@@ -108,7 +117,7 @@ const publishedLabel = published.toLocaleDateString('en-US', {
             {category.guides.map((guide, index) => (
               <>
                 {index === 0 ? 'Start with the ' : index === category.guides.length - 1 ? ', and the ' : ', the '}
-                <a class="font-semibold text-forest-800 underline underline-offset-2" href={guide.href}>{guide.label}</a>
+                <a class="font-semibold text-forest-800 underline underline-offset-2" href={guide.href} {...guideClickAttrs(guide.href, guide.label)}>{guide.label}</a>
               </>
             ))}
             .
@@ -119,11 +128,11 @@ const publishedLabel = published.toLocaleDateString('en-US', {
                 <h3 class="text-xl font-bold text-gray-950">{pick.product}</h3>
                 <p class="mt-2 text-base leading-relaxed text-gray-800">{pick.note}</p>
                 <p class="mt-2 text-sm leading-relaxed text-gray-700">
-                  Read the <a class="font-semibold text-forest-800 underline underline-offset-2" href={pick.guideHref}>{pick.guideLabel}</a>
+                  Read the <a class="font-semibold text-forest-800 underline underline-offset-2" href={pick.guideHref} {...guideClickAttrs(pick.guideHref, pick.guideLabel)}>{pick.guideLabel}</a>
                   {pick.also?.map((link, index) => (
                     <>
                       {index === pick.also.length - 1 ? ' and the ' : ', the '}
-                      <a class="font-semibold text-forest-800 underline underline-offset-2" href={link.href}>{link.label}</a>
+                      <a class="font-semibold text-forest-800 underline underline-offset-2" href={link.href} {...guideClickAttrs(link.href, link.label)}>{link.label}</a>
                     </>
                   ))}
                   .
