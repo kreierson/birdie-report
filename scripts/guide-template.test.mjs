@@ -493,6 +493,74 @@ test('picks_view fires once at half visibility and sticky_nav_click stays on the
   assert.equal(events.includes('guide_click'), false);
 });
 
+test('the guide photo waits until it is near the screen', () => {
+  const layout = read('src/layouts/BlogLayout.astro');
+  const hero = layout.slice(layout.indexOf('data-guide-hero-pending'), layout.indexOf('</noscript>') + '</noscript>'.length);
+  assert.match(hero, /data-src=\{featured_image\}/);
+  assert.match(hero, /data-guide-hero/);
+  const eager = hero.slice(0, hero.indexOf('<noscript>'));
+  assert.doesNotMatch(eager, /(?<![\w-])src=\{featured_image\}/);
+  assert.match(hero, /<noscript>[\s\S]*src=\{featured_image\}/);
+  const base = read('src/layouts/BaseLayout.astro');
+  assert.match(base, /guideTemplate && 'no-js'/);
+  assert.match(base, /document\.documentElement\.classList\.remove\('no-js'\)/);
+  assert.match(base, /\.no-js \[data-guide-hero-pending\]\{display:none\}/);
+  const source = read('public/scripts/guide-template.js');
+  assert.match(source, /rootMargin: '160px 0px'/);
+  const photo = 'https://images.unsplash.com/photo-1724889753195-908ce4b5ab2f?w=1200&q=80';
+  function run(withObserver, intersecting) {
+    const img = {
+      attrs: { 'data-src': photo, 'data-guide-hero': '' },
+      src: 'data:image/gif;base64,placeholder',
+      getAttribute: (name) => img.attrs[name] ?? null,
+      removeAttribute: (name) => { delete img.attrs[name]; },
+    };
+    const observers = [];
+    class IntersectionObserver {
+      constructor(callback, options) {
+        this.callback = callback;
+        this.options = options;
+        observers.push(this);
+      }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    }
+    const context = {
+      window: {
+        location: { search: '', hostname: '127.0.0.1' },
+        innerWidth: 375,
+        dataLayer: [],
+        matchMedia: () => ({ matches: false }),
+      },
+      document: {
+        querySelector: () => null,
+        querySelectorAll: (selector) => (selector === 'img[data-guide-hero][data-src]' ? [img] : []),
+        getElementById: () => null,
+        addEventListener() {},
+      },
+      URLSearchParams,
+    };
+    if (withObserver) context.IntersectionObserver = IntersectionObserver;
+    vm.runInContext(source, vm.createContext(context));
+    if (withObserver) {
+      assert.equal(observers.length, 1);
+      assert.equal(observers[0].options.rootMargin, '160px 0px');
+      observers[0].callback([{ isIntersecting: intersecting, target: img }]);
+      assert.equal(context.window.dataLayer.length, 0);
+    }
+    return img;
+  }
+  const waiting = run(true, false);
+  assert.equal(waiting.src, 'data:image/gif;base64,placeholder');
+  assert.equal(waiting.attrs['data-src'], photo);
+  const shown = run(true, true);
+  assert.equal(shown.src, photo);
+  assert.equal(shown.attrs['data-src'], undefined);
+  const immediate = run(false, false);
+  assert.equal(immediate.src, photo);
+});
+
 test('smart quotes and a percent-encoded search URL still count as the same heading and link', () => {
   const heading = `3. Nike Air Zoom Infinity Tour NEXT% — The Athlete's Choice`;
   const rendered = `3. Nike Air Zoom Infinity Tour NEXT% — The Athlete\u2019s Choice`;

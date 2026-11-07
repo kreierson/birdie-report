@@ -165,6 +165,24 @@ export function guideRenderProblems(slug, html, page) {
   } else if (html.includes('data-picks-view') || html.includes('data-guide-compare')) {
     problems.push(`${slug}: empty quick picks rendered a picks or compare box`);
   }
+  if (data.category === 'best' && data.featured_image) {
+    const escaped = String(data.featured_image).replace(/&/g, '&amp;');
+    const tag = html.match(/<img\b[^>]*data-guide-hero[^>]*>/i);
+    if (!tag) problems.push(`${slug}: guide photo is not deferred`);
+    else if (tag[0].includes(` src="${escaped}"`) || tag[0].includes(` src="${data.featured_image}"`)) {
+      problems.push(`${slug}: guide photo downloads with the first screen`);
+    }
+    if (!html.includes(`data-src="${escaped}"`) && !html.includes(`data-src="${data.featured_image}"`)) {
+      problems.push(`${slug}: guide photo address was removed`);
+    }
+    const noscript = html.match(/<noscript>[\s\S]*?<\/noscript>/i)?.[0] || '';
+    if (!noscript.includes(`src="${escaped}"`) && !noscript.includes(`src="${data.featured_image}"`)) {
+      problems.push(`${slug}: guide photo is missing for browsers without JavaScript`);
+    }
+    if (!/<html\b[^>]*\bno-js\b/.test(html) || !html.includes(".no-js [data-guide-hero-pending]{display:none}") || !html.includes("document.documentElement.classList.remove('no-js')")) {
+      problems.push(`${slug}: browsers without JavaScript still show the empty photo frame`);
+    }
+  }
 
   if (data.affiliate_links || data.comparison_products || data.quick_picks) {
     if (!html.includes('data-placement="article-bottom-buy-box"')) problems.push(`${slug}: bottom buy box missing`);

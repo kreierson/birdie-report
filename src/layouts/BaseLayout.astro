@@ -29,8 +29,9 @@ const navItems = [
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class:list={['h-full', guideTemplate && 'no-js']}>
   <head>
+    {guideTemplate && <script is:inline>document.documentElement.classList.remove('no-js')</script>}
     <script is:inline src="/scripts/analytics.js" defer></script>
     {guideTemplate && <script is:inline src="/scripts/guide-template.js" defer></script>}
     <meta charset="UTF-8" />
@@ -87,6 +88,7 @@ const navItems = [
       body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
       main { overflow-wrap: anywhere; }
       footer { padding-bottom: env(safe-area-inset-bottom); }
+      .no-js [data-guide-hero-pending]{display:none}
       a:focus-visible, button:focus-visible { outline: 3px solid #b8860b; outline-offset: 3px; }
     </style>
   </head>

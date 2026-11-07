@@ -311,9 +311,21 @@ const quickPickCards = quickPicks.map((pick) => {
             {description && (
               <p class="text-lg text-gray-600 leading-relaxed mb-6">{description}</p>
             )}
-            <div class="aspect-video w-full mb-10 rounded-lg overflow-hidden">
-              <img src={featured_image} alt={title} width="1200" height="675" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <div class="aspect-video mb-10 w-full overflow-hidden rounded-lg bg-gray-100" data-guide-hero-pending>
+              <img
+                src="/images/guide-photo-placeholder.gif"
+                data-src={featured_image}
+                alt={title}
+                width="1200"
+                height="675"
+                class="h-full w-full object-cover"
+                decoding="async"
+                data-guide-hero
+              />
             </div>
+            <noscript>
+              <img src={featured_image} alt={title} width="1200" height="675" class="mb-10 aspect-video w-full rounded-lg object-cover" />
+            </noscript>
           </>
         )}
 

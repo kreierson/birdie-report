@@ -58,6 +58,33 @@
     }
   }
 
+  // Native lazy loading still fetches an image within roughly a viewport of
+  // the screen. The guide photo sits below the picks, so hold its real URL
+  // until the reader is close to it. A missing observer reveals it immediately.
+  const heroImages = typeof document.querySelectorAll === 'function'
+    ? document.querySelectorAll('img[data-guide-hero][data-src]')
+    : [];
+  if (heroImages.length) {
+    const revealHero = (img) => {
+      const src = img.getAttribute('data-src');
+      if (!src) return;
+      img.src = src;
+      img.removeAttribute('data-src');
+    };
+    if (typeof IntersectionObserver !== 'function') {
+      heroImages.forEach(revealHero);
+    } else {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          revealHero(entry.target);
+          heroObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '160px 0px' });
+      heroImages.forEach((img) => heroObserver.observe(img));
+    }
+  }
+
   document.addEventListener('click', (event) => {
     const target = event.target;
     const button = target && typeof target.closest === 'function' ? target.closest('[data-guide-jump]') : null;
