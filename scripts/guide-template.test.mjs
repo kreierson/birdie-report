@@ -15,6 +15,7 @@ import {
   inspectRetailerUrl,
   isBuyerGuide,
   markdownHeadings,
+  mobileReason,
   researchDisclosure,
   stickyNavRequested,
   topPicksHeading,
@@ -80,7 +81,7 @@ test('sticky nav is opt-in and does not launch itself', () => {
 
 test('retailer labels follow direct versus search and prices stay out of the new fields', () => {
   assert.equal(guideRetailerCta({ direct: true, retailer: 'Amazon' }), 'Check Amazon');
-  assert.equal(guideRetailerCta({ direct: false, retailer: 'Amazon' }), 'See options on Amazon');
+  assert.equal(guideRetailerCta({ direct: false, retailer: 'Amazon' }), 'Search Amazon');
   assert.equal(guideRetailerCta({ direct: false, retailer: 'PGA Tour Superstore' }), 'See options at PGA Tour Superstore');
   assert.equal(topPicksHeading(3), 'Our top 3 picks');
   assert.equal(topPicksHeading(2), 'Our top 2 picks');
@@ -127,7 +128,9 @@ test('cart bags use the published weight and divider cells, not the price column
   const pioneer = model.rows.find((row) => row.product === 'PING Pioneer');
   assert.equal(field(pioneer, 'Published empty weight'), '8 lb');
   assert.equal(field(pioneer, 'Dividers'), '15-way top; enlarged putter well');
-  assert.equal(pioneer.cta, 'See options on Amazon');
+  assert.equal(pioneer.cta, 'Search Amazon');
+  assert.match(pioneer.accessibleName, /Search Amazon for PING Pioneer \(opens in a new tab\)/);
+  assert.match(pioneer.href, /tag=birdiereport-20/);
   assert.match(pioneer.reviewHref, /^#ping-pioneer/);
   const titleist = model.rows.find((row) => row.product === 'Titleist Cart 14');
   assert.equal(titleist.cta, 'Check Amazon');
@@ -225,7 +228,54 @@ test('missing, empty, short, and price-bearing sources do not get invented value
   assert.equal(editorialPrice.rows[0].fields[0].label, 'Our take');
   assert.equal(editorialPrice.rows[0].fields[0].value, 'Not listed');
   assert.match(editorialPrice.rows[0].accessibleName, /Long Name Sunglasses With A Very Wide Frame Description/);
-  assert.equal(editorialPrice.top[0].cta, 'See options on Amazon');
+  assert.equal(editorialPrice.top[0].cta, 'Search Amazon');
+  assert.equal(editorialPrice.top[0].href, 'https://www.amazon.com/s?k=shades&tag=birdiereport-20');
+});
+
+test('mobile reasons stay complete and sourced, or they are omitted', () => {
+  assert.equal(mobileReason(''), '');
+  assert.equal(mobileReason('Still'), '');
+  assert.equal(mobileReason('Criminally underpriced'), '');
+  assert.equal(mobileReason('Approx. $211'), '');
+  assert.equal(mobileReason('Still the gold standard'), 'Still the gold standard');
+  assert.equal(
+    mobileReason('The best balance of support, traction, and walking comfort'),
+    'The best balance of support, traction, and walking comfort',
+  );
+  assert.equal(
+    mobileReason('Swing speeds 70-85 mph. Golfers who want maximum distance without changing their swing.'),
+    'Swing speeds 70-85 mph.',
+  );
+  const flak = "The Flak 2.0 XL with Prizm Golf lenses is the standard for golf sunglasses, and it's not particularly close.";
+  assert.equal(mobileReason(flak), '');
+  assert.equal(mobileReason('Put it on your shortlist if you prefer a semi-rimless shape and want polarized lenses.'), '');
+
+  const sun = modelFor('best-golf-sunglasses-2026').model;
+  assert.deepEqual(sun.top.map((pick) => pick.reason), ['', '', '']);
+  assert.deepEqual(sun.top.map((pick) => pick.product), [
+    'Oakley Flak 2.0 XL Prizm Golf',
+    "Maui Jim Ho'okipa",
+    'Costa Del Mar Whitetip',
+  ]);
+  assert.deepEqual(sun.top.map((pick) => pick.award), [
+    'Best Overall',
+    'Polarized, semi-rimless',
+    'Best for water-heavy courses',
+  ]);
+  assert.equal(sun.top[0].cta, 'Search Amazon');
+  assert.match(sun.top[0].accessibleName, /Search Amazon for Oakley Flak 2\.0 XL Prizm Golf \(opens in a new tab\)/);
+
+  const shoes = modelFor('best-golf-shoes-2026').model;
+  assert.equal(shoes.top[0].reason, 'The best balance of support, traction, and walking comfort');
+  assert.equal(shoes.top[1].reason, 'Premium comfort for serious walkers');
+  assert.equal(shoes.top[2].reason, 'Maximum grip when you need it');
+
+  const layout = read('src/layouts/BlogLayout.astro');
+  assert.match(layout, /text-\[28px\]/);
+  assert.doesNotMatch(layout, /line-clamp-2 sm:line-clamp-none/);
+  const picks = read('src/components/GuideTopPicks.astro');
+  assert.doesNotMatch(picks, /truncate|line-clamp/);
+  assert.match(picks, /min-h-11 min-w-\[120px\]/);
 });
 
 test('every best guide keeps sourced comparison fields and does not invent a second spec', () => {
@@ -265,8 +315,27 @@ test('every best guide keeps sourced comparison fields and does not invent a sec
       }
     }
     for (const pick of model.top) {
-      if (/Approx\.|\$\s*\d/.test(`${pick.award} ${pick.why}`)) {
+      if (/Approx\.|\$\s*\d/.test(`${pick.award} ${pick.why} ${pick.reason}`)) {
         problems.push(`${slug}: top pick shows a price for ${pick.product}`);
+      }
+      const stored = picks.find((item) => item.product === pick.product);
+      const storedWhy = String(stored?.why || '').replace(/\s+/g, ' ').trim();
+      if (pick.reason) {
+        if (!storedWhy.startsWith(pick.reason)) problems.push(`${slug}: reason is not the stored line for ${pick.product}`);
+        if (pick.reason.split(' ').length < 3) problems.push(`${slug}: reason is too short for ${pick.product}`);
+        if (pick.reason.length > 80) problems.push(`${slug}: reason is too long to show in full for ${pick.product}`);
+        if (pick.reason !== storedWhy && !/[.!?]$/.test(pick.reason)) {
+          problems.push(`${slug}: reason cuts ${pick.product} mid-sentence`);
+        }
+      }
+      if (pick.retailer === 'Amazon' && !['Check Amazon', 'Search Amazon'].includes(pick.cta)) {
+        problems.push(`${slug}: unexpected button label ${pick.cta}`);
+      }
+      if (!pick.accessibleName.startsWith(`${pick.cta} for ${pick.product}`)) {
+        problems.push(`${slug}: accessible name dropped the button or product for ${pick.product}`);
+      }
+      if (/amazon\.com/i.test(pick.href) && !pick.href.includes('tag=birdiereport-20')) {
+        problems.push(`${slug}: Amazon tag changed for ${pick.product}`);
       }
     }
   }

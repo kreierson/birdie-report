@@ -77,8 +77,25 @@ export function stickyNavLabel(shownCount) {
 export function guideRetailerCta({ direct = false, retailer = 'Amazon' } = {}) {
   const name = String(retailer || 'Amazon').trim() || 'Amazon';
   const amazon = /^amazon(?:\.com)?$/i.test(name);
-  if (amazon) return direct ? 'Check Amazon' : 'See options on Amazon';
+  if (amazon) return direct ? 'Check Amazon' : 'Search Amazon';
   return direct ? `Check ${name}` : `See options at ${name}`;
+}
+
+// A mobile reason is one complete sourced line. Longer copy is omitted
+// instead of cut down to a word or two. 80 characters is about two lines
+// beside the 120px button at 320px, so the line can wrap without an ellipsis.
+const MOBILE_REASON_MAX = 80;
+
+export function mobileReason(why) {
+  const text = cleanText(why);
+  if (!text || containsPriceText(text)) return '';
+  // A version such as "2.0" is not the end of the sentence.
+  const sentence = text.match(/^[\s\S]+?(?:[.!?](?=\s|$)|$)/);
+  const candidate = cleanText(sentence ? sentence[0] : text);
+  if (!candidate || !text.startsWith(candidate)) return '';
+  const words = candidate.split(' ').filter(Boolean);
+  if (words.length < 3 || candidate.length > MOBILE_REASON_MAX) return '';
+  return candidate;
 }
 
 export function containsPriceText(value) {
@@ -336,6 +353,7 @@ export function buildGuideModel({ picks = [], body = '', subcategory = '' } = {}
       ...presentLink(pick, GUIDE_PICKS_PLACEMENT),
       award: cleanText(pick.award),
       why: cleanText(pick.why),
+      reason: mobileReason(pick.why),
     })),
     rows,
   };

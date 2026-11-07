@@ -40,9 +40,8 @@ const { heading, picks = [], jumpLabel, slug } = Astro.props;
       <li class="rounded-md border border-[#d5e0d4] bg-white px-2 py-1.5">
         <div class="flex items-center gap-2">
           <div class="min-w-0 flex-1">
-            <p class="truncate text-xs font-bold uppercase text-forest-800">{pick.award}</p>
-            <h3 class="truncate text-sm font-bold leading-tight">{pick.product}</h3>
-            {pick.why && <p class="line-clamp-1 text-sm leading-tight text-gray-800">{pick.why}</p>}
+            <p class="text-xs font-bold uppercase leading-snug text-forest-800">{pick.award}</p>
+            <h3 class="text-sm font-bold leading-snug">{pick.product}</h3>
           </div>
           <a
             href={pick.href}
@@ -53,11 +52,13 @@ const { heading, picks = [], jumpLabel, slug } = Astro.props;
             data-retailer={pick.retailer}
             data-placement={pick.placement}
             aria-label={pick.accessibleName}
-            class="guide-control inline-flex min-h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-[#1A472A] px-2.5 text-center text-sm font-bold text-white sm:min-w-[110px] sm:px-4"
+            class="guide-control inline-flex min-h-11 min-w-[120px] shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-[#1A472A] px-3 text-center text-sm font-bold text-white"
           >
             {pick.cta}
           </a>
         </div>
+        {pick.reason && <p class="mt-1 text-sm leading-snug text-gray-800 sm:hidden">{pick.reason}</p>}
+        {pick.why && <p class="mt-1 hidden text-sm leading-snug text-gray-800 sm:block">{pick.why}</p>}
       </li>
     ))}
   </ol>

@@ -332,7 +332,7 @@ test('guide_compare reuses affiliate_click and a preview queue is not ingestion'
   const href = 'https://www.amazon.com/s?k=Oakley+Flak&tag=birdiereport-20';
   s.click(href, {
     data: { product: 'Oakley Flak 2.0 XL', retailer: 'Amazon', placement: 'guide_compare', affiliateLink: 'true' },
-    text: 'See options on Amazon',
+    text: 'Search Amazon',
   });
   assert.equal(s.scripts.length, 0);
   assert.equal(s.window.dataLayer.length, 1);
