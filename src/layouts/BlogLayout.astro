@@ -481,7 +481,7 @@ const quickPickCards = quickPicks.map((pick) => {
               >
                 See {stickyRetailer} options
               </a>
-              <p class="text-white/40 text-[10px] mt-2">at {stickyRetailer}</p>
+              <p class="text-white/70 text-[10px] mt-2">at {stickyRetailer}</p>
             </div>
           )}
         </div>
@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const link = document.createElement('a');
       link.href = `#${heading.id}`;
       link.textContent = heading.textContent || '';
-      link.className = 'block font-medium text-gray-600 hover:text-forest-700 transition-colors leading-snug';
+      link.className = 'flex min-h-6 items-center font-medium text-gray-600 hover:text-forest-700 transition-colors leading-snug';
       toc.appendChild(link);
     });
     headings.forEach((heading, i) => {
@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const link = document.createElement('a');
       link.href = `#${id}`;
       link.textContent = heading.textContent || '';
-      link.className = `block text-gray-600 hover:text-forest-700 transition-colors leading-snug ${heading.tagName === 'H3' ? 'pl-3 text-xs' : 'font-medium'}`;
+      link.className = `flex min-h-6 items-center text-gray-600 hover:text-forest-700 transition-colors leading-snug ${heading.tagName === 'H3' ? 'pl-3 text-xs' : 'font-medium'}`;
       toc.appendChild(link);
     });
   } else if (toc) {
