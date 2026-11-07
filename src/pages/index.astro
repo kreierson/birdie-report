@@ -51,11 +51,11 @@ const latest = selectLatestArticles(allPosts, { excludeSlug: heroSlug });
 const deals = selectPromotedDeals(allPosts);
 
 const categories = [
-  { slug: 'best', label: 'Best Of', color: 'bg-gold-500 text-forest-900' },
+  { slug: 'best', label: 'Best Of', color: 'bg-gold-500 text-forest-900', guide: true },
   { slug: 'reviews', label: 'Reviews', color: 'bg-forest-700 text-white' },
   { slug: 'tips', label: 'Tips', color: 'bg-blue-600 text-white' },
   { slug: 'news', label: 'News', color: 'bg-red-600 text-white' },
-  { slug: 'deals', label: 'Deals', color: 'bg-orange-500 text-white' },
+  { slug: 'deals', label: 'Deals', color: 'bg-orange-500 text-white', guide: true },
   { slug: 'courses', label: 'Courses', color: 'bg-emerald-600 text-white' },
   { slug: 'versus', label: 'Versus', color: 'bg-purple-600 text-white' },
   { slug: 'opinion', label: 'Opinion', color: 'bg-rose-600 text-white' },
@@ -87,7 +87,13 @@ function formatDate(date: Date) {
             {heroPost.data.category}
           </span>
           <h1 class="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white leading-tight mb-4">
-            <a href={`/blog/${heroPost.slug}/`} class="hover:text-gold-300 transition-colors">
+            <a
+              href={`/blog/${heroPost.slug}/`}
+              class="hover:text-gold-300 transition-colors"
+              data-guide-link={heroPost.data.category === 'best' ? 'true' : undefined}
+              data-guide-name={heroPost.data.category === 'best' ? heroPost.data.title : undefined}
+              data-placement={heroPost.data.category === 'best' ? 'home-hero' : undefined}
+            >
               {heroPost.data.title}
             </a>
           </h1>
@@ -119,22 +125,25 @@ function formatDate(date: Date) {
           <a 
             href={`/${cat.slug}/`} 
             class={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-all hover:scale-105 ${cat.color}`}
+            data-guide-link={cat.guide ? 'true' : undefined}
+            data-guide-name={cat.guide ? cat.label : undefined}
+            data-placement={cat.guide ? 'home-pill' : undefined}
           >
             {cat.label}
           </a>
         ))}
-        <a href="/tools/golf-club-gapping-calculator/" class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap bg-forest-800 text-white">
+        <a href="/tools/golf-club-gapping-calculator/" data-guide-link="true" data-guide-name="Gapping tool" data-placement="home-pill" class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap bg-forest-800 text-white">
           Gapping tool
         </a>
       </div>
       <p class="mt-3 text-sm text-gray-600">
-        <a href="/tools/golf-club-gapping-calculator/" class="font-semibold text-forest-800 underline underline-offset-2">Golf club gapping calculator</a>
+        <a href="/tools/golf-club-gapping-calculator/" data-guide-link="true" data-guide-name="Golf club gapping calculator" data-placement="home-pill" class="font-semibold text-forest-800 underline underline-offset-2">Golf club gapping calculator</a>
         — estimate carry gaps from one distance you already know.
       </p>
     </div>
   </div>
 
-  <CommercialOpportunityPanel />
+  <CommercialOpportunityPanel placement="home-opportunity" />
 
   <!-- Editor's Picks + Latest mixed layout -->
   <section class="py-12 lg:py-16">
@@ -199,7 +208,7 @@ function formatDate(date: Date) {
             </article>
           ))}
 
-          <GearGuideLinks variant="hero" />
+          <GearGuideLinks variant="hero" placement="home-gear-guides" />
         </div>
       </div>
     </div>
@@ -261,16 +270,16 @@ function formatDate(date: Date) {
           <h2 class="text-2xl md:text-3xl font-display font-bold text-forest-900">
             <span class="border-b-4 border-gold-500 pb-1">Buyer's Guides</span>
           </h2>
-          <a href="/best/" class="text-forest-700 font-semibold text-sm hover:text-forest-900 transition-colors uppercase tracking-wide">
+          <a href="/best/" data-guide-link="true" data-guide-name="All Guides" data-placement="home-buyer-card" class="text-forest-700 font-semibold text-sm hover:text-forest-900 transition-colors uppercase tracking-wide">
             All Guides →
           </a>
         </div>
-        <p class="text-sm text-gray-600 -mt-4 mb-6 max-w-3xl">Holiday shopping, including Black Friday on November 27 and Cyber Monday on November 30: the <a href="/deals/black-friday-golf-deals/" class="font-semibold text-forest-800 underline underline-offset-2">2026 Black Friday golf deals hub</a> sorts gear this site already covers by category, and the <a href="/blog/best-golf-gifts/" class="font-semibold text-forest-800 underline underline-offset-2">2026 golf gift guide</a> sorts it by budget.</p>
+        <p class="text-sm text-gray-600 -mt-4 mb-6 max-w-3xl">Holiday shopping, including Black Friday on November 27 and Cyber Monday on November 30: the <a href="/deals/black-friday-golf-deals/" data-guide-link="true" data-guide-name="2026 Black Friday golf deals hub" data-placement="home-deals-hub" class="font-semibold text-forest-800 underline underline-offset-2">2026 Black Friday golf deals hub</a> sorts gear this site already covers by category, and the <a href="/blog/best-golf-gifts/" data-guide-link="true" data-guide-name="2026 golf gift guide" data-placement="home-gift-guide" class="font-semibold text-forest-800 underline underline-offset-2">2026 golf gift guide</a> sorts it by budget.</p>
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {bestOf.map(post => (
             <article class="group">
-              <a href={`/blog/${post.slug}/`} class="block relative overflow-hidden rounded-lg aspect-[3/4] mb-2">
+              <a href={`/blog/${post.slug}/`} data-guide-link="true" data-guide-name={post.data.title} data-placement="home-buyer-card" class="block relative overflow-hidden rounded-lg aspect-[3/4] mb-2">
                 <img 
                   src={post.data.featured_image} 
                   alt={post.data.title}
@@ -457,7 +466,7 @@ function formatDate(date: Date) {
             </div>
           )}
 
-          <GearGuideLinks variant="hero" />
+          <GearGuideLinks variant="hero" placement="home-sidebar-guides" />
         </aside>
       </div>
     </div>
@@ -475,7 +484,7 @@ function formatDate(date: Date) {
       <p class="text-white/70 text-lg mb-8">
         Find useful gear comparisons and practical tips for your next round.
       </p>
-      <GearGuideLinks variant="hero" size="lg" />
+      <GearGuideLinks variant="hero" size="lg" placement="home-cta-guides" />
     </div>
   </section>
   <DealFreshness />
