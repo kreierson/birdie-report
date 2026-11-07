@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
@@ -21,6 +21,7 @@ import {
   topPicksHeading,
 } from '../src/utils/guide-template.mjs';
 import { foldTypography, hrefSurvives } from './validate-guide-template.mjs';
+import { GUIDE_IMAGE_BUDGET, guideDelivery, thumbFor } from '../src/utils/guide-images.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const PRODUCT_PATH = /\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})(?![A-Z0-9])/i;
@@ -496,11 +497,15 @@ test('picks_view fires once at half visibility and sticky_nav_click stays on the
 test('the guide photo waits until it is near the screen', () => {
   const layout = read('src/layouts/BlogLayout.astro');
   const hero = layout.slice(layout.indexOf('data-guide-hero-pending'), layout.indexOf('</noscript>') + '</noscript>'.length);
-  assert.match(hero, /data-src=\{featured_image\}/);
+  assert.match(hero, /data-src=\{guidePhoto\.fallback\}/);
+  assert.match(hero, /type="image\/avif"/);
+  assert.match(hero, /data-srcset=\{guidePhoto\.avifSrcset\}/);
   assert.match(hero, /data-guide-hero/);
   const eager = hero.slice(0, hero.indexOf('<noscript>'));
   assert.doesNotMatch(eager, /(?<![\w-])src=\{featured_image\}/);
-  assert.match(hero, /<noscript>[\s\S]*src=\{featured_image\}/);
+  assert.doesNotMatch(eager, /\ssrcset=/);
+  assert.match(hero, /<noscript>[\s\S]*src=\{guidePhoto\.fallback\}/);
+  assert.match(hero, /<noscript>[\s\S]*type="image\/avif"/);
   const base = read('src/layouts/BaseLayout.astro');
   assert.match(base, /guideTemplate && 'no-js'/);
   assert.match(base, /document\.documentElement\.classList\.remove\('no-js'\)/);
@@ -574,4 +579,36 @@ test('smart quotes and a percent-encoded search URL still count as the same head
   const href = 'https://www.amazon.com/s?k=Nike+Air+Zoom+Infinity+Tour+NEXT%&tag=birdiereport-20';
   assert.equal(hrefSurvives(`<a href="${href.replace('%', '%25')}">`, href), true);
   assert.equal(hrefSurvives('<a href="https://www.amazon.com/s?k=other">', href), false);
+});
+
+test('every delivered guide photo is webp or avif and stays within 40KB', () => {
+  const samples = {
+    'best-drivers-seniors-2026': 'https://images.unsplash.com/photo-1724889753195-908ce4b5ab2f?w=1200&q=80',
+    'best-golf-sunglasses-2026': 'https://images.unsplash.com/photo-1761978503733-54eba581cad4?w=1200&q=80',
+    'best-golf-shoes-2026': 'https://images.pexels.com/photos/114972/pexels-photo-114972.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'best-irons-high-handicappers-2026': 'https://images.unsplash.com/photo-1691608788396-43e0e6ed9535?w=1200&q=80',
+    'best-golf-cart-bags-2026': '/images/articles/sun-mountain-c130-cart-black.webp',
+    'best-putters-mid-handicappers-2026': '/images/articles/golf-putter-closeup.jpg',
+  };
+  for (const [slug, source] of Object.entries(samples)) {
+    const photo = guideDelivery(source);
+    assert.ok(photo, `${slug} has no optimized photo`);
+    assert.notEqual(photo.fallback, source);
+    assert.notEqual(photo.social, source);
+    assert.match(photo.avifSrcset, /\.avif \d+w/);
+    assert.match(photo.webpSrcset, /\.webp \d+w/);
+    for (const file of [...photo.variants, photo.socialFile]) {
+      assert.ok(file.bytes <= GUIDE_IMAGE_BUDGET, `${file.src} manifest bytes ${file.bytes}`);
+      assert.equal(statSync(join(root, 'public', file.src)).size, file.bytes);
+      assert.ok(['avif', 'webp', 'jpeg'].includes(file.format));
+    }
+    assert.ok(photo.socialFile.format === 'jpeg');
+    assert.ok(photo.variants.some((file) => file.format === 'avif'));
+    assert.ok(photo.variants.some((file) => file.format === 'webp'));
+  }
+  const author = thumbFor('/images/kyle-reierson.jpg');
+  assert.ok(author);
+  assert.ok(statSync(join(root, 'public', author.src)).size <= GUIDE_IMAGE_BUDGET);
+  const shoes = guideDelivery(samples['best-golf-shoes-2026']);
+  assert.equal(shoes.credit, 'Markus Spiske / CC 0');
 });

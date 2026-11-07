@@ -1,10 +1,11 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
 import { canonicalArticleHref } from './canonical-article-links.mjs';
 import { resolveQuickPicks } from '../src/utils/quick-picks.mjs';
 import { buildGuideModel, NOT_LISTED, researchDisclosure } from '../src/utils/guide-template.mjs';
+import { deliveredSrc } from '../src/utils/guide-images.mjs';
 
 const PRODUCT_PATH = /\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})(?![A-Z0-9])/i;
 const helpers = {
@@ -117,7 +118,8 @@ export function guideRenderProblems(slug, html, page) {
     const [path, hash = ''] = href.split('#');
     const canonicalHref = canonicalArticleHref(path);
     const expected = hash ? `${canonicalHref}#${hash}` : canonicalHref;
-    if (!hrefSurvives(decoded, href) && !hrefSurvives(decoded, expected) && !hrefSurvives(decoded, canonicalHref)) {
+    const delivered = deliveredSrc(href);
+    if (!hrefSurvives(decoded, href) && !hrefSurvives(decoded, expected) && !hrefSurvives(decoded, canonicalHref) && !(delivered && hrefSurvives(decoded, delivered))) {
       problems.push(`${slug}: body link missing: ${href}`);
     }
   }
@@ -166,22 +168,25 @@ export function guideRenderProblems(slug, html, page) {
     problems.push(`${slug}: empty quick picks rendered a picks or compare box`);
   }
   if (data.category === 'best' && data.featured_image) {
-    const escaped = String(data.featured_image).replace(/&/g, '&amp;');
     const tag = html.match(/<img\b[^>]*data-guide-hero[^>]*>/i);
     if (!tag) problems.push(`${slug}: guide photo is not deferred`);
-    else if (tag[0].includes(` src="${escaped}"`) || tag[0].includes(` src="${data.featured_image}"`)) {
+    else if (/\ssrc=["']https?:/i.test(tag[0]) || tag[0].includes(' src="/images/articles/') || tag[0].includes(` src="${data.featured_image}"`)) {
       problems.push(`${slug}: guide photo downloads with the first screen`);
     }
-    if (!html.includes(`data-src="${escaped}"`) && !html.includes(`data-src="${data.featured_image}"`)) {
-      problems.push(`${slug}: guide photo address was removed`);
+    if (!html.includes('type="image/avif"') || !html.includes('data-srcset="')) {
+      problems.push(`${slug}: guide photo has no deferred AVIF source`);
     }
     const noscript = html.match(/<noscript>[\s\S]*?<\/noscript>/i)?.[0] || '';
-    if (!noscript.includes(`src="${escaped}"`) && !noscript.includes(`src="${data.featured_image}"`)) {
+    if (!noscript.includes('type="image/avif"') || !noscript.includes('image/webp')) {
       problems.push(`${slug}: guide photo is missing for browsers without JavaScript`);
+    }
+    if (noscript.includes(String(data.featured_image))) {
+      problems.push(`${slug}: browsers without JavaScript still receive the original photo`);
     }
     if (!/<html\b[^>]*\bno-js\b/.test(html) || !html.includes(".no-js [data-guide-hero-pending]{display:none}") || !html.includes("document.documentElement.classList.remove('no-js')")) {
       problems.push(`${slug}: browsers without JavaScript still show the empty photo frame`);
     }
+    problems.push(...guideImageBudgetProblems(slug, html));
   }
 
   if (data.affiliate_links || data.comparison_products || data.quick_picks) {
@@ -190,6 +195,59 @@ export function guideRenderProblems(slug, html, page) {
   }
   if (!html.includes('guide-template.js') && data.category === 'best') {
     problems.push(`${slug}: guide measurement script missing`);
+  }
+  return problems;
+}
+
+const GUIDE_IMAGE_BUDGET = 40000;
+
+function guideImageUrls(html) {
+  const urls = [];
+  for (const tag of html.matchAll(/<(?:img|source)\b[^>]*>/gi)) {
+    for (const attr of tag[0].matchAll(/\b(?:data-srcset|data-src|srcset|src)=["']([^"']+)["']/gi)) {
+      for (const part of attr[1].split(',')) {
+        const url = part.trim().split(/\s+/)[0];
+        if (url && !url.startsWith('data:')) urls.push(url);
+      }
+    }
+  }
+  for (const tag of html.matchAll(/<meta\b[^>]*>/gi)) {
+    if (!/\b(?:property|name)=["'](?:og:image|twitter:image)["']/i.test(tag[0])) continue;
+    const content = tag[0].match(/\bcontent=["']([^"']+)["']/i);
+    if (content) urls.push(content[1]);
+  }
+  return urls;
+}
+
+function guideImageBudgetProblems(slug, html) {
+  const root = fileURLToPath(new URL('..', import.meta.url));
+  const problems = [];
+  const seen = new Set();
+  for (const url of guideImageUrls(html)) {
+    if (seen.has(url)) continue;
+    seen.add(url);
+    let pathname = null;
+    if (url.startsWith('/')) pathname = url.split('?')[0];
+    else {
+      try {
+        const parsed = new URL(url);
+        if (parsed.hostname === 'www.birdiereport.com' || parsed.hostname === 'birdiereport.com') pathname = parsed.pathname;
+        else {
+          problems.push(`${slug}: image still loads from ${parsed.hostname}`);
+          continue;
+        }
+      } catch {
+        problems.push(`${slug}: image address ${url} is not a file`);
+        continue;
+      }
+    }
+    const file = join(root, 'dist', pathname.replace(/^\/+/, ''));
+    if (!existsSync(file)) {
+      problems.push(`${slug}: image ${pathname} was not built`);
+      continue;
+    }
+    const bytes = statSync(file).size;
+    if (bytes > GUIDE_IMAGE_BUDGET) problems.push(`${slug}: ${pathname} is ${bytes} bytes`);
   }
   return problems;
 }

@@ -1,4 +1,5 @@
 import { uniqueHeadingId } from '../src/utils/guide-template.mjs';
+import { guideDelivery } from '../src/utils/guide-images.mjs';
 
 function nodeText(node) {
   if (!node) return '';
@@ -23,8 +24,16 @@ export default function guideMarkdown() {
       if (node.type === 'image') {
         node.data = node.data || {};
         const current = node.data.hProperties || {};
+        const delivery = guideDelivery(node.url || '');
+        if (delivery) node.url = delivery.fallback;
         node.data.hProperties = {
           ...current,
+          ...(delivery ? {
+            srcset: delivery.webpSrcset,
+            sizes: delivery.sizes,
+            width: delivery.width,
+            height: delivery.height,
+          } : {}),
           loading: current.loading || 'lazy',
           decoding: current.decoding || 'async',
         };

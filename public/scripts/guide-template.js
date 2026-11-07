@@ -66,6 +66,16 @@
     : [];
   if (heroImages.length) {
     const revealHero = (img) => {
+      const frame = typeof img.closest === 'function' ? img.closest('[data-guide-hero-pending]') : null;
+      const nodes = frame && typeof frame.querySelectorAll === 'function'
+        ? frame.querySelectorAll('[data-srcset]')
+        : [];
+      nodes.forEach((node) => {
+        const srcset = node.getAttribute('data-srcset');
+        if (!srcset) return;
+        node.setAttribute('srcset', srcset);
+        node.removeAttribute('data-srcset');
+      });
       const src = img.getAttribute('data-src');
       if (!src) return;
       img.src = src;
