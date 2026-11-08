@@ -29,6 +29,27 @@
   try { internal = localStorage.getItem('birdie_internal') === '1'; } catch { /* ignore */ }
 
   const eligible = PROD_HOSTS.includes(window.location.hostname) && !automated;
+  // Preview evidence only. Exact query, never stored, ignored on production.
+  // This is a same-origin request, not GA4 debug_mode and not the production property.
+  let previewObserve = false;
+  try {
+    previewObserve = !PROD_HOSTS.includes(window.location.hostname)
+      && new URLSearchParams(window.location.search || '').get('birdie_preview_observe') === '1';
+  } catch { /* ignore a malformed location */ }
+  function emitPreview(name, params) {
+    if (!previewObserve || typeof Image !== 'function') return;
+    const body = new URLSearchParams();
+    body.set('event', name);
+    Object.entries(params || {}).forEach(([key, value]) => {
+      if (value == null || value === '') return;
+      body.set(key, String(value).slice(0, 300));
+    });
+    try {
+      const img = new Image();
+      img.referrerPolicy = 'no-referrer';
+      img.src = '/preview-observe.txt?' + body.toString();
+    } catch { /* the queued dataLayer entry still exists */ }
+  }
   let started = false;
   let visibleTimer = null;
 
@@ -97,14 +118,16 @@
     const taggedAmazon = amazon && Boolean(url.searchParams.get('tag'));
     if (!taggedAmazon && link.dataset.affiliateLink !== 'true') return;
     start({ fetchPriority: 'high' });
-    window.gtag('event', 'affiliate_click', {
+    const affiliate = {
       product_name: (link.dataset.product || link.textContent || 'Retailer link').trim().slice(0, 100),
       retailer: amazon ? 'Amazon' : (link.dataset.retailer || url.hostname),
       placement: link.dataset.placement || 'article-body-link',
       link_url: url.href,
       page_path: window.location.pathname,
       transport_type: 'beacon',
-    });
+    };
+    window.gtag('event', 'affiliate_click', affiliate);
+    emitPreview('affiliate_click', affiliate);
   }
 
   // Internal buying-guide CTAs marked data-guide-link="true". Outbound retailer
@@ -119,13 +142,15 @@
     const amazon = url.hostname === 'amazon.com' || url.hostname.endsWith('.amazon.com');
     if (!['https:', 'http:'].includes(url.protocol) || amazon || url.hostname !== window.location.hostname) return;
     start({ fetchPriority: 'high' });
-    window.gtag('event', 'guide_click', {
+    const guide = {
       guide_name: (link.dataset.guideName || link.textContent || '').trim().slice(0, 100) || 'Buying guide',
       placement: (link.dataset.placement || '').trim().slice(0, 100) || 'guide-link',
       link_url: `${url.pathname}${url.search}${url.hash}`,
       page_path: window.location.pathname,
       transport_type: 'beacon',
-    });
+    };
+    window.gtag('event', 'guide_click', guide);
+    emitPreview('guide_click', guide);
   }
 
   // Delegated handlers also cover cards outside BlogLayout and clicks on nested text or images.

@@ -58,14 +58,22 @@
     }
   }
 
-  // Native lazy loading still fetches an image within roughly a viewport of
-  // the screen. The guide photo sits below the picks, so hold its real URL
-  // until the reader is close to it. A missing observer reveals it immediately.
-  const heroImages = typeof document.querySelectorAll === 'function'
-    ? document.querySelectorAll('img[data-guide-hero][data-src]')
-    : [];
-  if (heroImages.length) {
-    const revealHero = (img) => {
+  // Chrome downloads every loading=lazy image when JavaScript is off, even
+  // images many screens down. Real URLs stay in data-src until the reader is
+  // close. Without JavaScript the hero picture in noscript is the one that loads.
+  function collect(selector) {
+    const list = [];
+    if (typeof document.querySelectorAll !== 'function') return list;
+    const nodes = document.querySelectorAll(selector);
+    if (nodes && typeof nodes.forEach === 'function') nodes.forEach((node) => list.push(node));
+    return list;
+  }
+  const deferredImages = [
+    ...collect('img[data-guide-hero][data-src]'),
+    ...collect('img[data-guide-defer][data-src]'),
+  ];
+  if (deferredImages.length) {
+    const reveal = (img) => {
       const frame = typeof img.closest === 'function' ? img.closest('[data-guide-hero-pending]') : null;
       const nodes = frame && typeof frame.querySelectorAll === 'function'
         ? frame.querySelectorAll('[data-srcset]')
@@ -76,22 +84,27 @@
         node.setAttribute('srcset', srcset);
         node.removeAttribute('data-srcset');
       });
+      const ownSrcset = img.getAttribute('data-srcset');
+      if (ownSrcset) {
+        img.setAttribute('srcset', ownSrcset);
+        img.removeAttribute('data-srcset');
+      }
       const src = img.getAttribute('data-src');
       if (!src) return;
       img.src = src;
       img.removeAttribute('data-src');
     };
     if (typeof IntersectionObserver !== 'function') {
-      heroImages.forEach(revealHero);
+      deferredImages.forEach(reveal);
     } else {
-      const heroObserver = new IntersectionObserver((entries) => {
+      const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          revealHero(entry.target);
-          heroObserver.unobserve(entry.target);
+          reveal(entry.target);
+          imageObserver.unobserve(entry.target);
         });
       }, { rootMargin: '160px 0px' });
-      heroImages.forEach((img) => heroObserver.observe(img));
+      deferredImages.forEach((img) => imageObserver.observe(img));
     }
   }
 

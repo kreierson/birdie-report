@@ -183,9 +183,10 @@ export function guideRenderProblems(slug, html, page) {
     if (noscript.includes(String(data.featured_image))) {
       problems.push(`${slug}: browsers without JavaScript still receive the original photo`);
     }
-    if (!/<html\b[^>]*\bno-js\b/.test(html) || !html.includes(".no-js [data-guide-hero-pending]{display:none}") || !html.includes("document.documentElement.classList.remove('no-js')")) {
+    if (!/<html\b[^>]*\bno-js\b/.test(html) || !/\.no-js \[data-guide-hero-pending\],\s*\.no-js \[data-guide-defer\]\{display:none\}/.test(html) || !html.includes("document.documentElement.classList.remove('no-js')")) {
       problems.push(`${slug}: browsers without JavaScript still show the empty photo frame`);
     }
+    problems.push(...eagerGuideImageProblems(slug, html));
     problems.push(...guideImageBudgetProblems(slug, html));
   }
 
@@ -200,6 +201,25 @@ export function guideRenderProblems(slug, html, page) {
 }
 
 const GUIDE_IMAGE_BUDGET = 40000;
+
+function eagerGuideImageProblems(slug, html) {
+  const withoutNoscript = html.replace(/<noscript>[\s\S]*?<\/noscript>/gi, '');
+  const problems = [];
+  for (const tag of withoutNoscript.matchAll(/<(?:img|source)\b[^>]*>/gi)) {
+    const src = tag[0].match(/(?:^|\s)src=["']([^"']+)["']/i);
+    const srcset = tag[0].match(/(?:^|\s)srcset=["']([^"']+)["']/i);
+    const urls = [];
+    if (src) urls.push(src[1]);
+    if (srcset) urls.push(...srcset[1].split(',').map((part) => part.trim().split(/\s+/)[0]));
+    for (const url of urls) {
+      if (/^\/images\/(?:guides|articles)\//.test(url)) {
+        problems.push(`${slug}: ${url} downloads before JavaScript`);
+        break;
+      }
+    }
+  }
+  return problems;
+}
 
 function guideImageUrls(html) {
   const urls = [];

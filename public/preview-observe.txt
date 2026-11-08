@@ -1,0 +1,1 @@
+Same-origin preview sink. This response is not Google Analytics and is not ingestion.

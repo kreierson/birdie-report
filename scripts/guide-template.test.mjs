@@ -5,6 +5,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
+import guideMarkdown from './guide-markdown.mjs';
 import { resolveQuickPicks } from '../src/utils/quick-picks.mjs';
 import {
   buildGuideModel,
@@ -510,8 +511,13 @@ test('the guide photo waits until it is near the screen', () => {
   const base = read('src/layouts/BaseLayout.astro');
   assert.match(base, /guideTemplate && 'no-js'/);
   assert.match(base, /document\.documentElement\.classList\.remove\('no-js'\)/);
-  assert.match(base, /\.no-js \[data-guide-hero-pending\]\{display:none\}/);
+  assert.match(base, /\.no-js \[data-guide-hero-pending\], \.no-js \[data-guide-defer\]\{display:none\}/);
+  assert.match(layout, /data-guide-defer/);
+  assert.match(layout, /deferImages=\{buyerGuide\}/);
+  assert.match(read('src/components/ProductBuyRow.astro'), /deferImage \?/);
+  assert.match(read('src/components/ProductBuyBox.astro'), /deferImage=\{deferImages\}/);
   const source = read('public/scripts/guide-template.js');
+  assert.match(source, /img\[data-guide-defer\]\[data-src\]/);
   assert.match(source, /rootMargin: '160px 0px'/);
   const photo = 'https://images.unsplash.com/photo-1724889753195-908ce4b5ab2f?w=1200&q=80';
   function run(withObserver, intersecting) {
@@ -565,6 +571,24 @@ test('the guide photo waits until it is near the screen', () => {
   assert.equal(shown.attrs['data-src'], undefined);
   const immediate = run(false, false);
   assert.equal(immediate.src, photo);
+});
+
+test('buyer-guide body photos keep the real file off src', () => {
+  const plugin = guideMarkdown();
+  const url = 'https://images.unsplash.com/photo-1724889753195-908ce4b5ab2f?w=1200&q=80';
+  const tree = { type: 'root', children: [{ type: 'image', url, alt: 'Senior golfer' }] };
+  plugin(tree, { data: { astro: { frontmatter: { category: 'best' } } } });
+  const image = tree.children[0];
+  assert.equal(image.url, '/images/guide-photo-placeholder.gif');
+  assert.equal(image.alt, 'Senior golfer');
+  assert.match(image.data.hProperties['data-src'], /^\/images\/guides\/.+\.webp$/);
+  assert.match(image.data.hProperties['data-srcset'], /\/images\/guides\/[^,\s]+\.webp/);
+  assert.equal(image.data.hProperties['data-guide-defer'], '');
+  assert.equal(image.data.hProperties.srcset, undefined);
+  const other = { type: 'root', children: [{ type: 'image', url, alt: 'Senior golfer' }] };
+  plugin(other, { data: { astro: { frontmatter: { category: 'reviews' } } } });
+  assert.match(other.children[0].url, /^\/images\/guides\/.+\.webp$/);
+  assert.equal(other.children[0].data.hProperties['data-src'], undefined);
 });
 
 test('smart quotes and a percent-encoded search URL still count as the same heading and link', () => {

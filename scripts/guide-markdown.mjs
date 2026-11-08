@@ -8,10 +8,15 @@ function nodeText(node) {
   return (node.children || []).map(nodeText).join('');
 }
 
-// Stable heading ids so in-page "Read review" links work without JavaScript,
-// and lazy content images so below-fold guide art is not part of first paint.
+const PLACEHOLDER = '/images/guide-photo-placeholder.gif';
+
+// Stable heading ids so in-page "Read review" links work without JavaScript.
+// Buyer-guide photos keep their real URL off src. Chrome still downloads every
+// loading=lazy image when JavaScript is disabled, including images far below
+// the fold, so a lazy attribute cannot hold the no-JavaScript budget.
 export default function guideMarkdown() {
-  return function transform(tree) {
+  return function transform(tree, file) {
+    const buyerGuide = file?.data?.astro?.frontmatter?.category === 'best';
     const used = new Map();
     const visit = (node) => {
       if (!node || typeof node !== 'object') return;
@@ -25,18 +30,32 @@ export default function guideMarkdown() {
         node.data = node.data || {};
         const current = node.data.hProperties || {};
         const delivery = guideDelivery(node.url || '');
-        if (delivery) node.url = delivery.fallback;
-        node.data.hProperties = {
-          ...current,
-          ...(delivery ? {
-            srcset: delivery.webpSrcset,
+        if (buyerGuide && delivery) {
+          node.data.hProperties = {
+            ...current,
+            'data-src': delivery.fallback,
+            'data-srcset': delivery.webpSrcset,
+            'data-guide-defer': '',
             sizes: delivery.sizes,
             width: delivery.width,
             height: delivery.height,
-          } : {}),
-          loading: current.loading || 'lazy',
-          decoding: current.decoding || 'async',
-        };
+            decoding: current.decoding || 'async',
+          };
+          node.url = PLACEHOLDER;
+        } else {
+          if (delivery) node.url = delivery.fallback;
+          node.data.hProperties = {
+            ...current,
+            ...(delivery ? {
+              srcset: delivery.webpSrcset,
+              sizes: delivery.sizes,
+              width: delivery.width,
+              height: delivery.height,
+            } : {}),
+            loading: current.loading || 'lazy',
+            decoding: current.decoding || 'async',
+          };
+        }
       }
       for (const child of node.children || []) visit(child);
     };

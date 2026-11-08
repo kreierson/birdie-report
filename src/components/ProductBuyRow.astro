@@ -8,6 +8,7 @@ interface Props {
   retailer?: string;
   placement: string;
   image?: string;
+  deferImage?: boolean;
   price?: string;
   pros?: string[];
   why?: string;
@@ -31,6 +32,7 @@ const {
   rating,
   rank,
   cta: ctaOverride,
+  deferImage = false,
 } = Astro.props;
 
 const cta = ctaOverride || priceCheckCta(retailer);
@@ -49,7 +51,11 @@ const showRating = typeof rating === 'number' && Number.isFinite(rating);
 ]}>
   {image && (
     <div class="h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-md border border-forest-100 bg-forest-50">
-      <img src={image} alt={product} class="h-full w-full object-contain" loading="lazy" decoding="async" />
+      {deferImage ? (
+        <img src="/images/guide-photo-placeholder.gif" data-src={image} data-guide-defer alt={product} class="h-full w-full object-contain" decoding="async" />
+      ) : (
+        <img src={image} alt={product} class="h-full w-full object-contain" loading="lazy" decoding="async" />
+      )}
     </div>
   )}
   <div class="min-w-0">
