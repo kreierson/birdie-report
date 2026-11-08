@@ -1,0 +1,54 @@
+---
+interface Props {
+  slug: string;
+  label: string;
+}
+
+const { slug, label } = Astro.props;
+---
+
+<div
+    class="guide-sticky-nav hidden"
+    data-guide-sticky-nav
+    data-variant="test"
+    data-guide-slug={slug}
+    hidden
+  >
+    <button
+      type="button"
+      class="guide-control inline-flex min-h-11 items-center px-3 text-base font-bold text-white"
+      data-sticky-nav-click
+      data-guide-jump="guide-top-picks"
+    >
+      {label}<span aria-hidden="true"> ↑</span>
+    </button>
+</div>
+
+<style>
+  .guide-sticky-nav {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 52px;
+    padding: 0 1rem env(safe-area-inset-bottom);
+    background: #12301C;
+    color: #fff;
+  }
+  .guide-sticky-nav[hidden] {
+    display: none !important;
+  }
+  .guide-control:focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .guide-sticky-nav {
+      transition: none;
+    }
+  }
+</style>

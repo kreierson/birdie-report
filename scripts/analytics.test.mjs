@@ -119,6 +119,49 @@ test('local preview is offline; repeated initialization and nested element click
   assert.equal(s.window.dataLayer[0][2].page_path, '/blog/test/');
 });
 
+test('preview observe is an opt-in same-origin request and never the production property', () => {
+  function watch(host, search, navigator = { userAgent: CHROME }) {
+    const seen = [];
+    const s = setup(host, navigator, { search });
+    s.context.Image = class Image {
+      set src(value) { seen.push(String(value)); }
+    };
+    vm.runInContext(source, s.context);
+    return { s, seen };
+  }
+  const preview = watch('birdie-report-git-cursor-mob-aade80-kylereierson-5801s-projects.vercel.app', '?birdie_preview_observe=1');
+  preview.s.click(AMAZON, { data: { product: 'Callaway Elyte Max Fast', placement: 'article-body-link', affiliateLink: 'true' } });
+  assert.equal(preview.s.scripts.length, 0);
+  assert.equal(preview.s.window.dataLayer[0][1], 'affiliate_click');
+  assert.equal(preview.seen.length, 1);
+  const hit = new URL(preview.seen[0], 'https://preview.example');
+  assert.equal(hit.pathname, '/preview-observe.txt');
+  assert.equal(hit.searchParams.get('event'), 'affiliate_click');
+  assert.equal(hit.searchParams.get('placement'), 'article-body-link');
+  assert.equal(hit.searchParams.get('product_name'), 'Callaway Elyte Max Fast');
+  assert.equal(hit.searchParams.get('page_path'), '/blog/test/');
+  assert.equal(preview.seen[0].includes('G-CQ60ZX50XS'), false);
+  assert.equal(preview.seen[0].includes('google'), false);
+  assert.equal(preview.seen[0].includes('googletagmanager'), false);
+
+  const wrongFlag = watch('127.0.0.1', '?birdie_preview_observe=true');
+  wrongFlag.s.click(AMAZON);
+  assert.equal(wrongFlag.seen.length, 0);
+  assert.equal(wrongFlag.s.scripts.length, 0);
+
+  const automated = watch('127.0.0.1', '?birdie_preview_observe=1', { userAgent: 'HeadlessChrome', webdriver: true });
+  automated.s.click(AMAZON, { data: { placement: 'guide_compare' } });
+  assert.equal(automated.s.scripts.length, 0);
+  assert.equal(automated.seen.length, 1);
+  assert.equal(new URL(automated.seen[0], 'https://preview.example').searchParams.get('placement'), 'guide_compare');
+
+  const production = watch('www.birdiereport.com', '?birdie_preview_observe=1');
+  production.s.click(AMAZON, { data: { placement: 'article-body-link' } });
+  assert.equal(production.seen.length, 0);
+  assert.equal(production.s.scripts.length, 1);
+  assert.equal(production.s.scripts[0].src.includes('googletagmanager.com/gtag/js?id=G-CQ60ZX50XS'), true);
+});
+
 test('manufacturer, internal, untagged and lookalike domains are not affiliate events', () => {
   const s = setup();
   for (const url of [
@@ -327,6 +370,28 @@ test('blocked storage still tracks affiliate clicks and does not throw', () => {
   production.human('pointerdown');
   assert.equal(production.scripts.length, 1);
   assert.equal(production.window.dataLayer[1].length, 2);
+});
+
+test('guide_compare reuses affiliate_click and a preview queue is not ingestion', () => {
+  const s = setup('127.0.0.1');
+  const href = 'https://www.amazon.com/s?k=Oakley+Flak&tag=birdiereport-20';
+  s.click(href, {
+    data: { product: 'Oakley Flak 2.0 XL', retailer: 'Amazon', placement: 'guide_compare', affiliateLink: 'true' },
+    text: 'Search Amazon',
+  });
+  assert.equal(s.scripts.length, 0);
+  assert.equal(s.window.dataLayer.length, 1);
+  assert.equal(s.window.dataLayer[0][1], 'affiliate_click');
+  const hit = s.window.dataLayer[0][2];
+  assert.equal(hit.placement, 'guide_compare');
+  assert.equal(hit.product_name, 'Oakley Flak 2.0 XL');
+  assert.equal(hit.retailer, 'Amazon');
+  assert.equal(hit.transport_type, 'beacon');
+  assert.equal(hit.link_url, href);
+  assert.equal(commands(s.window.dataLayer).filter((name) => name === 'affiliate_click').length, 1);
+  assert.equal(commands(s.window.dataLayer).includes('picks_view'), false);
+  assert.equal(commands(s.window.dataLayer).includes('sticky_nav_click'), false);
+  assert.equal(commands(s.window.dataLayer).includes('guide_click'), false);
 });
 
 function events(dataLayer) {

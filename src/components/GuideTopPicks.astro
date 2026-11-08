@@ -1,0 +1,77 @@
+---
+import { SHORT_DISCLOSURE } from '../utils/guide-template.mjs';
+
+interface Pick {
+  award: string;
+  product: string;
+  why: string;
+  href: string;
+  retailer: string;
+  cta: string;
+  accessibleName: string;
+  placement: string;
+}
+
+interface Props {
+  heading: string;
+  picks: Pick[];
+  jumpLabel: string;
+  slug: string;
+}
+
+const { heading, picks = [], jumpLabel, slug } = Astro.props;
+---
+
+<section
+  id="guide-top-picks"
+  class="guide-picks mb-4 scroll-mt-24 rounded-lg bg-[#F3F6F2] px-3 py-2.5 text-[#12301C]"
+  aria-labelledby="our-top-picks"
+  data-picks-view
+  data-guide-slug={slug}
+  tabindex="-1"
+>
+  <h2 id="our-top-picks" class="font-display text-xl font-bold leading-tight" data-guide-toc>{heading}</h2>
+  <p class="mt-1 max-w-2xl text-sm leading-snug">
+    {SHORT_DISCLOSURE}{' '}
+    <a href="/affiliate-disclosure/" class="guide-control font-semibold text-forest-700 underline underline-offset-2">Disclosure<span aria-hidden="true"> ›</span></a>
+  </p>
+  <ol class="mt-2 space-y-1.5">
+    {picks.map((pick) => (
+      <li class="rounded-md border border-[#d5e0d4] bg-white px-2 py-1.5">
+        <div class="flex items-center gap-2">
+          <div class="min-w-0 flex-1">
+            <p class="text-xs font-bold uppercase leading-snug text-forest-800">{pick.award}</p>
+            <h3 class="text-sm font-bold leading-snug">{pick.product}</h3>
+          </div>
+          <a
+            href={pick.href}
+            target="_blank"
+            rel="nofollow sponsored noopener"
+            data-affiliate-link="true"
+            data-product={pick.product}
+            data-retailer={pick.retailer}
+            data-placement={pick.placement}
+            aria-label={pick.accessibleName}
+            class="guide-control inline-flex min-h-11 min-w-[120px] shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-[#1A472A] px-3 text-center text-sm font-bold text-white"
+          >
+            {pick.cta}
+          </a>
+        </div>
+        {pick.reason && <p class="mt-1 text-sm leading-snug text-gray-800 sm:hidden">{pick.reason}</p>}
+        {pick.why && <p class="mt-1 hidden text-sm leading-snug text-gray-800 sm:block">{pick.why}</p>}
+      </li>
+    ))}
+  </ol>
+  {jumpLabel && (
+    <button type="button" class="guide-control mt-3 inline-flex min-h-11 items-center font-bold text-forest-800 underline underline-offset-2" data-guide-jump="compare-at-a-glance">
+      {jumpLabel}<span aria-hidden="true"> ↓</span>
+    </button>
+  )}
+</section>
+
+<style>
+  .guide-control:focus-visible {
+    outline: 2px solid #1A472A;
+    outline-offset: 2px;
+  }
+</style>

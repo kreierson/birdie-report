@@ -1,0 +1,48 @@
+---
+interface Disclosure {
+  visible: string;
+  summary: string;
+  description: string;
+}
+
+interface Props {
+  author: string;
+  dateLabel?: string;
+  dateText?: string;
+  dateISO?: string;
+  disclosure?: Disclosure | null;
+}
+
+const { author, dateLabel, dateText, dateISO, disclosure = null } = Astro.props;
+---
+
+<div class="guide-byline mb-2 text-sm leading-5 text-[#12301C]">
+  <div class="leading-5">
+    <span>By <a href="/about/" class="font-semibold underline underline-offset-2">{author}</a></span>
+    {dateText && (
+      <span><span aria-hidden="true"> · </span>{dateLabel}{' '}<time datetime={dateISO}>{dateText}</time></span>
+    )}
+    {disclosure && (
+      <span>
+        <span aria-hidden="true"> · </span>
+        <details id="how-we-research" class="guide-details">
+          <summary class="guide-control cursor-pointer whitespace-nowrap font-semibold text-forest-700 underline underline-offset-2">
+            {disclosure.summary}<span aria-hidden="true"> ›</span>
+          </summary>
+          <span class="mt-1 block max-w-2xl leading-relaxed text-gray-700">{disclosure.description}</span>
+        </details>
+      </span>
+    )}
+  </div>
+  {disclosure && <p class="mt-1 leading-snug">{disclosure.visible}</p>}
+</div>
+
+<style>
+  .guide-details { display: inline; }
+  .guide-details[open] { display: block; }
+  .guide-details summary { display: inline; }
+  .guide-control:focus-visible {
+    outline: 2px solid #1A472A;
+    outline-offset: 2px;
+  }
+</style>

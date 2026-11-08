@@ -21,7 +21,7 @@ const { products = [] } = Astro.props;
         <div class="p-6 bg-forest-50/40">
           <div class="flex flex-wrap items-baseline justify-between gap-2">
             <h3 class="text-lg font-display font-bold text-forest-900">{product.name}</h3>
-            {product.rating && <p class="text-gold-700 font-bold">{product.rating}/10</p>}
+            {product.rating && <p class="text-gold-800 font-bold">{product.rating}/10</p>}
           </div>
           {product.pros && product.pros.length > 0 && (
             <div class="mt-3">

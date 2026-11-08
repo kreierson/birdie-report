@@ -1,0 +1,2955 @@
+{
+  "budget": 40000,
+  "sizes": "(min-width: 1024px) 896px, calc(100vw - 2rem)",
+  "bySource": {
+    "https://images.unsplash.com/photo-1723717729877-6a0bb3095c30?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1723717729877-6a0bb3095c30?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 640,
+          "bytes": 30415,
+          "src": "/images/guides/photo-1723717729877-6a0bb3095c30-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 28984,
+          "src": "/images/guides/photo-1723717729877-6a0bb3095c30-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 853,
+          "bytes": 36849,
+          "src": "/images/guides/photo-1723717729877-6a0bb3095c30-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 37874,
+          "src": "/images/guides/photo-1723717729877-6a0bb3095c30-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 1067,
+          "bytes": 38039,
+          "src": "/images/guides/photo-1723717729877-6a0bb3095c30-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 1067,
+          "bytes": 39164,
+          "src": "/images/guides/photo-1723717729877-6a0bb3095c30-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 1280,
+          "bytes": 38521,
+          "src": "/images/guides/photo-1723717729877-6a0bb3095c30-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 1067,
+        "bytes": 37735,
+        "src": "/images/guides/photo-1723717729877-6a0bb3095c30-social-800.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1713729291074-86de4d1a9027?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1713729291074-86de4d1a9027?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 720,
+          "bytes": 26518,
+          "src": "/images/guides/photo-1713729291074-86de4d1a9027-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 720,
+          "bytes": 29432,
+          "src": "/images/guides/photo-1713729291074-86de4d1a9027-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 960,
+          "bytes": 36951,
+          "src": "/images/guides/photo-1713729291074-86de4d1a9027-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 960,
+          "bytes": 37582,
+          "src": "/images/guides/photo-1713729291074-86de4d1a9027-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 1200,
+          "bytes": 35637,
+          "src": "/images/guides/photo-1713729291074-86de4d1a9027-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 1200,
+          "bytes": 37616,
+          "src": "/images/guides/photo-1713729291074-86de4d1a9027-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 1440,
+          "bytes": 33708,
+          "src": "/images/guides/photo-1713729291074-86de4d1a9027-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 640,
+        "height": 960,
+        "bytes": 37505,
+        "src": "/images/guides/photo-1713729291074-86de4d1a9027-social-640.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1724889753195-908ce4b5ab2f?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1724889753195-908ce4b5ab2f?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 13143,
+          "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 13356,
+          "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 18985,
+          "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 20478,
+          "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 26294,
+          "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 28412,
+          "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 34066,
+          "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 37112,
+          "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 38116,
+        "src": "/images/guides/photo-1724889753195-908ce4b5ab2f-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 16728,
+          "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17272,
+          "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 26629,
+          "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 28318,
+          "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 38420,
+          "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 36286,
+          "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 36746,
+          "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 39834,
+          "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 36827,
+        "src": "/images/guides/photo-1587174486073-ae5e5cff23aa-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1693163640190-f9dd38a88940?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1693163640190-f9dd38a88940?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 600,
+          "bytes": 22892,
+          "src": "/images/guides/photo-1693163640190-f9dd38a88940-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 600,
+          "bytes": 25050,
+          "src": "/images/guides/photo-1693163640190-f9dd38a88940-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 800,
+          "bytes": 34373,
+          "src": "/images/guides/photo-1693163640190-f9dd38a88940-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 800,
+          "bytes": 37694,
+          "src": "/images/guides/photo-1693163640190-f9dd38a88940-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 1000,
+          "bytes": 33173,
+          "src": "/images/guides/photo-1693163640190-f9dd38a88940-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 1000,
+          "bytes": 37712,
+          "src": "/images/guides/photo-1693163640190-f9dd38a88940-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 1200,
+          "bytes": 32095,
+          "src": "/images/guides/photo-1693163640190-f9dd38a88940-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 1200,
+          "bytes": 39916,
+          "src": "/images/guides/photo-1693163640190-f9dd38a88940-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 1000,
+        "bytes": 36350,
+        "src": "/images/guides/photo-1693163640190-f9dd38a88940-social-800.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1752079307841-b12102a7944f?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1752079307841-b12102a7944f?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 720,
+          "bytes": 20383,
+          "src": "/images/guides/photo-1752079307841-b12102a7944f-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 720,
+          "bytes": 25682,
+          "src": "/images/guides/photo-1752079307841-b12102a7944f-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 960,
+          "bytes": 39353,
+          "src": "/images/guides/photo-1752079307841-b12102a7944f-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 960,
+          "bytes": 36040,
+          "src": "/images/guides/photo-1752079307841-b12102a7944f-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 1200,
+          "bytes": 33688,
+          "src": "/images/guides/photo-1752079307841-b12102a7944f-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 1200,
+          "bytes": 36882,
+          "src": "/images/guides/photo-1752079307841-b12102a7944f-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 1440,
+          "bytes": 28787,
+          "src": "/images/guides/photo-1752079307841-b12102a7944f-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 1200,
+        "bytes": 39493,
+        "src": "/images/guides/photo-1752079307841-b12102a7944f-social-800.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1561251224-e393160cd769?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1561251224-e393160cd769?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 24333,
+          "src": "/images/guides/photo-1561251224-e393160cd769-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 23980,
+          "src": "/images/guides/photo-1561251224-e393160cd769-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 37030,
+          "src": "/images/guides/photo-1561251224-e393160cd769-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 37416,
+          "src": "/images/guides/photo-1561251224-e393160cd769-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 37060,
+          "src": "/images/guides/photo-1561251224-e393160cd769-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 37482,
+          "src": "/images/guides/photo-1561251224-e393160cd769-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 35288,
+          "src": "/images/guides/photo-1561251224-e393160cd769-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 39034,
+          "src": "/images/guides/photo-1561251224-e393160cd769-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 37061,
+        "src": "/images/guides/photo-1561251224-e393160cd769-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1562204320-31975a5e09ce?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1562204320-31975a5e09ce?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 329,
+          "bytes": 11163,
+          "src": "/images/guides/photo-1562204320-31975a5e09ce-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 329,
+          "bytes": 12160,
+          "src": "/images/guides/photo-1562204320-31975a5e09ce-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 438,
+          "bytes": 15598,
+          "src": "/images/guides/photo-1562204320-31975a5e09ce-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 438,
+          "bytes": 17642,
+          "src": "/images/guides/photo-1562204320-31975a5e09ce-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 548,
+          "bytes": 20666,
+          "src": "/images/guides/photo-1562204320-31975a5e09ce-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 548,
+          "bytes": 23622,
+          "src": "/images/guides/photo-1562204320-31975a5e09ce-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 658,
+          "bytes": 25371,
+          "src": "/images/guides/photo-1562204320-31975a5e09ce-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 658,
+          "bytes": 29704,
+          "src": "/images/guides/photo-1562204320-31975a5e09ce-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 658,
+        "bytes": 34169,
+        "src": "/images/guides/photo-1562204320-31975a5e09ce-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1597850181775-9dc33ba15b5e?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1597850181775-9dc33ba15b5e?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 270,
+          "bytes": 5400,
+          "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 270,
+          "bytes": 6312,
+          "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 360,
+          "bytes": 7260,
+          "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 360,
+          "bytes": 9126,
+          "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 450,
+          "bytes": 9411,
+          "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 12116,
+          "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 540,
+          "bytes": 11669,
+          "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 540,
+          "bytes": 15338,
+          "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 540,
+        "bytes": 24889,
+        "src": "/images/guides/photo-1597850181775-9dc33ba15b5e-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1642235733613-ccba5328fb3f?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1642235733613-ccba5328fb3f?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 480,
+          "bytes": 2549,
+          "src": "/images/guides/photo-1642235733613-ccba5328fb3f-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 3248,
+          "src": "/images/guides/photo-1642235733613-ccba5328fb3f-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 640,
+          "bytes": 3515,
+          "src": "/images/guides/photo-1642235733613-ccba5328fb3f-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 4818,
+          "src": "/images/guides/photo-1642235733613-ccba5328fb3f-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 800,
+          "bytes": 4348,
+          "src": "/images/guides/photo-1642235733613-ccba5328fb3f-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 800,
+          "bytes": 6520,
+          "src": "/images/guides/photo-1642235733613-ccba5328fb3f-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 960,
+          "bytes": 5347,
+          "src": "/images/guides/photo-1642235733613-ccba5328fb3f-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 960,
+          "bytes": 8272,
+          "src": "/images/guides/photo-1642235733613-ccba5328fb3f-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 960,
+        "bytes": 14737,
+        "src": "/images/guides/photo-1642235733613-ccba5328fb3f-social-960.jpg"
+      }
+    },
+    "/images/articles/sun-mountain-c130-cart-black.webp": {
+      "source": "/images/articles/sun-mountain-c130-cart-black.webp",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 480,
+          "bytes": 10603,
+          "src": "/images/guides/sun-mountain-c130-cart-black-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 15672,
+          "src": "/images/guides/sun-mountain-c130-cart-black-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 640,
+          "bytes": 15365,
+          "src": "/images/guides/sun-mountain-c130-cart-black-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 23474,
+          "src": "/images/guides/sun-mountain-c130-cart-black-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 800,
+          "bytes": 21319,
+          "src": "/images/guides/sun-mountain-c130-cart-black-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 800,
+          "bytes": 33312,
+          "src": "/images/guides/sun-mountain-c130-cart-black-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 960,
+          "bytes": 28483,
+          "src": "/images/guides/sun-mountain-c130-cart-black-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 960,
+          "bytes": 39458,
+          "src": "/images/guides/sun-mountain-c130-cart-black-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 960,
+        "bytes": 31120,
+        "src": "/images/guides/sun-mountain-c130-cart-black-social-960.jpg"
+      }
+    },
+    "/images/hero-golf.jpg": {
+      "source": "/images/hero-golf.jpg",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 14200,
+          "src": "/images/guides/hero-golf-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 13574,
+          "src": "/images/guides/hero-golf-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 25564,
+          "src": "/images/guides/hero-golf-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 23264,
+          "src": "/images/guides/hero-golf-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 25655,
+          "src": "/images/guides/hero-golf-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 37308,
+          "src": "/images/guides/hero-golf-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 34589,
+          "src": "/images/guides/hero-golf-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 37504,
+          "src": "/images/guides/hero-golf-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 36126,
+        "src": "/images/guides/hero-golf-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1696104470342-b1ed3afe8381?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1696104470342-b1ed3afe8381?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 14845,
+          "src": "/images/guides/photo-1696104470342-b1ed3afe8381-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 16276,
+          "src": "/images/guides/photo-1696104470342-b1ed3afe8381-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 27607,
+          "src": "/images/guides/photo-1696104470342-b1ed3afe8381-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 29224,
+          "src": "/images/guides/photo-1696104470342-b1ed3afe8381-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 28520,
+          "src": "/images/guides/photo-1696104470342-b1ed3afe8381-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 38770,
+          "src": "/images/guides/photo-1696104470342-b1ed3afe8381-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 38786,
+          "src": "/images/guides/photo-1696104470342-b1ed3afe8381-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 35904,
+          "src": "/images/guides/photo-1696104470342-b1ed3afe8381-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 37109,
+        "src": "/images/guides/photo-1696104470342-b1ed3afe8381-social-960.jpg"
+      }
+    },
+    "https://images.pexels.com/photos/1325735/pexels-photo-1325735.jpeg?auto=compress&cs=tinysrgb&w=1200": {
+      "source": "https://images.pexels.com/photos/1325735/pexels-photo-1325735.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 25315,
+          "src": "/images/guides/pexels-1325735-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 24914,
+          "src": "/images/guides/pexels-1325735-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 34467,
+          "src": "/images/guides/pexels-1325735-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 35362,
+          "src": "/images/guides/pexels-1325735-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 33764,
+          "src": "/images/guides/pexels-1325735-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 37824,
+          "src": "/images/guides/pexels-1325735-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 39962,
+          "src": "/images/guides/pexels-1325735-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 37128,
+          "src": "/images/guides/pexels-1325735-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 533,
+        "bytes": 39288,
+        "src": "/images/guides/pexels-1325735-social-800.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1694636507260-8b2428e3b738?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1694636507260-8b2428e3b738?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 640,
+          "bytes": 28780,
+          "src": "/images/guides/photo-1694636507260-8b2428e3b738-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 39380,
+          "src": "/images/guides/photo-1694636507260-8b2428e3b738-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 853,
+          "bytes": 39080,
+          "src": "/images/guides/photo-1694636507260-8b2428e3b738-640.avif"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 1067,
+          "bytes": 33335,
+          "src": "/images/guides/photo-1694636507260-8b2428e3b738-800.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 640,
+        "height": 853,
+        "bytes": 39231,
+        "src": "/images/guides/photo-1694636507260-8b2428e3b738-social-640.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1635521299899-52613a1a3b17?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1635521299899-52613a1a3b17?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 382,
+          "bytes": 13220,
+          "src": "/images/guides/photo-1635521299899-52613a1a3b17-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 382,
+          "bytes": 14814,
+          "src": "/images/guides/photo-1635521299899-52613a1a3b17-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 509,
+          "bytes": 19013,
+          "src": "/images/guides/photo-1635521299899-52613a1a3b17-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 509,
+          "bytes": 21996,
+          "src": "/images/guides/photo-1635521299899-52613a1a3b17-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 636,
+          "bytes": 26401,
+          "src": "/images/guides/photo-1635521299899-52613a1a3b17-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 636,
+          "bytes": 31220,
+          "src": "/images/guides/photo-1635521299899-52613a1a3b17-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 763,
+          "bytes": 34900,
+          "src": "/images/guides/photo-1635521299899-52613a1a3b17-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 763,
+          "bytes": 36380,
+          "src": "/images/guides/photo-1635521299899-52613a1a3b17-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 763,
+        "bytes": 35929,
+        "src": "/images/guides/photo-1635521299899-52613a1a3b17-social-960.jpg"
+      }
+    },
+    "https://flightscope.com/cdn/shop/files/Mevo-Plus-Gray-Indoor.jpg?v=1759316738&width=1080": {
+      "source": "https://flightscope.com/cdn/shop/files/Mevo-Plus-Gray-Indoor.jpg?v=1759316738&width=1080",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 480,
+          "bytes": 19325,
+          "src": "/images/guides/mevo-plus-gray-indoor-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 19740,
+          "src": "/images/guides/mevo-plus-gray-indoor-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 640,
+          "bytes": 34830,
+          "src": "/images/guides/mevo-plus-gray-indoor-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 35132,
+          "src": "/images/guides/mevo-plus-gray-indoor-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 800,
+          "bytes": 37864,
+          "src": "/images/guides/mevo-plus-gray-indoor-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 800,
+          "bytes": 38690,
+          "src": "/images/guides/mevo-plus-gray-indoor-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 960,
+          "bytes": 37809,
+          "src": "/images/guides/mevo-plus-gray-indoor-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 960,
+        "bytes": 35233,
+        "src": "/images/guides/mevo-plus-gray-indoor-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1693163537665-b7c5a5f01f75?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1693163537665-b7c5a5f01f75?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 600,
+          "bytes": 29624,
+          "src": "/images/guides/photo-1693163537665-b7c5a5f01f75-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 600,
+          "bytes": 31594,
+          "src": "/images/guides/photo-1693163537665-b7c5a5f01f75-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 800,
+          "bytes": 33371,
+          "src": "/images/guides/photo-1693163537665-b7c5a5f01f75-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 800,
+          "bytes": 39158,
+          "src": "/images/guides/photo-1693163537665-b7c5a5f01f75-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 1000,
+          "bytes": 34833,
+          "src": "/images/guides/photo-1693163537665-b7c5a5f01f75-800.avif"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 1200,
+          "bytes": 35174,
+          "src": "/images/guides/photo-1693163537665-b7c5a5f01f75-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 1000,
+        "bytes": 36778,
+        "src": "/images/guides/photo-1693163537665-b7c5a5f01f75-social-800.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1725835567442-7f39d9199f8c?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1725835567442-7f39d9199f8c?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 640,
+          "bytes": 12583,
+          "src": "/images/guides/photo-1725835567442-7f39d9199f8c-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 15308,
+          "src": "/images/guides/photo-1725835567442-7f39d9199f8c-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 853,
+          "bytes": 17755,
+          "src": "/images/guides/photo-1725835567442-7f39d9199f8c-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 22040,
+          "src": "/images/guides/photo-1725835567442-7f39d9199f8c-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 1067,
+          "bytes": 22550,
+          "src": "/images/guides/photo-1725835567442-7f39d9199f8c-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 1067,
+          "bytes": 28880,
+          "src": "/images/guides/photo-1725835567442-7f39d9199f8c-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 1280,
+          "bytes": 26743,
+          "src": "/images/guides/photo-1725835567442-7f39d9199f8c-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 35808,
+          "src": "/images/guides/photo-1725835567442-7f39d9199f8c-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 1280,
+        "bytes": 38218,
+        "src": "/images/guides/photo-1725835567442-7f39d9199f8c-social-960.jpg"
+      }
+    },
+    "https://www.galvingreen.com/cdn/shop/files/ARMSTRONG_FRONT_G120217.webp?v=1759158231&width=1080": {
+      "source": "https://www.galvingreen.com/cdn/shop/files/ARMSTRONG_FRONT_G120217.webp?v=1759158231&width=1080",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 480,
+          "bytes": 5800,
+          "src": "/images/guides/armstrong-front-g120217-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 7458,
+          "src": "/images/guides/armstrong-front-g120217-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 640,
+          "bytes": 7968,
+          "src": "/images/guides/armstrong-front-g120217-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 10938,
+          "src": "/images/guides/armstrong-front-g120217-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 800,
+          "bytes": 11394,
+          "src": "/images/guides/armstrong-front-g120217-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 800,
+          "bytes": 16186,
+          "src": "/images/guides/armstrong-front-g120217-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 960,
+          "bytes": 16930,
+          "src": "/images/guides/armstrong-front-g120217-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 960,
+          "bytes": 24384,
+          "src": "/images/guides/armstrong-front-g120217-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 960,
+        "bytes": 33418,
+        "src": "/images/guides/armstrong-front-g120217-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1612672916367-a185107c8aaa?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1612672916367-a185107c8aaa?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 270,
+          "bytes": 8202,
+          "src": "/images/guides/photo-1612672916367-a185107c8aaa-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 270,
+          "bytes": 8928,
+          "src": "/images/guides/photo-1612672916367-a185107c8aaa-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 360,
+          "bytes": 11968,
+          "src": "/images/guides/photo-1612672916367-a185107c8aaa-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 360,
+          "bytes": 13576,
+          "src": "/images/guides/photo-1612672916367-a185107c8aaa-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 450,
+          "bytes": 15670,
+          "src": "/images/guides/photo-1612672916367-a185107c8aaa-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 450,
+          "bytes": 18652,
+          "src": "/images/guides/photo-1612672916367-a185107c8aaa-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 540,
+          "bytes": 19964,
+          "src": "/images/guides/photo-1612672916367-a185107c8aaa-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 540,
+          "bytes": 23530,
+          "src": "/images/guides/photo-1612672916367-a185107c8aaa-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 540,
+        "bytes": 33003,
+        "src": "/images/guides/photo-1612672916367-a185107c8aaa-social-960.jpg"
+      }
+    },
+    "https://images.contentstack.io/v3/assets/blt0e5ec1de4817c440/blt9eb78bc8fd677fc8/678678e3485a4c6d7018b6e6/hero-desktop.jpg": {
+      "source": "https://images.contentstack.io/v3/assets/blt0e5ec1de4817c440/blt9eb78bc8fd677fc8/678678e3485a4c6d7018b6e6/hero-desktop.jpg",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 186,
+          "bytes": 10165,
+          "src": "/images/guides/hero-desktop-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 186,
+          "bytes": 10020,
+          "src": "/images/guides/hero-desktop-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 248,
+          "bytes": 13466,
+          "src": "/images/guides/hero-desktop-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 248,
+          "bytes": 14446,
+          "src": "/images/guides/hero-desktop-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 310,
+          "bytes": 17159,
+          "src": "/images/guides/hero-desktop-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 310,
+          "bytes": 19338,
+          "src": "/images/guides/hero-desktop-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 373,
+          "bytes": 20844,
+          "src": "/images/guides/hero-desktop-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 373,
+          "bytes": 24238,
+          "src": "/images/guides/hero-desktop-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 373,
+        "bytes": 33890,
+        "src": "/images/guides/hero-desktop-social-960.jpg"
+      }
+    },
+    "https://images.pexels.com/photos/114972/pexels-photo-114972.jpeg?auto=compress&cs=tinysrgb&w=1200": {
+      "source": "https://images.pexels.com/photos/114972/pexels-photo-114972.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "credit": "Markus Spiske / CC 0",
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 17502,
+          "src": "/images/guides/pexels-114972-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17546,
+          "src": "/images/guides/pexels-114972-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 26653,
+          "src": "/images/guides/pexels-114972-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 27698,
+          "src": "/images/guides/pexels-114972-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 37683,
+          "src": "/images/guides/pexels-114972-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 39214,
+          "src": "/images/guides/pexels-114972-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 37098,
+          "src": "/images/guides/pexels-114972-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 39444,
+          "src": "/images/guides/pexels-114972-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 36346,
+        "src": "/images/guides/pexels-114972-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1622729574718-09c87e14ffdb?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1622729574718-09c87e14ffdb?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 17396,
+          "src": "/images/guides/photo-1622729574718-09c87e14ffdb-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 17844,
+          "src": "/images/guides/photo-1622729574718-09c87e14ffdb-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 30707,
+          "src": "/images/guides/photo-1622729574718-09c87e14ffdb-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 32814,
+          "src": "/images/guides/photo-1622729574718-09c87e14ffdb-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 30648,
+          "src": "/images/guides/photo-1622729574718-09c87e14ffdb-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 36208,
+          "src": "/images/guides/photo-1622729574718-09c87e14ffdb-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 28684,
+          "src": "/images/guides/photo-1622729574718-09c87e14ffdb-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 39124,
+          "src": "/images/guides/photo-1622729574718-09c87e14ffdb-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 38690,
+        "src": "/images/guides/photo-1622729574718-09c87e14ffdb-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1761978503733-54eba581cad4?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1761978503733-54eba581cad4?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 530,
+          "bytes": 30918,
+          "src": "/images/guides/photo-1761978503733-54eba581cad4-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 530,
+          "bytes": 29000,
+          "src": "/images/guides/photo-1761978503733-54eba581cad4-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 707,
+          "bytes": 32712,
+          "src": "/images/guides/photo-1761978503733-54eba581cad4-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 707,
+          "bytes": 38508,
+          "src": "/images/guides/photo-1761978503733-54eba581cad4-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 884,
+          "bytes": 39931,
+          "src": "/images/guides/photo-1761978503733-54eba581cad4-800.avif"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 1061,
+          "bytes": 36495,
+          "src": "/images/guides/photo-1761978503733-54eba581cad4-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 884,
+        "bytes": 37276,
+        "src": "/images/guides/photo-1761978503733-54eba581cad4-social-800.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1578142880150-c4df65644560?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1578142880150-c4df65644560?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 21959,
+          "src": "/images/guides/photo-1578142880150-c4df65644560-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 23802,
+          "src": "/images/guides/photo-1578142880150-c4df65644560-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 33902,
+          "src": "/images/guides/photo-1578142880150-c4df65644560-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 38108,
+          "src": "/images/guides/photo-1578142880150-c4df65644560-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 34384,
+          "src": "/images/guides/photo-1578142880150-c4df65644560-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 39170,
+          "src": "/images/guides/photo-1578142880150-c4df65644560-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 32825,
+          "src": "/images/guides/photo-1578142880150-c4df65644560-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 39749,
+        "src": "/images/guides/photo-1578142880150-c4df65644560-social-960.jpg"
+      }
+    },
+    "https://images.pexels.com/photos/9207742/pexels-photo-9207742.jpeg?auto=compress&cs=tinysrgb&w=1200": {
+      "source": "https://images.pexels.com/photos/9207742/pexels-photo-9207742.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 31124,
+          "src": "/images/guides/pexels-9207742-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 38744,
+          "src": "/images/guides/pexels-9207742-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 32698,
+          "src": "/images/guides/pexels-9207742-640.avif"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 39033,
+          "src": "/images/guides/pexels-9207742-800.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 533,
+        "bytes": 39264,
+        "src": "/images/guides/pexels-9207742-social-800.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1691608788396-43e0e6ed9535?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1691608788396-43e0e6ed9535?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 10588,
+          "src": "/images/guides/photo-1691608788396-43e0e6ed9535-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 11516,
+          "src": "/images/guides/photo-1691608788396-43e0e6ed9535-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 15018,
+          "src": "/images/guides/photo-1691608788396-43e0e6ed9535-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 17596,
+          "src": "/images/guides/photo-1691608788396-43e0e6ed9535-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 20494,
+          "src": "/images/guides/photo-1691608788396-43e0e6ed9535-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 24442,
+          "src": "/images/guides/photo-1691608788396-43e0e6ed9535-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 25754,
+          "src": "/images/guides/photo-1691608788396-43e0e6ed9535-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 31534,
+          "src": "/images/guides/photo-1691608788396-43e0e6ed9535-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 35182,
+        "src": "/images/guides/photo-1691608788396-43e0e6ed9535-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1595827432953-7161e19e303e?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1595827432953-7161e19e303e?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 12845,
+          "src": "/images/guides/photo-1595827432953-7161e19e303e-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 13540,
+          "src": "/images/guides/photo-1595827432953-7161e19e303e-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 17570,
+          "src": "/images/guides/photo-1595827432953-7161e19e303e-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 19496,
+          "src": "/images/guides/photo-1595827432953-7161e19e303e-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 534,
+          "bytes": 22700,
+          "src": "/images/guides/photo-1595827432953-7161e19e303e-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 534,
+          "bytes": 25442,
+          "src": "/images/guides/photo-1595827432953-7161e19e303e-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 641,
+          "bytes": 27401,
+          "src": "/images/guides/photo-1595827432953-7161e19e303e-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 641,
+          "bytes": 31774,
+          "src": "/images/guides/photo-1595827432953-7161e19e303e-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 641,
+        "bytes": 35278,
+        "src": "/images/guides/photo-1595827432953-7161e19e303e-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1627307887011-8a5029b6adcb?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1627307887011-8a5029b6adcb?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "webp",
+          "width": 360,
+          "height": 540,
+          "bytes": 36950,
+          "src": "/images/guides/photo-1627307887011-8a5029b6adcb-360.webp"
+        },
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 720,
+          "bytes": 31515,
+          "src": "/images/guides/photo-1627307887011-8a5029b6adcb-480.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 480,
+        "height": 720,
+        "bytes": 39686,
+        "src": "/images/guides/photo-1627307887011-8a5029b6adcb-social-480.jpg"
+      }
+    },
+    "https://bagboy.com/cdn/shop/files/BB72011_Bag-Boy_Nitron_Graphite-Charcoal-R-web.jpg?v=1755623915": {
+      "source": "https://bagboy.com/cdn/shop/files/BB72011_Bag-Boy_Nitron_Graphite-Charcoal-R-web.jpg?v=1755623915",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 480,
+          "bytes": 14067,
+          "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 15018,
+          "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 640,
+          "bytes": 20369,
+          "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 22530,
+          "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 800,
+          "bytes": 27338,
+          "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 800,
+          "bytes": 31148,
+          "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 960,
+          "bytes": 34587,
+          "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 960,
+          "bytes": 36886,
+          "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 960,
+        "bytes": 36599,
+        "src": "/images/guides/bb72011-bag-boy-nitron-graphite-charcoal-r-web-social-960.jpg"
+      }
+    },
+    "/images/articles/golf-stand-bag-equipment.jpg": {
+      "source": "/images/articles/golf-stand-bag-equipment.jpg",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 720,
+          "bytes": 20585,
+          "src": "/images/guides/golf-stand-bag-equipment-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 720,
+          "bytes": 25700,
+          "src": "/images/guides/golf-stand-bag-equipment-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 960,
+          "bytes": 39511,
+          "src": "/images/guides/golf-stand-bag-equipment-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 960,
+          "bytes": 36912,
+          "src": "/images/guides/golf-stand-bag-equipment-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 1200,
+          "bytes": 33945,
+          "src": "/images/guides/golf-stand-bag-equipment-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 1200,
+          "bytes": 37766,
+          "src": "/images/guides/golf-stand-bag-equipment-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 1440,
+          "bytes": 28858,
+          "src": "/images/guides/golf-stand-bag-equipment-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 1200,
+        "bytes": 39657,
+        "src": "/images/guides/golf-stand-bag-equipment-social-800.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1633499989414-0854d95bcb5c?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1633499989414-0854d95bcb5c?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 4331,
+          "src": "/images/guides/photo-1633499989414-0854d95bcb5c-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 5722,
+          "src": "/images/guides/photo-1633499989414-0854d95bcb5c-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 5844,
+          "src": "/images/guides/photo-1633499989414-0854d95bcb5c-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 8192,
+          "src": "/images/guides/photo-1633499989414-0854d95bcb5c-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 7438,
+          "src": "/images/guides/photo-1633499989414-0854d95bcb5c-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 10882,
+          "src": "/images/guides/photo-1633499989414-0854d95bcb5c-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 9063,
+          "src": "/images/guides/photo-1633499989414-0854d95bcb5c-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 13648,
+          "src": "/images/guides/photo-1633499989414-0854d95bcb5c-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 21103,
+        "src": "/images/guides/photo-1633499989414-0854d95bcb5c-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1517257225266-3c82af13eae9?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1517257225266-3c82af13eae9?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 318,
+          "bytes": 14498,
+          "src": "/images/guides/photo-1517257225266-3c82af13eae9-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 318,
+          "bytes": 16264,
+          "src": "/images/guides/photo-1517257225266-3c82af13eae9-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 423,
+          "bytes": 20411,
+          "src": "/images/guides/photo-1517257225266-3c82af13eae9-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 423,
+          "bytes": 23870,
+          "src": "/images/guides/photo-1517257225266-3c82af13eae9-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 529,
+          "bytes": 27415,
+          "src": "/images/guides/photo-1517257225266-3c82af13eae9-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 529,
+          "bytes": 31998,
+          "src": "/images/guides/photo-1517257225266-3c82af13eae9-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 635,
+          "bytes": 34317,
+          "src": "/images/guides/photo-1517257225266-3c82af13eae9-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 635,
+          "bytes": 36672,
+          "src": "/images/guides/photo-1517257225266-3c82af13eae9-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 635,
+        "bytes": 38651,
+        "src": "/images/guides/photo-1517257225266-3c82af13eae9-social-960.jpg"
+      }
+    },
+    "/images/articles/golf-putter-closeup.jpg": {
+      "source": "/images/articles/golf-putter-closeup.jpg",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 360,
+          "bytes": 39852,
+          "src": "/images/guides/golf-putter-closeup-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 360,
+          "bytes": 39994,
+          "src": "/images/guides/golf-putter-closeup-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 480,
+          "bytes": 39728,
+          "src": "/images/guides/golf-putter-closeup-640.avif"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 600,
+          "bytes": 39980,
+          "src": "/images/guides/golf-putter-closeup-800.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 640,
+        "height": 480,
+        "bytes": 35064,
+        "src": "/images/guides/golf-putter-closeup-social-640.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1562204320-c7f5f2a04156?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1562204320-c7f5f2a04156?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 8991,
+          "src": "/images/guides/photo-1562204320-c7f5f2a04156-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 10498,
+          "src": "/images/guides/photo-1562204320-c7f5f2a04156-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 12214,
+          "src": "/images/guides/photo-1562204320-c7f5f2a04156-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 15002,
+          "src": "/images/guides/photo-1562204320-c7f5f2a04156-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 15436,
+          "src": "/images/guides/photo-1562204320-c7f5f2a04156-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 19698,
+          "src": "/images/guides/photo-1562204320-c7f5f2a04156-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 18893,
+          "src": "/images/guides/photo-1562204320-c7f5f2a04156-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 24168,
+          "src": "/images/guides/photo-1562204320-c7f5f2a04156-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 37719,
+        "src": "/images/guides/photo-1562204320-c7f5f2a04156-social-960.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1698169206079-7b46e8377df4?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1698169206079-7b46e8377df4?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 325,
+          "bytes": 32077,
+          "src": "/images/guides/photo-1698169206079-7b46e8377df4-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 325,
+          "bytes": 28008,
+          "src": "/images/guides/photo-1698169206079-7b46e8377df4-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 434,
+          "bytes": 39796,
+          "src": "/images/guides/photo-1698169206079-7b46e8377df4-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 434,
+          "bytes": 39082,
+          "src": "/images/guides/photo-1698169206079-7b46e8377df4-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 542,
+          "bytes": 35773,
+          "src": "/images/guides/photo-1698169206079-7b46e8377df4-800.avif"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 650,
+          "bytes": 37483,
+          "src": "/images/guides/photo-1698169206079-7b46e8377df4-960.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 800,
+        "height": 542,
+        "bytes": 36321,
+        "src": "/images/guides/photo-1698169206079-7b46e8377df4-social-800.jpg"
+      }
+    },
+    "/images/articles/golfer-walking-course.jpg": {
+      "source": "/images/articles/golfer-walking-course.jpg",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 321,
+          "bytes": 36198,
+          "src": "/images/guides/golfer-walking-course-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 321,
+          "bytes": 36514,
+          "src": "/images/guides/golfer-walking-course-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 34295,
+          "src": "/images/guides/golfer-walking-course-640.avif"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 640,
+        "height": 427,
+        "bytes": 37866,
+        "src": "/images/guides/golfer-walking-course-social-640.jpg"
+      }
+    },
+    "https://images.unsplash.com/photo-1515358204547-8689c79d6991?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1515358204547-8689c79d6991?w=1200&q=80",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 320,
+          "bytes": 6399,
+          "src": "/images/guides/photo-1515358204547-8689c79d6991-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 320,
+          "bytes": 6660,
+          "src": "/images/guides/photo-1515358204547-8689c79d6991-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 8712,
+          "src": "/images/guides/photo-1515358204547-8689c79d6991-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 427,
+          "bytes": 9822,
+          "src": "/images/guides/photo-1515358204547-8689c79d6991-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 11348,
+          "src": "/images/guides/photo-1515358204547-8689c79d6991-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 13086,
+          "src": "/images/guides/photo-1515358204547-8689c79d6991-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 640,
+          "bytes": 13600,
+          "src": "/images/guides/photo-1515358204547-8689c79d6991-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 16010,
+          "src": "/images/guides/photo-1515358204547-8689c79d6991-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 640,
+        "bytes": 26179,
+        "src": "/images/guides/photo-1515358204547-8689c79d6991-social-960.jpg"
+      }
+    },
+    "https://images.contentstack.io/v3/assets/bltf7bc8e0c7e024392/blt28076b4832821c3f/669154c7af53dec4a4fb67c9/Opus-Comp-Chart_Opus-Chrome_2000x2000.png?auto=webp&quality=75&width=3000": {
+      "source": "https://images.contentstack.io/v3/assets/bltf7bc8e0c7e024392/blt28076b4832821c3f/669154c7af53dec4a4fb67c9/Opus-Comp-Chart_Opus-Chrome_2000x2000.png?auto=webp&quality=75&width=3000",
+      "credit": null,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 480,
+          "bytes": 9213,
+          "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-480.avif"
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 480,
+          "bytes": 15936,
+          "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-480.webp"
+        },
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 640,
+          "bytes": 12102,
+          "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-640.avif"
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 640,
+          "bytes": 22050,
+          "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-640.webp"
+        },
+        {
+          "format": "avif",
+          "width": 800,
+          "height": 800,
+          "bytes": 15250,
+          "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-800.avif"
+        },
+        {
+          "format": "webp",
+          "width": 800,
+          "height": 800,
+          "bytes": 29350,
+          "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-800.webp"
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 960,
+          "bytes": 17996,
+          "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-960.avif"
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 960,
+          "bytes": 36772,
+          "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-960.webp"
+        }
+      ],
+      "social": {
+        "format": "jpeg",
+        "width": 960,
+        "height": 960,
+        "bytes": 28539,
+        "src": "/images/guides/opus-comp-chart-opus-chrome-2000x2000-social-960.jpg"
+      }
+    }
+  },
+  "thumbs": {
+    "/images/kyle-reierson.jpg": {
+      "source": "/images/kyle-reierson.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 10090,
+      "src": "/images/guides/kyle-reierson-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 6796,
+      "src": "/images/guides/photo-1535131749006-b7f58c99034b-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1690288492505-3b7a07a8eaa9?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1690288492505-3b7a07a8eaa9?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 9444,
+      "src": "/images/guides/photo-1690288492505-3b7a07a8eaa9-thumb-320.webp"
+    },
+    "/images/articles/golfer-swing-glove.jpg": {
+      "source": "/images/articles/golfer-swing-glove.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 480,
+      "bytes": 23808,
+      "src": "/images/guides/golfer-swing-glove-thumb-320.webp"
+    },
+    "https://acushnet.scene7.com/is/image/titleist/Final-Centered-Flex?qlt=75&resMode=sharp2&wid=1200": {
+      "source": "https://acushnet.scene7.com/is/image/titleist/Final-Centered-Flex?qlt=75&resMode=sharp2&wid=1200",
+      "format": "webp",
+      "width": 320,
+      "height": 293,
+      "bytes": 3344,
+      "src": "/images/guides/final-centered-flex-thumb-320.webp"
+    },
+    "https://static.nike.com/a/images/t_web_pdp_936_v2/f_auto%2Cu_9ddf04c7-2a9a-4d76-add1-d15af8f0263d%2Cc_scale%2Cfl_relative%2Cw_1.0%2Ch_1.0%2Cfl_layer_apply/408db15c-de67-45b5-9e9e-b713c81487ef/M%2BACG%2BSFADV%2BMORPHO%2BRAINJKT%2BAOP.png": {
+      "source": "https://static.nike.com/a/images/t_web_pdp_936_v2/f_auto%2Cu_9ddf04c7-2a9a-4d76-add1-d15af8f0263d%2Cc_scale%2Cfl_relative%2Cw_1.0%2Ch_1.0%2Cfl_layer_apply/408db15c-de67-45b5-9e9e-b713c81487ef/M%2BACG%2BSFADV%2BMORPHO%2BRAINJKT%2BAOP.png",
+      "format": "webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 11368,
+      "src": "/images/guides/m-2bacg-2bsfadv-2bmorpho-2brainjkt-2baop-thumb-320.webp"
+    },
+    "/images/articles/golfer-walking-fairway.jpg": {
+      "source": "/images/articles/golfer-walking-fairway.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 202,
+      "bytes": 14806,
+      "src": "/images/guides/golfer-walking-fairway-thumb-320.webp"
+    },
+    "/images/articles/golf-bag-on-course.jpg": {
+      "source": "/images/articles/golf-bag-on-course.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 15782,
+      "src": "/images/guides/golf-bag-on-course-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1602991174407-a015b35a7b00?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1602991174407-a015b35a7b00?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 256,
+      "bytes": 17586,
+      "src": "/images/guides/photo-1602991174407-a015b35a7b00-thumb-320.webp"
+    },
+    "/images/articles/golf-deals-july-25-2026-vice-pro-pro-soft-tour.jpg": {
+      "source": "/images/articles/golf-deals-july-25-2026-vice-pro-pro-soft-tour.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 180,
+      "bytes": 3470,
+      "src": "/images/guides/golf-deals-july-25-2026-vice-pro-pro-soft-tour-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1576555928619-03d62a29e4a1?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1576555928619-03d62a29e4a1?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 240,
+      "bytes": 14538,
+      "src": "/images/guides/photo-1576555928619-03d62a29e4a1-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1530028828-25e8270793c5?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1530028828-25e8270793c5?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 7856,
+      "src": "/images/guides/photo-1530028828-25e8270793c5-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1621005570352-6418df03796b?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1621005570352-6418df03796b?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 240,
+      "bytes": 20250,
+      "src": "/images/guides/photo-1621005570352-6418df03796b-thumb-320.webp"
+    },
+    "https://api.next.ping.com/media/catalog/product/g/o/golf_bags_cart_pioneer_244_rust_mosaic_studio_left_side_1600x1600_1513.png?auto=webp&fit=bounds&format=pjpg&height=&quality=80&width=3840": {
+      "source": "https://api.next.ping.com/media/catalog/product/g/o/golf_bags_cart_pioneer_244_rust_mosaic_studio_left_side_1600x1600_1513.png?auto=webp&fit=bounds&format=pjpg&height=&quality=80&width=3840",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 5076,
+      "src": "/images/guides/golf-bags-cart-pioneer-244-rust-mosaic-studio-left-side-1600x1600-1513-thumb-320.webp"
+    },
+    "/images/articles/taylormade-cart-lite-review.jpg": {
+      "source": "/images/articles/taylormade-cart-lite-review.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 230,
+      "bytes": 19150,
+      "src": "/images/guides/taylormade-cart-lite-review-thumb-320.webp"
+    },
+    "https://images.contentstack.io/v3/assets/bltf7bc8e0c7e024392/blt612d7c1413f2a1ee/679ab8f3e67c0bd4afc576fb/bags-2025-org-14-cart_22314_1.png?auto=webp&quality=75&width=3000": {
+      "source": "https://images.contentstack.io/v3/assets/bltf7bc8e0c7e024392/blt612d7c1413f2a1ee/679ab8f3e67c0bd4afc576fb/bags-2025-org-14-cart_22314_1.png?auto=webp&quality=75&width=3000",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 7740,
+      "src": "/images/guides/bags-2025-org-14-cart-22314-1-thumb-320.webp"
+    },
+    "https://www.sunmountain.com/cdn/shop/files/1009-01-C130-Cart-Black-MainView.webp?v=1771369181&width=2000": {
+      "source": "https://www.sunmountain.com/cdn/shop/files/1009-01-C130-Cart-Black-MainView.webp?v=1771369181&width=2000",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 8812,
+      "src": "/images/guides/1009-01-c130-cart-black-mainview-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1758933067991-db3979cad1ec?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1758933067991-db3979cad1ec?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 317,
+      "bytes": 11388,
+      "src": "/images/guides/photo-1758933067991-db3979cad1ec-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1682653039817-09dc9f0c1b1e?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1682653039817-09dc9f0c1b1e?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 480,
+      "bytes": 6120,
+      "src": "/images/guides/photo-1682653039817-09dc9f0c1b1e-thumb-320.webp"
+    },
+    "/images/articles/ping-g440-lst-driver-review.png": {
+      "source": "/images/articles/ping-g440-lst-driver-review.png",
+      "format": "webp",
+      "width": 320,
+      "height": 180,
+      "bytes": 1248,
+      "src": "/images/guides/ping-g440-lst-driver-review-thumb-320.webp"
+    },
+    "/images/articles/copper-golf-clubs.jpg": {
+      "source": "/images/articles/copper-golf-clubs.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 6482,
+      "src": "/images/guides/copper-golf-clubs-thumb-320.webp"
+    },
+    "/images/articles/footjoy-stasof-vs-titleist-perma-soft.jpg": {
+      "source": "/images/articles/footjoy-stasof-vs-titleist-perma-soft.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 180,
+      "bytes": 2048,
+      "src": "/images/guides/footjoy-stasof-vs-titleist-perma-soft-thumb-320.webp"
+    },
+    "https://res.garmin.com/en/products/010-02746-02/g/cf-lg.jpg": {
+      "source": "https://res.garmin.com/en/products/010-02746-02/g/cf-lg.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 8518,
+      "src": "/images/guides/cf-lg-thumb-320.webp"
+    },
+    "https://i.shgcdn.com/e88f0a5c-69cb-44be-bcff-9762b25a7793/-/format/auto/-/preview/3000x3000/-/quality/better/": {
+      "source": "https://i.shgcdn.com/e88f0a5c-69cb-44be-bcff-9762b25a7793/-/format/auto/-/preview/3000x3000/-/quality/better/",
+      "format": "webp",
+      "width": 320,
+      "height": 183,
+      "bytes": 2032,
+      "src": "/images/guides/better-e88f0a5c-thumb-320.webp"
+    },
+    "/images/articles/full-swing-kit-review.jpg": {
+      "source": "/images/articles/full-swing-kit-review.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 192,
+      "bytes": 2432,
+      "src": "/images/guides/full-swing-kit-review-thumb-320.webp"
+    },
+    "https://www.skytrakgolf.com/cdn/shop/files/SKYTRAK_plus_Launch_Monitor_Side_View.jpg?v=1764023313&width=1200": {
+      "source": "https://www.skytrakgolf.com/cdn/shop/files/SKYTRAK_plus_Launch_Monitor_Side_View.jpg?v=1764023313&width=1200",
+      "format": "webp",
+      "width": 320,
+      "height": 256,
+      "bytes": 2416,
+      "src": "/images/guides/skytrak-plus-launch-monitor-side-view-thumb-320.webp"
+    },
+    "/images/articles/full-swing-kit-vs-bushnell-launch-pro.png": {
+      "source": "/images/articles/full-swing-kit-vs-bushnell-launch-pro.png",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 8160,
+      "src": "/images/guides/full-swing-kit-vs-bushnell-launch-pro-thumb-320.webp"
+    },
+    "https://www.clicgearusa.com/cdn/shop/files/CGC450-GRY_H_b1789aa7-bfcd-46c0-8194-e1fc23882da9.png?v=1768504076": {
+      "source": "https://www.clicgearusa.com/cdn/shop/files/CGC450-GRY_H_b1789aa7-bfcd-46c0-8194-e1fc23882da9.png?v=1768504076",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 17440,
+      "src": "/images/guides/cgc450-gry-h-b1789aa7-bfcd-46c0-8194-e1fc23882da9-thumb-320.webp"
+    },
+    "/images/articles/footjoy-hydrolite-x-vs-footjoy-hydrotour.jpg": {
+      "source": "/images/articles/footjoy-hydrolite-x-vs-footjoy-hydrotour.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 180,
+      "bytes": 3848,
+      "src": "/images/guides/footjoy-hydrolite-x-vs-footjoy-hydrotour-thumb-320.webp"
+    },
+    "https://i.shgcdn.com/6c27726b-2f2e-4396-9a4c-4e80c06055a6/-/format/auto/-/quality/better/": {
+      "source": "https://i.shgcdn.com/6c27726b-2f2e-4396-9a4c-4e80c06055a6/-/format/auto/-/quality/better/",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 5928,
+      "src": "/images/guides/better-6c27726b-thumb-320.webp"
+    },
+    "https://images.pexels.com/photos/2828723/pexels-photo-2828723.jpeg?auto=compress&cs=tinysrgb&w=1200": {
+      "source": "https://images.pexels.com/photos/2828723/pexels-photo-2828723.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 5720,
+      "src": "/images/guides/pexels-2828723-thumb-320.webp"
+    },
+    "https://cdn11.bigcommerce.com/s-ms459ombhg/images/stencil/1280x1280/products/3397/6971/tour-hybrid-carousel-image__72261.1779656038.png?c=2": {
+      "source": "https://cdn11.bigcommerce.com/s-ms459ombhg/images/stencil/1280x1280/products/3397/6971/tour-hybrid-carousel-image__72261.1779656038.png?c=2",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 8676,
+      "src": "/images/guides/tour-hybrid-carousel-image-72261-1779656038-thumb-320.webp"
+    },
+    "https://cdn11.bigcommerce.com/s-ms459ombhg/images/stencil/1280x1280/products/2305/4456/BG-DTC-202450-Pro-X3-Plus-Hero__38872.1748636017.png?c=2": {
+      "source": "https://cdn11.bigcommerce.com/s-ms459ombhg/images/stencil/1280x1280/products/2305/4456/BG-DTC-202450-Pro-X3-Plus-Hero__38872.1748636017.png?c=2",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 13726,
+      "src": "/images/guides/bg-dtc-202450-pro-x3-plus-hero-38872-1748636017-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1632946269126-0f8edbe8b068?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1632946269126-0f8edbe8b068?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 223,
+      "bytes": 7426,
+      "src": "/images/guides/photo-1632946269126-0f8edbe8b068-thumb-320.webp"
+    },
+    "https://cdn11.bigcommerce.com/s-ms459ombhg/images/stencil/1280x1280/products/4441/6245/TOUR_V7_Carousel_Image_1__03665.1773382564.png?c=2": {
+      "source": "https://cdn11.bigcommerce.com/s-ms459ombhg/images/stencil/1280x1280/products/4441/6245/TOUR_V7_Carousel_Image_1__03665.1773382564.png?c=2",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 7316,
+      "src": "/images/guides/tour-v7-carousel-image-1-03665-1773382564-thumb-320.webp"
+    },
+    "/images/articles/footjoy-premiere-series-packard-review-source.png": {
+      "source": "/images/articles/footjoy-premiere-series-packard-review-source.png",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 9866,
+      "src": "/images/guides/footjoy-premiere-series-packard-review-source-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1535132011086-b8818f016104?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1535132011086-b8818f016104?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 7660,
+      "src": "/images/guides/photo-1535132011086-b8818f016104-thumb-320.webp"
+    },
+    "https://voicecaddie.com/cdn/shop/files/SC4_Product_Image_03.jpg?v=1775681377&width=1200": {
+      "source": "https://voicecaddie.com/cdn/shop/files/SC4_Product_Image_03.jpg?v=1775681377&width=1200",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 18216,
+      "src": "/images/guides/sc4-product-image-03-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1623592291219-633d49f67131?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1623592291219-633d49f67131?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 480,
+      "bytes": 14800,
+      "src": "/images/guides/photo-1623592291219-633d49f67131-thumb-320.webp"
+    },
+    "https://assets.taylormadegolf.com/i/aa/621992/Qi-Gallery-1_2024-01-05-183915_ypte~W800_H600_Mcrop_Fwebp_P50-50.webp": {
+      "source": "https://assets.taylormadegolf.com/i/aa/621992/Qi-Gallery-1_2024-01-05-183915_ypte~W800_H600_Mcrop_Fwebp_P50-50.webp",
+      "format": "webp",
+      "width": 320,
+      "height": 240,
+      "bytes": 4000,
+      "src": "/images/guides/qi-gallery-1-2024-01-05-183915-ypte-w800-h600-mcrop-fwebp-p50-50-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1567019001814-57350903e2af?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1567019001814-57350903e2af?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 212,
+      "bytes": 2970,
+      "src": "/images/guides/photo-1567019001814-57350903e2af-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1675106643681-da7ad12e926f?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1675106643681-da7ad12e926f?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 9192,
+      "src": "/images/guides/photo-1675106643681-da7ad12e926f-thumb-320.webp"
+    },
+    "https://www.sunmountain.com/cdn/shop/files/1100_Speed_Cart_X_Steel_Fog_1.webp?v=1773334618&width=1200": {
+      "source": "https://www.sunmountain.com/cdn/shop/files/1100_Speed_Cart_X_Steel_Fog_1.webp?v=1773334618&width=1200",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 19168,
+      "src": "/images/guides/1100-speed-cart-x-steel-fog-1-thumb-320.webp"
+    },
+    "/images/articles/caddytek-caddylite-11-5-v3-review.jpg": {
+      "source": "/images/articles/caddytek-caddylite-11-5-v3-review.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 8020,
+      "src": "/images/guides/caddytek-caddylite-11-5-v3-review-thumb-320.webp"
+    },
+    "/images/articles/titleist-players-4-carbon-review.jpg": {
+      "source": "/images/articles/titleist-players-4-carbon-review.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 293,
+      "bytes": 3094,
+      "src": "/images/guides/titleist-players-4-carbon-review-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1689323487237-a23da544c636?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1689323487237-a23da544c636?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 205,
+      "bytes": 2950,
+      "src": "/images/guides/photo-1689323487237-a23da544c636-thumb-320.webp"
+    },
+    "/images/articles/golf-flag-green.jpg": {
+      "source": "/images/articles/golf-flag-green.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 426,
+      "bytes": 4992,
+      "src": "/images/guides/golf-flag-green-thumb-320.webp"
+    },
+    "https://assets.adidas.com/images/w_383%2Ch_383%2Cf_auto%2Cq_auto%2Cfl_lossy%2Cc_fill%2Cg_auto/cda26b07383241bc96468545e2974401_9366/Tour360_24_Golf_Shoes_White_IF0245_00_plp_standard.jpg": {
+      "source": "https://assets.adidas.com/images/w_383%2Ch_383%2Cf_auto%2Cq_auto%2Cfl_lossy%2Cc_fill%2Cg_auto/cda26b07383241bc96468545e2974401_9366/Tour360_24_Golf_Shoes_White_IF0245_00_plp_standard.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 2284,
+      "src": "/images/guides/tour360-24-golf-shoes-white-if0245-00-plp-standard-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1601479693683-d4d129e528eb?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1601479693683-d4d129e528eb?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 10728,
+      "src": "/images/guides/photo-1601479693683-d4d129e528eb-thumb-320.webp"
+    },
+    "https://images.unsplash.com/photo-1602646399108-767c7258e9c2?w=1200&q=80": {
+      "source": "https://images.unsplash.com/photo-1602646399108-767c7258e9c2?w=1200&q=80",
+      "format": "webp",
+      "width": 320,
+      "height": 256,
+      "bytes": 17626,
+      "src": "/images/guides/photo-1602646399108-767c7258e9c2-thumb-320.webp"
+    },
+    "/images/articles/golf-bunker-wedge.jpg": {
+      "source": "/images/articles/golf-bunker-wedge.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 10996,
+      "src": "/images/guides/golf-bunker-wedge-thumb-320.webp"
+    },
+    "/images/articles/callaway-jaws-raw-vs-titleist-vokey-sm10.jpg": {
+      "source": "/images/articles/callaway-jaws-raw-vs-titleist-vokey-sm10.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 180,
+      "bytes": 4340,
+      "src": "/images/guides/callaway-jaws-raw-vs-titleist-vokey-sm10-thumb-320.webp"
+    },
+    "/images/articles/cleveland-cbx4-vs-titleist-vokey-sm10-wedges.jpg": {
+      "source": "/images/articles/cleveland-cbx4-vs-titleist-vokey-sm10-wedges.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 213,
+      "bytes": 10996,
+      "src": "/images/guides/cleveland-cbx4-vs-titleist-vokey-sm10-wedges-thumb-320.webp"
+    },
+    "/images/articles/callaway-jaws-raw-wedge-review.jpg": {
+      "source": "/images/articles/callaway-jaws-raw-wedge-review.jpg",
+      "format": "webp",
+      "width": 320,
+      "height": 180,
+      "bytes": 2818,
+      "src": "/images/guides/callaway-jaws-raw-wedge-review-thumb-320.webp"
+    }
+  }
+}
