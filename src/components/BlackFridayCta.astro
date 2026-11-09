@@ -14,11 +14,11 @@ if (!product?.trim() || !url?.trim()) {
 }
 
 const href = normalizeAffiliateUrl({ url }, { category: 'deals' });
-const direct = isDirectAmazonProductUrl(href);
-const cta = direct ? `See this product on ${retailer}` : `See options on ${retailer}`;
-const note = direct
-  ? "Opens one verified Amazon product page. Check today's price, and confirm the color and the seller."
-  : "Opens Amazon search results. Check today's price, and confirm the model and the seller.";
+if (!isDirectAmazonProductUrl(href)) {
+  throw new Error('BlackFridayCta requires a direct Amazon product URL');
+}
+const cta = 'Check current Black Friday price on Amazon';
+const note = 'Opens the Amazon product page for this variant. Confirm the model before you buy.';
 ---
 
 <div class="bf-hub-cta not-prose my-4">

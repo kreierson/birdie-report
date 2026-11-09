@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { BF_HUB_PATH, BF_HUB_PLACEMENT, bfCategories, bfPicks, blackFridayStructuredData } from '../src/utils/black-friday.mjs';
+import { BF_HUB_PATH, BF_HUB_PLACEMENT, BF_LISTING_VERIFIED, bfCategories, bfPicks, blackFridayStructuredData } from '../src/utils/black-friday.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const blogDirectory = join(root, 'src/content/blog');
 const PRODUCT_PATH = /\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})(?![A-Z0-9])/i;
-const ALLOWED_MONEY = new Set(['$50', '$100', '$200']);
+const STOCK_TEXT = /only \d+ left|in stock|out of stock/i;
 
 function read(path) {
   return readFileSync(join(root, path), 'utf8');
@@ -28,6 +28,7 @@ test('black friday hub CTAs use the dedicated affiliate placement', () => {
   assert.match(component, /data-placement=\{BF_HUB_PLACEMENT\}/);
   assert.match(component, /normalizeAffiliateUrl/);
   assert.match(component, /isDirectAmazonProductUrl/);
+  assert.match(component, /Check current Black Friday price on Amazon/);
   assert.match(component, /category:\s*'deals'/);
   assert.doesNotMatch(component, /<script/);
 });
@@ -42,7 +43,7 @@ test('the hub page is evergreen, has 2026 in the title, and renders every pick t
   assert.match(page, /blackFridayStructuredData/);
 });
 
-test('every pick links to a real guide and a search or verified product URL', () => {
+test('every pick links to a real guide and a direct verified product URL', () => {
   const registry = JSON.parse(read('data/verified-asins.json'));
   const verified = new Set(registry.asins.map((entry) => entry.asin.toUpperCase()));
   const slugs = new Set(
@@ -73,14 +74,17 @@ test('every pick links to a real guide and a search or verified product URL', ()
   for (const pick of picks) {
     assert.equal(products.has(pick.product), false, pick.product);
     products.add(pick.product);
-    assert.match(pick.url, /^https:\/\/www\.amazon\.com\//, pick.product);
-    assert.match(pick.url, /[?&]tag=birdiereport-20(?:&|$)/, pick.product);
-    const asin = pick.url.match(PRODUCT_PATH)?.[1];
-    if (asin) {
+    if (pick.availability === 'unavailable') {
+      assert.equal(pick.url, undefined, pick.product);
+      assert.equal(pick.listingVerified, BF_LISTING_VERIFIED, pick.product);
+    } else {
+      assert.equal(pick.availability, 'listed', pick.product);
+      assert.match(pick.url, /^https:\/\/www\.amazon\.com\/dp\/[A-Z0-9]{10}\?tag=birdiereport-20$/, pick.product);
+      const asin = pick.url.match(PRODUCT_PATH)?.[1];
+      assert.ok(asin, pick.product);
+      assert.equal(asin.toUpperCase(), pick.sourceAsin, pick.product);
       assert.ok(verified.has(asin.toUpperCase()), `${pick.product} ${asin}`);
       direct.push(`${pick.product} ${asin.toUpperCase()}`);
-    } else {
-      assert.match(pick.url, /amazon\.com\/s\?/, pick.product);
     }
     const slug = blogSlug(pick.guideHref);
     assert.ok(slug, pick.product);
@@ -96,17 +100,63 @@ test('every pick links to a real guide and a search or verified product URL', ()
     }
   }
 
-  assert.deepEqual(direct.sort(), [
-    'Bushnell Tour Hybrid B0DWNKD682',
-    'TaylorMade Cart Lite B0DJ3HNGMK',
-    'Titleist Cart 14 B0FKCT6B4K',
+  const expected = new Map([
+    ['Blue Tees Series 3 Max+', 'B09DLJ37TW'],
+    ['Bushnell Tour Hybrid', 'B0DWNKD682'],
+    ['Callaway Coronado V3', 'B0BLTYZM75'],
+    ['Callaway Elyte Iron Set', 'B0DHWGV745'],
+    ['Callaway Elyte Max Fast Driver', 'B0DHWGSGWF'],
+    ['EyeLine Golf Putting Mirror', 'B0030F4JHM'],
+    ['FootJoy Pro/SL', 'B0FFF14RMN'],
+    ['FootJoy StaSof', 'B0B9Q9BR6S'],
+    ['Gogogo Sport Vpro GS24', 'B07PX9YR31'],
+    ['Nike Dri-FIT Tour Polo', 'B0F7PSL7GW'],
+    ['Orange Whip Trainer', 'B07HXTFD8D'],
+    ['TaylorMade Cart Lite', 'B0DJ3HNGMK'],
+    ['TaylorMade Stealth 2 Plus+ 8.0', 'B0F1BHSGN4'],
+    ['Tifosi Seek FC 2.0', 'B0BQCMHCY4'],
+    ['Titleist Cart 14', 'B0FKCT6B4K'],
+    ['Titleist Pro V1 Golf Balls, 1 Count', 'B0DPN71RTJ'],
+    ['Tour Striker Smart Ball', 'B00II5RSR2'],
+    ['Wilson Dynapower Irons', 'B0BT26B16M'],
+    ['Wilson Infinite Buckingham', 'B0CPT8TN5C'],
+    ['adidas Tour360 24', 'B0C67FF37F'],
   ]);
+  assert.equal(picks.length, expected.size);
+  for (const [product, asin] of expected) {
+    const pick = picks.find((item) => item.product === product);
+    assert.ok(pick, product);
+    if (pick.availability === 'unavailable') {
+      assert.equal(pick.url, undefined, product);
+      continue;
+    }
+    assert.equal(direct.includes(`${product} ${asin}`), true, product);
+  }
+  assert.equal(direct.length, picks.filter((pick) => pick.availability !== 'unavailable').length);
+  assert.equal(picks.some((pick) => /amazon\.com\/s\?/.test(pick.url || '')), false);
+});
+
+test('an unavailable pick needs no price, stock line, or buy link', () => {
+  const fixture = {
+    product: 'Fixture gone club',
+    availability: 'unavailable',
+    listingVerified: BF_LISTING_VERIFIED,
+    variant: 'Right hand.',
+    note: 'Gone from our list.',
+  };
+  assert.equal(fixture.availability, 'unavailable');
+  assert.equal(fixture.url, undefined);
+  assert.equal(fixture.price, undefined);
+  assert.equal(fixture.stock, undefined);
+  assert.equal(fixture.seller, undefined);
+  assert.equal(fixture.listingVerified, 'Listing verified November 9, 2026');
+  assert.doesNotMatch(`${fixture.note} ${fixture.variant}`, STOCK_TEXT);
 });
 
 test('structured data lists the guides and does not mark up a price', () => {
   const data = blackFridayStructuredData({
     title: 'Black Friday Golf Deals 2026 | The Birdie Report',
-    description: 'Check today\'s price.',
+    description: 'Gear Birdie Report already reviews.',
   });
   const visit = (value) => {
     if (Array.isArray(value)) {
@@ -132,16 +182,43 @@ test('structured data lists the guides and does not mark up a price', () => {
   assert.match(list.itemListElement[0].url, /^https:\/\/www\.birdiereport\.com\/blog\//);
 });
 
-test('hub copy does not invent a discount, a dollar price, or a countdown timer', () => {
+test('hub copy verifies the listing and does not state a price or a stock count', () => {
   const catalog = read('src/components/black-friday-hub.mjs');
   const page = read('src/pages/deals/black-friday-golf-deals.astro');
-  const copy = `${catalog}\n${page}`;
+  const cta = read('src/components/BlackFridayCta.astro');
+  const copy = `${catalog}\n${page}\n${cta}`;
+  const visible = copy.replace(/\$\{[^}]*\}/g, '');
+  assert.equal(visible.includes('$'), false);
+  assert.doesNotMatch(copy, STOCK_TEXT);
   assert.doesNotMatch(copy, /\d+\s*%/);
-  assert.doesNotMatch(copy, /lowest price|limited time|doorbuster|price drop|historical low was|was \$/i);
-  assert.match(page, /nothing here is a historical low/i);
+  assert.doesNotMatch(copy, /lowest price|limited time|doorbuster|price drop|historical low|was \$|sold by|see options/i);
+  assert.match(page, /\{pick\.listingVerified\}/);
+  assert.match(page, /data-listing-verified/);
   assert.doesNotMatch(page, /setInterval|Date\.now\(/);
-  const amounts = copy.match(/\$\d+/g) || [];
-  assert.deepEqual([...new Set(amounts)].sort(), [...ALLOWED_MONEY].sort());
+  const unavailable = page.slice(page.indexOf("pick.availability === 'unavailable'"), page.indexOf('<BlackFridayCta'));
+  assert.match(unavailable, />Unavailable</);
+  assert.match(unavailable, /Gone\. This listing was not available to buy when we checked it\./);
+  assert.match(unavailable, /data-listing-unavailable/);
+  assert.match(unavailable, /\{pick\.listingVerified\}/);
+  assert.doesNotMatch(unavailable, /BlackFridayCta|Only \d+ left/);
+  const prov1 = bfPicks().find((pick) => pick.sourceAsin === 'B0DPN71RTJ');
+  assert.equal(prov1.product, 'Titleist Pro V1 Golf Balls, 1 Count');
+  assert.match(prov1.note, /not a dozen/);
+  assert.match(prov1.note, /Unit Count 1 Count/);
+  for (const category of bfCategories) {
+    assert.equal(category.title.includes('$'), false, category.id);
+  }
+  for (const pick of bfPicks()) {
+    assert.equal(pick.listingVerified, BF_LISTING_VERIFIED, pick.product);
+    assert.equal('price' in pick, false, pick.product);
+    assert.equal('priceChecked' in pick, false, pick.product);
+    assert.equal('seller' in pick, false, pick.product);
+    assert.equal('stock' in pick, false, pick.product);
+    assert.ok(pick.variant, pick.product);
+    if (pick.availability === 'unavailable') continue;
+    assert.equal(pick.availability, 'listed', pick.product);
+    assert.match(pick.sourceAsin, /^[A-Z0-9]{10}$/, pick.product);
+  }
 });
 
 test('the deals index, homepage, gift guide, and six best-of guides link the hub', () => {
