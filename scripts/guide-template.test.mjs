@@ -231,6 +231,7 @@ test('missing, empty, short, and price-bearing sources do not get invented value
   assert.equal(editorialPrice.rows[0].fields[0].label, 'Our take');
   assert.equal(editorialPrice.rows[0].fields[0].value, 'Not listed');
   assert.match(editorialPrice.rows[0].accessibleName, /Long Name Sunglasses With A Very Wide Frame Description/);
+  assert.equal(editorialPrice.top[0].why, '');
   assert.equal(editorialPrice.top[0].cta, 'Search Amazon');
   assert.equal(editorialPrice.top[0].href, 'https://www.amazon.com/s?k=shades&tag=birdiereport-20');
 });

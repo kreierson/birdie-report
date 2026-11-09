@@ -1,5 +1,5 @@
 ---
-import { awardKicker, bestForLine, priceCheckAccessibleName, priceCheckCta, storedPriceLine } from '../utils/product-buy.mjs';
+import { awardKicker, bestForLine, commercePriceLine, isAmazonCommerce, priceCheckAccessibleName, priceCheckCta } from '../utils/product-buy.mjs';
 
 interface Props {
   as?: 'div' | 'li';
@@ -37,9 +37,11 @@ const {
 
 const cta = ctaOverride || priceCheckCta(retailer);
 const accessibleName = priceCheckAccessibleName(cta, product);
-const bestFor = bestForLine({ award, why, pros });
+const amazon = isAmazonCommerce(retailer, href);
+const bestForSource = bestForLine({ award, why, pros });
+const bestFor = amazon ? bestForSource.replace(/\$\s*\d[\d,]*(?:\.\d{2})?(?:\s*[-–]\s*\$?\s*\d[\d,]*(?:\.\d{2})?)?/g, '').replace(/\s{2,}/g, ' ').trim() : bestForSource;
 const kicker = awardKicker(award, bestFor);
-const priceLine = storedPriceLine(price);
+const priceLine = commercePriceLine(price, retailer, href);
 const showRating = typeof rating === 'number' && Number.isFinite(rating);
 ---
 

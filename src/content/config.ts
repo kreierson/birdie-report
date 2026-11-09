@@ -64,7 +64,7 @@ const blog = defineCollection({
     comparison_products: z.array(z.object({
       name: z.string(),
       rating: z.number(),
-      price: z.string(),
+      price: z.string().optional(),
       image: z.string().optional(),
       pros: z.array(z.string()),
       cons: z.array(z.string()),

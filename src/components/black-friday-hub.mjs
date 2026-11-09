@@ -314,7 +314,7 @@ export const bfCategories = [
     ],
   },
   {
-    id: 'gifts-under-50',
+    id: 'gifts-stocking',
     title: 'Stocking stuffers',
     lede: 'Small enough to wrap, and already on a Birdie Report page. The Tifosi Seek FC 2.0 sits in the next section.',
     guides: [
@@ -342,7 +342,7 @@ export const bfCategories = [
     ],
   },
   {
-    id: 'gifts-under-100',
+    id: 'gifts-beyond-stocking',
     title: 'Gifts beyond stocking stuffers',
     lede: 'Still gift territory, still gear this site already covers. Buckingham and the Coronado V3 sit with the putters and the shoes.',
     guides: [

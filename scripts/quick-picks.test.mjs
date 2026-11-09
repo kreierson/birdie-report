@@ -76,14 +76,14 @@ test('quick picks placement is distinct and the disclosure matches the existing 
 test('resolver keeps 3 to 5 picks, retailer CTAs, and direct-link failures', () => {
   const resolved = resolveQuickPicks(samplePicks(), { category: 'best' }, helpers);
   assert.equal(resolved.length, 3);
-  assert.equal(resolved[0].cta, 'Check price on Amazon');
+  assert.equal(resolved[0].cta, 'Check current price on Amazon');
   assert.equal(resolved[0].direct, false);
-  assert.equal(resolved[0].accessibleName, 'Check price on Amazon for One (opens in a new tab)');
+  assert.equal(resolved[0].accessibleName, 'Check current price on Amazon for One (opens in a new tab)');
 
   const direct = resolveQuickPicks(samplePicks('https://www.amazon.com/dp/B0FKCT6B4K?tag=birdiereport-20'), {}, helpers);
-  assert.equal(direct[0].cta, 'Check price on Amazon');
+  assert.equal(direct[0].cta, 'Check current price on Amazon');
   assert.equal(direct[0].direct, true);
-  assert.match(direct[0].accessibleName, /^Check price on Amazon for One /);
+  assert.match(direct[0].accessibleName, /^Check current price on Amazon for One /);
 
   const otherRetailer = resolveQuickPicks([
     { award: 'Best overall', product: 'One', why: 'Because one.', url: 'https://www.pgatoursuperstore.com/search?q=putter', retailer: 'PGA Tour Superstore' },
