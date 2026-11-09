@@ -86,7 +86,7 @@ const categoryColors: Record<string, string> = {
   reviews: 'bg-forest-700 text-white',
   tips: 'bg-blue-600 text-white',
   news: 'bg-red-600 text-white',
-  deals: 'bg-orange-500 text-white',
+  deals: 'bg-orange-700 text-white',
   courses: 'bg-emerald-600 text-white',
   versus: 'bg-purple-600 text-white',
   opinion: 'bg-rose-600 text-white',
@@ -194,7 +194,7 @@ const quickPickCards = quickPicks.map((pick) => {
                 Updated <time datetime={updated.toISOString()}>{updated.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}</time>
               </span>
             )}
-            <span id="reading-time" class="text-gray-400">5 min read</span>
+            <span id="reading-time" class="text-gray-500">5 min read</span>
             {rating && <span class="text-gold-600 font-bold">⭐ {rating}/10</span>}
           </div>
 
@@ -496,7 +496,7 @@ const quickPickCards = quickPicks.map((pick) => {
           <div class="bg-gray-50 border border-gray-200 rounded-lg p-5">
             <h3 class="text-sm font-bold text-forest-900 uppercase tracking-wide mb-3">{buyerGuide ? 'On this page' : 'Table of Contents'}</h3>
             <nav id="toc" class="space-y-1.5 text-sm">
-              <p class="text-gray-400 text-xs">Loading...</p>
+              <p class="text-gray-500 text-xs">Loading...</p>
             </nav>
           </div>
 
@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
       toc.appendChild(link);
     });
   } else if (toc) {
-    toc.innerHTML = '<p class="text-gray-400 text-xs italic">No sections</p>';
+    toc.innerHTML = '<p class="text-gray-500 text-xs italic">No sections</p>';
   }
 
   if (article) {
