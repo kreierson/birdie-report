@@ -5,6 +5,7 @@ export {
   BF_HUB_PLACEMENT,
   BF_HUB_URL,
   BF_PUBLISHED,
+  BF_UPDATED,
   bfBuyingTips,
   bfCategories,
   bfDates,

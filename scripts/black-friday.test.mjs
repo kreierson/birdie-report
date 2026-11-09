@@ -98,8 +98,15 @@ test('every pick links to a real guide and a search or verified product URL', ()
 
   assert.deepEqual(direct.sort(), [
     'Bushnell Tour Hybrid B0DWNKD682',
+    'Callaway Coronado V3 B0BLTYZM75',
+    'Callaway Elyte Iron Set B0DHWGV745',
+    'Callaway Elyte Max Fast Driver B0DHWGSGWF',
+    'FootJoy Pro/SL B0FFF14RMN',
     'TaylorMade Cart Lite B0DJ3HNGMK',
     'Titleist Cart 14 B0FKCT6B4K',
+    'Titleist Pro V1 B0DPN71RTJ',
+    'Wilson Infinite Buckingham B0CPT8TN5C',
+    'adidas Tour360 24 B0C67FF37F',
   ]);
 });
 
@@ -132,16 +139,42 @@ test('structured data lists the guides and does not mark up a price', () => {
   assert.match(list.itemListElement[0].url, /^https:\/\/www\.birdiereport\.com\/blog\//);
 });
 
-test('hub copy does not invent a discount, a dollar price, or a countdown timer', () => {
+test('hub copy shows a checked price and does not invent a discount or a countdown', () => {
   const catalog = read('src/components/black-friday-hub.mjs');
   const page = read('src/pages/deals/black-friday-golf-deals.astro');
   const copy = `${catalog}\n${page}`;
   assert.doesNotMatch(copy, /\d+\s*%/);
   assert.doesNotMatch(copy, /lowest price|limited time|doorbuster|price drop|historical low was|was \$/i);
   assert.match(page, /nothing here is a historical low/i);
+  assert.match(page, /\{pick\.priceChecked\}/);
+  assert.match(page, /Unavailable/);
+  assert.match(page, /data-price-checked/);
   assert.doesNotMatch(page, /setInterval|Date\.now\(/);
-  const amounts = copy.match(/\$\d+/g) || [];
-  assert.deepEqual([...new Set(amounts)].sort(), [...ALLOWED_MONEY].sort());
+  const picks = bfPicks();
+  const dollars = (price) => Number(price.replace(/[$,]/g, ''));
+  for (const pick of picks) {
+    assert.match(pick.price, /^\$\d{1,3}(?:,\d{3})*\.\d{2}$/, pick.product);
+    assert.match(pick.priceChecked, /^Price checked November 9, 2026, \d{1,2}:\d{2} [ap]\.m\. CT$/, pick.product);
+    assert.match(pick.sourceAsin, /^[A-Z0-9]{10}$/, pick.product);
+    if (pick.url.includes('/dp/')) {
+      assert.equal(pick.url.toUpperCase().includes(pick.sourceAsin), true, pick.product);
+    }
+    assert.equal(pick.availability, 'in_stock', pick.product);
+    assert.ok(pick.seller, pick.product);
+    assert.ok(pick.variant, pick.product);
+    assert.ok(pick.stock, pick.product);
+  }
+  for (const pick of bfCategories.find((category) => category.id === 'gifts-under-50').picks) {
+    assert.ok(dollars(pick.price) < 50, pick.product);
+  }
+  for (const pick of bfCategories.find((category) => category.id === 'gifts-under-100').picks) {
+    assert.ok(dollars(pick.price) < 100 && dollars(pick.price) >= 50, pick.product);
+  }
+  const checkedPrices = new Set(picks.map((pick) => pick.price));
+  const amounts = copy.match(/\$\d+(?:,\d{3})*(?:\.\d{2})?/g) || [];
+  for (const amount of amounts) {
+    assert.ok(ALLOWED_MONEY.has(amount) || checkedPrices.has(amount), amount);
+  }
 });
 
 test('the deals index, homepage, gift guide, and six best-of guides link the hub', () => {

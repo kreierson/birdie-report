@@ -17,8 +17,8 @@ const href = normalizeAffiliateUrl({ url }, { category: 'deals' });
 const direct = isDirectAmazonProductUrl(href);
 const cta = direct ? `See this product on ${retailer}` : `See options on ${retailer}`;
 const note = direct
-  ? "Opens one verified Amazon product page. Check today's price, and confirm the color and the seller."
-  : "Opens Amazon search results. Check today's price, and confirm the model and the seller.";
+  ? 'Opens the verified Amazon product page for this variant. The price above is what that page showed at the check time. Confirm the seller and that the price has not moved.'
+  : 'Opens Amazon search. The price above is from the listing we opened, and search can show a different offer. Confirm the model and the seller.';
 ---
 
 <div class="bf-hub-cta not-prose my-4">

@@ -23,6 +23,62 @@
       "verified_at": "2026-10-27",
       "verification_method": "Fetched the Amazon product page and All Offers Display for B0DJ3HNGMK",
       "evidence": "On 2026-10-27, https://www.amazon.com/dp/B0DJ3HNGMK returned TaylorMade Golf CartLite Bag, selected variation Coral and style 2025, model N3828601, 14 dividers, 11 pockets. Page copy: 14-way top, about 5 lb, geometrically engineered base for pushcarts. That is the Cart Lite the review describes (14-way top, 11 pockets, pushcart base, light cart bag). The review does not name a color. The All Offers Display showed New offers, including GlobalGolf at $224.98 and Amazon.com at $299.99. No used offer was in that offer list. Proposed ASIN B0CP9RPB3Z resolved to the 2023 style and had no featured offers, so it was not used."
+    },
+    {
+      "asin": "B0DHWGSGWF",
+      "product": "Callaway Elyte Max Fast Driver",
+      "variant": "Right hand, 10.5 degrees, graphite, regular flex, standard rubber grip, black.",
+      "verified_at": "2026-11-09",
+      "verification_method": "Fetched the Amazon product page for B0DHWGSGWF",
+      "evidence": "On 2026-11-09 at 1:55 p.m. CT, https://www.amazon.com/dp/B0DHWGSGWF returned title Callaway Golf Elyte Max Fast Driver. Selected variation: Right, 10.5 Degrees, Graphite, Regular, Standard Rubber, Black. Buy New price $319.99. The offer display listed shipper and seller Amazon.com. Availability on that new offer: Only 17 left in stock (more on the way). The buy box had no third-party sellerProfileTriggerId."
+    },
+    {
+      "asin": "B0DHWGV745",
+      "product": "Callaway Elyte Iron Set",
+      "variant": "Right hand, steel, regular flex, 6-iron through pitching wedge.",
+      "verified_at": "2026-11-09",
+      "verification_method": "Fetched the Amazon product page for B0DHWGV745",
+      "evidence": "On 2026-11-09 at 1:55 p.m. CT, https://www.amazon.com/dp/B0DHWGV745 returned title Callaway Golf Elyte Iron Set. Selected variation: Right, Steel, Regular, 6 Iron - PW. Buy New price $708.33. Shipper and seller Amazon.com. Availability: Only 8 left in stock (more on the way). The buy box had no third-party sellerProfileTriggerId."
+    },
+    {
+      "asin": "B0CPT8TN5C",
+      "product": "Wilson 2024 Infinite Buckingham putter",
+      "variant": "Right hand, 35 inches.",
+      "verified_at": "2026-11-09",
+      "verification_method": "Fetched the Amazon product page for B0CPT8TN5C",
+      "evidence": "On 2026-11-09 at 1:59 p.m. CT, https://www.amazon.com/dp/B0CPT8TN5C returned title Wilson 2024 Infinite Men's Buckingham Golf Putters. Selected variation: 35 inches, Right. Price $139.99. The new offer display said ships from Amazon.com and sold by Amazon.com, In Stock. A separate used row was Amazon Resale and is not this entry."
+    },
+    {
+      "asin": "B0DPN71RTJ",
+      "product": "Titleist Pro V1 golf balls",
+      "variant": "Yellow, low numbers, size option One Size. The same page's One Size (Pack of 12) option was unavailable. Product details list unit count 1 and item weight 1.4 pounds. This entry does not call the listing a dozen.",
+      "verified_at": "2026-11-09",
+      "verification_method": "Fetched the Amazon product page for B0DPN71RTJ",
+      "evidence": "On 2026-11-09 at 1:55 p.m. CT, https://www.amazon.com/dp/B0DPN71RTJ returned title Titleist Pro V1 Golf Balls. Selected variation: One Size, Yellow, Low Numbers. One Size (Pack of 12) was marked unavailable. Buy New price $57.99, shipper and seller Amazon.com, In Stock. Product details: model T2129S, UPC 196665853362, unit count 1, color Yellow, item weight 1.4 pounds. The description text on that page calls the ball the 2025 Pro V1."
+    },
+    {
+      "asin": "B0FFF14RMN",
+      "product": "FootJoy Men's Pro/SL golf shoe",
+      "variant": "Size 10 Wide, Jet Black/Cobalt/White. Item model number Pro/SL.",
+      "verified_at": "2026-11-09",
+      "verification_method": "Fetched the Amazon product page for B0FFF14RMN",
+      "evidence": "On 2026-11-09 at 1:55 p.m. CT, https://www.amazon.com/dp/B0FFF14RMN returned title FootJoy Men's Pro/SL Golf Shoe. Selected variation: 10 Wide, Jet Black/Cobalt/White. Price $184.95. Offer display shipper and seller Amazon.com. Availability: In Stock. Item model number Pro/SL. The buy box had no third-party sellerProfileTriggerId."
+    },
+    {
+      "asin": "B0C67FF37F",
+      "product": "adidas Men's Tour360 24 golf shoes",
+      "variant": "Size 11, Core Black/Footwear White. Item model number 34DC094-OFW.",
+      "verified_at": "2026-11-09",
+      "verification_method": "Fetched the Amazon product page for B0C67FF37F",
+      "evidence": "On 2026-11-09 at 1:55 p.m. CT, https://www.amazon.com/dp/B0C67FF37F returned title adidas Men's Tour360 24 Golf Shoes. Selected variation: 11, Core Black/Footwear White. Price $169.97. Offer display shipper and seller Amazon.com. Availability: In Stock. Item model number 34DC094-OFW. The buy box had no third-party sellerProfileTriggerId."
+    },
+    {
+      "asin": "B0BLTYZM75",
+      "product": "Callaway Coronado V3 golf shoes",
+      "variant": "Size 8.5, Grey/Charcoal. Item model number CG410WBD.",
+      "verified_at": "2026-11-09",
+      "verification_method": "Fetched the Amazon product page for B0BLTYZM75",
+      "evidence": "On 2026-11-09 at 1:56 p.m. CT, https://www.amazon.com/dp/B0BLTYZM75 returned title Callaway Coronado V3 Golf Shoes. Selected variation: 8.5, Grey/Charcoal. Price $129.36. Offer display shipper and seller Amazon.com. Availability: Only 2 left in stock - order soon. Item model number CG410WBD. The buy box had no third-party sellerProfileTriggerId."
     }
   ]
 }

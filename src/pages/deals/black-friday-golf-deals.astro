@@ -8,6 +8,7 @@ import {
   BF_HUB_URL,
   bfBuyingTips,
   bfCategories,
+  BF_UPDATED,
   bfDates,
   blackFridayStructuredData,
 } from '../../utils/black-friday.mjs';
@@ -37,6 +38,13 @@ const publishedLabel = published.toLocaleDateString('en-US', {
   day: 'numeric',
   timeZone: 'UTC',
 });
+const updated = new Date(`${BF_UPDATED}T00:00:00Z`);
+const updatedLabel = updated.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
 ---
 
 <BaseLayout title={title} description={description} canonical={BF_HUB_URL} image="/images/hero-golf.jpg">
@@ -48,19 +56,21 @@ const publishedLabel = published.toLocaleDateString('en-US', {
         <p class="mb-3 text-xs font-bold uppercase tracking-wider text-gold-400">Black Friday and Cyber Monday 2026</p>
         <h1 class="font-display text-3xl font-black leading-tight sm:text-5xl">Black Friday Golf Deals 2026</h1>
         <p class="mt-4 max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">
-          The category list for Black Friday on November 27 and Cyber Monday on November 30. Every pick is gear Birdie Report already reviews. The button checks today's price. This page gets updated when an offer is actually live.
+          The category list for Black Friday on November 27 and Cyber Monday on November 30. Every pick is gear Birdie Report already reviews. The price under each name is the figure on the retailer page at the check time. It is not a Black Friday discount.
         </p>
         <p class="mt-4 text-sm text-white/60">
           By <a class="underline underline-offset-2 hover:text-gold-300" href="/about/">Kyle Reierson</a>
           <span aria-hidden="true"> · </span>
           Published <time datetime="2026-11-02">{publishedLabel}</time>
+          <span aria-hidden="true"> · </span>
+          Prices updated <time datetime={BF_UPDATED}>{updatedLabel}</time>
         </p>
       </div>
     </header>
 
     <div class="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-10">
       <p class="text-base leading-relaxed text-gray-800">
-        This URL stays the same each year. The year in the title is the season we are covering. Nothing below is a weekend price we checked, and nothing here is a historical low. There is no countdown. A "see options" button opens Amazon search. A "see this product" button opens one verified product page. Confirm the model, the seller, and today's price either way. We may earn a commission if you buy through those links. The longer version is the <a class="font-semibold text-forest-800 underline underline-offset-2" href="/affiliate-disclosure/">affiliate disclosure</a>.
+        This URL stays the same each year. The year in the title is the season we are covering. The prices below were read from the retailer product page on November 9, 2026. Nothing here is a historical low, a percent off, or a crossed-out previous price. There is no countdown. A "see options" button opens Amazon search. A "see this product" button opens one verified product page. Confirm the model, the seller, and that the price still matches. We may earn a commission if you buy through those links. The longer version is the <a class="font-semibold text-forest-800 underline underline-offset-2" href="/affiliate-disclosure/">affiliate disclosure</a>.
       </p>
       <p class="mt-4 text-base leading-relaxed text-gray-800">
         Shopping by budget instead of by club? The <a class="font-semibold text-forest-800 underline underline-offset-2" href="/blog/best-golf-gifts/" {...guideClickAttrs('/blog/best-golf-gifts/', '2026 golf gift guide')}>2026 golf gift guide</a> sorts gear this site already covers from stocking stuffers through the splurge tier. The dated posts on the <a class="font-semibold text-forest-800 underline underline-offset-2" href="/deals/">deals archive</a> are old checks. When their date has passed, they are marked expired. This hub does not send you to them.
@@ -137,7 +147,20 @@ const publishedLabel = published.toLocaleDateString('en-US', {
                   ))}
                   .
                 </p>
-                <BlackFridayCta product={pick.product} url={pick.url} />
+                {pick.availability === 'unavailable' ? (
+                  <div class="mt-3 rounded-md border border-gray-300 bg-gray-100 p-4">
+                    <p class="inline-block rounded-sm bg-gray-800 px-2 py-1 text-xs font-bold uppercase tracking-wide text-white">Unavailable</p>
+                    <p class="mt-2 text-sm font-semibold text-gray-800">Gone. This listing was not available to buy when we checked it.</p>
+                    <p class="mt-1 text-sm text-gray-700">{pick.priceChecked}</p>
+                  </div>
+                ) : (
+                  <>
+                    <p class="mt-3 text-2xl font-black text-forest-900">{pick.price}</p>
+                    <p class="mt-1 text-sm leading-relaxed text-gray-700">{pick.variant} Sold by {pick.seller}. {pick.stock}</p>
+                    <p class="mt-1 text-sm font-semibold text-gray-800" data-price-checked>{pick.priceChecked}</p>
+                    <BlackFridayCta product={pick.product} url={pick.url} />
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -145,9 +168,9 @@ const publishedLabel = published.toLocaleDateString('en-US', {
       ))}
 
       <section class="mt-12 rounded-lg border border-orange-200 bg-orange-50 p-5" aria-labelledby="updates">
-        <h2 id="updates" class="font-display text-xl font-bold text-forest-900">This page will change when the sales do</h2>
+        <h2 id="updates" class="font-display text-xl font-bold text-forest-900">What we checked on {updatedLabel}</h2>
         <p class="mt-2 text-sm leading-relaxed text-gray-800">
-          Published {publishedLabel}, before Black Friday, so the hub is up while the sales are still ahead. When we check a live offer, we will add it to the category it belongs in and name the date we checked it. Until that sentence is here, the Amazon button is only a way to check today's price.
+          Published {publishedLabel}. Prices on this page were checked {updatedLabel}, before Black Friday on November 27. A listing that was dead, expired, or out of stock is marked Unavailable or taken off the list. It does not stay up looking like you can buy it. The next check replaces the price and the Price checked line.
         </p>
       </section>
     </div>
