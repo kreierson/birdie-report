@@ -158,7 +158,7 @@ const borderColor: Record<string, string> = {
                 {post.data.subcategory && (
                   <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">{post.data.subcategory.replace('-', ' ')}</span>
                 )}
-                <time class="text-xs text-gray-400" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                <time class="text-xs text-gray-500" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
               </div>
               <h3 class={`font-semibold text-gray-900 leading-snug line-clamp-2 ${i === 0 ? 'text-xl md:text-2xl font-display' : 'text-base'}`}>
                 <a href={`/blog/${post.slug}/`} class="hover:text-forest-700 transition-colors">
