@@ -4,6 +4,7 @@ export {
   BF_HUB_PATH,
   BF_HUB_PLACEMENT,
   BF_HUB_URL,
+  BF_LISTING_VERIFIED,
   BF_PUBLISHED,
   BF_UPDATED,
   bfBuyingTips,

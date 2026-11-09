@@ -23,7 +23,7 @@ Never publish visitor-facing copy about affiliate upside or revenue strategy. Ne
 
 Keep the confirmed Amazon tag. Search links are the default. A direct product link is allowed only when the ASIN is in `data/verified-asins.json`, per CONTENT_RULES.md. Buttons should make the destination clear and ask readers to verify model, seller and price. No live price feed exists: do not render frontmatter prices as current Amazon offers or claim a lowest price. Keep source links distinct from affiliate links.
 
-`/deals/black-friday-golf-deals/` is the seasonal hub. Every Amazon control on it uses placement `bf_hub`. A price on that page is a figure checked on the retailer product page, with the check time, and the page has no Offer markup. Dated deal posts stay in the archive with the expired-deal treatment, and the hub does not link them.
+`/deals/black-friday-golf-deals/` is the seasonal hub. Every Amazon control on it uses placement `bf_hub` and a direct tagged ASIN from `data/verified-asins.json`. The page does not show an Amazon price, seller, or stock count, and it has no Offer markup. Dated deal posts stay in the archive with the expired-deal treatment, and the hub does not link them.
 
 Potential diversification, researched September 28: Callaway via Partnerize, PlayBetter, and 2nd Swing. No approval or active tracking links are established in this repository. Re-check primary program terms before prioritizing; never invent identifiers, publish nonexistent partnerships, accept binding agreements, or supply tax/payment details autonomously. Access/approval prerequisites must be reported honestly, without blocking unrelated work.
 
