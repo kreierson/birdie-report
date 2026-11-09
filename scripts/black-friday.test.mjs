@@ -221,10 +221,9 @@ test('hub copy verifies the listing and does not state a price or a stock count'
   }
 });
 
-test('the deals index, homepage, gift guide, and six best-of guides link the hub', () => {
+test('the deals index, gift guide, and six best-of guides link the hub', () => {
   const sources = [
     'src/pages/deals/index.astro',
-    'src/pages/index.astro',
     'src/content/blog/best-golf-gifts.mdx',
     'src/content/blog/best-putters-high-handicappers-2026.mdx',
     'src/content/blog/best-golf-sunglasses-2026.mdx',

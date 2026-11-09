@@ -125,6 +125,7 @@
       link_url: url.href,
       page_path: window.location.pathname,
       transport_type: 'beacon',
+      ...entrySource(),
     };
     window.gtag('event', 'affiliate_click', affiliate);
     emitPreview('affiliate_click', affiliate);
@@ -148,9 +149,60 @@
       link_url: `${url.pathname}${url.search}${url.hash}`,
       page_path: window.location.pathname,
       transport_type: 'beacon',
+      traffic_type: trafficType(),
+      device_category: deviceCategory(),
     };
+    const guideSlug = (link.dataset.guideSlug || '').trim().slice(0, 100);
+    const moduleName = (link.dataset.module || '').trim().slice(0, 100);
+    const position = (link.dataset.position || '').trim().slice(0, 10);
+    if (guideSlug) guide.guide_slug = guideSlug;
+    if (moduleName) guide.module = moduleName;
+    if (position) guide.position = position;
+    rememberEntry(guideSlug, moduleName);
     window.gtag('event', 'guide_click', guide);
     emitPreview('guide_click', guide);
+  }
+
+  function trafficType() {
+    if (internal) return 'internal';
+    if (automated) return 'bot';
+    return 'external';
+  }
+
+  function deviceCategory() {
+    const width = window.innerWidth;
+    if (typeof width === 'number' && width > 0 && width < 768) return 'mobile';
+    return 'desktop';
+  }
+
+  // Homepage guide_click records where the shopper entered. Affiliate clicks on
+  // that guide read it for 30 minutes. Other clicks stay entry_source=other.
+  function rememberEntry(guideSlug, moduleName) {
+    try {
+      if (!guideSlug || !moduleName || !window.sessionStorage) return;
+      window.sessionStorage.setItem('br_entry', JSON.stringify({
+        module: moduleName,
+        guide_slug: guideSlug,
+        ts: Date.now(),
+      }));
+    } catch { /* private mode or blocked storage */ }
+  }
+
+  function entrySource() {
+    const result = { entry_source: 'other' };
+    try {
+      const raw = window.sessionStorage && window.sessionStorage.getItem('br_entry');
+      if (!raw) return result;
+      const entry = JSON.parse(raw);
+      const slug = String(entry.guide_slug || '');
+      const fresh = Date.now() - Number(entry.ts) < 30 * 60 * 1000;
+      const onPage = slug && window.location.pathname.split('/').filter(Boolean).includes(slug);
+      if (fresh && onPage) {
+        result.entry_source = 'home';
+        if (entry.module) result.entry_module = String(entry.module).slice(0, 100);
+      }
+    } catch { /* ignore a missing or broken entry */ }
+    return result;
   }
 
   // Delegated handlers also cover cards outside BlogLayout and clicks on nested text or images.
