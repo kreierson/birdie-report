@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { showsPriceClaim } from '../utils/home-router.mjs';
+
+const query = Astro.url.searchParams.get('q')?.trim() || '';
+const posts = await getCollection('blog').catch(() => []);
+const needle = query.toLowerCase();
+const matches = posts
+  .filter((post) => {
+    if (showsPriceClaim(post.data.title)) return false;
+    if (!needle) return post.data.category === 'best';
+    return post.data.title.toLowerCase().includes(needle);
+  })
+  .sort((a, b) => new Date(b.data.updated || b.data.date).getTime() - new Date(a.data.updated || a.data.date).getTime())
+  .slice(0, 20);
+---
+
+<BaseLayout
+  noindex
+  title="Search The Birdie Report"
+  description="Search Birdie Report buyer guides and reviews."
+>
+  <div class="mx-auto max-w-3xl px-4 py-10">
+    <h1 class="font-display text-4xl font-black text-forest-900">Search</h1>
+    <form action="/search/" method="get" class="mt-6 flex flex-col gap-3 sm:flex-row" role="search">
+      <label class="sr-only" for="q">Search buyer guides</label>
+      <input id="q" name="q" type="search" value={query} class="min-h-12 flex-1 rounded-md border border-forest-900 px-3 text-base text-forest-900" />
+      <button type="submit" class="min-h-12 rounded-md bg-forest-900 px-5 font-semibold text-white">Search</button>
+    </form>
+    <ul class="mt-8 space-y-2">
+      {matches.map((post) => (
+        <li>
+          <a href={`/blog/${post.slug}/`} class="inline-flex min-h-11 items-center font-semibold text-forest-900">{post.data.title}</a>
+        </li>
+      ))}
+    </ul>
+    {matches.length === 0 && <p class="mt-6 text-gray-600">No matching guides. Try a club, shoe, or bag.</p>}
+  </div>
+</BaseLayout>

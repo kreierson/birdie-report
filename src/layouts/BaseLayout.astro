@@ -6,9 +6,10 @@ export interface Props {
   canonical?: string;
   noindex?: boolean;
   guideTemplate?: boolean;
+  homeRouter?: boolean;
 }
 
-const { title, description, image, canonical, noindex = false, guideTemplate = false } = Astro.props;
+const { title, description, image, canonical, noindex = false, guideTemplate = false, homeRouter = false } = Astro.props;
 const site = 'https://www.birdiereport.com';
 const defaultImage = '/images/birdie-report-og.jpg';
 const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
@@ -90,11 +91,19 @@ const navItems = [
       footer { padding-bottom: env(safe-area-inset-bottom); }
       .no-js [data-guide-hero-pending], .no-js [data-guide-defer]{display:none}
       a:focus-visible, button:focus-visible { outline: 3px solid #b8860b; outline-offset: 3px; }
+      .home-router a:focus-visible, .home-router button:focus-visible { outline: 2px solid #1A472A; outline-offset: 2px; }
+      .home-router header a:focus-visible, .home-router header button:focus-visible, .home-router footer a:focus-visible { outline-color: #D4AF37; }
+      .home-router a:active { background-color: #12301C; color: #fff; }
+      @media (prefers-reduced-motion: reduce) {
+        .home-router * { transition: none !important; animation: none !important; }
+      }
     </style>
   </head>
   
-  <body class="h-full bg-white text-gray-900 font-body antialiased selection:bg-gold-200 selection:text-forest-900">
+  <body class:list={['h-full bg-white text-gray-900 font-body antialiased selection:bg-gold-200 selection:text-forest-900', homeRouter && 'home-router']}>
     <div class="min-h-full">
+      {homeRouter && <slot name="header" />}
+      {!homeRouter && <>
       <!-- Top bar -->
       <div class="bg-forest-900 text-white/80 text-xs py-1.5 hidden md:block">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
@@ -169,6 +178,7 @@ const navItems = [
           </div>
         </nav>
       </header>
+      </>}
 
       <script>
         const btn = document.getElementById('mobile-menu-btn');
@@ -195,10 +205,12 @@ const navItems = [
         }, true);
       </script>
 
-      <main>
+      <main id="content">
         <slot />
       </main>
 
+      {homeRouter && <slot name="footer" />}
+      {!homeRouter && <>
       <!-- Footer -->
       <footer class="bg-forest-900 text-white mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -253,6 +265,7 @@ const navItems = [
           </div>
         </div>
       </footer>
+      </>}
     </div>
   </body>
 </html>

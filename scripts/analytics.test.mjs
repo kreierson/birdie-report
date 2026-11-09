@@ -507,34 +507,17 @@ test('marked guide surfaces stay off ordinary nav and the guide-plan widget', ()
   const root = fileURLToPath(new URL('..', import.meta.url));
   const read = (path) => readFileSync(join(root, path), 'utf8');
   const index = read('src/pages/index.astro');
-  const slice = (start, end) => {
-    const from = index.indexOf(start);
-    const to = index.indexOf(end, from + start.length);
-    assert.ok(from >= 0 && to > from, `${start} → ${end}`);
-    return index.slice(from, to);
-  };
-  const picks = slice("<!-- Editor's Picks", '<!-- Latest Reviews -->');
-  const reviews = slice('<!-- Latest Reviews -->', '<!-- Best Of Guides');
-  const buyer = slice('<!-- Best Of Guides', '<!-- Tips Section');
-  const tips = slice('<!-- Tips Section', '<!-- Deals Strip -->');
-  const deals = slice('<!-- Deals Strip -->', '<!-- Latest Articles');
-  const latest = slice('<!-- Latest Articles', '<!-- Course Guides -->');
-  assert.equal(picks.includes('data-guide-link'), false);
-  assert.match(picks, /placement="home-gear-guides"/);
-  assert.match(buyer, /data-placement="home-buyer-card"/);
-  assert.match(buyer, /data-placement="home-deals-hub"/);
-  assert.match(buyer, /data-placement="home-gift-guide"/);
-  assert.equal(reviews.includes('data-guide-link'), false);
-  assert.equal(tips.includes('data-guide-link'), false);
-  assert.equal(deals.includes('data-guide-link'), false);
-  assert.equal(latest.includes('data-guide-link'), false);
-  assert.match(index, /data-placement=\{heroPost\.data\.category === 'best' \? 'home-hero' : undefined\}/);
-  assert.match(index, /data-placement=\{cat\.guide \? 'home-pill' : undefined\}/);
-  assert.match(index, /placement="home-opportunity"/);
-  assert.match(index, /placement="home-gear-guides"/);
-  assert.match(index, /placement="home-sidebar-guides"/);
-  assert.match(index, /placement="home-cta-guides"/);
-  assert.equal(index.includes("guide: true"), true);
+  assert.match(index, /home-pill/);
+  assert.match(index, /home-buyer-card/);
+  assert.match(index, /home-deals-hub/);
+  assert.match(index, /home-gift-guide/);
+  assert.match(index, /data-module="home_tiles"/);
+  assert.match(index, /data-module="home_most_used"/);
+  assert.match(index, /home_more_ways/);
+  assert.match(index, /data-module="home_reviews"/);
+  assert.match(index, /data-module="home_all_guides"/);
+  assert.doesNotMatch(index, /home-hero|home-opportunity|home-gear-guides|home-sidebar-guides|home-cta-guides/);
+  assert.doesNotMatch(index, /\$\d/);
 
   const layout = read('src/layouts/BaseLayout.astro');
   assert.equal(layout.includes('data-guide-link'), false);
@@ -553,4 +536,45 @@ test('marked guide surfaces stay off ordinary nav and the guide-plan widget', ()
   assert.match(read('src/layouts/BlogLayout.astro'), /placement="article-gear-guides"/);
   assert.match(source, /gtag\('event', 'guide_click'/);
   assert.equal(source.includes("gtag('event', 'guide_plan"), false);
+});
+
+test('a homepage guide_click sets entry_source=home on the matching guide affiliate click', () => {
+  const s = setup();
+  s.window.sessionStorage = memoryStorage();
+  s.window.location.pathname = '/blog/best-putters-2026/';
+  s.click('https://127.0.0.1/blog/best-putters-2026/', {
+    data: {
+      guideLink: 'true',
+      guideName: 'Putters',
+      guideSlug: 'best-putters-2026',
+      module: 'home_tiles',
+      position: '1',
+      placement: 'home_tiles',
+    },
+  });
+  const guide = s.window.dataLayer.at(-1)[2];
+  assert.equal(s.window.dataLayer.at(-1)[1], 'guide_click');
+  assert.equal(guide.guide_slug, 'best-putters-2026');
+  assert.equal(guide.module, 'home_tiles');
+  assert.equal(guide.position, '1');
+  assert.equal(guide.placement, 'home_tiles');
+  assert.equal(guide.traffic_type, 'external');
+  assert.equal(guide.device_category, 'desktop');
+  assert.equal(JSON.parse(s.window.sessionStorage.getItem('br_entry')).module, 'home_tiles');
+
+  s.click(AMAZON, { data: { affiliateLink: 'true', product: 'Putter', placement: 'quick_picks' } });
+  const affiliate = s.window.dataLayer.at(-1)[2];
+  assert.equal(affiliate.entry_source, 'home');
+  assert.equal(affiliate.entry_module, 'home_tiles');
+  assert.equal(affiliate.placement, 'quick_picks');
+  assert.equal(affiliate.product_name, 'Putter');
+
+  const stale = setup();
+  stale.window.sessionStorage = memoryStorage({
+    br_entry: JSON.stringify({ module: 'home_tiles', guide_slug: 'best-putters-2026', ts: Date.now() - (31 * 60 * 1000) }),
+  });
+  stale.window.location.pathname = '/blog/best-putters-2026/';
+  stale.click(AMAZON, { data: { affiliateLink: 'true', product: 'Putter', placement: 'quick_picks' } });
+  assert.equal(stale.window.dataLayer.at(-1)[2].entry_source, 'other');
+  assert.equal(stale.window.dataLayer.at(-1)[2].entry_module, undefined);
 });

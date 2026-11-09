@@ -134,13 +134,10 @@ test('client refresh removes promoted deals after their as-of day and marks arch
   assert.equal(root.children.includes(archive), true);
 });
 
-test('homepage and the deals archive expose as-of dates for the client check', () => {
+test('the deals archive exposes as-of dates and the homepage does not promote dated deals', () => {
   const index = readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
   const category = readFileSync(new URL('../src/components/CategoryPage.astro', import.meta.url), 'utf8');
-  assert.match(index, /data-deal-promote-group/);
-  assert.match(index, /data-deal-promote/);
-  assert.match(index, /data-deal-as-of=\{dealAsOfKey\(dealAsOf\(post\.data\)\)\}/);
-  assert.match(index, /<DealFreshness/);
+  assert.doesNotMatch(index, /data-deal-promote|DealFreshness|data-deal-as-of/);
   assert.match(category, /data-deal-expired-badge/);
   assert.match(category, /data-deal-expired-note/);
   assert.match(category, /data-deal-state-label/);
