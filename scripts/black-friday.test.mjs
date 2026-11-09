@@ -66,8 +66,8 @@ test('every pick links to a real guide and a direct verified product URL', () =>
     'shoes',
     'apparel',
     'training-aids',
-    'gifts-under-50',
-    'gifts-under-100',
+    'gifts-stocking',
+    'gifts-beyond-stocking',
   ];
   assert.deepEqual(bfCategories.map((category) => category.id), requiredCategories);
 

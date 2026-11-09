@@ -39,9 +39,31 @@ export function productNamesMatch(leftName, rightName) {
   return longer.every((token) => shorterSet.has(token) || GENERIC_NAME_TOKEN.has(token));
 }
 
+const NON_AMAZON_PRICE_SOURCE = /\b(official|manufacturer|msrp|when checked|checked on|product page|footjoy|callaway|taylormade|titleist|ping|garmin|costco|dick'?s|pga|2nd swing|pre-owned|cobra|adidas|nike|ecco|bushnell|mizuno|srixon|wilson|cleveland|odyssey|scotty|bettinardi|vice|kirkland|bridgestone|pxg|tour edge|sun mountain|vessel|bag boy|clicgear|voice caddie|precision pro|shot scope|flightscope|rapsodo|skytrak|galvin|under armour|puma|new balance|skechers|true linkswear)\b/i;
+
+export function isAmazonCommerce(retailer, href = '') {
+  const name = text(retailer);
+  if (/^amazon(?:\.com)?$/i.test(name)) return true;
+  const raw = text(href);
+  if (!raw) return false;
+  try {
+    const host = new URL(raw).hostname.replace(/^www\./, '');
+    return host === 'amazon.com' || host.endsWith('.amazon.com');
+  } catch {
+    return /amazon\.com/i.test(raw);
+  }
+}
+
+// A stored price may name a non-Amazon page. A bare dollar amount does not.
+export function isSourcedNonAmazonPrice(price) {
+  const value = text(price);
+  if (!/\$\s*\d/.test(value) || /\bamazon\b/i.test(value)) return false;
+  return NON_AMAZON_PRICE_SOURCE.test(value);
+}
+
 export function priceCheckCta(retailer) {
   const name = text(retailer) || 'Amazon';
-  if (/^amazon(?:\.com)?$/i.test(name)) return 'Check price on Amazon';
+  if (/^amazon(?:\.com)?$/i.test(name)) return 'Check current price on Amazon';
   return `Check price at ${name}`;
 }
 
@@ -57,6 +79,12 @@ export function storedPriceLine(price) {
   if (!/\$\s*\d/.test(value)) return 'Check current price';
   if (value.length <= 32 && !/^approx\.?\b/i.test(value)) return `Approx. ${value}`;
   return value;
+}
+
+// Amazon rows never print a stored price, sale line, or stock claim.
+export function commercePriceLine(price, retailer, href = '') {
+  if (isAmazonCommerce(retailer, href)) return '';
+  return storedPriceLine(price);
 }
 
 export function bestForLine({ award, why, pros } = {}) {

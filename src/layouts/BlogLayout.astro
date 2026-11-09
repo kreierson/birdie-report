@@ -13,7 +13,7 @@ import GuideTopPicks from '../components/GuideTopPicks.astro';
 import ProductBuyBox from '../components/ProductBuyBox.astro';
 import { getAmazonTag, isDirectAmazonProductUrl, normalizeAffiliateLinks, normalizeAffiliateUrl } from '../utils/affiliate';
 import { buyerProductsFromContent } from '../utils/buyer-links.mjs';
-import { imageForBuyer, productNamesMatch } from '../utils/product-buy.mjs';
+import { imageForBuyer, isAmazonCommerce, isSourcedNonAmazonPrice, productNamesMatch } from '../utils/product-buy.mjs';
 import { selectRelatedGuides } from '../utils/related-guides.mjs';
 import { resolveQuickPicks } from '../utils/quick-picks.mjs';
 import { buildGuideModel, formatGuideDate, isBuyerGuide as buyerGuidePage, researchDisclosure } from '../utils/guide-template.mjs';
@@ -126,6 +126,8 @@ const buyerCards = resolvedBuyerProducts.map((link) => ({
   image: imageForBuyer(link.product, schemaInput, buyerNames, link.image || ''),
 }));
 const heroCards = buyerCards.slice(0, 3);
+const amazonOnlyBuys = buyerCards.length > 0 && buyerCards.every((link) => isAmazonCommerce(link.retailer, link.url));
+const verdictPrice = amazonOnlyBuys && price && /\$\s*\d/.test(price) && !isSourcedNonAmazonPrice(price) ? '' : (price || '');
 const quickPickNames = quickPicks.map((pick) => pick.product);
 const quickPickCards = quickPicks.map((pick) => {
   const match = buyerCards.find((link) => productNamesMatch(pick.product, link.product));
@@ -275,7 +277,7 @@ const quickPickCards = quickPicks.map((pick) => {
                         <div class={`w-2.5 h-2.5 rounded-full ${i < Math.round(rating) ? 'bg-gold-500' : 'bg-gray-300'}`}></div>
                       ))}
                     </div>
-                    {price && <div class="mt-3 text-forest-700 font-bold text-lg">{price}</div>}
+                    {verdictPrice && <div class="mt-3 text-forest-700 font-bold text-lg">{verdictPrice}</div>}
                   </div>
                 )}
                 <!-- Pros -->
@@ -460,7 +462,7 @@ const quickPickCards = quickPicks.map((pick) => {
                 <article class="group flex flex-col sm:flex-row gap-4">
                   <a href={`/blog/${post.slug}/`} class="block w-24 h-20 flex-shrink-0 rounded overflow-hidden">
                     <img
-                      src={(buyerGuide && thumbFor(post.data.featured_image)?.src) ? '/images/guide-photo-placeholder.gif' : post.data.featured_image}
+                      src={(buyerGuide && (thumbFor(post.data.featured_image)?.src || /^https?:/i.test(post.data.featured_image || ''))) ? '/images/guide-photo-placeholder.gif' : post.data.featured_image}
                       data-src={buyerGuide ? thumbFor(post.data.featured_image)?.src : undefined}
                       data-guide-defer={buyerGuide && thumbFor(post.data.featured_image) ? '' : undefined}
                       alt={post.data.title}

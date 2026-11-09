@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url';
 import {
   bestForLine,
   imageForBuyer,
+  commercePriceLine,
+  isAmazonCommerce,
+  isSourcedNonAmazonPrice,
   priceCheckAccessibleName,
   priceCheckCta,
   productNamesMatch,
@@ -15,14 +18,21 @@ import {
 const root = fileURLToPath(new URL('..', import.meta.url));
 
 test('price check CTAs name the retailer without inventing a direct-link claim', () => {
-  assert.equal(priceCheckCta('Amazon'), 'Check price on Amazon');
-  assert.equal(priceCheckCta('amazon.com'), 'Check price on Amazon');
-  assert.equal(priceCheckCta(''), 'Check price on Amazon');
+  assert.equal(priceCheckCta('Amazon'), 'Check current price on Amazon');
+  assert.equal(priceCheckCta('amazon.com'), 'Check current price on Amazon');
+  assert.equal(priceCheckCta(''), 'Check current price on Amazon');
   assert.equal(priceCheckCta('PGA Tour Superstore'), 'Check price at PGA Tour Superstore');
   assert.equal(
-    priceCheckAccessibleName('Check price on Amazon', 'Callaway Quantum Max Driver'),
-    'Check price on Amazon for Callaway Quantum Max Driver (opens in a new tab)',
+    priceCheckAccessibleName('Check current price on Amazon', 'Callaway Quantum Max Driver'),
+    'Check current price on Amazon for Callaway Quantum Max Driver (opens in a new tab)',
   );
+  assert.equal(isAmazonCommerce('Amazon', ''), true);
+  assert.equal(isAmazonCommerce('PGA Tour Superstore', 'https://www.pgatoursuperstore.com/'), false);
+  assert.equal(isAmazonCommerce('', 'https://www.amazon.com/dp/B0DPN71RTJ?tag=birdiereport-20'), true);
+  assert.equal(commercePriceLine('$199.99 sale', 'Amazon', 'https://www.amazon.com/s?k=shoes&tag=birdiereport-20'), '');
+  assert.equal(commercePriceLine('$325', 'FootJoy', 'https://www.footjoy.com/'), 'Approx. $325');
+  assert.equal(isSourcedNonAmazonPrice('$89.95-$129.95 sale pricing on FootJoy\'s site when checked June 12, 2026'), true);
+  assert.equal(isSourcedNonAmazonPrice('$199.99 sale'), false);
 });
 
 test('price lines use stored dollar amounts and never invent one', () => {

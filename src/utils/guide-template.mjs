@@ -352,7 +352,7 @@ export function buildGuideModel({ picks = [], body = '', subcategory = '' } = {}
     top: shown.map((pick) => ({
       ...presentLink(pick, GUIDE_PICKS_PLACEMENT),
       award: cleanText(pick.award),
-      why: cleanText(pick.why),
+      why: containsPriceText(pick.why) ? '' : cleanText(pick.why),
       reason: mobileReason(pick.why),
     })),
     rows,

@@ -1,5 +1,5 @@
 ---
-import { priceCheckAccessibleName, priceCheckCta } from '../utils/product-buy.mjs';
+import { isAmazonCommerce, priceCheckAccessibleName, priceCheckCta } from '../utils/product-buy.mjs';
 
 export interface Props {
   product: string;
@@ -29,6 +29,7 @@ const starFull = '★';
 const starEmpty = '☆';
 const stars = starFull.repeat(rating) + starEmpty.repeat(5 - rating);
 const cta = priceCheckCta(retailer);
+const showPrice = Boolean(price) && !isAmazonCommerce(retailer, affiliate_url);
 ---
 
 <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
@@ -91,7 +92,7 @@ const cta = priceCheckCta(retailer);
     <!-- Price & CTA -->
     <div class="pt-3 border-t border-gray-100">
       <div class="flex flex-wrap items-center justify-between gap-3">
-        {price && (
+        {showPrice && (
           <div class="text-lg font-semibold text-gray-900">{price}</div>
         )}
         <a 
