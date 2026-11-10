@@ -22,7 +22,8 @@ class SEOGuards(unittest.TestCase):
                 counterpart=source+'/'
                 self.assertIn(counterpart,redirects,source)
                 self.assertEqual(redirects[counterpart]['destination'],rule['destination'])
-            self.assertTrue(rule['permanent'])
+            # statusCode 301/308 is a permanent redirect. Vercel rejects permanent and statusCode together.
+            self.assertTrue(rule.get('permanent') is True or rule.get('statusCode') in (301, 308), source)
             target=rule['destination']
             self.assertTrue(target.endswith('/'),target)
             if target.startswith('/blog/'):
