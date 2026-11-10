@@ -24,9 +24,14 @@ class SEOGuards(unittest.TestCase):
                 self.assertEqual(redirects[counterpart]['destination'],rule['destination'])
             self.assertTrue(rule['permanent'])
             target=rule['destination']
-            self.assertTrue(target.startswith('/blog/') and target.endswith('/'),target)
-            slug=target.removeprefix('/blog/').rstrip('/')
-            self.assertTrue(any((ROOT/'src/content/blog'/f'{slug}{ext}').is_file() for ext in ['.md','.mdx']),target)
+            self.assertTrue(target.endswith('/'),target)
+            if target.startswith('/blog/'):
+                slug=target.removeprefix('/blog/').rstrip('/')
+                self.assertTrue(any((ROOT/'src/content/blog'/f'{slug}{ext}').is_file() for ext in ['.md','.mdx']),target)
+            else:
+                section=target.strip('/')
+                page=ROOT/'src/pages'/section
+                self.assertTrue((page/'index.astro').is_file() or page.with_suffix('.astro').is_file(), target)
 
     def test_complete_periods_do_not_overlap(self):
         p=module('analytics-report').periods(date(2026,9,21))

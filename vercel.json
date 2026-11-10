@@ -5,12 +5,14 @@
     {
       "source": "/reviews/page/1",
       "destination": "/reviews/",
-      "statusCode": 301
+      "statusCode": 301,
+      "permanent": true
     },
     {
       "source": "/reviews/page/1/",
       "destination": "/reviews/",
-      "statusCode": 301
+      "statusCode": 301,
+      "permanent": true
     },
     {
       "source": "/blog/houston-open-2026-preview-scheffler-masters-bubble",

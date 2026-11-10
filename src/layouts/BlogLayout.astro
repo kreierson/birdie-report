@@ -214,8 +214,9 @@ const quickPickCards = quickPicks.map((pick) => {
           </div>
 
           {reviewBasis && review_basis === 'research-based' && (
-            <p class="research-line mt-2 whitespace-nowrap bg-[#F3F6F2] py-2 font-body text-[13px] leading-[18px] text-[#12301C]">
-              Research-based review, not a hands-on test. <a href="/affiliate-disclosure/" class="font-semibold underline underline-offset-2">How we research <span aria-hidden="true">›</span></a>
+            <p class="research-line mt-2 bg-[#F3F6F2] font-body text-[13px] leading-[18px] text-[#12301C]">
+              <span>Research-based review, not a hands-on test.</span>
+              <a href="/affiliate-disclosure/" class="font-semibold underline underline-offset-2">How we research&nbsp;›</a>
             </p>
           )}
           {reviewBasis && review_basis !== 'research-based' && (
@@ -686,7 +687,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style is:global>
-  .research-line { margin-left: -1rem; margin-right: -1rem; padding-left: 0.5rem; padding-right: 0.5rem; letter-spacing: -0.04em; }
+  .research-line { display: flex; align-items: baseline; gap: 0.35em; margin-left: -1rem; margin-right: -1rem; padding: 0.5rem 0.25rem; letter-spacing: -0.08em; white-space: nowrap; }
+  .research-line span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .research-line a { flex: none; }
   article { min-width: 0; overflow-wrap: anywhere; }
   article [data-affiliate-link] { overflow-wrap: normal; max-width: 100%; }
   @media (min-width: 1280px) {

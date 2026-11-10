@@ -17,21 +17,21 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
 const currentPath = Astro.url.pathname;
 
 const desktopNav = [
-  { href: '/best/', label: 'Best Of', guideName: 'Best Of', placement: 'home-pill' },
+  { href: '/best/', label: 'Best Of' },
   { href: '/reviews/', label: 'Reviews' },
   { href: '/tips/', label: 'Tips' },
-  { href: '/deals/', label: 'Deals', guideName: 'Deals', placement: 'home-pill' },
+  { href: '/deals/', label: 'Deals' },
   { href: '/blog/best-golf-gifts/', label: 'Gift Guide' },
   { href: '/tools/', label: 'Tools' },
   { href: '/courses/', label: 'Courses' },
 ];
 
 const menuNav = [
-  { href: '/best/', label: 'Best Of', guideName: 'Best Of', placement: 'home-pill' },
+  { href: '/best/', label: 'Best Of' },
   { href: '/reviews/', label: 'Reviews' },
   { href: '/news/', label: 'News' },
   { href: '/tips/', label: 'Tips' },
-  { href: '/deals/', label: 'Deals', guideName: 'Deals', placement: 'home-pill' },
+  { href: '/deals/', label: 'Deals' },
   { href: '/courses/', label: 'Courses' },
   { href: '/versus/', label: 'Versus' },
   { href: '/opinion/', label: 'Opinion' },
@@ -148,9 +148,6 @@ const menuNav = [
                 href={item.href}
                 class="inline-flex min-h-11 items-center px-2.5 text-[13px] font-semibold uppercase tracking-wide text-forest-900"
                 aria-current={currentPath === item.href || currentPath.startsWith(item.href) ? 'page' : undefined}
-                data-guide-link={item.guideName ? 'true' : undefined}
-                data-guide-name={item.guideName}
-                data-placement={item.placement}
               >{item.label}</a>
             ))}
           </nav>
@@ -173,9 +170,6 @@ const menuNav = [
             <a
               href={item.href}
               class="flex min-h-11 items-center text-base font-semibold text-white"
-              data-guide-link={item.guideName ? 'true' : undefined}
-              data-guide-name={item.guideName}
-              data-placement={item.placement}
             >{item.label}</a>
           ))}
         </nav>
