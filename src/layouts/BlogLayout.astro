@@ -16,7 +16,7 @@ import { buyerProductsFromContent } from '../utils/buyer-links.mjs';
 import { imageForBuyer, isAmazonCommerce, isSourcedNonAmazonPrice, productNamesMatch } from '../utils/product-buy.mjs';
 import { selectRelatedGuides } from '../utils/related-guides.mjs';
 import { resolveQuickPicks } from '../utils/quick-picks.mjs';
-import { buildGuideModel, formatGuideDate, isBuyerGuide as buyerGuidePage, researchDisclosure } from '../utils/guide-template.mjs';
+import { buildGuideModel, formatGuideDate, isBuyerGuide as buyerGuidePage, markdownHeadings, researchDisclosure } from '../utils/guide-template.mjs';
 import { buildStructuredData, jsonLd, stockImageUrls, visibleScorecard } from '../utils/review-schema.mjs';
 import { deliveredSocial, deliveredSrc, guideDelivery, rewriteMarkdownImages, thumbFor } from '../utils/guide-images.mjs';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
@@ -87,7 +87,7 @@ const categoryColors: Record<string, string> = {
   tips: 'bg-blue-600 text-white',
   news: 'bg-red-600 text-white',
   deals: 'bg-orange-700 text-white',
-  courses: 'bg-emerald-600 text-white',
+  courses: 'bg-emerald-800 text-white',
   versus: 'bg-purple-600 text-white',
   opinion: 'bg-rose-600 text-white',
 };
@@ -128,6 +128,14 @@ const buyerCards = resolvedBuyerProducts.map((link) => ({
 const heroCards = buyerCards.slice(0, 3);
 const amazonOnlyBuys = buyerCards.length > 0 && buyerCards.every((link) => isAmazonCommerce(link.retailer, link.url));
 const verdictPrice = amazonOnlyBuys && price && /\$\s*\d/.test(price) && !isSourcedNonAmazonPrice(price) ? '' : (price || '');
+const tocItems = [];
+if (buyerGuide && guideModel?.hasPicks) {
+  tocItems.push({ id: 'our-top-picks', depth: 2, text: guideModel.heading });
+  tocItems.push({ id: 'compare-heading', depth: 2, text: 'Compare at a glance' });
+}
+for (const heading of markdownHeadings(body)) {
+  if (heading.depth === 2 || heading.depth === 3) tocItems.push(heading);
+}
 const quickPickNames = quickPicks.map((pick) => pick.product);
 const quickPickCards = quickPicks.map((pick) => {
   const match = buyerCards.find((link) => productNamesMatch(pick.product, link.product));
@@ -195,7 +203,7 @@ const quickPickCards = quickPicks.map((pick) => {
               </span>
             )}
             <span id="reading-time" class="text-gray-500">5 min read</span>
-            {rating && <span class="text-gold-600 font-bold">⭐ {rating}/10</span>}
+            {rating && <span class="text-gold-800 font-bold">⭐ {rating}/10</span>}
           </div>
 
           {reviewBasis && (
@@ -496,13 +504,21 @@ const quickPickCards = quickPicks.map((pick) => {
           <div class="bg-gray-50 border border-gray-200 rounded-lg p-5">
             <h3 class="text-sm font-bold text-forest-900 uppercase tracking-wide mb-3">{buyerGuide ? 'On this page' : 'Table of Contents'}</h3>
             <nav id="toc" class="space-y-1.5 text-sm">
-              <p class="text-gray-500 text-xs">Loading...</p>
+              {tocItems.length > 0 ? tocItems.map((heading) => (
+                <a
+                  href={`#${heading.id}`}
+                  class:list={[
+                    'flex min-h-6 items-center text-gray-600 hover:text-forest-700 transition-colors leading-snug',
+                    heading.depth === 3 ? 'pl-3 text-xs' : 'font-medium',
+                  ]}
+                >{heading.text}</a>
+              )) : <p class="text-gray-500 text-xs italic">No sections</p>}
             </nav>
           </div>
 
           <!-- Sticky Buy CTA for reviews -->
           {hasBuyerIntent && stickyCta && (
-            <div class="mt-6 bg-forest-800 rounded-lg p-5 text-center">
+            <div class="sidebar-buy-box mt-6 min-h-[9.25rem] bg-forest-800 rounded-lg p-5 text-center">
               {rating && <div class="text-gold-400 font-display font-bold text-2xl mb-1">{rating}/10</div>}
               <div class="text-white font-semibold mb-3">{stickyCta.product}</div>
               <a
@@ -561,27 +577,29 @@ document.addEventListener('DOMContentLoaded', function() {
   const toc = document.getElementById('toc');
   const headings = document.querySelectorAll('article .prose h2, article .prose h3');
   const guideHeadings = document.querySelectorAll('[data-guide-toc]');
-  if (toc && (headings.length > 0 || guideHeadings.length > 0)) {
-    toc.innerHTML = '';
-    guideHeadings.forEach((heading) => {
-      if (!heading.id) return;
-      const link = document.createElement('a');
-      link.href = `#${heading.id}`;
-      link.textContent = heading.textContent || '';
-      link.className = 'flex min-h-6 items-center font-medium text-gray-600 hover:text-forest-700 transition-colors leading-snug';
-      toc.appendChild(link);
-    });
-    headings.forEach((heading, i) => {
-      const id = heading.id || `heading-${i}`;
-      heading.id = id;
-      const link = document.createElement('a');
-      link.href = `#${id}`;
-      link.textContent = heading.textContent || '';
-      link.className = `flex min-h-6 items-center text-gray-600 hover:text-forest-700 transition-colors leading-snug ${heading.tagName === 'H3' ? 'pl-3 text-xs' : 'font-medium'}`;
-      toc.appendChild(link);
-    });
-  } else if (toc) {
-    toc.innerHTML = '<p class="text-gray-500 text-xs italic">No sections</p>';
+  if (toc && !toc.querySelector('a')) {
+    if (headings.length > 0 || guideHeadings.length > 0) {
+      toc.innerHTML = '';
+      guideHeadings.forEach((heading) => {
+        if (!heading.id) return;
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent || '';
+        link.className = 'flex min-h-6 items-center font-medium text-gray-600 hover:text-forest-700 transition-colors leading-snug';
+        toc.appendChild(link);
+      });
+      headings.forEach((heading, i) => {
+        const id = heading.id || `heading-${i}`;
+        heading.id = id;
+        const link = document.createElement('a');
+        link.href = `#${id}`;
+        link.textContent = heading.textContent || '';
+        link.className = `flex min-h-6 items-center text-gray-600 hover:text-forest-700 transition-colors leading-snug ${heading.tagName === 'H3' ? 'pl-3 text-xs' : 'font-medium'}`;
+        toc.appendChild(link);
+      });
+    } else {
+      toc.innerHTML = '<p class="text-gray-500 text-xs italic">No sections</p>';
+    }
   }
 
   if (article) {

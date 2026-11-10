@@ -638,3 +638,25 @@ test('every delivered guide photo is webp or avif and stays within 40KB', () => 
   const shoes = guideDelivery(samples['best-golf-shoes-2026']);
   assert.equal(shoes.credit, 'Markus Spiske / CC 0');
 });
+
+test('self-hosted fonts, course badge contrast, and a reserved sidebar buy box', () => {
+  const base = read('src/layouts/BaseLayout.astro');
+  assert.doesNotMatch(base, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
+  assert.match(base, /rel="preload" href="\/fonts\/playfair-display-900-latin\.woff2"/);
+  assert.match(base, /font-display:\s*swap/);
+  assert.match(base, /font-weight:\s*400 700/);
+  assert.match(base, /font-weight:\s*900/);
+  assert.doesNotMatch(base, /font-weight:\s*300|font-weight:\s*800/);
+  const blog = read('src/layouts/BlogLayout.astro');
+  assert.match(blog, /markdownHeadings\(body\)/);
+  assert.match(blog, /sidebar-buy-box mt-6 min-h-\[9\.25rem\]/);
+  assert.match(blog, /if \(toc && !toc\.querySelector\('a'\)\)/);
+  assert.match(blog, /bg-emerald-800 text-white/);
+  assert.match(blog, /text-gold-800 font-bold/);
+  assert.doesNotMatch(blog, /text-gold-600/);
+  assert.doesNotMatch(blog, /Loading\.\.\./);
+  assert.match(read('src/pages/courses/index.astro'), /bg-emerald-800 text-white/);
+  const irons = article('best-irons-high-handicappers-2026');
+  const ids = markdownHeadings(irons.body).filter((heading) => heading.depth === 2).map((heading) => heading.id);
+  assert.ok(ids.includes('1-callaway-elyte-best-overall'));
+});
