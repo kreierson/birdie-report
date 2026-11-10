@@ -36,7 +36,10 @@ export default defineConfig({
     mdx(),
     sitemap({
       // Tag archives are navigation aids, not standalone search landing pages.
-      filter: (page) => !new URL(page).pathname.startsWith('/tags/') && !new URL(page).pathname.startsWith('/search/'),
+      filter: (page) => {
+        const path = new URL(page).pathname;
+        return path !== '/404' && path !== '/404/' && !path.startsWith('/tags/') && !path.startsWith('/search/');
+      },
       serialize: (item) => {
         const lastmod = blogLastModified.get(new URL(item.url).pathname);
         return lastmod ? { ...item, lastmod } : item;
