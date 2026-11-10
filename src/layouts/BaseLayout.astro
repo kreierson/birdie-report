@@ -16,12 +16,22 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, site);
 
 const currentPath = Astro.url.pathname;
 
-const navItems = [
-  { href: '/best/', label: 'Best Of' },
+const desktopNav = [
+  { href: '/best/', label: 'Best Of', guideName: 'Best Of', placement: 'home-pill' },
+  { href: '/reviews/', label: 'Reviews' },
+  { href: '/tips/', label: 'Tips' },
+  { href: '/deals/', label: 'Deals', guideName: 'Deals', placement: 'home-pill' },
+  { href: '/blog/best-golf-gifts/', label: 'Gift Guide' },
+  { href: '/tools/', label: 'Tools' },
+  { href: '/courses/', label: 'Courses' },
+];
+
+const menuNav = [
+  { href: '/best/', label: 'Best Of', guideName: 'Best Of', placement: 'home-pill' },
   { href: '/reviews/', label: 'Reviews' },
   { href: '/news/', label: 'News' },
   { href: '/tips/', label: 'Tips' },
-  { href: '/deals/', label: 'Deals' },
+  { href: '/deals/', label: 'Deals', guideName: 'Deals', placement: 'home-pill' },
   { href: '/courses/', label: 'Courses' },
   { href: '/versus/', label: 'Versus' },
   { href: '/opinion/', label: 'Opinion' },
@@ -126,94 +136,57 @@ const navItems = [
   
   <body class:list={['h-full bg-white text-gray-900 font-body antialiased selection:bg-gold-200 selection:text-forest-900', homeRouter && 'home-router']}>
     <div class="min-h-full">
-      {homeRouter && <slot name="header" />}
-      {!homeRouter && <>
-      <!-- Top bar -->
-      <div class="hidden bg-forest-900 text-xs text-white/80 md:block">
-        <div class="mx-auto flex h-11 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <span>Honest reviews · No sponsored content</span>
-          <div class="flex items-center gap-1">
-            <a href="/about/" class="inline-flex min-h-11 items-center px-2 hover:text-gold-400">About</a>
-            <a href="/contact/" class="inline-flex min-h-11 items-center px-2 hover:text-gold-400">Contact</a>
-            <a href="/affiliate-disclosure/" class="inline-flex min-h-11 items-center px-2 hover:text-gold-400">Affiliate Disclosure</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Header -->
       <header class="sticky top-0 z-50 border-b border-white/10 bg-forest-900 xl:border-gray-200 xl:bg-white">
+        <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:text-forest-900">Skip to content</a>
         <div class="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-            <a href="/" class="mr-auto inline-flex h-10 shrink-0 items-center">
-              <img src="/logo.jpg" alt="The Birdie Report" width="1280" height="436" class="h-10 w-auto max-w-[46vw] rounded-sm bg-white object-contain" />
-            </a>
-            
-            <nav class="hidden min-w-0 flex-1 items-center justify-end xl:flex" aria-label="Primary">
-              {navItems.map(item => (
-                <a 
-                  href={item.href} 
-                  class={`inline-flex min-h-11 items-center px-2.5 text-[13px] font-semibold uppercase tracking-wide ${
-                    currentPath.startsWith(item.href) 
-                      ? 'text-forest-800' 
-                      : 'text-forest-900 hover:text-forest-700'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-
-            <a href="/search/" class="inline-flex min-h-11 items-center text-sm font-semibold text-gold-500 xl:text-forest-900">Search</a>
-            
-            <button 
-              type="button" 
-              id="mobile-menu-btn"
-              aria-label="Menu"
-              class="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-gold-500 xl:hidden"
-              aria-expanded="false"
-              aria-controls="mobile-menu"
-            >
-              <svg id="menu-icon-open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-              <svg id="menu-icon-close" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              Menu
-            </button>
-        </div>
-
-        <!-- Mobile menu -->
-        <nav id="mobile-menu" class="hidden xl:hidden max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-gray-200 bg-white">
-          <div class="px-4 py-3 space-y-1">
-            {navItems.map(item => (
-              <a 
-                href={item.href} 
-                class={`flex min-h-11 items-center px-3 text-sm font-semibold uppercase tracking-wide rounded-md ${
-                  currentPath.startsWith(item.href)
-                    ? 'text-forest-800 bg-forest-50'
-                    : 'text-gray-600 hover:text-forest-700 hover:bg-forest-50'
-                }`}
-              >
-                {item.label}
-              </a>
+          <a href="/" class="mr-auto inline-flex h-10 shrink-0 items-center">
+            <img src="/logo.jpg" alt="The Birdie Report" width="1280" height="436" class="h-10 w-auto max-w-[46vw] rounded-sm bg-white object-contain" />
+          </a>
+          <nav class="hidden items-center xl:flex" aria-label="Primary">
+            {desktopNav.map((item) => (
+              <a
+                href={item.href}
+                class="inline-flex min-h-11 items-center px-2.5 text-[13px] font-semibold uppercase tracking-wide text-forest-900"
+                aria-current={currentPath === item.href || currentPath.startsWith(item.href) ? 'page' : undefined}
+                data-guide-link={item.guideName ? 'true' : undefined}
+                data-guide-name={item.guideName}
+                data-placement={item.placement}
+              >{item.label}</a>
             ))}
-          </div>
+          </nav>
+          <a href="/search/" class="inline-flex min-h-11 items-center text-sm font-semibold text-gold-500 xl:text-forest-900">Search</a>
+          <button
+            type="button"
+            id="mobile-menu-btn"
+            class="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-gold-500 xl:hidden"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+            Menu
+          </button>
+        </div>
+        <nav id="mobile-menu" class="hidden max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-white/15 bg-forest-900 px-4 py-2 xl:hidden" aria-label="Menu">
+          {menuNav.map((item) => (
+            <a
+              href={item.href}
+              class="flex min-h-11 items-center text-base font-semibold text-white"
+              data-guide-link={item.guideName ? 'true' : undefined}
+              data-guide-name={item.guideName}
+              data-placement={item.placement}
+            >{item.label}</a>
+          ))}
         </nav>
       </header>
-      </>}
 
       <script>
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
-        const iconOpen = document.getElementById('menu-icon-open');
-        const iconClose = document.getElementById('menu-icon-close');
-        
         btn?.addEventListener('click', () => {
-          const isOpen = !menu?.classList.contains('hidden');
           menu?.classList.toggle('hidden');
-          iconOpen?.classList.toggle('hidden');
-          iconClose?.classList.toggle('hidden');
-          btn.setAttribute('aria-expanded', String(!isOpen));
+          btn.setAttribute('aria-expanded', String(!menu?.classList.contains('hidden')));
         });
       </script>
       <script>

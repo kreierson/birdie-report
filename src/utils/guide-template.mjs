@@ -332,12 +332,16 @@ export function buildGuideModel({ picks = [], body = '', subcategory = '' } = {}
   const headings = markdownHeadings(body).filter((heading) => heading.depth === 2);
   const rows = list.map((pick) => {
     const link = presentLink(pick, GUIDE_COMPARE_PLACEMENT);
+    const amazon = /^amazon(?:\.com)?$/i.test(link.retailer);
+    const cta = amazon ? 'Check Amazon' : link.cta;
     const fields = mode === 'editorial'
       ? [{ label: 'Our take', value: publishedField(pick.why) }]
       : structuredFields(pick, body, mode);
     const heading = bestHeading(pick.product, headings);
     return {
       ...link,
+      cta,
+      accessibleName: `${cta} for ${link.product} (opens in a new tab)`,
       bestFor: publishedField(pick.award),
       fields,
       reviewHref: heading ? `#${heading.id}` : '',

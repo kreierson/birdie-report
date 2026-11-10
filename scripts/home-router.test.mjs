@@ -8,7 +8,8 @@ import { GIFT_TILE, HOME_TILES, mostUsedGuides, showsPriceClaim, tilesFor } from
 const root = fileURLToPath(new URL('..', import.meta.url));
 const index = readFileSync(join(root, 'src/pages/index.astro'), 'utf8');
 const router = readFileSync(join(root, 'src/utils/home-router.mjs'), 'utf8');
-const homepage = `${index}\n${router}`;
+const layout = readFileSync(join(root, 'src/layouts/BaseLayout.astro'), 'utf8');
+const homepage = `${index}\n${router}\n${layout}`;
 
 test('homepage router targets are published guides', () => {
   for (const link of [...HOME_TILES, GIFT_TILE, ...mostUsedGuides()]) {

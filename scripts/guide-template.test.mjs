@@ -131,8 +131,9 @@ test('cart bags use the published weight and divider cells, not the price column
   const pioneer = model.rows.find((row) => row.product === 'PING Pioneer');
   assert.equal(field(pioneer, 'Published empty weight'), '8 lb');
   assert.equal(field(pioneer, 'Dividers'), '15-way top; enlarged putter well');
-  assert.equal(pioneer.cta, 'Search Amazon');
-  assert.match(pioneer.accessibleName, /Search Amazon for PING Pioneer \(opens in a new tab\)/);
+  assert.equal(pioneer.cta, 'Check Amazon');
+  assert.equal(pioneer.accessibleName, 'Check Amazon for PING Pioneer (opens in a new tab)');
+  assert.equal(pioneer.placement, 'guide_compare');
   assert.match(pioneer.href, /tag=birdiereport-20/);
   assert.match(pioneer.reviewHref, /^#ping-pioneer/);
   const titleist = model.rows.find((row) => row.product === 'Titleist Cart 14');
@@ -322,6 +323,13 @@ test('every best guide keeps sourced comparison fields and does not invent a sec
       if (row.reviewHref && !headingIds.has(row.reviewHref.slice(1))) {
         problems.push(`${slug}: missing heading ${row.reviewHref}`);
       }
+      if (/^amazon(?:\.com)?$/i.test(row.retailer)) {
+        if (row.cta !== 'Check Amazon') problems.push(`${slug}: compare label ${row.cta} for ${row.product}`);
+        if (row.accessibleName !== `Check Amazon for ${row.product} (opens in a new tab)`) {
+          problems.push(`${slug}: compare name ${row.accessibleName}`);
+        }
+        if (row.placement !== 'guide_compare') problems.push(`${slug}: compare placement ${row.placement}`);
+      }
     }
     for (const pick of model.top) {
       if (/Approx\.|\$\s*\d/.test(`${pick.award} ${pick.why} ${pick.reason}`)) {
@@ -337,7 +345,7 @@ test('every best guide keeps sourced comparison fields and does not invent a sec
           problems.push(`${slug}: reason cuts ${pick.product} mid-sentence`);
         }
       }
-      if (pick.retailer === 'Amazon' && !['Check Amazon', 'Search Amazon'].includes(pick.cta)) {
+      if (pick.retailer === 'Amazon' && pick.cta !== 'Check Amazon') {
         problems.push(`${slug}: unexpected button label ${pick.cta}`);
       }
       if (!pick.accessibleName.startsWith(`${pick.cta} for ${pick.product}`)) {

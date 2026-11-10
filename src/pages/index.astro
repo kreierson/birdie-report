@@ -11,28 +11,6 @@ const reviews = sorted
   .filter((post) => post.data.category === 'reviews' && !showsPriceClaim(post.data.title) && !showsPriceClaim(post.data.description || ''))
   .slice(0, 3);
 
-const desktopNav = [
-  { href: '/best/', label: 'Best Of', guideName: 'Best Of', placement: 'home-pill' },
-  { href: '/reviews/', label: 'Reviews' },
-  { href: '/tips/', label: 'Tips' },
-  { href: '/deals/', label: 'Deals', guideName: 'Deals', placement: 'home-pill' },
-  { href: '/blog/best-golf-gifts/', label: 'Gift Guide' },
-  { href: '/tools/', label: 'Tools' },
-  { href: '/courses/', label: 'Courses' },
-];
-
-const menuNav = [
-  { href: '/best/', label: 'Best Of', guideName: 'Best Of', placement: 'home-pill' },
-  { href: '/reviews/', label: 'Reviews' },
-  { href: '/news/', label: 'News' },
-  { href: '/tips/', label: 'Tips' },
-  { href: '/deals/', label: 'Deals', guideName: 'Deals', placement: 'home-pill' },
-  { href: '/courses/', label: 'Courses' },
-  { href: '/versus/', label: 'Versus' },
-  { href: '/opinion/', label: 'Opinion' },
-  { href: '/tools/', label: 'Tools' },
-];
-
 const moreWays = [
   { href: '/blog/best-golf-gifts/', label: 'Golf Gift Guide', guideName: '2026 golf gift guide', placement: 'home-gift-guide', slug: 'best-golf-gifts', module: 'home_more_ways', position: 1 },
   { href: '/deals/', label: 'Deals hub', guideName: 'Deals hub', placement: 'home-deals-hub', module: 'home_more_ways', position: 2 },
@@ -52,6 +30,7 @@ const footerLinks = [
   { href: '/tools/golf-club-gapping-calculator/', label: 'Club Gapping Calculator' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
+  { href: '/affiliate-disclosure/', label: 'Affiliate Disclosure' },
   { href: '/privacy/', label: 'Privacy' },
 ];
 
@@ -69,58 +48,6 @@ const moreClass = 'flex min-h-11 items-center gap-2 text-base font-semibold text
   title="The Birdie Report — Golf Equipment Reviews, Tips & Deals"
   description="Honest golf equipment reviews, instruction tips, and the best deals on golf gear. No BS, just better golf."
 >
-  <header slot="header" class="sticky top-0 z-50 border-b border-white/10 bg-forest-900 xl:border-gray-200 xl:bg-white">
-    <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:text-forest-900">Skip to content</a>
-    <div class="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-      <a href="/" class="mr-auto inline-flex h-10 items-center">
-        <img src="/logo.jpg" alt="The Birdie Report" width="1280" height="436" class="h-10 w-auto max-w-[46vw] rounded-sm bg-white object-contain" />
-      </a>
-      <nav class="hidden items-center xl:flex" aria-label="Primary">
-        {desktopNav.map((item) => (
-          <a
-            href={item.href}
-            class="inline-flex min-h-11 items-center px-2.5 text-[13px] font-semibold uppercase tracking-wide text-forest-900"
-            data-guide-link={item.guideName ? 'true' : undefined}
-            data-guide-name={item.guideName}
-            data-placement={item.placement}
-          >{item.label}</a>
-        ))}
-      </nav>
-      <a href="/search/" class="inline-flex min-h-11 items-center text-sm font-semibold text-gold-500 xl:text-forest-900">Search</a>
-      <button
-        type="button"
-        id="home-menu-btn"
-        class="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-gold-500 xl:hidden"
-        aria-expanded="false"
-        aria-controls="home-menu"
-      >
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-        Menu
-      </button>
-    </div>
-    <nav id="home-menu" class="hidden border-t border-white/15 bg-forest-900 px-4 py-2 xl:hidden" aria-label="Menu">
-      {menuNav.map((item) => (
-        <a
-          href={item.href}
-          class="flex min-h-11 items-center text-base font-semibold text-white"
-          data-guide-link={item.guideName ? 'true' : undefined}
-          data-guide-name={item.guideName}
-          data-placement={item.placement}
-        >{item.label}</a>
-      ))}
-    </nav>
-    <script is:inline>
-      const homeMenuBtn = document.getElementById('home-menu-btn');
-      const homeMenu = document.getElementById('home-menu');
-      homeMenuBtn?.addEventListener('click', () => {
-        homeMenu?.classList.toggle('hidden');
-        homeMenuBtn.setAttribute('aria-expanded', String(!homeMenu?.classList.contains('hidden')));
-      });
-    </script>
-  </header>
-
   <section class="bg-forest-700 text-white" aria-labelledby="home-heading">
     <div class="mx-auto max-w-7xl px-4 pb-2 pt-8 sm:px-6 xl:px-8 xl:pb-4 xl:pt-14">
       <h1 id="home-heading" class="max-w-[20rem] font-display text-[32px] font-black leading-[38px] [text-wrap:balance] xl:max-w-4xl xl:text-6xl xl:leading-tight">
