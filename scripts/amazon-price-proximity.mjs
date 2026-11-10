@@ -58,14 +58,81 @@ function proximityNode(anchor, parents) {
   return parent;
 }
 
+function headingRank(name) {
+  const match = /^h([1-6])$/.exec(name || '');
+  return match ? Number(match[1]) : 0;
+}
+
+// A numbered product section ("1. Scotty Cameron") keeps its price line and its
+// Amazon link as siblings under one long article wrapper. That price is next
+// to the link even when several paragraphs sit between them. Deal headlines
+// that already name a dollar amount are left to the tighter block check.
+function productSection(anchor, parents) {
+  for (let i = parents.length - 1; i >= 0; i -= 1) {
+    const parent = parents[i];
+    const children = parent.childNodes || [];
+    const child = i === parents.length - 1 ? anchor : parents[i + 1];
+    const index = children.indexOf(child);
+    if (index < 0) continue;
+    let headingIndex = -1;
+    let rank = 0;
+    for (let j = index; j >= 0; j -= 1) {
+      const level = headingRank(children[j].nodeName);
+      if (level) {
+        headingIndex = j;
+        rank = level;
+        break;
+      }
+    }
+    if (headingIndex < 0) continue;
+    const heading = textOf(children[headingIndex]).replace(/\s+/g, ' ').trim();
+    if (!/^\d+\.\s/.test(heading) || PRICE.test(heading)) return null;
+    let end = children.length;
+    for (let j = headingIndex + 1; j < children.length; j += 1) {
+      const level = headingRank(children[j].nodeName);
+      if (level && level <= rank) {
+        end = j;
+        break;
+      }
+    }
+    return {
+      nodeName: 'section',
+      childNodes: children.slice(headingIndex, end),
+    };
+  }
+  return null;
+}
+
+// A rating or price label is its own short block. It sits above the Amazon
+// link in the same numbered product section, so the tighter paragraph check
+// misses it. A longer sentence that mentions a dollar amount stays out of
+// this rule.
+function priceLabel(text) {
+  const compact = text.replace(/\s+/g, ' ').trim();
+  if (!compact || compact.length > 220 || !PRICE.test(compact)) return false;
+  const words = compact.split(/\s+/).length;
+  if (/^(?:rating\b|price\b|\$)/i.test(compact) && words <= 18) return true;
+  return /\brating\s*:/i.test(compact) && /\bprice\s*:/i.test(compact) && words <= 16;
+}
+
+function sectionPriceLabel(section) {
+  for (const node of section.childNodes || []) {
+    const text = textOf(node).replace(/\s+/g, ' ').trim();
+    if (priceLabel(text)) return text;
+  }
+  return '';
+}
+
 function walk(node, parents, hits) {
   if (amazonAffiliate(node)) {
     const container = proximityNode(node, parents);
     const text = textOf(container).replace(/\s+/g, ' ').trim();
-    if (PRICE.test(text) || STOCK.test(text)) {
+    const section = productSection(node, parents);
+    const label = section ? sectionPriceLabel(section) : '';
+    if (PRICE.test(text) || STOCK.test(text) || label) {
       hits.push({
         href: attr(node, 'href'),
-        text: text.slice(0, 240),
+        text: (label || text).slice(0, 240),
       });
     }
   }

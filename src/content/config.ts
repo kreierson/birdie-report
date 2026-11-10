@@ -53,7 +53,7 @@ const blog = defineCollection({
       url: z.string().url(),
       retailer: z.string().min(1),
       image: z.string().optional(),
-    })).min(3).max(5).optional(),
+    })).min(3).max(8).optional(),
     bounty_links: z.array(z.object({
       offer: z.string(),
       description: z.string().optional(),

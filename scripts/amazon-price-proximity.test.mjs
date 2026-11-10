@@ -43,6 +43,33 @@ test('a price in another paragraph of the same article does not count as next to
   assert.deepEqual(findAmazonPriceHits(html), []);
 });
 
+test('a typed price in the same numbered product section fails', () => {
+  const html = `
+    <article>
+      <h2>1. Scotty Cameron Super Select Newport 2</h2>
+      <p><strong>Rating: 9.5/10 · Price: $429</strong></p>
+      <p>The milling is why this blade stays the reference shape.</p>
+      <p><a href="https://www.amazon.com/s?k=Scotty+Cameron+Super+Select+Newport+2&tag=birdiereport-20">Check price on Amazon</a></p>
+      <h2>How to choose</h2>
+      <p>Budget talk can mention a separate $200 lesson.</p>
+    </article>
+  `;
+  const hits = findAmazonPriceHits(html);
+  assert.equal(hits.length, 1);
+  assert.match(hits[0].text, /\$429/);
+});
+
+test('a deal headline that already states its price stays on the block check', () => {
+  const html = `
+    <article>
+      <h2>1. Bushnell Tour V6 Shift at $329.99</h2>
+      <p>The listing is the reason this roundup exists.</p>
+      <p><a href="https://www.amazon.com/s?k=Bushnell+Tour+V6&tag=birdiereport-20">Check price on Amazon</a></p>
+    </article>
+  `;
+  assert.deepEqual(findAmazonPriceHits(html), []);
+});
+
 test('a price in the same table row as an Amazon link fails', () => {
   const html = `
     <table><tr><td>$599</td><td><a href="https://www.amazon.com/s?k=driver&tag=birdiereport-20">Check current price on Amazon</a></td></tr></table>

@@ -73,7 +73,7 @@ test('quick picks placement is distinct and the disclosure matches the existing 
   assert.match(read('src/content/config.ts'), /quick_picks:/);
 });
 
-test('resolver keeps 3 to 5 picks, retailer CTAs, and direct-link failures', () => {
+test('resolver keeps 3 to 8 picks, retailer CTAs, and direct-link failures', () => {
   const resolved = resolveQuickPicks(samplePicks(), { category: 'best' }, helpers);
   assert.equal(resolved.length, 3);
   assert.equal(resolved[0].cta, 'Check current price on Amazon');
@@ -93,8 +93,9 @@ test('resolver keeps 3 to 5 picks, retailer CTAs, and direct-link failures', () 
   assert.equal(otherRetailer[0].cta, 'Check price at PGA Tour Superstore');
 
   assert.deepEqual(resolveQuickPicks(undefined, {}, helpers), []);
-  assert.throws(() => resolveQuickPicks(samplePicks().slice(0, 2), {}, helpers), /3 to 5/);
-  assert.throws(() => resolveQuickPicks([...samplePicks(), ...samplePicks()].slice(0, 6), {}, helpers), /3 to 5/);
+  assert.equal(resolveQuickPicks([...samplePicks(), ...samplePicks()], {}, helpers).length, 6);
+  assert.throws(() => resolveQuickPicks(samplePicks().slice(0, 2), {}, helpers), /3 to 8/);
+  assert.throws(() => resolveQuickPicks([...samplePicks(), ...samplePicks(), ...samplePicks()], {}, helpers), /3 to 8/);
   assert.throws(() => resolveQuickPicks(samplePicks('https://www.amazon.com/dp/B00NOTREAL'), {}, {
     normalizeAffiliateUrl: () => { throw new Error('ASIN B00NOTREAL is not in data/verified-asins.json'); },
     isDirectAmazonProductUrl: () => false,
@@ -117,7 +118,13 @@ test('only the measured buying guides carry grounded quick picks', () => {
     const { data, stripped } = article(slug);
     assert.equal(stripped.includes('\nquick_picks:'), false, slug);
     assert.ok(Array.isArray(data.quick_picks), slug);
-    assert.ok(data.quick_picks.length >= 3 && data.quick_picks.length <= 5, slug);
+    const expectedCount = {
+      'best-putters-2026': 6,
+      'best-drivers-seniors-2026': 6,
+      'best-irons-high-handicappers-2026': 7,
+    }[slug];
+    assert.equal(data.quick_picks.length, expectedCount || data.quick_picks.length, slug);
+    assert.ok(data.quick_picks.length >= 3 && data.quick_picks.length <= 8, slug);
     const resolved = resolveQuickPicks(data.quick_picks, { category: 'best', subcategory: data.subcategory }, helpers);
     for (const pick of resolved) {
       assert.equal(pick.retailer, 'Amazon', `${slug} ${pick.product}`);
