@@ -3,8 +3,8 @@
 
 export const HOME_TILES = [
   { label: 'Putters', href: '/blog/best-putters-2026/', slug: 'best-putters-2026' },
-  { label: 'Drivers', href: '/blog/best-drivers-seniors-2026/', slug: 'best-drivers-seniors-2026' },
-  { label: 'Irons', href: '/blog/best-irons-high-handicappers-2026/', slug: 'best-irons-high-handicappers-2026' },
+  { label: 'Drivers for seniors', href: '/blog/best-drivers-seniors-2026/', slug: 'best-drivers-seniors-2026' },
+  { label: 'Irons for high handicappers', href: '/blog/best-irons-high-handicappers-2026/', slug: 'best-irons-high-handicappers-2026' },
   { label: 'Golf shoes', href: '/blog/best-golf-shoes-2026/', slug: 'best-golf-shoes-2026' },
   { label: 'Bags & carts', href: '/blog/best-golf-cart-bags-2026/', slug: 'best-golf-cart-bags-2026' },
   { label: 'Rangefinders', href: '/blog/best-rangefinders-2026/', slug: 'best-rangefinders-2026' },

@@ -20,8 +20,8 @@ export function quickPickCta(pick) {
 
 export function resolveQuickPicks(picks, context = {}, deps) {
   if (picks == null) return [];
-  if (!Array.isArray(picks) || picks.length < 3 || picks.length > 5) {
-    throw new Error('quick_picks must include 3 to 5 items');
+  if (!Array.isArray(picks) || picks.length < 3 || picks.length > 8) {
+    throw new Error('quick_picks must include 3 to 8 items');
   }
   if (typeof deps?.normalizeAffiliateUrl !== 'function' || typeof deps?.isDirectAmazonProductUrl !== 'function') {
     throw new Error('resolveQuickPicks requires affiliate link helpers');
