@@ -13,7 +13,7 @@ import GuideTopPicks from '../components/GuideTopPicks.astro';
 import ProductBuyBox from '../components/ProductBuyBox.astro';
 import { getAmazonTag, isDirectAmazonProductUrl, normalizeAffiliateLinks, normalizeAffiliateUrl } from '../utils/affiliate';
 import { buyerProductsFromContent } from '../utils/buyer-links.mjs';
-import { imageForBuyer, isAmazonCommerce, isSourcedNonAmazonPrice, productNamesMatch } from '../utils/product-buy.mjs';
+import { bestForLine, imageForBuyer, isAmazonCommerce, isSourcedNonAmazonPrice, productNamesMatch } from '../utils/product-buy.mjs';
 import { selectRelatedGuides } from '../utils/related-guides.mjs';
 import { resolveQuickPicks } from '../utils/quick-picks.mjs';
 import { buildGuideModel, formatGuideDate, isBuyerGuide as buyerGuidePage, markdownHeadings, researchDisclosure } from '../utils/guide-template.mjs';
@@ -126,6 +126,11 @@ const buyerCards = resolvedBuyerProducts.map((link) => ({
   image: imageForBuyer(link.product, schemaInput, buyerNames, link.image || ''),
 }));
 const heroCards = buyerCards.slice(0, 3);
+const leadProduct = !buyerGuide && hasBuyerIntent && quickPicks.length === 0 ? heroCards[0] : null;
+const leadRetailer = leadProduct?.retailer || 'Amazon';
+const leadAmazon = /^amazon(?:\.com)?$/i.test(leadRetailer);
+const leadCta = leadAmazon ? 'Check Amazon' : `Check ${leadRetailer}`;
+const leadBestFor = leadProduct ? bestForLine({ ...leadProduct, pros: leadProduct.pros?.length ? leadProduct.pros : pros }).replace(/\$\s*\d[\d,.]*/g, '').trim() : '';
 const amazonOnlyBuys = buyerCards.length > 0 && buyerCards.every((link) => isAmazonCommerce(link.retailer, link.url));
 const verdictPrice = amazonOnlyBuys && price && /\$\s*\d/.test(price) && !isSourcedNonAmazonPrice(price) ? '' : (price || '');
 const tocItems = [];
@@ -152,14 +157,14 @@ const quickPickCards = quickPicks.map((pick) => {
 
   <Breadcrumbs items={breadcrumbs} />
 
-  <div class:list={['max-w-7xl mx-auto px-4 sm:px-6 lg:px-8', buyerGuide ? 'py-4 lg:py-12' : 'py-8 lg:py-12']}>
+  <div class:list={['max-w-7xl mx-auto px-4 sm:px-6 lg:px-8', buyerGuide ? 'py-4 lg:py-12' : 'py-3 lg:py-12']}>
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
       <!-- Main Article -->
       <article class:list={['min-w-0', buyerGuide && 'guide-template']} data-guide-template={buyerGuide ? 'buyer' : undefined}>
         <!-- Header -->
         {buyerGuide ? (
           <header class="mb-2">
-            <h1 class="text-[28px] font-display font-black leading-tight text-forest-900 sm:text-4xl lg:text-5xl lg:leading-tight">
+            <h1 class="font-display text-[26px] font-bold leading-[32px] text-forest-900 [text-wrap:balance] sm:text-4xl lg:text-5xl lg:leading-tight">
               {title}
             </h1>
             <GuideByline
@@ -171,29 +176,27 @@ const quickPickCards = quickPicks.map((pick) => {
             />
           </header>
         ) : (
-        <header class="mb-10">
-          <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm ${categoryColors[category] || 'bg-gray-600 text-white'}`}>
+        <header class="mb-3">
+          <div class="mb-2 flex flex-wrap items-center gap-2">
+            <span class={`inline-flex h-7 items-center rounded-sm px-2.5 text-[11px] font-bold uppercase tracking-wider ${categoryColors[category] || 'bg-gray-600 text-white'}`}>
               {categoryLabels[category] || category}
             </span>
             {subcategory && (
-              <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">{subcategory.replace('-', ' ')}</span>
+              <span class="inline-flex h-7 items-center rounded-sm bg-gray-200 px-2.5 text-[11px] font-bold uppercase tracking-wide text-gray-600">{subcategory.replace('-', ' ')}</span>
             )}
           </div>
 
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-black text-forest-900 mb-5 leading-tight">
+          <h1 class="font-display text-[26px] font-bold leading-[31px] tracking-tight text-forest-900 [text-wrap:balance] lg:text-[40px] lg:leading-[48px]">
             {title}
           </h1>
 
-          <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
+          <p class="mt-2 text-[15px] leading-[21px] text-gray-700 lg:text-lg lg:leading-7">
             {description}
           </p>
 
-          <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 pb-6 border-b border-gray-200">
-            <div class="flex items-center gap-2">
-              <img src="/images/kyle-reierson.jpg" alt="Kyle Reierson" class="w-8 h-8 rounded-full object-cover" />
-              <a href="/about/" class="font-medium text-gray-900 underline underline-offset-4">{displayAuthor}</a>
-            </div>
+          <div class="mt-2 flex min-h-11 flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-600">
+            <img src="/images/kyle-reierson.jpg" alt="" width="32" height="32" class="h-8 w-8 rounded-full object-cover" />
+            <a href="/about/" class="inline-flex min-h-11 items-center font-semibold text-forest-900 underline underline-offset-2">{displayAuthor}</a>
             <time datetime={date.toISOString()}>
               {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
             </time>
@@ -202,29 +205,50 @@ const quickPickCards = quickPicks.map((pick) => {
                 Updated <time datetime={updated.toISOString()}>{updated.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}</time>
               </span>
             )}
-            <span id="reading-time" class="text-gray-500">5 min read</span>
-            {rating && <span class="text-gold-800 font-bold">⭐ {rating}/10</span>}
+          </div>
+          <div class="flex items-center gap-3 text-sm text-gray-600">
+            <span id="reading-time">5 min read</span>
+            {rating && <span class="font-semibold text-[#7A5C1D]">★ {rating}/10</span>}
           </div>
 
           {reviewBasis && (
-            <aside class="mt-5 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3" aria-label="How this article was produced">
-              <p class="text-sm font-bold text-blue-950">{reviewBasis.title}</p>
-              <p class="mt-1 text-sm leading-relaxed text-blue-900">{reviewBasis.description}</p>
-            </aside>
+            <p class="mt-2 flex min-h-11 flex-wrap items-center gap-x-1 rounded-lg bg-[#F3F6F2] px-3 text-[13px] leading-[18px] text-forest-900">
+              <span>{reviewBasis.visible}</span>
+              <a href="/affiliate-disclosure/" class="inline-flex min-h-11 items-center font-semibold underline underline-offset-2">{reviewBasis.summary} <span aria-hidden="true">›</span></a>
+            </p>
           )}
-
-          <!-- Share -->
-          <div class="flex items-center gap-3 mt-4">
-            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Share:</span>
-            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, site).toString())}`} target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-blue-100 flex items-center justify-center text-gray-500 hover:text-blue-500 transition-colors" title="Share on X">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, site).toString())}`} target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-blue-100 flex items-center justify-center text-gray-500 hover:text-blue-600 transition-colors" title="Share on Facebook">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✓'" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors text-sm" title="Copy link">🔗</button>
-          </div>
         </header>
+        )}
+
+        {leadProduct && (
+          <section class="mb-4 rounded-lg bg-[#F3F6F2] p-3" aria-labelledby="best-places-to-start">
+            <h2 id="best-places-to-start" class="font-display text-lg font-bold leading-6 text-forest-900">Best places to start</h2>
+            <div class="mt-2 rounded-[10px] border border-[#D5DDD6] bg-white p-3 lg:flex lg:items-center lg:gap-4">
+              <div class="flex min-w-0 flex-1 items-start gap-3">
+                {leadProduct.image && (
+                  <img src={leadProduct.image} alt="" width="56" height="56" class="h-14 w-14 shrink-0 rounded-md object-cover" />
+                )}
+                <div class="min-w-0">
+                  <p class="text-base font-bold leading-snug text-forest-900">{leadProduct.product}</p>
+                  {leadBestFor && <p class="mt-0.5 line-clamp-2 text-[13px] leading-[18px] text-gray-700">Best for: {leadBestFor}</p>}
+                </div>
+              </div>
+              <a
+                href={leadProduct.url}
+                target="_blank"
+                rel="nofollow sponsored noopener"
+                data-affiliate-link="true"
+                data-product={leadProduct.product}
+                data-retailer={leadRetailer}
+                data-placement="article-top-shortlist"
+                aria-label={`${leadCta} for ${leadProduct.product} (opens in a new tab)`}
+                class="mt-3 flex h-12 w-full items-center justify-center rounded-lg bg-[#12301C] text-base font-semibold text-white lg:mt-0 lg:w-auto lg:min-w-[160px] lg:px-4"
+              >
+                {leadCta}
+              </a>
+            </div>
+            <p class="mt-2 text-xs text-gray-600">We may earn a commission at no cost to you.{rating ? ` ${rating}/10` : ''}</p>
+          </section>
         )}
 
         {buyerGuide && guideModel?.hasPicks && (
@@ -246,8 +270,7 @@ const quickPickCards = quickPicks.map((pick) => {
           </div>
         )}
 
-        <!-- Above-the-fold buyer module -->
-        {hasBuyerIntent && quickPicks.length === 0 && (
+        {hasBuyerIntent && quickPicks.length === 0 && !leadProduct && (
           <ProductBuyBox
             class="mb-10"
             eyebrow="Quick Buyer Shortlist"
@@ -305,7 +328,7 @@ const quickPickCards = quickPicks.map((pick) => {
                 <!-- Cons -->
                 {cons && cons.length > 0 && (
                   <div>
-                    <h4 class="text-sm font-bold text-red-600 uppercase tracking-wide mb-2">❌ Cons</h4>
+                    <h4 class="text-sm font-bold uppercase tracking-wide mb-2 text-[#B91C1C]">❌ Cons</h4>
                     <ul class="space-y-1.5">
                       {cons.map((con: string) => (
                         <li class="text-sm text-gray-700 flex items-start gap-2">
@@ -384,6 +407,21 @@ const quickPickCards = quickPicks.map((pick) => {
               <span class="sr-only">Share on Facebook (opens in a new tab)</span>
             </a>
             <button type="button" onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✓'" class="w-11 h-11 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors text-sm" title="Copy link">🔗<span class="sr-only">Copy link</span></button>
+          </div>
+        )}
+
+        {!buyerGuide && (
+          <div class="mt-10 flex flex-wrap items-center gap-3 border-t border-gray-200 pt-6">
+            <span class="text-xs font-semibold uppercase tracking-wide text-[#4B5563]">Share</span>
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, site).toString())}`} target="_blank" rel="noopener" class="flex h-11 w-11 items-center justify-center rounded-full bg-[#F3F4F6] text-[#4B5563]" title="Share on X">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span class="sr-only">Share on X (opens in a new tab)</span>
+            </a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, site).toString())}`} target="_blank" rel="noopener" class="flex h-11 w-11 items-center justify-center rounded-full bg-[#F3F4F6] text-[#4B5563]" title="Share on Facebook">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <span class="sr-only">Share on Facebook (opens in a new tab)</span>
+            </a>
+            <button type="button" onclick="navigator.clipboard.writeText(window.location.href);this.textContent='✓'" class="flex h-11 w-11 items-center justify-center rounded-full bg-[#F3F4F6] text-sm text-[#4B5563]" title="Copy link">🔗<span class="sr-only">Copy link</span></button>
           </div>
         )}
 
@@ -498,45 +536,60 @@ const quickPickCards = quickPicks.map((pick) => {
       </article>
 
       <!-- Sidebar -->
-      <aside class:list={['hidden lg:block', buyerGuide ? 'lg:sticky lg:top-24 lg:self-start' : 'space-y-8']}>
-        <!-- Table of Contents -->
-        <div class:list={[!buyerGuide && 'sticky top-24']}>
-          <div class="bg-gray-50 border border-gray-200 rounded-lg p-5">
-            <h3 class="text-sm font-bold text-forest-900 uppercase tracking-wide mb-3">{buyerGuide ? 'On this page' : 'Table of Contents'}</h3>
-            <nav id="toc" class="space-y-1.5 text-sm">
-              {tocItems.length > 0 ? tocItems.map((heading) => (
-                <a
-                  href={`#${heading.id}`}
-                  class:list={[
-                    'flex min-h-6 items-center text-gray-600 hover:text-forest-700 transition-colors leading-snug',
-                    heading.depth === 3 ? 'pl-3 text-xs' : 'font-medium',
-                  ]}
-                >{heading.text}</a>
-              )) : <p class="text-gray-500 text-xs italic">No sections</p>}
-            </nav>
+      <aside class:list={['hidden lg:block', buyerGuide ? 'lg:sticky lg:top-24 lg:self-start' : 'lg:sticky lg:top-[72px] lg:self-start']}>
+        {!buyerGuide && hasBuyerIntent && stickyCta && (
+          <div class="sidebar-buy-box mb-4 min-h-[148px] rounded-xl bg-[#12301C] p-4 text-white">
+            <p class="line-clamp-2 font-display text-lg font-bold leading-6">{stickyCta.product}</p>
+            <p class="mt-1 text-[13px] leading-[18px] text-[#E8EEE9]">Research-based review. We may earn a commission at no cost to you.</p>
+            <a
+              href={stickyCta.url}
+              target="_blank"
+              rel="nofollow sponsored noopener"
+              data-affiliate-link="true"
+              data-product={stickyCta.product}
+              data-retailer={stickyRetailer}
+              data-placement="sidebar-sticky-cta"
+              aria-label={`${/^amazon(?:\.com)?$/i.test(stickyRetailer) ? 'Check Amazon' : `Check ${stickyRetailer}`} for ${stickyCta.product} (opens in a new tab)`}
+              class="mt-3 flex h-12 w-full items-center justify-center rounded-lg bg-[#D4AF37] text-base font-bold text-[#12301C]"
+            >
+              {/^amazon(?:\.com)?$/i.test(stickyRetailer) ? 'Check Amazon' : `Check ${stickyRetailer}`}
+            </a>
           </div>
-
-          <!-- Sticky Buy CTA for reviews -->
-          {hasBuyerIntent && stickyCta && (
-            <div class="sidebar-buy-box mt-6 min-h-[9.25rem] bg-forest-800 rounded-lg p-5 text-center">
-              {rating && <div class="text-gold-400 font-display font-bold text-2xl mb-1">{rating}/10</div>}
-              <div class="text-white font-semibold mb-3">{stickyCta.product}</div>
+        )}
+        <div class="rounded-xl border border-gray-200 bg-[#F7F8F6] p-5">
+          <h3 class="mb-3 text-xs font-bold uppercase tracking-[0.08em] text-forest-900">On this page</h3>
+          <nav id="toc" class="space-y-1.5 text-sm">
+            {tocItems.length > 0 ? tocItems.map((heading) => (
               <a
-                href={stickyCta.url}
-                target="_blank"
-                rel="nofollow sponsored noopener"
-                data-affiliate-link="true"
-                data-product={stickyCta.product}
-                data-retailer={stickyRetailer}
-                data-placement="sidebar-sticky-cta"
-                class="block w-full py-3 bg-gold-500 text-forest-900 font-bold rounded-lg hover:bg-gold-400 transition-colors"
-              >
-                See {stickyRetailer} options
-              </a>
-              <p class="text-white/70 text-[10px] mt-2">at {stickyRetailer}</p>
-            </div>
-          )}
+                href={`#${heading.id}`}
+                class:list={[
+                  'flex min-h-6 items-center text-gray-600 hover:text-forest-700 transition-colors leading-snug',
+                  heading.depth === 3 ? 'pl-3 text-xs' : 'font-medium',
+                ]}
+              >{heading.text}</a>
+            )) : <p class="text-gray-500 text-xs italic">No sections</p>}
+          </nav>
         </div>
+
+        {buyerGuide && hasBuyerIntent && stickyCta && (
+          <div class="sidebar-buy-box mt-6 min-h-[9.25rem] rounded-lg bg-forest-800 p-5 text-center">
+            {rating && <div class="mb-1 font-display text-2xl font-bold text-gold-400">{rating}/10</div>}
+            <div class="mb-3 font-semibold text-white">{stickyCta.product}</div>
+            <a
+              href={stickyCta.url}
+              target="_blank"
+              rel="nofollow sponsored noopener"
+              data-affiliate-link="true"
+              data-product={stickyCta.product}
+              data-retailer={stickyRetailer}
+              data-placement="sidebar-sticky-cta"
+              class="block w-full rounded-lg bg-gold-500 py-3 font-bold text-forest-900 transition-colors hover:bg-gold-400"
+            >
+              See {stickyRetailer} options
+            </a>
+            <p class="mt-2 text-[10px] text-white/70">at {stickyRetailer}</p>
+          </div>
+        )}
       </aside>
     </div>
   </div>

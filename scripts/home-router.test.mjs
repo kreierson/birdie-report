@@ -28,7 +28,8 @@ test('the golf gifts tile is added only in November and December', () => {
 
 test('homepage copy, order, and preserved placements match the router spec', () => {
   for (const copy of [
-    'Find the right golf gear',
+    'Find the right golf',
+    'gear, fast',
     "Honest buyer guides, sorted by what you're shopping for.",
     'What are you shopping for?',
     "Golfers' most-used guides",

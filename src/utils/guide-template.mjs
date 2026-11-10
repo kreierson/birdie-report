@@ -349,12 +349,19 @@ export function buildGuideModel({ picks = [], body = '', subcategory = '' } = {}
     jumpLabel: compareJumpLabel(list.length),
     navLabel: stickyNavLabel(shown.length),
     fieldMode: mode,
-    top: shown.map((pick) => ({
-      ...presentLink(pick, GUIDE_PICKS_PLACEMENT),
-      award: cleanText(pick.award),
-      why: containsPriceText(pick.why) ? '' : cleanText(pick.why),
-      reason: mobileReason(pick.why),
-    })),
+    top: shown.map((pick) => {
+      const link = presentLink(pick, GUIDE_PICKS_PLACEMENT);
+      const amazon = /^amazon(?:\.com)?$/i.test(link.retailer);
+      const cta = amazon ? 'Check Amazon' : link.cta;
+      return {
+        ...link,
+        cta,
+        accessibleName: `${cta} for ${link.product} (opens in a new tab)`,
+        award: cleanText(pick.award),
+        why: containsPriceText(pick.why) ? '' : cleanText(pick.why),
+        reason: mobileReason(pick.why),
+      };
+    }),
     rows,
   };
 }

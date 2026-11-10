@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CategoryPage from '../../../components/CategoryPage.astro';
+import { REVIEW_PAGE_SIZE, reviewPageCount } from '../../../utils/archive.mjs';
+
+export async function getStaticPaths() {
+  const last = reviewPageCount(await getCollection('blog'));
+  return Array.from({ length: Math.max(0, last - 1) }, (_, index) => ({
+    params: { page: String(index + 2) },
+  }));
+}
+
+const page = Number(Astro.params.page);
+---
+
+<BaseLayout
+  title={`Golf Equipment Reviews, Page ${page} | The Birdie Report`}
+  description="Golf equipment reviews with a clear disclosure of whether each article is research-based, hands-on, or a combination of both."
+>
+  <CategoryPage
+    category="reviews"
+    title="Equipment Reviews"
+    description="Practical equipment reviews that distinguish documented research from direct hands-on experience instead of treating them as the same thing."
+    accentColor="forest"
+    badgeLabel="Reviews"
+    badgeClass="bg-forest-700 text-white"
+    page={page}
+    pageSize={REVIEW_PAGE_SIZE}
+  />
+</BaseLayout>

@@ -1,4 +1,5 @@
 import manifest from '../data/guide-image-manifest.json' with { type: 'json' };
+import listingManifest from '../data/listing-image-manifest.json' with { type: 'json' };
 
 export const GUIDE_IMAGE_BUDGET = manifest.budget;
 export const GUIDE_IMAGE_SIZES = manifest.sizes;
@@ -49,6 +50,42 @@ export function deliveredSrc(url) {
 
 export function deliveredSocial(url) {
   return guideDelivery(url)?.social || null;
+}
+
+// Card and listing photos. Uses generated variants when this source has them.
+export function listingImage(url, sizes = '(min-width: 1024px) 33vw, 100vw') {
+  const listed = typeof url === 'string' ? listingManifest[url.trim()] : null;
+  if (listed) {
+    return {
+      src: listed.src,
+      width: listed.width,
+      height: listed.height,
+      srcset: listed.srcset,
+      sizes,
+    };
+  }
+  const delivery = guideDelivery(url);
+  if (delivery) {
+    return {
+      src: delivery.fallback,
+      width: delivery.width,
+      height: delivery.height,
+      srcset: delivery.webpSrcset,
+      sizes,
+    };
+  }
+  const thumb = thumbFor(url);
+  if (thumb) {
+    return {
+      src: thumb.src,
+      width: thumb.width,
+      height: thumb.height,
+      srcset: `${thumb.src} ${thumb.width}w`,
+      sizes,
+    };
+  }
+  const src = typeof url === 'string' ? url : '';
+  return { src, width: 1200, height: 675, srcset: src ? `${src} 1200w` : '', sizes };
 }
 
 export function thumbFor(url) {

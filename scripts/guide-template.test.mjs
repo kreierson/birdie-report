@@ -232,7 +232,8 @@ test('missing, empty, short, and price-bearing sources do not get invented value
   assert.equal(editorialPrice.rows[0].fields[0].value, 'Not listed');
   assert.match(editorialPrice.rows[0].accessibleName, /Long Name Sunglasses With A Very Wide Frame Description/);
   assert.equal(editorialPrice.top[0].why, '');
-  assert.equal(editorialPrice.top[0].cta, 'Search Amazon');
+  assert.equal(editorialPrice.top[0].cta, 'Check Amazon');
+  assert.equal(editorialPrice.top[0].accessibleName, 'Check Amazon for Long Name Sunglasses With A Very Wide Frame Description (opens in a new tab)');
   assert.equal(editorialPrice.top[0].href, 'https://www.amazon.com/s?k=shades&tag=birdiereport-20');
 });
 
@@ -266,8 +267,9 @@ test('mobile reasons stay complete and sourced, or they are omitted', () => {
     'Polarized, semi-rimless',
     'Best for water-heavy courses',
   ]);
-  assert.equal(sun.top[0].cta, 'Search Amazon');
-  assert.match(sun.top[0].accessibleName, /Search Amazon for Oakley Flak 2\.0 XL Prizm Golf \(opens in a new tab\)/);
+  assert.equal(sun.top[0].cta, 'Check Amazon');
+  assert.equal(sun.top[0].accessibleName, 'Check Amazon for Oakley Flak 2.0 XL Prizm Golf (opens in a new tab)');
+  assert.equal(sun.top[0].placement, 'quick_picks');
 
   const shoes = modelFor('best-golf-shoes-2026').model;
   assert.equal(shoes.top[0].reason, 'The best balance of support, traction, and walking comfort');
@@ -275,11 +277,14 @@ test('mobile reasons stay complete and sourced, or they are omitted', () => {
   assert.equal(shoes.top[2].reason, 'Maximum grip when you need it');
 
   const layout = read('src/layouts/BlogLayout.astro');
-  assert.match(layout, /text-\[28px\]/);
+  assert.match(layout, /text-\[26px\]/);
+  assert.match(layout, /data-placement="article-top-shortlist"/);
+  assert.match(layout, /lg:top-\[72px\]/);
   assert.doesNotMatch(layout, /line-clamp-2 sm:line-clamp-none/);
   const picks = read('src/components/GuideTopPicks.astro');
   assert.doesNotMatch(picks, /truncate|line-clamp/);
-  assert.match(picks, /min-h-11 min-w-\[120px\]/);
+  assert.match(picks, /min-h-12 min-w-\[140px\]/);
+  assert.match(picks, /bg-\[#12301C\]/);
 });
 
 test('every best guide keeps sourced comparison fields and does not invent a second spec', () => {

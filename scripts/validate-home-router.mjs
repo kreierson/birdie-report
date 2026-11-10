@@ -41,7 +41,8 @@ const jsonLd = `<script type="application/ld+json">
 expect(home.includes(jsonLd), 'homepage JSON-LD is not byte-identical');
 
 for (const copy of [
-  'Find the right golf gear',
+  'Find the right golf',
+  'gear, fast',
   'What are you shopping for?',
   "Golfers' most-used guides",
   'See all 50+ buyer guides',
@@ -55,7 +56,8 @@ for (const href of ['/best/', '/blog/best-golf-gifts/', '/deals/', '/tools/', '/
 }
 
 expect(!/\$\d/.test(home), 'homepage renders a dollar price');
-expect(!/<img\b/.test(home), 'homepage renders an image');
+const images = [...home.matchAll(/<img\b[^>]*>/g)].map((match) => match[0]);
+expect(images.length === 1 && images[0].includes('/logo.jpg') && images[0].includes('width="1280"') && images[0].includes('height="436"'), 'homepage logo is missing or extra images rendered');
 expect(home.includes('data-module="home_tiles"'), 'home_tiles marker missing');
 expect(home.includes('data-placement="home-pill"'), 'home-pill marker missing');
 expect(home.includes('data-placement="home-buyer-card"'), 'home-buyer-card marker missing');
