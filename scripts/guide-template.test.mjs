@@ -657,7 +657,7 @@ test('self-hosted fonts, course badge contrast, and a reserved sidebar buy box',
   assert.match(blog, /sidebar-buy-box mt-6 min-h-\[9\.25rem\]/);
   assert.match(blog, /if \(toc && !toc\.querySelector\('a'\)\)/);
   assert.match(blog, /bg-emerald-800 text-white/);
-  assert.match(blog, /text-gold-800 font-bold/);
+  assert.match(blog, /text-\[#7A5C1D\]/);
   assert.doesNotMatch(blog, /text-gold-600/);
   assert.doesNotMatch(blog, /Loading\.\.\./);
   assert.match(read('src/pages/courses/index.astro'), /bg-emerald-800 text-white/);

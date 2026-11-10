@@ -3,6 +3,16 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/reviews/page/1",
+      "destination": "/reviews/",
+      "statusCode": 301
+    },
+    {
+      "source": "/reviews/page/1/",
+      "destination": "/reviews/",
+      "statusCode": 301
+    },
+    {
       "source": "/blog/houston-open-2026-preview-scheffler-masters-bubble",
       "destination": "/blog/gary-woodland-wins-houston-open-2026-comeback/",
       "permanent": true

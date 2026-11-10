@@ -21,6 +21,8 @@ import { buildStructuredData, jsonLd, stockImageUrls, visibleScorecard } from '.
 import { deliveredSocial, deliveredSrc, guideDelivery, rewriteMarkdownImages, thumbFor } from '../utils/guide-images.mjs';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { postTrail } from '../utils/breadcrumbs.mjs';
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export interface Props {
   content: any;
@@ -28,8 +30,18 @@ export interface Props {
 }
 
 const { content, body = '' } = Astro.props;
+
+function localPngSize(src) {
+  if (typeof src !== 'string' || !src.startsWith('/images/')) return null;
+  const file = join(process.cwd(), 'public', src.slice(1));
+  if (!existsSync(file)) return null;
+  const buf = readFileSync(file);
+  if (buf.length < 24 || buf[0] !== 0x89 || buf.toString('ascii', 12, 16) !== 'IHDR') return null;
+  return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+}
 const site = 'https://www.birdiereport.com';
 const { title, description, date, updated, category, tags, author, review_basis, featured_image, affiliate_links, bounty_links, comparison_products, rating, pros, cons, price, subcategory, seo_title, seo_description, affiliate_tracking_id } = content;
+const reviewHeroSize = localPngSize(featured_image);
 const pageTitle = seo_title || title;
 const pageDescription = seo_description || description;
 const affiliateContext = { category, subcategory, trackingId: affiliate_tracking_id };
@@ -266,7 +278,7 @@ const quickPickCards = quickPicks.map((pick) => {
 
         {!buyerGuide && (
           <div class="aspect-video w-full mb-10 rounded-lg overflow-hidden">
-            <img src={featured_image} alt={title} class="w-full h-full object-cover" />
+            <img src={featured_image} alt={title} width={reviewHeroSize?.width} height={reviewHeroSize?.height} class="w-full h-full object-cover" />
           </div>
         )}
 
