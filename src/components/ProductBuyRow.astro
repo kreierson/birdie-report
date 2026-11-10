@@ -1,5 +1,6 @@
 ---
 import { awardKicker, bestForLine, commercePriceLine, isAmazonCommerce, priceCheckAccessibleName, priceCheckCta } from '../utils/product-buy.mjs';
+import { localImageSize } from '../utils/image-size.mjs';
 
 interface Props {
   as?: 'div' | 'li';
@@ -36,6 +37,7 @@ const {
 } = Astro.props;
 
 const cta = ctaOverride || priceCheckCta(retailer);
+const imageSize = localImageSize(image);
 const accessibleName = priceCheckAccessibleName(cta, product);
 const amazon = isAmazonCommerce(retailer, href);
 const bestForSource = bestForLine({ award, why, pros });
@@ -54,9 +56,9 @@ const showRating = typeof rating === 'number' && Number.isFinite(rating);
   {image && (
     <div class="h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-md border border-forest-100 bg-forest-50">
       {deferImage ? (
-        <img src="/images/guide-photo-placeholder.gif" data-src={image} data-guide-defer alt={product} class="h-full w-full object-contain" decoding="async" />
+        <img src="/images/guide-photo-placeholder.gif" data-src={image} data-guide-defer alt={product} width={imageSize?.width} height={imageSize?.height} class="h-full w-full object-contain" decoding="async" />
       ) : (
-        <img src={image} alt={product} class="h-full w-full object-contain" loading="lazy" decoding="async" />
+        <img src={image} alt={product} width={imageSize?.width} height={imageSize?.height} class="h-full w-full object-contain" loading="lazy" decoding="async" />
       )}
     </div>
   )}

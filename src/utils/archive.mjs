@@ -1,4 +1,11 @@
 export const ARCHIVE_PAGE_SIZE = 36;
+export const REVIEW_PAGE_SIZE = 15;
+
+export function reviewPageCount(posts) {
+  const count = posts.filter((post) => post.data?.category === 'reviews').length;
+  const rest = Math.max(0, count - 1);
+  return Math.max(1, Math.ceil(rest / REVIEW_PAGE_SIZE));
+}
 export const archiveHref = page => page === 1 ? '/blog/' : `/blog/page/${page}/`;
 export function archivePages(posts) {
   const sorted = [...posts].sort((a, b) =>

@@ -22,8 +22,8 @@ const linkClass = tone === 'dark'
 const currentClass = tone === 'dark' ? 'font-medium text-white' : 'font-medium text-gray-900';
 const sepClass = tone === 'dark' ? 'text-white/40' : 'text-gray-300';
 const navClass = layout === 'bar'
-  ? 'mx-auto max-w-7xl px-4 py-1.5 text-sm leading-5 sm:px-6 lg:px-8'
-  : `text-sm leading-5 ${className}`;
+  ? 'mx-auto flex min-h-11 max-w-7xl items-center px-4 text-sm leading-5 sm:px-6 lg:px-8'
+  : `inline-flex min-h-11 items-center text-sm leading-5 ${className}`;
 ---
 
 {layout === 'bar' ? (
@@ -38,7 +38,7 @@ const navClass = layout === 'bar'
               {last ? (
                 <span class:list={['block min-w-0 truncate', currentClass]}>{item.name}</span>
               ) : (
-                <a href={item.href} class={linkClass}>{item.name}</a>
+                <a href={item.href} class:list={[linkClass, 'inline-flex min-h-11 items-center']}>{item.name}</a>
               )}
             </li>
           );

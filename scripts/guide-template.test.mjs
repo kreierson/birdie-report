@@ -131,8 +131,9 @@ test('cart bags use the published weight and divider cells, not the price column
   const pioneer = model.rows.find((row) => row.product === 'PING Pioneer');
   assert.equal(field(pioneer, 'Published empty weight'), '8 lb');
   assert.equal(field(pioneer, 'Dividers'), '15-way top; enlarged putter well');
-  assert.equal(pioneer.cta, 'Search Amazon');
-  assert.match(pioneer.accessibleName, /Search Amazon for PING Pioneer \(opens in a new tab\)/);
+  assert.equal(pioneer.cta, 'Check Amazon');
+  assert.equal(pioneer.accessibleName, 'Check Amazon for PING Pioneer (opens in a new tab)');
+  assert.equal(pioneer.placement, 'guide_compare');
   assert.match(pioneer.href, /tag=birdiereport-20/);
   assert.match(pioneer.reviewHref, /^#ping-pioneer/);
   const titleist = model.rows.find((row) => row.product === 'Titleist Cart 14');
@@ -232,7 +233,8 @@ test('missing, empty, short, and price-bearing sources do not get invented value
   assert.equal(editorialPrice.rows[0].fields[0].value, 'Not listed');
   assert.match(editorialPrice.rows[0].accessibleName, /Long Name Sunglasses With A Very Wide Frame Description/);
   assert.equal(editorialPrice.top[0].why, '');
-  assert.equal(editorialPrice.top[0].cta, 'Search Amazon');
+  assert.equal(editorialPrice.top[0].cta, 'Check Amazon');
+  assert.equal(editorialPrice.top[0].accessibleName, 'Check Amazon for Long Name Sunglasses With A Very Wide Frame Description (opens in a new tab)');
   assert.equal(editorialPrice.top[0].href, 'https://www.amazon.com/s?k=shades&tag=birdiereport-20');
 });
 
@@ -266,8 +268,9 @@ test('mobile reasons stay complete and sourced, or they are omitted', () => {
     'Polarized, semi-rimless',
     'Best for water-heavy courses',
   ]);
-  assert.equal(sun.top[0].cta, 'Search Amazon');
-  assert.match(sun.top[0].accessibleName, /Search Amazon for Oakley Flak 2\.0 XL Prizm Golf \(opens in a new tab\)/);
+  assert.equal(sun.top[0].cta, 'Check Amazon');
+  assert.equal(sun.top[0].accessibleName, 'Check Amazon for Oakley Flak 2.0 XL Prizm Golf (opens in a new tab)');
+  assert.equal(sun.top[0].placement, 'quick_picks');
 
   const shoes = modelFor('best-golf-shoes-2026').model;
   assert.equal(shoes.top[0].reason, 'The best balance of support, traction, and walking comfort');
@@ -275,11 +278,14 @@ test('mobile reasons stay complete and sourced, or they are omitted', () => {
   assert.equal(shoes.top[2].reason, 'Maximum grip when you need it');
 
   const layout = read('src/layouts/BlogLayout.astro');
-  assert.match(layout, /text-\[28px\]/);
+  assert.match(layout, /text-\[26px\]/);
+  assert.match(layout, /data-placement="article-top-shortlist"/);
+  assert.match(layout, /lg:top-\[72px\]/);
   assert.doesNotMatch(layout, /line-clamp-2 sm:line-clamp-none/);
   const picks = read('src/components/GuideTopPicks.astro');
   assert.doesNotMatch(picks, /truncate|line-clamp/);
-  assert.match(picks, /min-h-11 min-w-\[120px\]/);
+  assert.match(picks, /min-h-12 min-w-\[140px\]/);
+  assert.match(picks, /bg-\[#12301C\]/);
 });
 
 test('every best guide keeps sourced comparison fields and does not invent a second spec', () => {
@@ -317,6 +323,13 @@ test('every best guide keeps sourced comparison fields and does not invent a sec
       if (row.reviewHref && !headingIds.has(row.reviewHref.slice(1))) {
         problems.push(`${slug}: missing heading ${row.reviewHref}`);
       }
+      if (/^amazon(?:\.com)?$/i.test(row.retailer)) {
+        if (row.cta !== 'Check Amazon') problems.push(`${slug}: compare label ${row.cta} for ${row.product}`);
+        if (row.accessibleName !== `Check Amazon for ${row.product} (opens in a new tab)`) {
+          problems.push(`${slug}: compare name ${row.accessibleName}`);
+        }
+        if (row.placement !== 'guide_compare') problems.push(`${slug}: compare placement ${row.placement}`);
+      }
     }
     for (const pick of model.top) {
       if (/Approx\.|\$\s*\d/.test(`${pick.award} ${pick.why} ${pick.reason}`)) {
@@ -332,7 +345,7 @@ test('every best guide keeps sourced comparison fields and does not invent a sec
           problems.push(`${slug}: reason cuts ${pick.product} mid-sentence`);
         }
       }
-      if (pick.retailer === 'Amazon' && !['Check Amazon', 'Search Amazon'].includes(pick.cta)) {
+      if (pick.retailer === 'Amazon' && pick.cta !== 'Check Amazon') {
         problems.push(`${slug}: unexpected button label ${pick.cta}`);
       }
       if (!pick.accessibleName.startsWith(`${pick.cta} for ${pick.product}`)) {
@@ -652,7 +665,7 @@ test('self-hosted fonts, course badge contrast, and a reserved sidebar buy box',
   assert.match(blog, /sidebar-buy-box mt-6 min-h-\[9\.25rem\]/);
   assert.match(blog, /if \(toc && !toc\.querySelector\('a'\)\)/);
   assert.match(blog, /bg-emerald-800 text-white/);
-  assert.match(blog, /text-gold-800 font-bold/);
+  assert.match(blog, /text-\[#7A5C1D\]/);
   assert.doesNotMatch(blog, /text-gold-600/);
   assert.doesNotMatch(blog, /Loading\.\.\./);
   assert.match(read('src/pages/courses/index.astro'), /bg-emerald-800 text-white/);

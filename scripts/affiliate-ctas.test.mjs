@@ -124,9 +124,10 @@ test('gear product posts have CTA sources, and the allowlist stays explicit', ()
   const row = readFileSync(join(root, 'src/components/ProductBuyRow.astro'), 'utf8');
   assert.match(layout, /buyerProductsFromContent/);
   assert.match(layout, /'news'/);
-  assert.match(layout, /placement="article-top-shortlist"/);
+  assert.match(layout, /data-placement="article-top-shortlist"/);
   assert.match(layout, /placement="article-bottom-buy-box"/);
-  assert.match(layout, /retailer: link\.retailer \|\| 'Amazon'/);
+  assert.match(layout, /leadProduct\?\.retailer \|\| 'Amazon'/);
+  assert.match(layout, /data-retailer=\{leadRetailer\}/);
   assert.match(layout, /retailer: cardRetailer\(link\)/);
   assert.match(row, /data-affiliate-link="true"/);
   assert.match(row, /data-product=\{product\}/);

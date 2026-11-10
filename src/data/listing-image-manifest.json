@@ -1,0 +1,950 @@
+{
+  "/images/articles/golfer-walking-fairway.jpg": {
+    "src": "/images/listing/golfer-walking-fairway-800.webp",
+    "width": 800,
+    "height": 506,
+    "srcset": "/images/listing/golfer-walking-fairway-480.webp 480w, /images/listing/golfer-walking-fairway-800.webp 800w"
+  },
+  "/images/articles/pga-championship-aronimink-course.jpg": {
+    "src": "/images/listing/pga-championship-aronimink-course-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/pga-championship-aronimink-course-480.webp 480w, /images/listing/pga-championship-aronimink-course-800.webp 800w"
+  },
+  "/images/articles/pga-championship-aronimink-grandstand.jpg": {
+    "src": "/images/listing/pga-championship-aronimink-grandstand-800.webp",
+    "width": 800,
+    "height": 499,
+    "srcset": "/images/listing/pga-championship-aronimink-grandstand-480.webp 480w, /images/listing/pga-championship-aronimink-grandstand-800.webp 800w"
+  },
+  "/images/articles/golf-flag-green.jpg": {
+    "src": "/images/listing/golf-flag-green-800.webp",
+    "width": 800,
+    "height": 1065,
+    "srcset": "/images/listing/golf-flag-green-480.webp 480w, /images/listing/golf-flag-green-800.webp 800w"
+  },
+  "/images/articles/aig-womens-open-annika-award-2026.jpg": {
+    "src": "/images/listing/aig-womens-open-annika-award-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/aig-womens-open-annika-award-2026-480.webp 480w, /images/listing/aig-womens-open-annika-award-2026-800.webp 800w"
+  },
+  "/images/articles/aig-womens-open-featured-groups-2026.jpg": {
+    "src": "/images/listing/aig-womens-open-featured-groups-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/aig-womens-open-featured-groups-2026-480.webp 480w, /images/listing/aig-womens-open-featured-groups-2026-800.webp 800w"
+  },
+  "/images/articles/aig-womens-open-field-2026.jpg": {
+    "src": "/images/listing/aig-womens-open-field-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/aig-womens-open-field-2026-480.webp 480w, /images/listing/aig-womens-open-field-2026-800.webp 800w"
+  },
+  "/images/articles/us-solheim-yin-kupcho-2026.jpg": {
+    "src": "/images/listing/us-solheim-yin-kupcho-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/us-solheim-yin-kupcho-2026-480.webp 480w, /images/listing/us-solheim-yin-kupcho-2026-800.webp 800w"
+  },
+  "/images/articles/golf-bunker-green.jpg": {
+    "src": "/images/listing/golf-bunker-green-800.webp",
+    "width": 800,
+    "height": 1200,
+    "srcset": "/images/listing/golf-bunker-green-480.webp 480w, /images/listing/golf-bunker-green-800.webp 800w"
+  },
+  "/images/articles/golf-clubs-in-bag.jpg": {
+    "src": "/images/listing/golf-clubs-in-bag-800.webp",
+    "width": 800,
+    "height": 1200,
+    "srcset": "/images/listing/golf-clubs-in-bag-480.webp 480w, /images/listing/golf-clubs-in-bag-800.webp 800w"
+  },
+  "/images/articles/tournament-golfer-swing.jpg": {
+    "src": "/images/listing/tournament-golfer-swing-800.webp",
+    "width": 800,
+    "height": 1067,
+    "srcset": "/images/listing/tournament-golfer-swing-480.webp 480w, /images/listing/tournament-golfer-swing-800.webp 800w"
+  },
+  "/images/articles/bandon-preserve-review-2026.jpg": {
+    "src": "/images/listing/bandon-preserve-review-2026-585.webp",
+    "width": 585,
+    "height": 741,
+    "srcset": "/images/listing/bandon-preserve-review-2026-480.webp 480w, /images/listing/bandon-preserve-review-2026-585.webp 585w"
+  },
+  "/images/articles/tree-lined-golf-course.jpg": {
+    "src": "/images/listing/tree-lined-golf-course-800.webp",
+    "width": 800,
+    "height": 505,
+    "srcset": "/images/listing/tree-lined-golf-course-480.webp 480w, /images/listing/tree-lined-golf-course-800.webp 800w"
+  },
+  "/images/articles/wyndham-championship-playoff-bubble-2026.jpg": {
+    "src": "/images/listing/wyndham-championship-playoff-bubble-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/wyndham-championship-playoff-bubble-2026-480.webp 480w, /images/listing/wyndham-championship-playoff-bubble-2026-800.webp 800w"
+  },
+  "/images/articles/golf-bunker-wedge.jpg": {
+    "src": "/images/listing/golf-bunker-wedge-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/golf-bunker-wedge-480.webp 480w, /images/listing/golf-bunker-wedge-800.webp 800w"
+  },
+  "/images/articles/bethpage-black-first-timer-guide-2026.jpg": {
+    "src": "/images/listing/bethpage-black-first-timer-guide-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/bethpage-black-first-timer-guide-2026-480.webp 480w, /images/listing/bethpage-black-first-timer-guide-2026-800.webp 800w"
+  },
+  "/images/articles/copper-golf-clubs.jpg": {
+    "src": "/images/listing/copper-golf-clubs-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/copper-golf-clubs-480.webp 480w, /images/listing/copper-golf-clubs-800.webp 800w"
+  },
+  "/images/articles/bmw-championship-bellerive-first-look-2026.jpg": {
+    "src": "/images/listing/bmw-championship-bellerive-first-look-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/bmw-championship-bellerive-first-look-2026-480.webp 480w, /images/listing/bmw-championship-bellerive-first-look-2026-800.webp 800w"
+  },
+  "/images/articles/bmw-championship-top-30-bubble-2026.jpg": {
+    "src": "/images/listing/bmw-championship-top-30-bubble-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/bmw-championship-top-30-bubble-2026-480.webp 480w, /images/listing/bmw-championship-top-30-bubble-2026-800.webp 800w"
+  },
+  "/images/articles/fedex-st-jude-bubble-weekend-2026.jpg": {
+    "src": "/images/listing/fedex-st-jude-bubble-weekend-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/fedex-st-jude-bubble-weekend-2026-480.webp 480w, /images/listing/fedex-st-jude-bubble-weekend-2026-800.webp 800w"
+  },
+  "/images/articles/brandt-snedeker-presidents-cup-2026.jpg": {
+    "src": "/images/listing/brandt-snedeker-presidents-cup-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/brandt-snedeker-presidents-cup-2026-480.webp 480w, /images/listing/brandt-snedeker-presidents-cup-2026-800.webp 800w"
+  },
+  "/images/articles/golf-balls-closeup.jpg": {
+    "src": "/images/listing/golf-balls-closeup-800.webp",
+    "width": 800,
+    "height": 1422,
+    "srcset": "/images/listing/golf-balls-closeup-480.webp 480w, /images/listing/golf-balls-closeup-800.webp 800w"
+  },
+  "/images/articles/bridgestone-e6-soft-review.png": {
+    "src": "/images/listing/bridgestone-e6-soft-review-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/bridgestone-e6-soft-review-480.webp 480w, /images/listing/bridgestone-e6-soft-review-800.webp 800w"
+  },
+  "/images/articles/bridgestone-e6-soft-vs-taylormade-tour-response.png": {
+    "src": "/images/listing/bridgestone-e6-soft-vs-taylormade-tour-response-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/bridgestone-e6-soft-vs-taylormade-tour-response-480.webp 480w, /images/listing/bridgestone-e6-soft-vs-taylormade-tour-response-800.webp 800w"
+  },
+  "/images/articles/bridgestone-tour-b-rxs-review.jpg": {
+    "src": "/images/listing/bridgestone-tour-b-rxs-review-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/bridgestone-tour-b-rxs-review-480.webp 480w, /images/listing/bridgestone-tour-b-rxs-review-800.webp 800w"
+  },
+  "/images/articles/bridgestone-tour-b-x-review.jpg": {
+    "src": "/images/listing/bridgestone-tour-b-x-review-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/bridgestone-tour-b-x-review-480.webp 480w, /images/listing/bridgestone-tour-b-x-review-800.webp 800w"
+  },
+  "/images/articles/brooks-koepka-return-ap-2026.jpg": {
+    "src": "/images/listing/brooks-koepka-return-ap-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/brooks-koepka-return-ap-2026-480.webp 480w, /images/listing/brooks-koepka-return-ap-2026-800.webp 800w"
+  },
+  "/images/articles/bushnell-ion-elite-vs-garmin-approach-s12.jpg": {
+    "src": "/images/listing/bushnell-ion-elite-vs-garmin-approach-s12-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/bushnell-ion-elite-vs-garmin-approach-s12-480.webp 480w, /images/listing/bushnell-ion-elite-vs-garmin-approach-s12-800.webp 800w"
+  },
+  "/images/articles/golf-cart-bag-equipment.jpg": {
+    "src": "/images/listing/golf-cart-bag-equipment-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/golf-cart-bag-equipment-480.webp 480w, /images/listing/golf-cart-bag-equipment-800.webp 800w"
+  },
+  "/images/articles/caddytek-caddylite-11-5-v3-review.jpg": {
+    "src": "/images/listing/caddytek-caddylite-11-5-v3-review-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/caddytek-caddylite-11-5-v3-review-480.webp 480w, /images/listing/caddytek-caddylite-11-5-v3-review-800.webp 800w"
+  },
+  "/images/articles/callaway-chrome-tour-x-review.jpg": {
+    "src": "/images/listing/callaway-chrome-tour-x-review-800.webp",
+    "width": 800,
+    "height": 600,
+    "srcset": "/images/listing/callaway-chrome-tour-x-review-480.webp 480w, /images/listing/callaway-chrome-tour-x-review-800.webp 800w"
+  },
+  "/images/articles/callaway-dawn-patrol-review.png": {
+    "src": "/images/listing/callaway-dawn-patrol-review-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/callaway-dawn-patrol-review-480.webp 480w, /images/listing/callaway-dawn-patrol-review-800.webp 800w"
+  },
+  "/images/articles/callaway-elyte-max-fast-driver-review.jpg": {
+    "src": "/images/listing/callaway-elyte-max-fast-driver-review-800.webp",
+    "width": 800,
+    "height": 514,
+    "srcset": "/images/listing/callaway-elyte-max-fast-driver-review-480.webp 480w, /images/listing/callaway-elyte-max-fast-driver-review-800.webp 800w"
+  },
+  "/images/articles/callaway-elyte-max-fast-vs-paradym-ai-smoke-max-fast-driver.jpg": {
+    "src": "/images/listing/callaway-elyte-max-fast-vs-paradym-ai-smoke-max-fast-driver-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/callaway-elyte-max-fast-vs-paradym-ai-smoke-max-fast-driver-480.webp 480w, /images/listing/callaway-elyte-max-fast-vs-paradym-ai-smoke-max-fast-driver-800.webp 800w"
+  },
+  "/images/articles/golfer-swing-glove.jpg": {
+    "src": "/images/listing/golfer-swing-glove-800.webp",
+    "width": 800,
+    "height": 1199,
+    "srcset": "/images/listing/golfer-swing-glove-480.webp 480w, /images/listing/golfer-swing-glove-800.webp 800w"
+  },
+  "/images/articles/golf-bag-on-course.jpg": {
+    "src": "/images/listing/golf-bag-on-course-800.webp",
+    "width": 800,
+    "height": 1000,
+    "srcset": "/images/listing/golf-bag-on-course-480.webp 480w, /images/listing/golf-bag-on-course-800.webp 800w"
+  },
+  "/images/articles/callaway-jaws-raw-vs-callaway-opus.jpg": {
+    "src": "/images/listing/callaway-jaws-raw-vs-callaway-opus-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/callaway-jaws-raw-vs-callaway-opus-480.webp 480w, /images/listing/callaway-jaws-raw-vs-callaway-opus-800.webp 800w"
+  },
+  "/images/articles/callaway-jaws-raw-vs-cleveland-rtx-6-zipcore.jpg": {
+    "src": "/images/listing/callaway-jaws-raw-vs-cleveland-rtx-6-zipcore-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/callaway-jaws-raw-vs-cleveland-rtx-6-zipcore-480.webp 480w, /images/listing/callaway-jaws-raw-vs-cleveland-rtx-6-zipcore-800.webp 800w"
+  },
+  "/images/articles/callaway-jaws-raw-vs-titleist-vokey-sm10.jpg": {
+    "src": "/images/listing/callaway-jaws-raw-vs-titleist-vokey-sm10-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/callaway-jaws-raw-vs-titleist-vokey-sm10-480.webp 480w, /images/listing/callaway-jaws-raw-vs-titleist-vokey-sm10-800.webp 800w"
+  },
+  "/images/articles/callaway-jaws-raw-wedge-review.jpg": {
+    "src": "/images/listing/callaway-jaws-raw-wedge-review-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/callaway-jaws-raw-wedge-review-480.webp 480w, /images/listing/callaway-jaws-raw-wedge-review-800.webp 800w"
+  },
+  "/images/articles/callaway-paradym-ai-smoke-max-vs-ping-g440-max-driver.jpg": {
+    "src": "/images/listing/callaway-paradym-ai-smoke-max-vs-ping-g440-max-driver-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/callaway-paradym-ai-smoke-max-vs-ping-g440-max-driver-480.webp 480w, /images/listing/callaway-paradym-ai-smoke-max-vs-ping-g440-max-driver-800.webp 800w"
+  },
+  "/images/articles/callaway-quantum-max-driver-review.png": {
+    "src": "/images/listing/callaway-quantum-max-driver-review-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/callaway-quantum-max-driver-review-480.webp 480w, /images/listing/callaway-quantum-max-driver-review-800.webp 800w"
+  },
+  "/images/articles/callaway-quantum-mini-spinner-2026.png": {
+    "src": "/images/listing/callaway-quantum-mini-spinner-2026-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/callaway-quantum-mini-spinner-2026-480.webp 480w, /images/listing/callaway-quantum-mini-spinner-2026-800.webp 800w"
+  },
+  "/images/players-championship-2026.jpg": {
+    "src": "/images/listing/players-championship-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/players-championship-2026-480.webp 480w, /images/listing/players-championship-2026-800.webp 800w"
+  },
+  "/images/articles/chrome-tour-triple-diamond-vs-chrome-tour-x.jpg": {
+    "src": "/images/listing/chrome-tour-triple-diamond-vs-chrome-tour-x-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/chrome-tour-triple-diamond-vs-chrome-tour-x-480.webp 480w, /images/listing/chrome-tour-triple-diamond-vs-chrome-tour-x-800.webp 800w"
+  },
+  "/images/articles/chrome-tour-triple-diamond-vs-tp5x.jpg": {
+    "src": "/images/listing/chrome-tour-triple-diamond-vs-tp5x-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/chrome-tour-triple-diamond-vs-tp5x-480.webp 480w, /images/listing/chrome-tour-triple-diamond-vs-tp5x-800.webp 800w"
+  },
+  "/images/articles/cleveland-cbx4-vs-titleist-vokey-sm10-wedges.jpg": {
+    "src": "/images/listing/cleveland-cbx4-vs-titleist-vokey-sm10-wedges-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/cleveland-cbx4-vs-titleist-vokey-sm10-wedges-480.webp 480w, /images/listing/cleveland-cbx4-vs-titleist-vokey-sm10-wedges-800.webp 800w"
+  },
+  "/images/articles/cobra-ds-adapt-max-k-driver-review.jpg": {
+    "src": "/images/listing/cobra-ds-adapt-max-k-driver-review-800.webp",
+    "width": 800,
+    "height": 600,
+    "srcset": "/images/listing/cobra-ds-adapt-max-k-driver-review-480.webp 480w, /images/listing/cobra-ds-adapt-max-k-driver-review-800.webp 800w"
+  },
+  "/images/articles/cobra-ds-adapt-max-k-vs-taylormade-qi35-max-driver.jpg": {
+    "src": "/images/listing/cobra-ds-adapt-max-k-vs-taylormade-qi35-max-driver-800.webp",
+    "width": 800,
+    "height": 600,
+    "srcset": "/images/listing/cobra-ds-adapt-max-k-vs-taylormade-qi35-max-driver-480.webp 480w, /images/listing/cobra-ds-adapt-max-k-vs-taylormade-qi35-max-driver-800.webp 800w"
+  },
+  "/images/articles/cpkc-womens-open-field-2026.jpg": {
+    "src": "/images/listing/cpkc-womens-open-field-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/cpkc-womens-open-field-2026-480.webp 480w, /images/listing/cpkc-womens-open-field-2026-800.webp 800w"
+  },
+  "/images/articles/dundonald-links-review-2026.jpg": {
+    "src": "/images/listing/dundonald-links-review-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/dundonald-links-review-2026-480.webp 480w, /images/listing/dundonald-links-review-2026-800.webp 800w"
+  },
+  "/images/articles/erin-hills-first-timer-guide-2026.jpg": {
+    "src": "/images/listing/erin-hills-first-timer-guide-2026-800.webp",
+    "width": 800,
+    "height": 500,
+    "srcset": "/images/listing/erin-hills-first-timer-guide-2026-480.webp 480w, /images/listing/erin-hills-first-timer-guide-2026-800.webp 800w"
+  },
+  "/images/articles/europe-solheim-picks-2026.jpg": {
+    "src": "/images/listing/europe-solheim-picks-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/europe-solheim-picks-2026-480.webp 480w, /images/listing/europe-solheim-picks-2026-800.webp 800w"
+  },
+  "/images/articles/fedex-st-jude-top-50-bubble-2026.jpg": {
+    "src": "/images/listing/fedex-st-jude-top-50-bubble-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/fedex-st-jude-top-50-bubble-2026-480.webp 480w, /images/listing/fedex-st-jude-top-50-bubble-2026-800.webp 800w"
+  },
+  "/images/articles/fedex-st-jude-playoffs-first-look-2026.jpg": {
+    "src": "/images/listing/fedex-st-jude-playoffs-first-look-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/fedex-st-jude-playoffs-first-look-2026-480.webp 480w, /images/listing/fedex-st-jude-playoffs-first-look-2026-800.webp 800w"
+  },
+  "/images/articles/fenway-sports-group-wtgl-boston-common-2026.jpg": {
+    "src": "/images/listing/fenway-sports-group-wtgl-boston-common-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/fenway-sports-group-wtgl-boston-common-2026-480.webp 480w, /images/listing/fenway-sports-group-wtgl-boston-common-2026-800.webp 800w"
+  },
+  "/images/articles/footjoy-hydrolite-x-vs-footjoy-hydrotour.jpg": {
+    "src": "/images/listing/footjoy-hydrolite-x-vs-footjoy-hydrotour-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/footjoy-hydrolite-x-vs-footjoy-hydrotour-480.webp 480w, /images/listing/footjoy-hydrolite-x-vs-footjoy-hydrotour-800.webp 800w"
+  },
+  "/images/articles/footjoy-premiere-series-packard-review-source.png": {
+    "src": "/images/listing/footjoy-premiere-series-packard-review-source-650.webp",
+    "width": 650,
+    "height": 650,
+    "srcset": "/images/listing/footjoy-premiere-series-packard-review-source-480.webp 480w, /images/listing/footjoy-premiere-series-packard-review-source-650.webp 650w"
+  },
+  "/images/articles/footjoy-pro-sl-vs-ecco-biom-c4-golf-shoes.png": {
+    "src": "/images/listing/footjoy-pro-sl-vs-ecco-biom-c4-golf-shoes-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/footjoy-pro-sl-vs-ecco-biom-c4-golf-shoes-480.webp 480w, /images/listing/footjoy-pro-sl-vs-ecco-biom-c4-golf-shoes-800.webp 800w"
+  },
+  "/images/articles/footjoy-stasof-vs-titleist-perma-soft.jpg": {
+    "src": "/images/listing/footjoy-stasof-vs-titleist-perma-soft-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/footjoy-stasof-vs-titleist-perma-soft-480.webp 480w, /images/listing/footjoy-stasof-vs-titleist-perma-soft-800.webp 800w"
+  },
+  "/images/articles/full-swing-kit-review.jpg": {
+    "src": "/images/listing/full-swing-kit-review-360.webp",
+    "width": 360,
+    "height": 216,
+    "srcset": "/images/listing/full-swing-kit-review-360.webp 360w"
+  },
+  "/images/articles/full-swing-kit-vs-bushnell-launch-pro.png": {
+    "src": "/images/listing/full-swing-kit-vs-bushnell-launch-pro-386.webp",
+    "width": 386,
+    "height": 386,
+    "srcset": "/images/listing/full-swing-kit-vs-bushnell-launch-pro-386.webp 386w"
+  },
+  "/images/articles/full-swing-kit-vs-garmin-r10.jpg": {
+    "src": "/images/listing/full-swing-kit-vs-garmin-r10-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/full-swing-kit-vs-garmin-r10-480.webp 480w, /images/listing/full-swing-kit-vs-garmin-r10-800.webp 800w"
+  },
+  "/images/articles/garmin-approach-s44-vs-garmin-approach-s12.jpg": {
+    "src": "/images/listing/garmin-approach-s44-vs-garmin-approach-s12-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/garmin-approach-s44-vs-garmin-approach-s12-480.webp 480w, /images/listing/garmin-approach-s44-vs-garmin-approach-s12-800.webp 800w"
+  },
+  "/images/articles/garmin-approach-s44-vs-shot-scope-v5.jpg": {
+    "src": "/images/listing/garmin-approach-s44-vs-shot-scope-v5-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/garmin-approach-s44-vs-shot-scope-v5-480.webp 480w, /images/listing/garmin-approach-s44-vs-shot-scope-v5-800.webp 800w"
+  },
+  "/images/articles/georgia-hall-royal-lytham-return-2026.jpg": {
+    "src": "/images/listing/georgia-hall-royal-lytham-return-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/georgia-hall-royal-lytham-return-2026-480.webp 480w, /images/listing/georgia-hall-royal-lytham-return-2026-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-10-2026-weathersof-elyte-x-vice-drive.jpg": {
+    "src": "/images/listing/golf-deals-august-10-2026-weathersof-elyte-x-vice-drive-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-august-10-2026-weathersof-elyte-x-vice-drive-480.webp 480w, /images/listing/golf-deals-august-10-2026-weathersof-elyte-x-vice-drive-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-11-2026-codechaos-elyte-td-vice-tour.jpg": {
+    "src": "/images/listing/golf-deals-august-11-2026-codechaos-elyte-td-vice-tour-800.webp",
+    "width": 800,
+    "height": 1200,
+    "srcset": "/images/listing/golf-deals-august-11-2026-codechaos-elyte-td-vice-tour-480.webp 480w, /images/listing/golf-deals-august-11-2026-codechaos-elyte-td-vice-tour-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-12-2026-adizero-ai-smoke-vice-drive.jpg": {
+    "src": "/images/listing/golf-deals-august-12-2026-adizero-ai-smoke-vice-drive-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-august-12-2026-adizero-ai-smoke-vice-drive-480.webp 480w, /images/listing/golf-deals-august-12-2026-adizero-ai-smoke-vice-drive-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-15-2026-tour360-rogue-vice-pro.jpg": {
+    "src": "/images/listing/golf-deals-august-15-2026-tour360-rogue-vice-pro-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-august-15-2026-tour360-rogue-vice-pro-480.webp 480w, /images/listing/golf-deals-august-15-2026-tour360-rogue-vice-pro-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-18-2026-elyte-opus-vice-pro-white.jpg": {
+    "src": "/images/listing/golf-deals-august-18-2026-elyte-opus-vice-pro-white-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-august-18-2026-elyte-opus-vice-pro-white-480.webp 480w, /images/listing/golf-deals-august-18-2026-elyte-opus-vice-pro-white-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-19-2026-epic-speed-jaws-md5-vice-tour.jpg": {
+    "src": "/images/listing/golf-deals-august-19-2026-epic-speed-jaws-md5-vice-tour-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-august-19-2026-epic-speed-jaws-md5-vice-tour-480.webp 480w, /images/listing/golf-deals-august-19-2026-epic-speed-jaws-md5-vice-tour-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-3-2026-adizero-paradym-jaws-raw.jpg": {
+    "src": "/images/listing/golf-deals-august-3-2026-adizero-paradym-jaws-raw-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-august-3-2026-adizero-paradym-jaws-raw-480.webp 480w, /images/listing/golf-deals-august-3-2026-adizero-paradym-jaws-raw-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-4-2026-elyte-opus-callaway.jpg": {
+    "src": "/images/listing/golf-deals-august-4-2026-elyte-opus-callaway-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-august-4-2026-elyte-opus-callaway-480.webp 480w, /images/listing/golf-deals-august-4-2026-elyte-opus-callaway-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-5-2026-stan-smith-elyte-hybrid-vice-pro.jpg": {
+    "src": "/images/listing/golf-deals-august-5-2026-stan-smith-elyte-hybrid-vice-pro-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/golf-deals-august-5-2026-stan-smith-elyte-hybrid-vice-pro-480.webp 480w, /images/listing/golf-deals-august-5-2026-stan-smith-elyte-hybrid-vice-pro-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-6-2026-tour360-elyte-td-vice-tour.jpg": {
+    "src": "/images/listing/golf-deals-august-6-2026-tour360-elyte-td-vice-tour-800.webp",
+    "width": 800,
+    "height": 420,
+    "srcset": "/images/listing/golf-deals-august-6-2026-tour360-elyte-td-vice-tour-480.webp 480w, /images/listing/golf-deals-august-6-2026-tour360-elyte-td-vice-tour-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-7-2026-codechaos-opus-vice-drive.jpg": {
+    "src": "/images/listing/golf-deals-august-7-2026-codechaos-opus-vice-drive-800.webp",
+    "width": 800,
+    "height": 500,
+    "srcset": "/images/listing/golf-deals-august-7-2026-codechaos-opus-vice-drive-480.webp 480w, /images/listing/golf-deals-august-7-2026-codechaos-opus-vice-drive-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-8-2026-tech-response-ai-smoke-vice-tour.jpg": {
+    "src": "/images/listing/golf-deals-august-8-2026-tech-response-ai-smoke-vice-tour-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-august-8-2026-tech-response-ai-smoke-vice-tour-480.webp 480w, /images/listing/golf-deals-august-8-2026-tech-response-ai-smoke-vice-tour-800.webp 800w"
+  },
+  "/images/articles/golf-deals-august-9-2026-gazelle-elyte-ti-pro-air.jpg": {
+    "src": "/images/listing/golf-deals-august-9-2026-gazelle-elyte-ti-pro-air-800.webp",
+    "width": 800,
+    "height": 420,
+    "srcset": "/images/listing/golf-deals-august-9-2026-gazelle-elyte-ti-pro-air-480.webp 480w, /images/listing/golf-deals-august-9-2026-gazelle-elyte-ti-pro-air-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-21-2026-elyte-x-fairway.png": {
+    "src": "/images/listing/golf-deals-july-21-2026-elyte-x-fairway-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/golf-deals-july-21-2026-elyte-x-fairway-480.webp 480w, /images/listing/golf-deals-july-21-2026-elyte-x-fairway-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-22-2026-zx7-driver.jpg": {
+    "src": "/images/listing/golf-deals-july-22-2026-zx7-driver-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/golf-deals-july-22-2026-zx7-driver-480.webp 480w, /images/listing/golf-deals-july-22-2026-zx7-driver-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-23-2026-stan-smith-elyte-vice-pro.png": {
+    "src": "/images/listing/golf-deals-july-23-2026-stan-smith-elyte-vice-pro-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/golf-deals-july-23-2026-stan-smith-elyte-vice-pro-480.webp 480w, /images/listing/golf-deals-july-23-2026-stan-smith-elyte-vice-pro-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-24-2026-codechaos-paradym-vice-pro-plus-blackout.jpg": {
+    "src": "/images/listing/golf-deals-july-24-2026-codechaos-paradym-vice-pro-plus-blackout-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/golf-deals-july-24-2026-codechaos-paradym-vice-pro-plus-blackout-480.webp 480w, /images/listing/golf-deals-july-24-2026-codechaos-paradym-vice-pro-plus-blackout-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-25-2026-vice-pro-pro-soft-tour.jpg": {
+    "src": "/images/listing/golf-deals-july-25-2026-vice-pro-pro-soft-tour-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-july-25-2026-vice-pro-pro-soft-tour-480.webp 480w, /images/listing/golf-deals-july-25-2026-vice-pro-pro-soft-tour-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-26-2026-elyte-ai-smoke-jaws-raw.jpg": {
+    "src": "/images/listing/golf-deals-july-26-2026-elyte-ai-smoke-jaws-raw-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-july-26-2026-elyte-ai-smoke-jaws-raw-480.webp 480w, /images/listing/golf-deals-july-26-2026-elyte-ai-smoke-jaws-raw-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-27-2026-paradym-family.jpg": {
+    "src": "/images/listing/golf-deals-july-27-2026-paradym-family-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-july-27-2026-paradym-family-480.webp 480w, /images/listing/golf-deals-july-27-2026-paradym-family-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-28-2026-srixon-zx-fairway-zx-utility-qstar-divide.jpg": {
+    "src": "/images/listing/golf-deals-july-28-2026-srixon-zx-fairway-zx-utility-qstar-divide-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/golf-deals-july-28-2026-srixon-zx-fairway-zx-utility-qstar-divide-480.webp 480w, /images/listing/golf-deals-july-28-2026-srixon-zx-fairway-zx-utility-qstar-divide-800.webp 800w"
+  },
+  "/images/articles/golf-deals-july-30-2026-adizero-elyte-qstar-divide.jpg": {
+    "src": "/images/listing/golf-deals-july-30-2026-adizero-elyte-qstar-divide-800.webp",
+    "width": 800,
+    "height": 267,
+    "srcset": "/images/listing/golf-deals-july-30-2026-adizero-elyte-qstar-divide-480.webp 480w, /images/listing/golf-deals-july-30-2026-adizero-elyte-qstar-divide-800.webp 800w"
+  },
+  "/images/articles/golf-deals-june-7-2026-footjoy-field-lx-pro-slx-prolite-source.png": {
+    "src": "/images/listing/golf-deals-june-7-2026-footjoy-field-lx-pro-slx-prolite-source-650.webp",
+    "width": 650,
+    "height": 650,
+    "srcset": "/images/listing/golf-deals-june-7-2026-footjoy-field-lx-pro-slx-prolite-source-480.webp 480w, /images/listing/golf-deals-june-7-2026-footjoy-field-lx-pro-slx-prolite-source-650.webp 650w"
+  },
+  "/images/articles/golf-deals-june-9-2026-footjoy-tour-alpha-field-spikeless-traditions-source.png": {
+    "src": "/images/listing/golf-deals-june-9-2026-footjoy-tour-alpha-field-spikeless-traditions-source-650.webp",
+    "width": 650,
+    "height": 650,
+    "srcset": "/images/listing/golf-deals-june-9-2026-footjoy-tour-alpha-field-spikeless-traditions-source-480.webp 480w, /images/listing/golf-deals-june-9-2026-footjoy-tour-alpha-field-spikeless-traditions-source-650.webp 650w"
+  },
+  "/images/articles/how-to-play-blind-tee-shots-without-steering-it.jpg": {
+    "src": "/images/listing/how-to-play-blind-tee-shots-without-steering-it-800.webp",
+    "width": 800,
+    "height": 505,
+    "srcset": "/images/listing/how-to-play-blind-tee-shots-without-steering-it-480.webp 480w, /images/listing/how-to-play-blind-tee-shots-without-steering-it-800.webp 800w"
+  },
+  "/images/articles/how-to-play-split-fairway-tee-shots.jpg": {
+    "src": "/images/listing/how-to-play-split-fairway-tee-shots-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/how-to-play-split-fairway-tee-shots-480.webp 480w, /images/listing/how-to-play-split-fairway-tee-shots-800.webp 800w"
+  },
+  "/images/articles/how-to-putt-tiered-greens-without-three-putting.jpg": {
+    "src": "/images/listing/how-to-putt-tiered-greens-without-three-putting-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/how-to-putt-tiered-greens-without-three-putting-480.webp 480w, /images/listing/how-to-putt-tiered-greens-without-three-putting-800.webp 800w"
+  },
+  "/images/articles/how-to-putt-sidehill-putts-without-overplaying-break.jpg": {
+    "src": "/images/listing/how-to-putt-sidehill-putts-without-overplaying-break-800.webp",
+    "width": 800,
+    "height": 420,
+    "srcset": "/images/listing/how-to-putt-sidehill-putts-without-overplaying-break-480.webp 480w, /images/listing/how-to-putt-sidehill-putts-without-overplaying-break-800.webp 800w"
+  },
+  "/images/articles/royal-birkdale-hole-changes-2026.jpg": {
+    "src": "/images/listing/royal-birkdale-hole-changes-2026-800.webp",
+    "width": 800,
+    "height": 534,
+    "srcset": "/images/listing/royal-birkdale-hole-changes-2026-480.webp 480w, /images/listing/royal-birkdale-hole-changes-2026-800.webp 800w"
+  },
+  "/images/articles/royal-birkdale-18th-hole-2026.jpg": {
+    "src": "/images/listing/royal-birkdale-18th-hole-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/royal-birkdale-18th-hole-2026-480.webp 480w, /images/listing/royal-birkdale-18th-hole-2026-800.webp 800w"
+  },
+  "/images/articles/portland-classic-featured-groups-2026.jpg": {
+    "src": "/images/listing/portland-classic-featured-groups-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/portland-classic-featured-groups-2026-480.webp 480w, /images/listing/portland-classic-featured-groups-2026-800.webp 800w"
+  },
+  "/images/articles/liv-golf-new-york-niemann-rahm-2026.jpg": {
+    "src": "/images/listing/liv-golf-new-york-niemann-rahm-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/liv-golf-new-york-niemann-rahm-2026-480.webp 480w, /images/listing/liv-golf-new-york-niemann-rahm-2026-800.webp 800w"
+  },
+  "/images/articles/joe-dean-last-chance-qualifier-2026.jpg": {
+    "src": "/images/listing/joe-dean-last-chance-qualifier-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/joe-dean-last-chance-qualifier-2026-480.webp 480w, /images/listing/joe-dean-last-chance-qualifier-2026-800.webp 800w"
+  },
+  "/images/articles/jordan-spieth-fedex-st-jude-round-1-2026.jpg": {
+    "src": "/images/listing/jordan-spieth-fedex-st-jude-round-1-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/jordan-spieth-fedex-st-jude-round-1-2026-480.webp 480w, /images/listing/jordan-spieth-fedex-st-jude-round-1-2026-800.webp 800w"
+  },
+  "/images/articles/kbs-tour-120-stiff.png": {
+    "src": "/images/listing/kbs-tour-120-stiff-800.webp",
+    "width": 800,
+    "height": 1000,
+    "srcset": "/images/listing/kbs-tour-120-stiff-480.webp 480w, /images/listing/kbs-tour-120-stiff-800.webp 800w"
+  },
+  "/images/articles/kiara-romero-leap-2026.jpg": {
+    "src": "/images/listing/kiara-romero-leap-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/kiara-romero-leap-2026-480.webp 480w, /images/listing/kiara-romero-leap-2026-800.webp 800w"
+  },
+  "/images/articles/kirkland-vs-tour-response.jpg": {
+    "src": "/images/listing/kirkland-vs-tour-response-800.webp",
+    "width": 800,
+    "height": 400,
+    "srcset": "/images/listing/kirkland-vs-tour-response-480.webp 480w, /images/listing/kirkland-vs-tour-response-800.webp 800w"
+  },
+  "/images/articles/lauren-coughlin-solheim-spot-2026.jpg": {
+    "src": "/images/listing/lauren-coughlin-solheim-spot-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/lauren-coughlin-solheim-spot-2026-480.webp 480w, /images/listing/lauren-coughlin-solheim-spot-2026-800.webp 800w"
+  },
+  "/images/articles/liv-michigan-team-championship-2026.webp": {
+    "src": "/images/listing/liv-michigan-team-championship-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/liv-michigan-team-championship-2026-480.webp 480w, /images/listing/liv-michigan-team-championship-2026-800.webp 800w"
+  },
+  "/images/articles/lpga-classic-corning-2027.jpg": {
+    "src": "/images/listing/lpga-classic-corning-2027-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/lpga-classic-corning-2027-480.webp 480w, /images/listing/lpga-classic-corning-2027-800.webp 800w"
+  },
+  "/images/articles/mariel-galdiano-portland-classic-round-1-2026.jpg": {
+    "src": "/images/listing/mariel-galdiano-portland-classic-round-1-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/mariel-galdiano-portland-classic-round-1-2026-480.webp 480w, /images/listing/mariel-galdiano-portland-classic-round-1-2026-800.webp 800w"
+  },
+  "/images/articles/sompo-pga-tour-championship-series-2026.jpg": {
+    "src": "/images/listing/sompo-pga-tour-championship-series-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/sompo-pga-tour-championship-series-2026-480.webp 480w, /images/listing/sompo-pga-tour-championship-series-2026-800.webp 800w"
+  },
+  "/images/articles/michael-brennan-wyndham-win-2026.jpg": {
+    "src": "/images/listing/michael-brennan-wyndham-win-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/michael-brennan-wyndham-win-2026-480.webp 480w, /images/listing/michael-brennan-wyndham-win-2026-800.webp 800w"
+  },
+  "/images/articles/michael-thorbjornsen-rocket-classic-2026.jpg": {
+    "src": "/images/listing/michael-thorbjornsen-rocket-classic-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/michael-thorbjornsen-rocket-classic-2026-480.webp 480w, /images/listing/michael-thorbjornsen-rocket-classic-2026-800.webp 800w"
+  },
+  "/images/articles/mizuno-jpx925-hot-metal-vs-srixon-zxi5-irons.jpg": {
+    "src": "/images/listing/mizuno-jpx925-hot-metal-vs-srixon-zxi5-irons-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/mizuno-jpx925-hot-metal-vs-srixon-zxi5-irons-480.webp 480w, /images/listing/mizuno-jpx925-hot-metal-vs-srixon-zxi5-irons-800.webp 800w"
+  },
+  "/images/articles/mizuno-pro-t1-vs-callaway-opus.jpg": {
+    "src": "/images/listing/mizuno-pro-t1-vs-callaway-opus-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/mizuno-pro-t1-vs-callaway-opus-480.webp 480w, /images/listing/mizuno-pro-t1-vs-callaway-opus-800.webp 800w"
+  },
+  "/images/articles/mizuno-pro-t1-vs-titleist-vokey-sm11.jpg": {
+    "src": "/images/listing/mizuno-pro-t1-vs-titleist-vokey-sm11-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/mizuno-pro-t1-vs-titleist-vokey-sm11-480.webp 480w, /images/listing/mizuno-pro-t1-vs-titleist-vokey-sm11-800.webp 800w"
+  },
+  "/images/articles/mizuno-pro-t1-wedge-review.png": {
+    "src": "/images/listing/mizuno-pro-t1-wedge-review-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/mizuno-pro-t1-wedge-review-480.webp 480w, /images/listing/mizuno-pro-t1-wedge-review-800.webp 800w"
+  },
+  "/images/articles/nelly-korda-royal-lytham-2026.jpg": {
+    "src": "/images/listing/nelly-korda-royal-lytham-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/nelly-korda-royal-lytham-2026-480.webp 480w, /images/listing/nelly-korda-royal-lytham-2026-800.webp 800w"
+  },
+  "/images/articles/odyssey-ai-one-milled-2-ball-t-db-review.jpg": {
+    "src": "/images/listing/odyssey-ai-one-milled-2-ball-t-db-review-800.webp",
+    "width": 800,
+    "height": 420,
+    "srcset": "/images/listing/odyssey-ai-one-milled-2-ball-t-db-review-480.webp 480w, /images/listing/odyssey-ai-one-milled-2-ball-t-db-review-800.webp 800w"
+  },
+  "/images/articles/odyssey-ai-one-milled-jailbird-mini-t-review.png": {
+    "src": "/images/listing/odyssey-ai-one-milled-jailbird-mini-t-review-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/odyssey-ai-one-milled-jailbird-mini-t-review-480.webp 480w, /images/listing/odyssey-ai-one-milled-jailbird-mini-t-review-800.webp 800w"
+  },
+  "/images/articles/odyssey-ai-one-milled-rossie-v-t-review.jpg": {
+    "src": "/images/listing/odyssey-ai-one-milled-rossie-v-t-review-800.webp",
+    "width": 800,
+    "height": 514,
+    "srcset": "/images/listing/odyssey-ai-one-milled-rossie-v-t-review-480.webp 480w, /images/listing/odyssey-ai-one-milled-rossie-v-t-review-800.webp 800w"
+  },
+  "/images/articles/old-macdonald-review-2026.jpg": {
+    "src": "/images/listing/old-macdonald-review-2026-585.webp",
+    "width": 585,
+    "height": 741,
+    "srcset": "/images/listing/old-macdonald-review-2026-480.webp 480w, /images/listing/old-macdonald-review-2026-585.webp 585w"
+  },
+  "/images/articles/pinehurst-no-10-first-timer-guide-2026.jpg": {
+    "src": "/images/listing/pinehurst-no-10-first-timer-guide-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/pinehurst-no-10-first-timer-guide-2026-480.webp 480w, /images/listing/pinehurst-no-10-first-timer-guide-2026-800.webp 800w"
+  },
+  "/images/articles/pinehurst-no-10-review-2026.jpg": {
+    "src": "/images/listing/pinehurst-no-10-review-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/pinehurst-no-10-review-2026-480.webp 480w, /images/listing/pinehurst-no-10-review-2026-800.webp 800w"
+  },
+  "/images/articles/ping-g430-vs-ping-g740-irons.jpg": {
+    "src": "/images/listing/ping-g430-vs-ping-g740-irons-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/ping-g430-vs-ping-g740-irons-480.webp 480w, /images/listing/ping-g430-vs-ping-g740-irons-800.webp 800w"
+  },
+  "/images/articles/ping-g440-lst-driver-review.png": {
+    "src": "/images/listing/ping-g440-lst-driver-review-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/ping-g440-lst-driver-review-480.webp 480w, /images/listing/ping-g440-lst-driver-review-800.webp 800w"
+  },
+  "/images/articles/ping-g440-max-vs-cobra-ds-adapt-max-k-driver.jpg": {
+    "src": "/images/listing/ping-g440-max-vs-cobra-ds-adapt-max-k-driver-800.webp",
+    "width": 800,
+    "height": 405,
+    "srcset": "/images/listing/ping-g440-max-vs-cobra-ds-adapt-max-k-driver-480.webp 480w, /images/listing/ping-g440-max-vs-cobra-ds-adapt-max-k-driver-800.webp 800w"
+  },
+  "/images/articles/ping-g740-vs-mizuno-jpx925-hot-metal-irons.jpg": {
+    "src": "/images/listing/ping-g740-vs-mizuno-jpx925-hot-metal-irons-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/ping-g740-vs-mizuno-jpx925-hot-metal-irons-480.webp 480w, /images/listing/ping-g740-vs-mizuno-jpx925-hot-metal-irons-800.webp 800w"
+  },
+  "/images/articles/ping-g740-vs-srixon-zxi5-irons.jpg": {
+    "src": "/images/listing/ping-g740-vs-srixon-zxi5-irons-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/ping-g740-vs-srixon-zxi5-irons-480.webp 480w, /images/listing/ping-g740-vs-srixon-zxi5-irons-800.webp 800w"
+  },
+  "/images/articles/ping-hoofer-lite-vs-titleist-players-4-carbon.jpg": {
+    "src": "/images/listing/ping-hoofer-lite-vs-titleist-players-4-carbon-800.webp",
+    "width": 800,
+    "height": 444,
+    "srcset": "/images/listing/ping-hoofer-lite-vs-titleist-players-4-carbon-480.webp 480w, /images/listing/ping-hoofer-lite-vs-titleist-players-4-carbon-800.webp 800w"
+  },
+  "/images/articles/ping-scottsdale-tec-ally-blue-onset-review.png": {
+    "src": "/images/listing/ping-scottsdale-tec-ally-blue-onset-review-800.webp",
+    "width": 800,
+    "height": 800,
+    "srcset": "/images/listing/ping-scottsdale-tec-ally-blue-onset-review-480.webp 480w, /images/listing/ping-scottsdale-tec-ally-blue-onset-review-800.webp 800w"
+  },
+  "/images/articles/portland-classic-aki-iwai-2026.jpg": {
+    "src": "/images/listing/portland-classic-aki-iwai-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/portland-classic-aki-iwai-2026-480.webp 480w, /images/listing/portland-classic-aki-iwai-2026-800.webp 800w"
+  },
+  "/images/articles/pro-v1x-left-dash-vs-tour-b-x.jpg": {
+    "src": "/images/listing/pro-v1x-left-dash-vs-tour-b-x-800.webp",
+    "width": 800,
+    "height": 420,
+    "srcset": "/images/listing/pro-v1x-left-dash-vs-tour-b-x-480.webp 480w, /images/listing/pro-v1x-left-dash-vs-tour-b-x-800.webp 800w"
+  },
+  "/images/articles/royal-birkdale-opening-day-2026.jpg": {
+    "src": "/images/listing/royal-birkdale-opening-day-2026-800.webp",
+    "width": 800,
+    "height": 527,
+    "srcset": "/images/listing/royal-birkdale-opening-day-2026-480.webp 480w, /images/listing/royal-birkdale-opening-day-2026-800.webp 800w"
+  },
+  "/images/articles/sam-burns-open-lead-birkdale-2026.jpg": {
+    "src": "/images/listing/sam-burns-open-lead-birkdale-2026-800.webp",
+    "width": 800,
+    "height": 534,
+    "srcset": "/images/listing/sam-burns-open-lead-birkdale-2026-480.webp 480w, /images/listing/sam-burns-open-lead-birkdale-2026-800.webp 800w"
+  },
+  "/images/articles/samsung-galaxy-watch-ultra-2025.jpg": {
+    "src": "/images/listing/samsung-galaxy-watch-ultra-2025-800.webp",
+    "width": 800,
+    "height": 250,
+    "srcset": "/images/listing/samsung-galaxy-watch-ultra-2025-480.webp 480w, /images/listing/samsung-galaxy-watch-ultra-2025-800.webp 800w"
+  },
+  "/images/articles/scottie-scheffler-fedex-st-jude-round-2-2026.jpg": {
+    "src": "/images/listing/scottie-scheffler-fedex-st-jude-round-2-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/scottie-scheffler-fedex-st-jude-round-2-2026-480.webp 480w, /images/listing/scottie-scheffler-fedex-st-jude-round-2-2026-800.webp 800w"
+  },
+  "/images/articles/scottie-scheffler-fedex-st-jude-win-2026.jpg": {
+    "src": "/images/listing/scottie-scheffler-fedex-st-jude-win-2026-800.webp",
+    "width": 800,
+    "height": 419,
+    "srcset": "/images/listing/scottie-scheffler-fedex-st-jude-win-2026-480.webp 480w, /images/listing/scottie-scheffler-fedex-st-jude-win-2026-800.webp 800w"
+  },
+  "/images/articles/shiho-kuwaki-aig-womens-open-2026.jpg": {
+    "src": "/images/listing/shiho-kuwaki-aig-womens-open-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/shiho-kuwaki-aig-womens-open-2026-480.webp 480w, /images/listing/shiho-kuwaki-aig-womens-open-2026-800.webp 800w"
+  },
+  "/images/articles/rocket-classic-detroit-first-look-2026.jpg": {
+    "src": "/images/listing/rocket-classic-detroit-first-look-2026-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/rocket-classic-detroit-first-look-2026-480.webp 480w, /images/listing/rocket-classic-detroit-first-look-2026-800.webp 800w"
+  },
+  "/images/articles/taylormade-cart-lite-review.jpg": {
+    "src": "/images/listing/taylormade-cart-lite-review-600.webp",
+    "width": 600,
+    "height": 432,
+    "srcset": "/images/listing/taylormade-cart-lite-review-480.webp 480w, /images/listing/taylormade-cart-lite-review-600.webp 600w"
+  },
+  "/images/articles/taylormade-p790-vs-mizuno-jpx925-hot-metal-irons.jpg": {
+    "src": "/images/listing/taylormade-p790-vs-mizuno-jpx925-hot-metal-irons-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/taylormade-p790-vs-mizuno-jpx925-hot-metal-irons-480.webp 480w, /images/listing/taylormade-p790-vs-mizuno-jpx925-hot-metal-irons-800.webp 800w"
+  },
+  "/images/articles/taylormade-qi35-vs-ping-g740-irons.jpg": {
+    "src": "/images/listing/taylormade-qi35-vs-ping-g740-irons-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/taylormade-qi35-vs-ping-g740-irons-480.webp 480w, /images/listing/taylormade-qi35-vs-ping-g740-irons-800.webp 800w"
+  },
+  "/images/articles/titleist-gt2-vs-ping-g440-lst-driver.jpg": {
+    "src": "/images/listing/titleist-gt2-vs-ping-g440-lst-driver-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/titleist-gt2-vs-ping-g440-lst-driver-480.webp 480w, /images/listing/titleist-gt2-vs-ping-g440-lst-driver-800.webp 800w"
+  },
+  "/images/articles/titleist-gt2-vs-titleist-gts2-driver.jpg": {
+    "src": "/images/listing/titleist-gt2-vs-titleist-gts2-driver-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/titleist-gt2-vs-titleist-gts2-driver-480.webp 480w, /images/listing/titleist-gt2-vs-titleist-gts2-driver-800.webp 800w"
+  },
+  "/images/articles/titleist-gts2-vs-taylormade-qi35-max-driver.jpg": {
+    "src": "/images/listing/titleist-gts2-vs-taylormade-qi35-max-driver-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/titleist-gts2-vs-taylormade-qi35-max-driver-480.webp 480w, /images/listing/titleist-gts2-vs-taylormade-qi35-max-driver-800.webp 800w"
+  },
+  "/images/articles/titleist-gts300-mini-driver-2026.jpg": {
+    "src": "/images/listing/titleist-gts300-mini-driver-2026-800.webp",
+    "width": 800,
+    "height": 1120,
+    "srcset": "/images/listing/titleist-gts300-mini-driver-2026-480.webp 480w, /images/listing/titleist-gts300-mini-driver-2026-800.webp 800w"
+  },
+  "/images/articles/titleist-perma-soft-review.jpg": {
+    "src": "/images/listing/titleist-perma-soft-review-800.webp",
+    "width": 800,
+    "height": 733,
+    "srcset": "/images/listing/titleist-perma-soft-review-480.webp 480w, /images/listing/titleist-perma-soft-review-800.webp 800w"
+  },
+  "/images/articles/titleist-players-4-carbon-review.jpg": {
+    "src": "/images/listing/titleist-players-4-carbon-review-800.webp",
+    "width": 800,
+    "height": 734,
+    "srcset": "/images/listing/titleist-players-4-carbon-review-480.webp 480w, /images/listing/titleist-players-4-carbon-review-800.webp 800w"
+  },
+  "/images/articles/titleist-players-4-carbon-vs-titleist-players-s4-stadry.jpg": {
+    "src": "/images/listing/titleist-players-4-carbon-vs-titleist-players-s4-stadry-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/titleist-players-4-carbon-vs-titleist-players-s4-stadry-480.webp 480w, /images/listing/titleist-players-4-carbon-vs-titleist-players-s4-stadry-800.webp 800w"
+  },
+  "/images/articles/titleist-players-flex-source.jpg": {
+    "src": "/images/listing/titleist-players-flex-source-800.webp",
+    "width": 800,
+    "height": 733,
+    "srcset": "/images/listing/titleist-players-flex-source-480.webp 480w, /images/listing/titleist-players-flex-source-800.webp 800w"
+  },
+  "/images/articles/titleist-players-flex-vs-perma-soft.jpg": {
+    "src": "/images/listing/titleist-players-flex-vs-perma-soft-800.webp",
+    "width": 800,
+    "height": 400,
+    "srcset": "/images/listing/titleist-players-flex-vs-perma-soft-480.webp 480w, /images/listing/titleist-players-flex-vs-perma-soft-800.webp 800w"
+  },
+  "/images/articles/titleist-pro-v1x-left-dash-review.jpg": {
+    "src": "/images/listing/titleist-pro-v1x-left-dash-review-800.webp",
+    "width": 800,
+    "height": 420,
+    "srcset": "/images/listing/titleist-pro-v1x-left-dash-review-480.webp 480w, /images/listing/titleist-pro-v1x-left-dash-review-800.webp 800w"
+  },
+  "/images/articles/titleist-trufeel-review.jpg": {
+    "src": "/images/listing/titleist-trufeel-review-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/titleist-trufeel-review-480.webp 480w, /images/listing/titleist-trufeel-review-800.webp 800w"
+  },
+  "/images/articles/titleist-trufeel-vs-taylormade-tour-response.jpg": {
+    "src": "/images/listing/titleist-trufeel-vs-taylormade-tour-response-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/titleist-trufeel-vs-taylormade-tour-response-480.webp 480w, /images/listing/titleist-trufeel-vs-taylormade-tour-response-800.webp 800w"
+  },
+  "/images/articles/titleist-tsr3-vs-titleist-gt2-driver.jpg": {
+    "src": "/images/listing/titleist-tsr3-vs-titleist-gt2-driver-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/titleist-tsr3-vs-titleist-gt2-driver-480.webp 480w, /images/listing/titleist-tsr3-vs-titleist-gt2-driver-800.webp 800w"
+  },
+  "/images/articles/titleist-tsr3-vs-titleist-gts2-driver.jpg": {
+    "src": "/images/listing/titleist-tsr3-vs-titleist-gts2-driver-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/titleist-tsr3-vs-titleist-gts2-driver-480.webp 480w, /images/listing/titleist-tsr3-vs-titleist-gts2-driver-800.webp 800w"
+  },
+  "/images/articles/tommy-fleetwood-open-saturday-2026.jpg": {
+    "src": "/images/listing/tommy-fleetwood-open-saturday-2026-800.webp",
+    "width": 800,
+    "height": 534,
+    "srcset": "/images/listing/tommy-fleetwood-open-saturday-2026-480.webp 480w, /images/listing/tommy-fleetwood-open-saturday-2026-800.webp 800w"
+  },
+  "/images/articles/tour-b-rxs-vs-titleist-avx.jpg": {
+    "src": "/images/listing/tour-b-rxs-vs-titleist-avx-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/tour-b-rxs-vs-titleist-avx-480.webp 480w, /images/listing/tour-b-rxs-vs-titleist-avx-800.webp 800w"
+  },
+  "/images/articles/tp5x-vs-pro-v1x-left-dash.jpg": {
+    "src": "/images/listing/tp5x-vs-pro-v1x-left-dash-800.webp",
+    "width": 800,
+    "height": 450,
+    "srcset": "/images/listing/tp5x-vs-pro-v1x-left-dash-480.webp 480w, /images/listing/tp5x-vs-pro-v1x-left-dash-800.webp 800w"
+  },
+  "/images/articles/whistling-straits-first-timer-guide-2026.jpg": {
+    "src": "/images/listing/whistling-straits-first-timer-guide-2026-800.webp",
+    "width": 800,
+    "height": 533,
+    "srcset": "/images/listing/whistling-straits-first-timer-guide-2026-480.webp 480w, /images/listing/whistling-straits-first-timer-guide-2026-800.webp 800w"
+  }
+}

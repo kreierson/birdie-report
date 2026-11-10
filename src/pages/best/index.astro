@@ -5,6 +5,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CommercialOpportunityPanel from '../../components/CommercialOpportunityPanel.astro';
 import GuideShortlist from '../../components/GuideShortlist.astro';
 import { sectionTrail } from '../../utils/breadcrumbs.mjs';
+import { listingImage } from '../../utils/guide-images.mjs';
 
 const allPosts = await getCollection('blog').catch(() => []);
 const bestPosts = allPosts
@@ -40,6 +41,13 @@ const categories = [
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
+
+const bestCards = bestPosts.map((post, i) => ({
+  post,
+  photo: listingImage(post.data.featured_image),
+  first: i === 0,
+}));
+const heroPhoto = heroPost ? listingImage(heroPost.data.featured_image, '100vw') : null;
 ---
 
 <BaseLayout 
@@ -52,7 +60,7 @@ function formatDate(date: Date) {
   {heroPost && (
     <section class="relative bg-forest-950 overflow-hidden">
       <div class="absolute inset-0">
-        <img src={heroPost.data.featured_image} alt={heroPost.data.title} class="w-full h-full object-cover opacity-35" />
+        <img src={heroPhoto.src} srcset={heroPhoto.srcset} sizes={heroPhoto.sizes} alt={heroPost.data.title} width={heroPhoto.width} height={heroPhoto.height} fetchpriority="high" class="w-full h-full object-cover opacity-35" />
         <div class="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/60 to-forest-950/20"></div>
       </div>
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
@@ -113,27 +121,32 @@ function formatDate(date: Date) {
         <span class="border-b-4 border-gold-500 pb-1">All Buyer's Guides</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {bestPosts.map((post, i) => (
-          <article class={`group ${i === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}>
+        {bestCards.map(({ post, photo, first }) => (
+          <article class:list={['group', first && 'md:col-span-2 lg:col-span-2']}>
             <a href={`/blog/${post.slug}/`} data-guide-link="true" data-guide-name={post.data.title} data-placement="best-archive" class="block relative overflow-hidden rounded-lg mb-3">
               <img 
-                src={post.data.featured_image} 
+                src={photo.src}
+                srcset={photo.srcset}
+                sizes={photo.sizes}
                 alt={post.data.title}
-                class={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${i === 0 ? 'h-52 md:h-80' : 'h-48'}`}
-                loading="lazy"
+                width={photo.width}
+                height={photo.height}
+                class:list={['w-full object-cover transition-transform duration-500 group-hover:scale-105', first ? 'h-52 md:h-80' : 'h-48']}
+                loading={first ? undefined : 'lazy'}
+                decoding="async"
               />
               <div class="absolute top-3 left-3">
                 <span class="bg-gold-500 text-forest-900 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-sm">Best Of 2026</span>
               </div>
             </a>
             <div>
-              <h3 class={`font-semibold text-gray-900 leading-snug line-clamp-2 ${i === 0 ? 'text-xl md:text-2xl font-display' : 'text-base'}`}>
+              <h3 class:list={['font-semibold leading-snug text-gray-900 line-clamp-2', first ? 'font-display text-xl md:text-2xl' : 'text-base']}>
                 <a href={`/blog/${post.slug}/`} data-guide-link="true" data-guide-name={post.data.title} data-placement="best-archive" class="hover:text-forest-700 transition-colors">
                   {post.data.title}
                 </a>
               </h3>
               <p class="text-gray-600 text-sm mt-2 line-clamp-2">{post.data.description}</p>
-              <time class="text-xs text-gray-400 mt-2 block">{formatDate(post.data.date)}</time>
+              <time class="mt-2 block text-sm text-[#4B5563]">{formatDate(post.data.date)}</time>
             </div>
           </article>
         ))}

@@ -11,28 +11,6 @@ const reviews = sorted
   .filter((post) => post.data.category === 'reviews' && !showsPriceClaim(post.data.title) && !showsPriceClaim(post.data.description || ''))
   .slice(0, 3);
 
-const desktopNav = [
-  { href: '/best/', label: 'Best Of', guideName: 'Best Of', placement: 'home-pill' },
-  { href: '/reviews/', label: 'Reviews' },
-  { href: '/tips/', label: 'Tips' },
-  { href: '/deals/', label: 'Deals', guideName: 'Deals', placement: 'home-pill' },
-  { href: '/blog/best-golf-gifts/', label: 'Gift Guide' },
-  { href: '/tools/', label: 'Tools' },
-  { href: '/courses/', label: 'Courses' },
-];
-
-const menuNav = [
-  { href: '/best/', label: 'Best Of', guideName: 'Best Of', placement: 'home-pill' },
-  { href: '/reviews/', label: 'Reviews' },
-  { href: '/news/', label: 'News' },
-  { href: '/tips/', label: 'Tips' },
-  { href: '/deals/', label: 'Deals', guideName: 'Deals', placement: 'home-pill' },
-  { href: '/courses/', label: 'Courses' },
-  { href: '/versus/', label: 'Versus' },
-  { href: '/opinion/', label: 'Opinion' },
-  { href: '/tools/', label: 'Tools' },
-];
-
 const moreWays = [
   { href: '/blog/best-golf-gifts/', label: 'Golf Gift Guide', guideName: '2026 golf gift guide', placement: 'home-gift-guide', slug: 'best-golf-gifts', module: 'home_more_ways', position: 1 },
   { href: '/deals/', label: 'Deals hub', guideName: 'Deals hub', placement: 'home-deals-hub', module: 'home_more_ways', position: 2 },
@@ -52,6 +30,7 @@ const footerLinks = [
   { href: '/tools/golf-club-gapping-calculator/', label: 'Club Gapping Calculator' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
+  { href: '/affiliate-disclosure/', label: 'Affiliate Disclosure' },
   { href: '/privacy/', label: 'Privacy' },
 ];
 
@@ -59,7 +38,7 @@ function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 
-const tileClass = 'flex min-h-12 items-center justify-center gap-1 rounded-md border border-forest-900 bg-[#F3F6F2] px-3 text-center text-sm font-semibold text-forest-900 xl:min-h-11 xl:w-auto xl:justify-start xl:rounded-none xl:border-0 xl:bg-transparent xl:px-0 xl:text-base xl:text-gold-500';
+const tileClass = 'flex min-h-12 items-center justify-center gap-1 rounded-md border border-forest-900 bg-[#F3F6F2] px-3 text-center text-sm font-semibold text-forest-900 xl:min-h-11 xl:w-auto xl:rounded-full xl:border-0 xl:px-4';
 const rowClass = 'flex min-h-12 items-center justify-between gap-3 border-b border-[#12301C]/10 py-1 text-base font-semibold text-forest-900';
 const moreClass = 'flex min-h-11 items-center gap-2 text-base font-semibold text-forest-900';
 ---
@@ -69,71 +48,21 @@ const moreClass = 'flex min-h-11 items-center gap-2 text-base font-semibold text
   title="The Birdie Report — Golf Equipment Reviews, Tips & Deals"
   description="Honest golf equipment reviews, instruction tips, and the best deals on golf gear. No BS, just better golf."
 >
-  <header slot="header" class="relative bg-forest-900 text-white">
-    <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:text-forest-900">Skip to content</a>
-    <div class="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-      <a href="/" class="mr-auto inline-flex min-h-11 items-center font-display text-lg font-bold text-white xl:text-2xl">The Birdie Report</a>
-      <nav class="hidden items-center gap-4 xl:flex" aria-label="Primary">
-        {desktopNav.map((item) => (
-          <a
-            href={item.href}
-            class="inline-flex min-h-11 min-w-11 items-center justify-center px-1 text-sm font-semibold text-white"
-            data-guide-link={item.guideName ? 'true' : undefined}
-            data-guide-name={item.guideName}
-            data-placement={item.placement}
-          >{item.label}</a>
-        ))}
-      </nav>
-      <a href="/search/" class="inline-flex min-h-11 items-center text-sm font-semibold text-gold-500">Search</a>
-      <button
-        type="button"
-        id="home-menu-btn"
-        class="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-gold-500 xl:hidden"
-        aria-expanded="false"
-        aria-controls="home-menu"
-      >
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-        Menu
-      </button>
-    </div>
-    <nav id="home-menu" class="hidden border-t border-white/15 bg-forest-900 px-4 py-2 xl:hidden" aria-label="Menu">
-      {menuNav.map((item) => (
-        <a
-          href={item.href}
-          class="flex min-h-11 items-center text-base font-semibold text-white"
-          data-guide-link={item.guideName ? 'true' : undefined}
-          data-guide-name={item.guideName}
-          data-placement={item.placement}
-        >{item.label}</a>
-      ))}
-    </nav>
-    <script is:inline>
-      const homeMenuBtn = document.getElementById('home-menu-btn');
-      const homeMenu = document.getElementById('home-menu');
-      homeMenuBtn?.addEventListener('click', () => {
-        homeMenu?.classList.toggle('hidden');
-        homeMenuBtn.setAttribute('aria-expanded', String(!homeMenu?.classList.contains('hidden')));
-      });
-    </script>
-  </header>
-
   <section class="bg-forest-700 text-white" aria-labelledby="home-heading">
     <div class="mx-auto max-w-7xl px-4 pb-2 pt-8 sm:px-6 xl:px-8 xl:pb-4 xl:pt-14">
-      <h1 id="home-heading" class="max-w-4xl font-display text-4xl font-black leading-tight xl:text-6xl">
-        Find the right golf gear,<br class="xl:hidden" /> fast
+      <h1 id="home-heading" class="max-w-[20rem] font-display text-[32px] font-black leading-[38px] [text-wrap:balance] xl:max-w-4xl xl:text-6xl xl:leading-tight">
+        Find the right golf<br class="xl:hidden" /> gear, fast
       </h1>
       <p class="mt-3 max-w-2xl text-base leading-relaxed text-white xl:text-lg">Honest buyer guides, sorted by what you're shopping for.</p>
     </div>
     <div class="bg-white text-forest-900 xl:bg-transparent">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 xl:px-8 xl:pb-10 xl:pt-4">
-        <h2 id="shop-for" class="mb-3 font-display text-2xl font-bold text-forest-900 xl:sr-only">What are you shopping for?</h2>
+        <h2 id="shop-for" class="mb-3 font-display text-2xl font-bold text-forest-900 xl:font-body xl:text-lg xl:font-semibold xl:leading-6 xl:text-white">What are you shopping for?</h2>
         <div class="grid grid-cols-2 gap-2 xl:flex xl:flex-wrap xl:gap-x-5 xl:gap-y-2" aria-labelledby="shop-for">
           {tiles.map((tile, index) => (
             <a
               href={tile.href}
-              class={tileClass}
+              class:list={[tileClass, tile.slug === 'best-golf-gifts' && 'col-span-2']}
               data-guide-link="true"
               data-guide-name={tile.label}
               data-guide-slug={tile.slug}
